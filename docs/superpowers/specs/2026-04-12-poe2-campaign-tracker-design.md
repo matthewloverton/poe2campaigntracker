@@ -24,7 +24,8 @@ poe2campaigntracker/
 │   │   ├── main.rs         # App entry, Tauri setup
 │   │   ├── commands/       # Tauri command handlers
 │   │   │   ├── file_io.rs  # Read/write user data JSON files
-│   │   │   └── log_watcher.rs  # Tail Client.txt, emit zone-change events
+│   │   │   ├── log_watcher.rs  # Tail Client.txt, emit zone-change events
+│   │   │   └── window.rs   # Display mode switching, overlay window setup
 │   │   └── detect.rs       # Auto-detect PoE2 install path
 │   ├── Cargo.toml
 │   └── tauri.conf.json
@@ -38,6 +39,10 @@ poe2campaigntracker/
 │   │   ├── VendorRegex/    # Vendor search regex panel
 │   │   ├── LevelIndicator/ # XP zone-level range indicator
 │   │   └── Settings/       # App configuration
+│   ├── layouts/
+│   │   ├── CompanionLayout.tsx  # Flex-based sidebar layout for companion mode
+│   │   ├── OverlayLayout.tsx    # Transparent canvas with draggable widgets
+│   │   └── WidgetContainer.tsx  # Draggable/resizable wrapper for overlay widgets
 │   ├── data/               # Bundled guide data (transformed from Exile-UI JSON)
 │   │   ├── guide.ts        # Act/zone/step progression data
 │   │   ├── areas.ts        # Zone IDs, names, level recommendations
@@ -66,7 +71,7 @@ poe2campaigntracker/
 
 ### Tauri Backend Responsibilities
 
-The Rust backend is a thin layer handling three things:
+The Rust backend is a thin layer handling four things:
 
 1. **File I/O** — Read/write JSON files in the `user-data/` directory for settings, progress, and customizations. Exposes Tauri commands: `read_user_data(filename)`, `write_user_data(filename, data)`.
 
@@ -76,6 +81,11 @@ The Rust backend is a thin layer handling three things:
    - `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile 2\logs\Client.txt`
    - `C:\Program Files\Grinding Gear Games\Path of Exile 2\logs\Client.txt`
    - Falls back to manual path selection via system file dialog.
+
+4. **Window management** — Handles switching between companion and overlay display modes:
+   - **Companion mode:** Standard decorated window with normal behavior.
+   - **Overlay mode:** Reconfigures the window to fullscreen, transparent, frameless, always-on-top. On Windows, uses the native HWND handle to set `WS_EX_LAYERED` extended window style for per-pixel alpha click-through (transparent areas pass clicks to the game, widget areas capture input).
+   - Exposes a Tauri command `set_display_mode(mode)` that toggles between modes at runtime.
 
 ### Frontend State Management
 
@@ -229,25 +239,28 @@ Auto-shows when entering a town zone. Click-to-copy regex strings.
 
 Accessible via gear icon in the top bar.
 
+- **Display mode** — switch between Companion and Overlay modes (also toggleable via hotkey, e.g. F6)
 - **Client.txt path** — auto-detected, with manual browse button
 - **Font size** — slider for readability at different monitor distances
 - **Notifications** — toggle auto-advance toasts, gem alerts, vendor reminders individually
 - **Auto-show vendor regex** — toggle the auto-show-in-town behavior
+- **Overlay settings** (when in overlay mode):
+  - Per-widget opacity slider
+  - Reset widget positions to defaults
+  - Edit mode hotkey configuration (default F5)
 - **Data management:**
   - Export customizations as JSON (share between machines / characters)
   - Import customizations from JSON
   - Reset all customizations to defaults
 - **Reset run** — clear progress and timer for a fresh campaign run (with confirmation)
 
-## Visual Design
+## Display Modes
 
-**Dark theme** matching the PoE2 aesthetic:
-- Dark background (#1a1a2e or similar deep dark)
-- Muted gold/brown accents for headers and borders
-- Light text (#e0e0e0) for readability
-- Red/green/yellow for status indicators
-- Purple (#cc99ff) for location names (matching Exile-UI convention)
-- Teal highlights for interactive elements
+The app supports two modes, switchable from the settings or a hotkey (e.g. F6):
+
+### Companion Mode (default)
+
+A normal desktop window for use on a second monitor. This is the standard layout described earlier.
 
 **Layout (single-panel with collapsible sides):**
 ```
@@ -278,8 +291,78 @@ Accessible via gear icon in the top bar.
 - Right sidebar: Zone Map (collapsible)
 - Bottom: Vendor Regex (auto-shows in towns, manually toggleable)
 - Top bar: Timer + Level Indicator + Settings gear
+- Side panels can be collapsed to give the guide panel full width.
 
-Side panels can be collapsed to give the guide panel full width.
+### Overlay Mode
+
+A fullscreen transparent always-on-top window that sits over the game. Same features as companion mode, but rendered as independent floating widgets you can position anywhere on screen.
+
+**Window setup:**
+- Single Tauri window: fullscreen, transparent background, frameless, always-on-top
+- Transparent areas pass through clicks to the game (Windows per-pixel alpha hit testing — areas with no drawn content are click-through)
+- Each feature panel (guide, timer, gems, gear, map, vendor regex) is a separate draggable widget with a semi-transparent dark background
+
+**Widgets:**
+Each widget is a self-contained panel rendering the same React component as its companion-mode counterpart, but styled for overlay use:
+- Semi-transparent dark background (adjustable opacity per widget)
+- Compact layout — less padding, smaller fonts than companion mode
+- Individually toggleable: show/hide each widget via a control menu or hotkey
+
+**Play mode vs Edit mode (hotkey toggle, e.g. F5):**
+- **Play mode:** Widgets display information and support minimal interaction (click-to-copy on regexes, back/forward on guide). Drag handles are hidden. Widgets are slightly more transparent.
+- **Edit mode:** Widgets show drag handles and resize grips. Can reposition, resize, and toggle widgets. Slightly more opaque with a visible border/glow to indicate editability. A small control bar appears showing all available widgets with on/off toggles.
+
+**Widget position persistence:**
+- Each widget's position (x, y), size (width, height), opacity, and enabled/hidden state are saved to `settings.json` under an `overlayLayout` key
+- Positions persist across app restarts
+- Separate layout state from companion mode — switching modes preserves each mode's layout
+
+**Overlay layout example:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  ┌─Timer──────────┐                    ┌─Map────────────┐  │
+│  │01:23:45|A1|15m │                    │  [zone map]    │  │
+│  │Lvl: 8 (green)  │                    │  [zoomable]    │  │
+│  └────────────────┘                    └────────────────┘  │
+│                                                             │
+│                    (game visible                             │
+│                     through transparent                      │
+│                     background)                              │
+│                                                             │
+│  ┌─Guide──────────────────────┐  ┌─Gems──────────────────┐ │
+│  │ Act 1 — The Grelwood       │  │ 1. Explosive Grenade  │ │
+│  │ ⚔ kill Beira               │  │ 2. Frost Bomb         │ │
+│  │ → enter The Grelwood       │  │ 3. Multishot I        │ │
+│  │ [< prev]     [next >]      │  └───────────────────────┘ │
+│  └────────────────────────────┘                             │
+│                                                             │
+│  ┌─Vendor Regex (in town)─────────────────────────────────┐ │
+│  │ [copy] cross|mov|[egdl] da.* a|s.* skills              │ │
+│  └────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Shared Component Architecture
+
+Both modes render the same React components. Each feature component (GuidePanel, CampaignTimer, GemTracker, etc.) accepts a `displayMode: 'companion' | 'overlay'` prop that controls:
+- Styling: compact vs full layout, transparency level, border treatment
+- Wrapper: embedded in flex layout (companion) vs draggable/resizable container (overlay)
+
+The `App.tsx` root switches between two layout shells based on the active mode:
+- **CompanionLayout** — traditional flex-based layout with collapsible sidebars
+- **OverlayLayout** — transparent canvas with freely positioned widget containers
+
+## Visual Design
+
+**Dark theme** matching the PoE2 aesthetic:
+- Dark background (#1a1a2e or similar deep dark) for companion mode
+- Semi-transparent dark (#1a1a2e at 80-90% opacity) for overlay widgets
+- Muted gold/brown accents for headers and borders
+- Light text (#e0e0e0) for readability
+- Red/green/yellow for status indicators
+- Purple (#cc99ff) for location names (matching Exile-UI convention)
+- Teal highlights for interactive elements
 
 ## Data Pipeline
 
@@ -331,12 +414,21 @@ Extracts the area ID, normalizes to lowercase, and emits to frontend. The guide 
 {
   "clientTxtPath": "C:\\...\\Path of Exile 2\\logs\\Client.txt",
   "fontSize": 14,
+  "displayMode": "companion",
   "notifications": {
     "autoAdvance": true,
     "gemAlerts": true,
     "vendorReminders": true
   },
-  "autoShowVendorRegex": true
+  "autoShowVendorRegex": true,
+  "overlayLayout": {
+    "guide": { "x": 50, "y": 500, "width": 400, "height": 250, "opacity": 0.85, "enabled": true },
+    "timer": { "x": 50, "y": 20, "width": 250, "height": 60, "opacity": 0.85, "enabled": true },
+    "gems": { "x": 900, "y": 500, "width": 300, "height": 200, "opacity": 0.85, "enabled": true },
+    "gear": { "x": 900, "y": 300, "width": 300, "height": 180, "opacity": 0.85, "enabled": false },
+    "map": { "x": 900, "y": 20, "width": 300, "height": 250, "opacity": 0.85, "enabled": true },
+    "vendorRegex": { "x": 50, "y": 780, "width": 600, "height": 80, "opacity": 0.85, "enabled": true }
+  }
 }
 ```
 
