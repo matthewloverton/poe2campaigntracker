@@ -25,6 +25,7 @@ poe2campaigntracker/
 │   │   ├── commands/       # Tauri command handlers
 │   │   │   ├── file_io.rs  # Read/write user data JSON files
 │   │   │   ├── log_watcher.rs  # Tail Client.txt, emit zone-change events
+│   │   │   ├── hotkeys.rs  # Global hotkey listener for game panel detection
 │   │   │   └── window.rs   # Display mode switching, overlay window setup
 │   │   └── detect.rs       # Auto-detect PoE2 install path
 │   ├── Cargo.toml
@@ -82,7 +83,9 @@ The Rust backend is a thin layer handling four things:
    - `C:\Program Files\Grinding Gear Games\Path of Exile 2\logs\Client.txt`
    - Falls back to manual path selection via system file dialog.
 
-4. **Window management** — Handles switching between companion and overlay display modes:
+4. **Global hotkey listener** — In overlay mode, listens for game panel toggle keys (I, C, Tab by default, configurable) to detect when in-game UI panels open/close. Emits `game-panel-toggled` events to the frontend with the panel name and open/closed state.
+
+5. **Window management** — Handles switching between companion and overlay display modes:
    - **Companion mode:** Standard decorated window with normal behavior.
    - **Overlay mode:** Reconfigures the window to fullscreen, transparent, frameless, always-on-top. On Windows, uses the native HWND handle to set `WS_EX_LAYERED` extended window style for per-pixel alpha click-through (transparent areas pass clicks to the game, widget areas capture input).
    - Exposes a Tauri command `set_display_mode(mode)` that toggles between modes at runtime.
@@ -312,36 +315,58 @@ Each widget is a self-contained panel rendering the same React component as its 
 - **Play mode:** Widgets display information and support minimal interaction (click-to-copy on regexes, back/forward on guide). Drag handles are hidden. Widgets are slightly more transparent.
 - **Edit mode:** Widgets show drag handles and resize grips. Can reposition, resize, and toggle widgets. Slightly more opaque with a visible border/glow to indicate editability. A small control bar appears showing all available widgets with on/off toggles.
 
+**Game panel awareness:**
+The overlay detects when in-game UI panels are open and auto-hides widgets that would overlap. Uses global hotkey listening to mirror the game's panel toggle keys:
+- **I** → Inventory open (right ~40% of screen). Hides/collapses widgets positioned in the right zone.
+- **C** → Character sheet open (left ~30% of screen). Hides/collapses widgets positioned in the left zone.
+- **Tab** → Map overlay (full screen). Hides all widgets.
+- Tracks toggle state: press = open, press again = close, widgets reappear.
+- Keybinds configurable in settings if the user has rebound them in-game.
+- Each widget's position is checked against the known panel regions to decide if it needs to hide. Widgets in the clear zone stay visible.
+
+**Screen layout zones (at 1440p / 2560x1440 reference):**
+Based on the PoE2 UI layout:
+- **Game UI avoid zones:** bottom-left (life orb), bottom-right (mana orb), bottom-center (skill bar + clock), top-right (minimap + quest tracker)
+- **Best default widget positions:** top-left (timer), left edge mid-height (guide), below minimap after quest tracker (gems), above skill bar center (vendor regex)
+- When both character sheet + inventory are open, only the center ~30% is visible — widgets auto-hide to avoid clutter
+
 **Widget position persistence:**
 - Each widget's position (x, y), size (width, height), opacity, and enabled/hidden state are saved to `settings.json` under an `overlayLayout` key
 - Positions persist across app restarts
 - Separate layout state from companion mode — switching modes preserves each mode's layout
 
-**Overlay layout example:**
+**Overlay layout example (no game panels open, 1440p / 2560x1440):**
 ```
 ┌─────────────────────────────────────────────────────────────┐
+│ ┌─Timer──────────┐                          ┌─Minimap─────┐│
+│ │01:23:45|A1|15m │                          │  (game UI)  ││
+│ │Lvl: 8 (green)  │                          │             ││
+│ └────────────────┘                          ├─Quest───────┤│
+│                                              │ (game UI)   ││
+│ ┌─Guide──────────────────────┐               └─────────────┘│
+│ │ Act 1 — The Grelwood       │                              │
+│ │ ⚔ kill Beira               │    (game visible)           │
+│ │ → enter The Grelwood       │                              │
+│ │ [< prev]     [next >]      │  ┌─Gems──────────────────┐  │
+│ └────────────────────────────┘  │ 1. Explosive Grenade  │  │
+│                                  │ 2. Frost Bomb         │  │
+│ ┌─Map────────────┐              │ 3. Multishot I        │  │
+│ │  [zone map]    │              └───────────────────────┘  │
+│ │  [zoomable]    │                                          │
+│ └────────────────┘                                          │
 │                                                             │
-│  ┌─Timer──────────┐                    ┌─Map────────────┐  │
-│  │01:23:45|A1|15m │                    │  [zone map]    │  │
-│  │Lvl: 8 (green)  │                    │  [zoomable]    │  │
-│  └────────────────┘                    └────────────────┘  │
-│                                                             │
-│                    (game visible                             │
-│                     through transparent                      │
-│                     background)                              │
-│                                                             │
-│  ┌─Guide──────────────────────┐  ┌─Gems──────────────────┐ │
-│  │ Act 1 — The Grelwood       │  │ 1. Explosive Grenade  │ │
-│  │ ⚔ kill Beira               │  │ 2. Frost Bomb         │ │
-│  │ → enter The Grelwood       │  │ 3. Multishot I        │ │
-│  │ [< prev]     [next >]      │  └───────────────────────┘ │
-│  └────────────────────────────┘                             │
-│                                                             │
-│  ┌─Vendor Regex (in town)─────────────────────────────────┐ │
-│  │ [copy] cross|mov|[egdl] da.* a|s.* skills              │ │
-│  └────────────────────────────────────────────────────────┘ │
+│ (life orb)  ┌─Vendor Regex (in town)──────┐    (mana orb)  │
+│  (game UI)  │ [copy] cross|mov|[egdl]...  │    (game UI)   │
+│             └─────────────────────────────┘                 │
+│             ░░░░░ skill bar (game UI) ░░░░░                 │
 └─────────────────────────────────────────────────────────────┘
 ```
+- Timer: top-left, clear of all game UI
+- Guide: left edge, mid-height (hides when character sheet opens)
+- Map: below guide on the left
+- Gems: right-center, below quest tracker (hides when inventory opens)
+- Vendor Regex: bottom-center, above skill bar (only shown in town)
+- Gear advisor: hidden by default in overlay, toggled on demand
 
 ### Shared Component Architecture
 
@@ -421,6 +446,11 @@ Extracts the area ID, normalizes to lowercase, and emits to frontend. The guide 
     "vendorReminders": true
   },
   "autoShowVendorRegex": true,
+  "gameKeybinds": {
+    "inventory": "I",
+    "character": "C",
+    "map": "Tab"
+  },
   "overlayLayout": {
     "guide": { "x": 50, "y": 500, "width": 400, "height": 250, "opacity": 0.85, "enabled": true },
     "timer": { "x": 50, "y": 20, "width": 250, "height": 60, "opacity": 0.85, "enabled": true },
