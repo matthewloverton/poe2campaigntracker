@@ -5,16 +5,18 @@
 .emptyText { color: var(--text-secondary); font-size: 0.85rem; }
 .createBtn { padding: 8px 20px; background: var(--accent-teal); border: none; border-radius: 4px; color: var(--bg-primary); font-size: 0.78rem; font-weight: 600; cursor: pointer; }
 
-.gearSection { border-bottom: 1px solid var(--border-color); padding: 8px 0; }
+.topRow { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--border-color); }
+.gearSection { padding: 8px 0; flex: 1; min-width: 360px; }
 .gemsSection { padding: 10px; }
 .sectionHeader { font-size: 0.72rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 8px; }
 .addSkillBtn { width: 100%; padding: 8px; background: none; border: 1px dashed var(--border-color); border-radius: 4px; color: var(--text-secondary); font-size: 0.72rem; cursor: pointer; margin-top: 4px; }
 .addSkillBtn:hover { border-color: var(--accent-teal); color: var(--accent-teal); }
 
-.regexSection { border-top: 1px solid var(--border-color); padding: 0 10px; }
-.regexToggle { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 0; background: none; border: none; color: var(--text-secondary); font-size: 0.72rem; cursor: pointer; text-align: left; }
-.regexToggle:hover { color: var(--text-primary); }
-.regexChevron { font-size: 0.55rem; width: 10px; }
+.regexSection { width: 240px; flex-shrink: 0; border-left: 1px solid var(--border-color); padding: 8px 10px; overflow-y: auto; }
+@media (max-width: 560px) {
+  .regexSection { width: 100%; border-left: none; border-top: 1px solid var(--border-color); }
+}
+.regexHeader { font-size: 0.62rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px; }
 
 /* ── GemSearch Modal ──────────────────────────────────────── */
 

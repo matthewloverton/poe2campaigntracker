@@ -41,8 +41,7 @@ export function BuildPlan() {
   const [gemSearchOpen, setGemSearchOpen] = useState(false);
   const [supportTarget, setSupportTarget] = useState<{ groupId: string; index: number } | null>(null);
 
-  // Vendor regex collapsed state
-  const [regexExpanded, setRegexExpanded] = useState(false);
+
 
   function handleAddPhase(name: string, _trigger: PhaseTrigger) {
     addPhase(name);
@@ -154,12 +153,19 @@ export function BuildPlan() {
 
       {activePhase && (
         <div className={styles.content}>
-          <div className={styles.gearSection}>
-            <GearGrid
-              gear={activePhase.gear}
-              onSlotClick={handleGearSlotClick}
-              onRemoveSlot={handleRemoveGearSlot}
-            />
+          <div className={styles.topRow}>
+            <div className={styles.gearSection}>
+              <GearGrid
+                gear={activePhase.gear}
+                onSlotClick={handleGearSlotClick}
+                onRemoveSlot={handleRemoveGearSlot}
+              />
+            </div>
+
+            <div className={styles.regexSection}>
+              <div className={styles.regexHeader}>Vendor Regex</div>
+              <VendorRegex />
+            </div>
           </div>
 
           <div className={styles.gemsSection}>
@@ -183,17 +189,6 @@ export function BuildPlan() {
             <button className={styles.addSkillBtn} onClick={() => setGemSearchOpen(true)}>
               + Add Skill
             </button>
-          </div>
-
-          <div className={styles.regexSection}>
-            <button
-              className={styles.regexToggle}
-              onClick={() => setRegexExpanded(!regexExpanded)}
-            >
-              <span className={styles.regexChevron}>{regexExpanded ? "\u25BC" : "\u25B6"}</span>
-              Vendor Regex ({activePhase.regexes.length})
-            </button>
-            {regexExpanded && <VendorRegex />}
           </div>
         </div>
       )}
