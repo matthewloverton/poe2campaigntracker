@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGuideStore } from "../../store/guideStore";
 import { areaById } from "../../data/areas";
+import { getZoneLayouts } from "../../data/zoneLayouts";
 import { StepRenderer } from "../StepRenderer";
 import { InlineNote } from "../InlineNote/InlineNote";
 import { StepReminder } from "../StepReminder/StepReminder";
@@ -14,6 +15,7 @@ export function GuidePanel() {
 
   // Track which step index is being forced into note-edit mode
   const [editingNoteStep, setEditingNoteStep] = useState<number | null>(null);
+  const [layoutIndex, setLayoutIndex] = useState(0);
 
   if (!currentPage) return <div className={styles.panel}>No guide data loaded.</div>;
 
@@ -27,6 +29,10 @@ export function GuidePanel() {
       ? pages[currentPageIndex - 1].targetZoneName
       : "the riverbank";
   const destinationName = currentPage.targetZoneName;
+  const layoutImages = currentZoneName ? getZoneLayouts(currentZoneName) : [];
+
+  // Reset carousel when zone changes
+  useEffect(() => { setLayoutIndex(0); }, [currentZoneName]);
 
   return (
     <div className={styles.panel}>
@@ -81,6 +87,39 @@ export function GuidePanel() {
           );
         })}
       </div>
+      {layoutImages.length > 0 && (
+        <div className={styles.layoutSection}>
+          <div className={styles.layoutHeader}>
+            <span>Zone Layout</span>
+            {layoutImages.length > 1 && (
+              <span className={styles.layoutCount}>{(layoutIndex % layoutImages.length) + 1}/{layoutImages.length}</span>
+            )}
+          </div>
+          <div className={styles.layoutImageWrap}>
+            {layoutImages.length > 1 && (
+              <button
+                className={`${styles.layoutNavBtn} ${styles.layoutNavBtnLeft}`}
+                onClick={() => setLayoutIndex((layoutIndex - 1 + layoutImages.length) % layoutImages.length)}
+              >
+                ◀
+              </button>
+            )}
+            <img
+              className={styles.layoutImage}
+              src={layoutImages[layoutIndex % layoutImages.length]}
+              alt="Zone layout"
+            />
+            {layoutImages.length > 1 && (
+              <button
+                className={`${styles.layoutNavBtn} ${styles.layoutNavBtnRight}`}
+                onClick={() => setLayoutIndex((layoutIndex + 1) % layoutImages.length)}
+              >
+                ▶
+              </button>
+            )}
+          </div>
+        </div>
+      )}
       <div className={styles.nav}>
         <button className={styles.navBtn} onClick={prevPage} disabled={currentPageIndex === 0}>◀ Prev</button>
         <select className={styles.actSelect} value={currentPage.act} onChange={(e) => goToAct(Number(e.target.value))}>

@@ -6,12 +6,14 @@ import {
   SortableContext, horizontalListSortingStrategy, useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
 import type { SkillGroup, BuildGemEntry } from "../../types/buildPlan";
 import { GEM_COLOR_CSS } from "../../types/itemDatabase";
 import styles from "./SkillRow.module.css";
 
 interface SkillRowProps {
   group: SkillGroup;
+  onSkillClick: () => void;
   onSupportClick: (index: number) => void;
   onRemoveSupport: (index: number) => void;
   onRemoveSkill: () => void;
@@ -21,10 +23,11 @@ interface SkillRowProps {
 const SUPPORT_SLOTS = 5;
 
 function SortableSupport({
-  gem, index, onRemoveSupport,
+  gem, index, onSupportClick, onRemoveSupport,
 }: {
   gem: BuildGemEntry;
   index: number;
+  onSupportClick: (index: number) => void;
   onRemoveSupport: (index: number) => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, active } = useSortable({
@@ -44,8 +47,9 @@ function SortableSupport({
       ref={setNodeRef}
       style={{ ...style, borderColor: color }}
       className={`${styles.supportSocket} ${styles.supportFilled}`}
-      onClick={() => { if (!active) onRemoveSupport(index); }}
-      title={`${gem.name} (click to remove, drag to reorder)`}
+      onClick={() => { if (!active) onSupportClick(index); }}
+      onContextMenu={(e) => { e.preventDefault(); if (!active) onRemoveSupport(index); }}
+      title={`${gem.name} (click to replace, right-click to remove)`}
       {...attributes}
       {...listeners}
     >
@@ -60,6 +64,7 @@ function SortableSupport({
 
 export function SkillRow({
   group,
+  onSkillClick,
   onSupportClick,
   onRemoveSupport,
   onRemoveSkill,
@@ -96,8 +101,9 @@ export function SkillRow({
       <div
         className={styles.skillGem}
         style={{ borderColor: skillColor }}
-        onClick={onRemoveSkill}
-        title={`${skill.name} (click to remove)`}
+        onClick={onSkillClick}
+        onContextMenu={(e) => { e.preventDefault(); onRemoveSkill(); }}
+        title={`${skill.name} (click to replace, right-click to remove)`}
       >
         {skillIcon ? (
           <img className={styles.skillGemImage} src={skillIcon} alt={skill.name} />
@@ -111,7 +117,7 @@ export function SkillRow({
       <span className={styles.skillName}>{skill.name}</span>
 
       {/* Support sockets */}
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
         <SortableContext items={sortableIds} strategy={horizontalListSortingStrategy}>
           <div className={styles.supports}>
             {supports.map((sup, i) => {
@@ -133,6 +139,7 @@ export function SkillRow({
                   key={i}
                   gem={sup}
                   index={i}
+                  onSupportClick={onSupportClick}
                   onRemoveSupport={onRemoveSupport}
                 />
               );

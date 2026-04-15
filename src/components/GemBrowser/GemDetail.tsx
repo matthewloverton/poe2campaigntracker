@@ -13,9 +13,10 @@ interface GemDetailProps {
   gem: GemEntry;
   onClose: () => void;
   onAddToBuild?: (gem: GemEntry) => void;
+  addLabel?: string;
 }
 
-export function GemDetail({ gem, onClose, onAddToBuild }: GemDetailProps) {
+export function GemDetail({ gem, onClose, onAddToBuild, addLabel }: GemDetailProps) {
   const colorVar = GEM_COLOR_CSS[gem.color] ?? GEM_COLOR_CSS.w;
   const sd = gem.skillDetail;
   const isSupport = gem.gemType === "support";
@@ -257,7 +258,7 @@ export function GemDetail({ gem, onClose, onAddToBuild }: GemDetailProps) {
           type="button"
           onClick={() => onAddToBuild(gem)}
         >
-          Add to Build
+          {addLabel ?? "Add to Build"}
         </button>
       )}
     </div>

@@ -28,6 +28,7 @@ export function BuildPlan() {
   const setGearSlot = useCustomizationsStore((s) => s.setGearSlot);
   const addSkillGroup = useCustomizationsStore((s) => s.addSkillGroup);
   const removeSkillGroup = useCustomizationsStore((s) => s.removeSkillGroup);
+  const replaceSkillInGroup = useCustomizationsStore((s) => s.replaceSkillInGroup);
   const reorderSkillGroups = useCustomizationsStore((s) => s.reorderSkillGroups);
   const reorderSupportsInGroup = useCustomizationsStore((s) => s.reorderSupportsInGroup);
   const setSupportInGroup = useCustomizationsStore((s) => s.setSupportInGroup);
@@ -40,6 +41,7 @@ export function BuildPlan() {
   // Gem search state
   const [gemSearchOpen, setGemSearchOpen] = useState(false);
   const [supportTarget, setSupportTarget] = useState<{ groupId: string; index: number } | null>(null);
+  const [skillReplaceTarget, setSkillReplaceTarget] = useState<string | null>(null);
 
 
 
@@ -100,7 +102,12 @@ export function BuildPlan() {
       color: gem.color,
       craftingLevel: gem.craftingLevel,
     };
-    addSkillGroup(activePhaseId, entry);
+    if (skillReplaceTarget) {
+      replaceSkillInGroup(activePhaseId, skillReplaceTarget, entry);
+      setSkillReplaceTarget(null);
+    } else {
+      addSkillGroup(activePhaseId, entry);
+    }
     setGemSearchOpen(false);
   }
 
@@ -178,6 +185,7 @@ export function BuildPlan() {
                 return (
                   <SkillRow
                     group={group}
+                    onSkillClick={() => { setSkillReplaceTarget(group.id); setGemSearchOpen(true); }}
                     onSupportClick={(i) => handleSupportClick(group.id, i)}
                     onRemoveSupport={(i) => handleRemoveSupport(group.id, i)}
                     onRemoveSkill={() => activePhaseId && removeSkillGroup(activePhaseId, group.id)}
@@ -186,7 +194,7 @@ export function BuildPlan() {
                 );
               }}
             />
-            <button className={styles.addSkillBtn} onClick={() => setGemSearchOpen(true)}>
+            <button className={styles.addSkillBtn} onClick={() => { setSkillReplaceTarget(null); setGemSearchOpen(true); }}>
               + Add Skill
             </button>
           </div>
@@ -223,21 +231,23 @@ export function BuildPlan() {
         </div>
       )}
 
-      {/* Gem browser for adding skills */}
+      {/* Gem browser for adding/replacing skills */}
       {gemSearchOpen && (
         <GemBrowser
-          onClose={() => setGemSearchOpen(false)}
+          onClose={() => { setGemSearchOpen(false); setSkillReplaceTarget(null); }}
           onSelectGem={(gem) => handleAddSkill(gem)}
           defaultSection="skills"
+          selectLabel={skillReplaceTarget ? "Replace Skill" : undefined}
         />
       )}
 
-      {/* Gem browser for adding supports */}
+      {/* Gem browser for adding/replacing supports */}
       {supportTarget && (
         <GemBrowser
           onClose={() => setSupportTarget(null)}
           onSelectGem={(gem) => handleSupportSelected(gem)}
           defaultSection="supports"
+          selectLabel={supportTarget && activePhase?.gems.find(g => g.id === supportTarget.groupId)?.supports[supportTarget.index] ? "Replace Support" : undefined}
         />
       )}
     </div>

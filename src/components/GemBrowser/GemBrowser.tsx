@@ -17,6 +17,7 @@ interface GemBrowserProps {
   onClose: () => void;
   onSelectGem?: (gem: GemEntry) => void;
   defaultSection?: "skills" | "supports" | "lineage";
+  selectLabel?: string;
 }
 
 const CRAFTING_TYPE_KEYS = Object.keys(GEM_CRAFTING_TYPE_LABELS);
@@ -30,7 +31,7 @@ function categoryKey(cat: SidebarCategory): string {
   return `${cat.kind}:${cat.craftingType ?? "all"}`;
 }
 
-export function GemBrowser({ onClose, onSelectGem, defaultSection }: GemBrowserProps) {
+export function GemBrowser({ onClose, onSelectGem, defaultSection, selectLabel }: GemBrowserProps) {
   const lockedSection = defaultSection ?? null; // null = show all sections
   const [query, setQuery] = useState("");
   const initSection = defaultSection ?? "skills";
@@ -220,6 +221,7 @@ export function GemBrowser({ onClose, onSelectGem, defaultSection }: GemBrowserP
               gem={selectedGem}
               onClose={handleCloseDetail}
               onAddToBuild={onSelectGem ? (gem) => onSelectGem(gem) : undefined}
+              addLabel={selectLabel}
             />
           </div>
         </div>

@@ -43,6 +43,7 @@ interface CustomizationsState extends Customizations {
   // Skill group actions (new)
   addSkillGroup: (phaseId: string, skill: BuildGemEntry) => void;
   removeSkillGroup: (phaseId: string, groupId: string) => void;
+  replaceSkillInGroup: (phaseId: string, groupId: string, skill: BuildGemEntry) => void;
   setSupportInGroup: (phaseId: string, groupId: string, index: number, gem: BuildGemEntry | null) => void;
   reorderSkillGroups: (phaseId: string, ids: string[]) => void;
   reorderSupportsInGroup: (phaseId: string, groupId: string, fromIndex: number, toIndex: number) => void;
@@ -289,6 +290,21 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
           ? { ...p, gems: p.gems.filter((g) => g.id !== groupId) }
           : p
       ),
+    }));
+    debouncedSave(get().save);
+  },
+
+  replaceSkillInGroup: (phaseId: string, groupId: string, skill: BuildGemEntry) => {
+    set((state) => ({
+      buildPhases: state.buildPhases.map((p) => {
+        if (p.id !== phaseId) return p;
+        return {
+          ...p,
+          gems: p.gems.map((g) =>
+            g.id === groupId ? { ...g, skill } : g
+          ),
+        };
+      }),
     }));
     debouncedSave(get().save);
   },
