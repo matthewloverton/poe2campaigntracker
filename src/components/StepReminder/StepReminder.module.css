@@ -162,6 +162,16 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+.searchSectionLabel {
+  padding: 3px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
 .searchResult {
   display: flex;
   align-items: center;

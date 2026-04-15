@@ -25,7 +25,7 @@ const TYPE_LABELS: Record<ReminderType, string> = {
   note: "Note",
 };
 
-const REMINDER_TYPES: ReminderType[] = ["gem", "gear", "craft", "note"];
+const REMINDER_TYPES: ReminderType[] = ["gem", "gear", "note"];
 
 export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(function StepReminder({ pageIndex, stepIndex, onOpenChange }, ref) {
   const getRemindersForStep = useCustomizationsStore((s) => s.getRemindersForStep);
@@ -57,31 +57,64 @@ export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(fu
     }
   }, [showForm, needsRef]);
 
+  // Build plan entries for quick reference
+  const buildPhases = useCustomizationsStore((s) => s.buildPhases);
+  const activePhaseId = useCustomizationsStore((s) => s.activePhaseId);
+  const activePhase = buildPhases.find((p) => p.id === activePhaseId);
+
+  const buildPlanRefs = useMemo(() => {
+    if (!activePhase) return { gems: [] as ReminderRef[], gear: [] as ReminderRef[] };
+    const gems: ReminderRef[] = [];
+    for (const group of activePhase.gems) {
+      gems.push({ refId: group.skill.gemId ?? group.skill.id, refType: "gem", name: group.skill.name, iconPath: group.skill.iconPath });
+      for (const sup of group.supports) {
+        if (sup) gems.push({ refId: sup.gemId ?? sup.id, refType: "gem", name: sup.name, iconPath: sup.iconPath });
+      }
+    }
+    const gear: ReminderRef[] = [];
+    for (const entry of Object.values(activePhase.gear)) {
+      if (!entry) continue;
+      gear.push({ refId: entry.baseItemId ?? entry.id, refType: entry.uniqueId ? "unique" : "item", name: entry.base, iconPath: entry.iconPath });
+    }
+    return { gems, gear };
+  }, [activePhase]);
+
   // Search results
   const searchResults = useMemo(() => {
-    if (!search.trim() || !needsRef) return [];
+    if (!needsRef) return [];
+    const q = search.trim().toLowerCase();
+
     if (selectedType === "gem") {
-      return searchGems(search).slice(0, 8).map((g) => ({
-        refId: g.id,
-        refType: "gem" as const,
-        name: g.name,
-        iconPath: g.iconPath,
-      }));
+      // Show build plan gems first, then database search
+      const planMatches = q
+        ? buildPlanRefs.gems.filter((g) => g.name.toLowerCase().includes(q))
+        : buildPlanRefs.gems;
+      const planIds = new Set(planMatches.map((g) => g.refId));
+      const dbResults = q
+        ? searchGems(search).filter((g) => !planIds.has(g.id)).slice(0, 6).map((g) => ({
+            refId: g.id, refType: "gem" as const, name: g.name, iconPath: g.iconPath,
+          }))
+        : [];
+      return [...planMatches, ...dbResults];
     }
-    const items = searchItems(search).slice(0, 6).map((i) => ({
-      refId: i.id,
-      refType: "item" as const,
-      name: i.name,
-      iconPath: i.iconPath,
-    }));
-    const uniques = searchUniques(search).slice(0, 4).map((u) => ({
-      refId: u.id,
-      refType: "unique" as const,
-      name: u.name,
-      iconPath: u.iconPath,
-    }));
-    return [...items, ...uniques];
-  }, [search, selectedType, needsRef]);
+
+    // Gear: build plan first, then database
+    const planMatches = q
+      ? buildPlanRefs.gear.filter((g) => g.name.toLowerCase().includes(q))
+      : buildPlanRefs.gear;
+    const planIds = new Set(planMatches.map((g) => g.refId));
+    const dbItems = q
+      ? searchItems(search).filter((i) => !planIds.has(i.id)).slice(0, 4).map((i) => ({
+          refId: i.id, refType: "item" as const, name: i.name, iconPath: i.iconPath,
+        }))
+      : [];
+    const dbUniques = q
+      ? searchUniques(search).filter((u) => !planIds.has(u.id)).slice(0, 3).map((u) => ({
+          refId: u.id, refType: "unique" as const, name: u.name, iconPath: u.iconPath,
+        }))
+      : [];
+    return [...planMatches, ...dbItems, ...dbUniques];
+  }, [search, selectedType, needsRef, buildPlanRefs]);
 
   function handleAdd() {
     setSelectedType("gem");
@@ -194,22 +227,33 @@ export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(fu
                   className={styles.searchResults}
                   style={{ top: rect.bottom, left: rect.left, width: rect.width }}
                 >
-                  {searchResults.map((r) => (
-                    <button
-                      key={r.refId}
-                      className={styles.searchResult}
-                      onClick={() => handleSelectRef(r)}
-                    >
-                      {r.iconPath && (
-                        <img
-                          className={styles.searchResultIcon}
-                          src={`/assets/${r.iconPath}`}
-                          alt=""
-                        />
-                      )}
-                      <span>{r.name}</span>
-                    </button>
-                  ))}
+                  {(() => {
+                    const planCount = selectedType === "gem" ? buildPlanRefs.gems.length : buildPlanRefs.gear.length;
+                    const planResults = searchResults.slice(0, search.trim() ? searchResults.length : planCount);
+                    const dbResults = searchResults.slice(planCount);
+                    return (
+                      <>
+                        {planResults.length > 0 && !search.trim() && (
+                          <div className={styles.searchSectionLabel}>Build Plan</div>
+                        )}
+                        {planResults.map((r) => (
+                          <button key={`plan-${r.refId}`} className={styles.searchResult} onClick={() => handleSelectRef(r)}>
+                            {r.iconPath && <img className={styles.searchResultIcon} src={`/assets/${r.iconPath}`} alt="" />}
+                            <span>{r.name}</span>
+                          </button>
+                        ))}
+                        {dbResults.length > 0 && (
+                          <div className={styles.searchSectionLabel}>Database</div>
+                        )}
+                        {dbResults.map((r) => (
+                          <button key={`db-${r.refId}`} className={styles.searchResult} onClick={() => handleSelectRef(r)}>
+                            {r.iconPath && <img className={styles.searchResultIcon} src={`/assets/${r.iconPath}`} alt="" />}
+                            <span>{r.name}</span>
+                          </button>
+                        ))}
+                      </>
+                    );
+                  })()}
                 </div>
                 );
               })()}
