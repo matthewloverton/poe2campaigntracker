@@ -7,34 +7,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+8 to Intelligence"
+          "+8 to Dexterity"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 1 to 16 Lightning damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+50 to maximum Energy Shield"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 5 to 8 Cold damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -47,30 +41,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
+      "Helmets": {
+        "statText": [
+          "Remove a Damaging Ailment when you use a Command Skill"
         ],
+        "bondedStatText": []
+      },
+      "Body Armours": {
         "statText": [
           "+2 to Armour per 1 Spirit"
         ],
         "bondedStatText": []
       },
       "Boots": {
-        "target": [
-          "Boots"
-        ],
         "statText": [
-          "1% increased Movement Speed per 15 Spirit, up to a maximum of 40%\nOther Modifiers to Movement Speed except for Sprinting do not apply"
-        ],
-        "bondedStatText": []
-      },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Remove a Damaging Ailment when you use a Command Skill"
+          "1% increased Movement Speed per 15 Spirit, up to a maximum of 40%Other Modifiers to Movement Speed except for Sprinting do not apply"
         ],
         "bondedStatText": []
       }
@@ -84,17 +69,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Body Armours": {
         "statText": [
-          "Convert 20% of Requirements to Dexterity"
+          "30% faster start of Energy Shield Recharge"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Foci": {
         "statText": [
-          "Convert 20% of Requirements to Dexterity"
+          "30% faster start of Energy Shield Recharge"
         ],
         "bondedStatText": []
       }
@@ -108,10 +91,7 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Helmets": {
         "statText": [
           "8% increased Area of Effect"
         ],
@@ -119,10 +99,7 @@
           "10% increased Reservation Efficiency of Companion Skills"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence deal 12 to 18 added Attack Physical Damage"
         ],
@@ -141,9 +118,6 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "Gain 1 Rage on Melee Hit"
         ],
@@ -151,10 +125,7 @@
           "15% increased Warcry Cooldown Recovery Rate"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence Regenerate 8 Life per second"
         ],
@@ -172,18 +143,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+30 to maximum Life"
+          "Leeches 2.5% of Physical Damage as Life"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Life"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+30 to maximum Energy Shield"
         ],
@@ -191,13 +159,12 @@
           "5% increased maximum Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 2.5% of Physical Damage as Life"
+          "+30 to maximum Life"
         ],
         "bondedStatText": [
-          "5% increased maximum Life"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -211,9 +178,6 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "15% increased Accuracy Rating"
         ],
@@ -221,10 +185,7 @@
           "20% increased Charm Charges gained"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence have 14% increased Critical Hit Chance"
         ],
@@ -242,17 +203,9 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+11% to Chaos Resistance"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "15% chance to Poison on Hit with this weapon"
+          "Adds 19 to 29 Chaos damage"
         ],
         "bondedStatText": []
       }
@@ -266,30 +219,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Body Armours": {
         "statText": [
-          "+50% of Armour also applies to Chaos Damage while on full Energy Shield"
+          "You Recoup 50% of Damage taken by your Offerings as Life"
         ],
         "bondedStatText": []
       },
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
-          "Each Runic Inscription from your Curse Skills causes you to Regenerate Mana per second equal to 10% of that Skill's Mana Cost"
+          "One of your Persistent Minions revives when an Offering expires"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Boots": {
         "statText": [
-          "A random Skill that requires Glory generates 15% of its maximum Glory when your Mark Activates"
+          "Sacrifice 10% of maximum Life to gain that much Guard when you Dodge Roll"
         ],
         "bondedStatText": []
       }
@@ -303,18 +247,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+12% to Fire Resistance"
+          "Adds 7 to 11 Fire Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "25% increased Ignite Magnitude"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 8% of Damage as Extra Fire Damage"
         ],
@@ -322,13 +263,12 @@
           "25% increased Ignite Magnitude"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 7 to 11 Fire Damage"
+          "+12% to Fire Resistance"
         ],
         "bondedStatText": [
-          "25% increased Ignite Magnitude"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -341,10 +281,7 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Body Armours": {
         "statText": [
           "+2% to Quality of all Skills"
         ],
@@ -352,10 +289,7 @@
           "+4 to all Attributes"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "30% increased Presence Area of Effect"
         ],
@@ -373,18 +307,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+12% to Cold Resistance"
+          "Adds 6 to 10 Cold Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Freeze Buildup"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 8% of Damage as Extra Cold Damage"
         ],
@@ -392,13 +323,12 @@
           "30% increased Freeze Buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 6 to 10 Cold Damage"
+          "+12% to Cold Resistance"
         ],
         "bondedStatText": [
-          "30% increased Freeze Buildup"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -411,34 +341,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+10 to Intelligence"
+          "+10 to Dexterity"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 1 to 16 Lightning damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+50 to maximum Energy Shield"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 5 to 8 Cold damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -451,18 +375,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+40 to maximum Life"
+          "Leeches 3% of Physical Damage as Life"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Life"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+35 to maximum Energy Shield"
         ],
@@ -470,13 +391,12 @@
           "5% increased maximum Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 3% of Physical Damage as Life"
+          "+40 to maximum Life"
         ],
         "bondedStatText": [
-          "5% increased maximum Life"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -489,18 +409,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+14% to Fire Resistance"
+          "Adds 13 to 16 Fire Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "25% increased Ignite Magnitude"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 10% of Damage as Extra Fire Damage"
         ],
@@ -508,13 +425,12 @@
           "25% increased Ignite Magnitude"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 13 to 16 Fire Damage"
+          "+14% to Fire Resistance"
         ],
         "bondedStatText": [
-          "25% increased Ignite Magnitude"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -527,18 +443,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+14% to Cold Resistance"
+          "Adds 9 to 15 Cold Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Freeze Buildup"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 10% of Damage as Extra Cold Damage"
         ],
@@ -546,13 +459,12 @@
           "30% increased Freeze Buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 9 to 15 Cold Damage"
+          "+14% to Cold Resistance"
         ],
         "bondedStatText": [
-          "30% increased Freeze Buildup"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -565,32 +477,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Gain 24 Mana per enemy killed"
+        ],
+        "bondedStatText": [
+          "12% of Skill Mana Costs Converted to Life Costs"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "24% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "16% increased Mana Cost Efficiency"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "12% increased Life and Mana Recovery from Flasks"
+          "18% increased Mana Regeneration Rate"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "24% increased Critical Hit Chance for Spells"
-        ],
-        "bondedStatText": [
-          "25% increased Critical Damage Bonus"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+110 to Accuracy Rating"
-        ],
-        "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -603,34 +511,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "Martial Weapon": {
         "statText": [
-          "+10 to Strength"
+          "18% increased Physical Damage"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "20% increased effect of Fully Broken Armour"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "30% increased Spell Damage"
+        ],
+        "bondedStatText": [
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
+        ]
       },
       "Armour": {
-        "target": "Armour",
-        "statText": [],
+        "statText": [
+          "18% increased Armour, Evasion and Energy Shield"
+        ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -643,18 +545,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+35 to maximum Mana"
+          "Leeches 2.5% of Physical Damage as Mana"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Mana"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+50 to maximum Mana"
         ],
@@ -662,13 +561,12 @@
           "5% increased maximum Mana"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 2.5% of Physical Damage as Mana"
+          "+35 to maximum Mana"
         ],
         "bondedStatText": [
-          "5% increased maximum Mana"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -681,18 +579,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "Regenerate 0.35% of maximum Life per second"
+          "Gain 30 Life per enemy killed"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "Regenerate 0.4% of maximum Life per second"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "18% increased Energy Shield Recharge Rate"
         ],
@@ -700,13 +595,12 @@
           "8% of Damage taken Recouped as Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Gain 30 Life per enemy killed"
+          "Regenerate 0.35% of maximum Life per second"
         ],
         "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -719,32 +613,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
+      "All Equipment": {
+        "statText": [
+          "+10 to Intelligence"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 5 to 8 Cold damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+50 to maximum Energy Shield"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
-        "statText": [
-          "18% increased Mana Regeneration Rate"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "24% increased Mana Regeneration Rate"
-        ],
-        "bondedStatText": [
-          "16% increased Mana Cost Efficiency"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 24 Mana per enemy killed"
-        ],
-        "bondedStatText": [
-          "12% of Skill Mana Costs Converted to Life Costs"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -757,34 +647,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+10 to Dexterity"
+          "+10 to Strength"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 6 to 10 Fire damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+100 to Armour"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -797,32 +681,28 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Causes 30% increased Stun Buildup"
+        ],
+        "bondedStatText": [
+          "40% increased Damage against Immobilised Enemies"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "Gain additional Stun Threshold equal to 14% of maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "30% increased Immobilisation buildup"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "18% increased Armour, Evasion and Energy Shield"
+          "+80 to Stun Threshold"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "30% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "18% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -835,18 +715,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+80 to Stun Threshold"
+          "Causes 30% increased Stun Buildup"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "40% increased Damage against Immobilised Enemies"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain additional Stun Threshold equal to 14% of maximum Energy Shield"
         ],
@@ -854,13 +731,12 @@
           "30% increased Immobilisation buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Causes 30% increased Stun Buildup"
+          "+80 to Stun Threshold"
         ],
         "bondedStatText": [
-          "40% increased Damage against Immobilised Enemies"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -873,18 +749,15 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+14% to Lightning Resistance"
+          "Adds 1 to 30 Lightning Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 10% of Damage as Extra Lightning Damage"
         ],
@@ -892,13 +765,12 @@
           "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 1 to 30 Lightning Damage"
+          "+14% to Lightning Resistance"
         ],
         "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -911,17 +783,21 @@
     "requiredLevel": 30,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Adds 9 to 12 Physical Damage"
+        ],
+        "bondedStatText": []
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
           "31 to 52 Physical Thorns damage"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "All": {
         "statText": [
-          "Adds 9 to 12 Physical Damage"
+          "Gain the benefits of Bonded modifiers on Runes and Idols"
         ],
         "bondedStatText": []
       }
@@ -935,31 +811,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
+      "Helmets": {
+        "statText": [
+          "Gain Armour equal to 25% of Life Lost from Hits in the past 8 seconds"
         ],
+        "bondedStatText": []
+      },
+      "Body Armours": {
         "statText": [
           "10% of Physical Damage prevented Recouped as Life"
         ],
         "bondedStatText": []
       },
       "Boots": {
-        "target": [
-          "Boots"
-        ],
         "statText": [
-          "Lose 5% of maximum Life per second while Sprinting",
-          "25% increased Movement Speed while Sprinting"
-        ],
-        "bondedStatText": []
-      },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Gain Armour equal to 25% of Life Lost from Hits in the past 8 seconds"
+          "Lose 5% of maximum Life per second while Sprinting, 25% increased Movement Speed while Sprinting"
         ],
         "bondedStatText": []
       }
@@ -973,32 +839,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Gain 16 Mana per enemy killed"
+        ],
+        "bondedStatText": [
+          "12% of Skill Mana Costs Converted to Life Costs"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "20% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "16% increased Mana Cost Efficiency"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "10% increased Life and Mana Recovery from Flasks"
+          "15% increased Mana Regeneration Rate"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "20% increased Critical Hit Chance for Spells"
-        ],
-        "bondedStatText": [
-          "25% increased Critical Damage Bonus"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+80 to Accuracy Rating"
-        ],
-        "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1011,34 +873,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "Martial Weapon": {
         "statText": [
-          "+8 to Strength"
+          "16% increased Physical Damage"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "20% increased effect of Fully Broken Armour"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "25% increased Spell Damage"
+        ],
+        "bondedStatText": [
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
+        ]
       },
       "Armour": {
-        "target": "Armour",
-        "statText": [],
+        "statText": [
+          "16% increased Armour, Evasion and Energy Shield"
+        ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1051,30 +907,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Helmets": {
         "statText": [
-          "You Recoup 50% of Damage taken by your Offerings as Life"
-        ],
-        "bondedStatText": []
-      },
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "Sacrifice 10% of maximum Life to gain that much Guard when you Dodge Roll"
+          "+1 to maximum Mana per 2 Item Energy Shield on Equipped Helmet"
         ],
         "bondedStatText": []
       },
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
-          "One of your Persistent Minions revives when an Offering expires"
+          "Energy Shield Recharge starts after spending a total of 2000 Mana, no more than once every 2 seconds"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "statText": [
+          "Increases and Reductions to Movement Speed also apply to Energy Shield Recharge Rate"
         ],
         "bondedStatText": []
       }
@@ -1088,30 +935,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Helmets": {
         "statText": [
-          "15% increased Mana Cost Efficiency if you haven't Dodge Rolled Recently"
+          "Increases and Reductions to Life Regeneration Rate also apply to Mana Regeneration Rate"
         ],
         "bondedStatText": []
       },
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "40% increased effect of Arcane Surge on you"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Boots": {
         "statText": [
-          "Increases and Reductions to Life Regeneration Rate also apply to Mana Regeneration Rate"
+          "15% increased Mana Cost Efficiency if you haven't Dodge Rolled Recently"
         ],
         "bondedStatText": []
       }
@@ -1125,34 +963,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+6 to Intelligence"
+          "+6 to Dexterity"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 1 to 16 Lightning damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+50 to maximum Energy Shield"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 5 to 8 Cold damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1165,18 +997,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+20 to maximum Life"
+          "Leeches 2% of Physical Damage as Life"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Life"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+25 to maximum Energy Shield"
         ],
@@ -1184,13 +1013,12 @@
           "5% increased maximum Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 2% of Physical Damage as Life"
+          "+20 to maximum Life"
         ],
         "bondedStatText": [
-          "5% increased maximum Life"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1203,18 +1031,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+10% to Fire Resistance"
+          "Adds 4 to 6 Fire Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "25% increased Ignite Magnitude"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 6% of Damage as Extra Fire Damage"
         ],
@@ -1222,13 +1047,12 @@
           "25% increased Ignite Magnitude"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 4 to 6 Fire Damage"
+          "+10% to Fire Resistance"
         ],
         "bondedStatText": [
-          "25% increased Ignite Magnitude"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1241,18 +1065,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+10% to Cold Resistance"
+          "Adds 3 to 5 Cold Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Freeze Buildup"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 6% of Damage as Extra Cold Damage"
         ],
@@ -1260,13 +1081,12 @@
           "30% increased Freeze Buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 3 to 5 Cold Damage"
+          "+10% to Cold Resistance"
         ],
         "bondedStatText": [
-          "30% increased Freeze Buildup"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1279,32 +1099,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Gain 8 Mana per enemy killed"
+        ],
+        "bondedStatText": [
+          "12% of Skill Mana Costs Converted to Life Costs"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "16% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "16% increased Mana Cost Efficiency"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "8% increased Life and Mana Recovery from Flasks"
+          "12% increased Mana Regeneration Rate"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "16% increased Critical Hit Chance for Spells"
-        ],
-        "bondedStatText": [
-          "25% increased Critical Damage Bonus"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+50 to Accuracy Rating"
-        ],
-        "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1317,34 +1133,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "Martial Weapon": {
         "statText": [
-          "+6 to Strength"
+          "14% increased Physical Damage"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "20% increased effect of Fully Broken Armour"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "20% increased Spell Damage"
+        ],
+        "bondedStatText": [
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
+        ]
       },
       "Armour": {
-        "target": "Armour",
-        "statText": [],
+        "statText": [
+          "14% increased Armour, Evasion and Energy Shield"
+        ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1357,18 +1167,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+15 to maximum Mana"
+          "Leeches 1.5% of Physical Damage as Mana"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Mana"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+30 to maximum Mana"
         ],
@@ -1376,13 +1183,12 @@
           "5% increased maximum Mana"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 1.5% of Physical Damage as Mana"
+          "+15 to maximum Mana"
         ],
         "bondedStatText": [
-          "5% increased maximum Mana"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1395,18 +1201,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "Regenerate 0.25% of maximum Life per second"
+          "Gain 10 Life per enemy killed"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "Regenerate 0.4% of maximum Life per second"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "12% increased Energy Shield Recharge Rate"
         ],
@@ -1414,13 +1217,12 @@
           "8% of Damage taken Recouped as Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Gain 10 Life per enemy killed"
+          "Regenerate 0.25% of maximum Life per second"
         ],
         "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1433,32 +1235,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
+      "All Equipment": {
+        "statText": [
+          "+6 to Intelligence"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 5 to 8 Cold damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+50 to maximum Energy Shield"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
-        "statText": [
-          "12% increased Mana Regeneration Rate"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "16% increased Mana Regeneration Rate"
-        ],
-        "bondedStatText": [
-          "16% increased Mana Cost Efficiency"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 8 Mana per enemy killed"
-        ],
-        "bondedStatText": [
-          "12% of Skill Mana Costs Converted to Life Costs"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1471,34 +1269,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+6 to Dexterity"
+          "+6 to Strength"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 6 to 10 Fire damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+100 to Armour"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1511,32 +1303,28 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Causes 20% increased Stun Buildup"
+        ],
+        "bondedStatText": [
+          "40% increased Damage against Immobilised Enemies"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "Gain additional Stun Threshold equal to 10% of maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "30% increased Immobilisation buildup"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "14% increased Armour, Evasion and Energy Shield"
+          "+40 to Stun Threshold"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "20% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "14% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1549,18 +1337,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+40 to Stun Threshold"
+          "Causes 20% increased Stun Buildup"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "40% increased Damage against Immobilised Enemies"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain additional Stun Threshold equal to 10% of maximum Energy Shield"
         ],
@@ -1568,13 +1353,12 @@
           "30% increased Immobilisation buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Causes 20% increased Stun Buildup"
+          "+40 to Stun Threshold"
         ],
         "bondedStatText": [
-          "40% increased Damage against Immobilised Enemies"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1587,18 +1371,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+10% to Lightning Resistance"
+          "Adds 1 to 10 Lightning Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 6% of Damage as Extra Lightning Damage"
         ],
@@ -1606,13 +1387,12 @@
           "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 1 to 10 Lightning Damage"
+          "+10% to Lightning Resistance"
         ],
         "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1625,17 +1405,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "6 to 9 Physical Thorns damage"
+          "Adds 3 to 4 Physical Damage"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 3 to 4 Physical Damage"
+          "6 to 9 Physical Thorns damage"
         ],
         "bondedStatText": []
       }
@@ -1649,18 +1427,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+25 to maximum Mana"
+          "Leeches 2% of Physical Damage as Mana"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "5% increased maximum Mana"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "+40 to maximum Mana"
         ],
@@ -1668,13 +1443,12 @@
           "5% increased maximum Mana"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Leeches 2% of Physical Damage as Mana"
+          "+25 to maximum Mana"
         ],
         "bondedStatText": [
-          "5% increased maximum Mana"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1688,9 +1462,6 @@
     "limit": null,
     "effects": {
       "Helmet": {
-        "target": [
-          "Helmets"
-        ],
         "statText": [
           "Minions have 12% increased maximum Life"
         ],
@@ -1699,9 +1470,6 @@
         ]
       },
       "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
         "statText": [
           "Allies in your Presence deal 30% increased Damage"
         ],
@@ -1719,19 +1487,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Martial Weapon": {
         "statText": [
-          "3% increased maximum Life"
+          "50% chance when you gain a Frenzy Charge to gain an additional Frenzy Charge"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Wand or Staff": {
         "statText": [
-          "Recover 2% of maximum Life on Kill"
+          "50% chance when you gain a Frenzy Charge to gain an additional Frenzy Charge"
         ],
         "bondedStatText": []
       }
@@ -1745,10 +1509,7 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Focus": {
-        "target": [
-          "Foci"
-        ],
+      "Foci": {
         "statText": [
           "10% increased Cooldown Recovery Rate"
         ],
@@ -1756,10 +1517,7 @@
           "15% increased effect of Archon Buffs on you"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence have 8% increased Cast Speed"
         ],
@@ -1777,27 +1535,20 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
-        "statText": [
-          "Allies in your Presence have +8% to all Elemental Resistances"
-        ],
-        "bondedStatText": [
-          "+20% of Armour also applies to Elemental Damage while Shapeshifted"
-        ]
-      },
-      "Shield": {
-        "target": [
-          "Shields",
-          "Bucklers"
-        ],
+      "Shields, Bucklers": {
         "statText": [
           "10% increased Block chance"
         ],
         "bondedStatText": [
           "10% chance for Damage of Enemies Hitting you to be Unlucky"
+        ]
+      },
+      "Sceptres": {
+        "statText": [
+          "Allies in your Presence have +8% to all Elemental Resistances"
+        ],
+        "bondedStatText": [
+          "+20% of Armour also applies to Elemental Damage while Shapeshifted"
         ]
       }
     }
@@ -1810,30 +1561,33 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Helmets": {
         "statText": [
-          "Increases and Reductions to Movement Speed also\n apply to Energy Shield Recharge Rate"
+          "A random Skill that requires Glory generates 15% of its maximum Glory when your Mark Activates"
         ],
         "bondedStatText": []
       },
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
-          "Energy Shield Recharge starts after spending a total of\n 2000 Mana, no more than once every 2 seconds"
+          "Each Runic Inscription from your Curse Skills causes you to Regenerate Mana per second equal to 10% of that Skill's Mana Cost"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Body Armours": {
         "statText": [
-          "+1 to maximum Mana per 2 Item Energy Shield on Equipped Helmet"
+          "+50% of Armour also applies to Chaos Damage while on full Energy Shield"
+        ],
+        "bondedStatText": []
+      },
+      "Grants Skill": {
+        "statText": [
+          "Raise Shield"
+        ],
+        "bondedStatText": []
+      },
+      "All": {
+        "statText": [
+          "+1 to Level of all Corrupted Skill Gems"
         ],
         "bondedStatText": []
       }
@@ -1847,10 +1601,7 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Body Armours": {
         "statText": [
           "5% increased Rarity of Items found"
         ],
@@ -1858,10 +1609,7 @@
           "5% increased Quantity of Gold Dropped by Slain Enemies"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "10% increased Spirit"
         ],
@@ -1879,18 +1627,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "Regenerate 0.3% of maximum Life per second"
+          "Gain 20 Life per enemy killed"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "Regenerate 0.4% of maximum Life per second"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "15% increased Energy Shield Recharge Rate"
         ],
@@ -1898,13 +1643,12 @@
           "8% of Damage taken Recouped as Life"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Gain 20 Life per enemy killed"
+          "Regenerate 0.3% of maximum Life per second"
         ],
         "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1917,32 +1661,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
+      "All Equipment": {
+        "statText": [
+          "+8 to Intelligence"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 5 to 8 Cold damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+50 to maximum Energy Shield"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
-        "statText": [
-          "15% increased Mana Regeneration Rate"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "20% increased Mana Regeneration Rate"
-        ],
-        "bondedStatText": [
-          "16% increased Mana Cost Efficiency"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 16 Mana per enemy killed"
-        ],
-        "bondedStatText": [
-          "12% of Skill Mana Costs Converted to Life Costs"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1955,34 +1695,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
+      "All Equipment": {
         "statText": [
-          "+8 to Dexterity"
+          "+8 to Strength"
         ],
         "bondedStatText": []
       },
+      "Martial Weapon": {
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks, Adds 6 to 10 Fire damage to Attacks"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [],
+        "bondedStatText": [
+          "+100 to Armour"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -1996,9 +1730,6 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "5% increased Curse Magnitudes"
         ],
@@ -2006,10 +1737,7 @@
           "Remnants have 10% increased effect"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence have 8% increased Attack Speed"
         ],
@@ -2028,14 +1756,12 @@
     "limit": null,
     "effects": {
       "Armour": {
-        "target": "Armour",
         "statText": [
           "+5% to all Elemental Resistances"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "30% increased Elemental Damage with Attacks"
         ],
@@ -2052,16 +1778,12 @@
     "limit": null,
     "effects": {
       "Helmet": {
-        "target": [
-          "Helmets"
-        ],
         "statText": [
           "+1% to Maximum Cold Resistance"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "30% increased Freeze Buildup"
         ],
@@ -2078,16 +1800,12 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "+1% to Maximum Fire Resistance"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "30% increased Flammability Magnitude"
         ],
@@ -2104,14 +1822,12 @@
     "limit": null,
     "effects": {
       "Armour": {
-        "target": "Armour",
         "statText": [
           "Convert 20% of Requirements to Intelligence"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "Convert 20% of Requirements to Intelligence"
         ],
@@ -2128,16 +1844,12 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "10% increased Quantity of Gold Dropped by Slain Enemies"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "+15 to Spirit"
         ],
@@ -2154,16 +1866,12 @@
     "limit": null,
     "effects": {
       "Helmet": {
-        "target": [
-          "Helmets"
-        ],
         "statText": [
           "3% increased maximum Mana"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "Recover 2% of maximum Mana on Kill"
         ],
@@ -2180,14 +1888,12 @@
     "limit": null,
     "effects": {
       "Armour": {
-        "target": "Armour",
         "statText": [
           "Convert 20% of Requirements to Strength"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "Convert 20% of Requirements to Strength"
         ],
@@ -2204,16 +1910,12 @@
     "limit": null,
     "effects": {
       "Boots": {
-        "target": [
-          "Boots"
-        ],
         "statText": [
           "+1% to Maximum Lightning Resistance"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
           "30% increased chance to Shock"
         ],
@@ -2229,10 +1931,7 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Helmets": {
         "statText": [
           "50% increased Thorns Critical Hit Chance"
         ],
@@ -2240,10 +1939,7 @@
           "Thorns Damage has 40% chance to ignore Enemy Armour"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence deal 1 to 40 added Attack Lightning Damage"
         ],
@@ -2261,32 +1957,28 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Causes 25% increased Stun Buildup"
+        ],
+        "bondedStatText": [
+          "40% increased Damage against Immobilised Enemies"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "Gain additional Stun Threshold equal to 12% of maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "30% increased Immobilisation buildup"
+        ]
+      },
       "Armour": {
-        "target": "Armour",
         "statText": [
-          "16% increased Armour, Evasion and Energy Shield"
+          "+60 to Stun Threshold"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "25% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "16% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -2299,18 +1991,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+60 to Stun Threshold"
+          "Causes 25% increased Stun Buildup"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "40% increased Damage against Immobilised Enemies"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain additional Stun Threshold equal to 12% of maximum Energy Shield"
         ],
@@ -2318,13 +2007,12 @@
           "30% increased Immobilisation buildup"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Causes 25% increased Stun Buildup"
+          "+60 to Stun Threshold"
         ],
         "bondedStatText": [
-          "40% increased Damage against Immobilised Enemies"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -2337,18 +2025,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "+12% to Lightning Resistance"
+          "Adds 1 to 20 Lightning Damage"
         ],
         "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
+          "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
+      "Wand or Staff": {
         "statText": [
           "Gain 8% of Damage as Extra Lightning Damage"
         ],
@@ -2356,13 +2041,12 @@
           "30% increased Magnitude of Shock you inflict"
         ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 1 to 20 Lightning Damage"
+          "+12% to Lightning Resistance"
         ],
         "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
+          "+10 to maximum Life, +10 to maximum Mana"
         ]
       }
     }
@@ -2375,19 +2059,9 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Helmets": {
         "statText": [
-          "20% increased Charm Charges gained"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "15% chance to cause Bleeding on Hit"
+          "Enemies you Curse have -5% to Chaos Resistance"
         ],
         "bondedStatText": []
       }
@@ -2401,30 +2075,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Body Armours": {
         "statText": [
           "Regenerate 1.5% of maximum Life per second"
         ],
         "bondedStatText": []
       },
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Gloves": {
         "statText": [
-          "10% increased Movement Speed when on Low Life"
+          "25% increased Life Cost Efficiency"
         ],
         "bondedStatText": []
       },
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
+      "Boots": {
         "statText": [
-          "25% increased Life Cost Efficiency"
+          "10% increased Movement Speed when on Low Life"
         ],
         "bondedStatText": []
       }
@@ -2438,17 +2103,15 @@
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Martial Weapon": {
         "statText": [
-          "14 to 21 Physical Thorns damage"
+          "Adds 6 to 9 Physical Damage"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Armour": {
         "statText": [
-          "Adds 6 to 9 Physical Damage"
+          "14 to 21 Physical Thorns damage"
         ],
         "bondedStatText": []
       }
@@ -2462,19 +2125,9 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Gloves": {
         "statText": [
-          "25% increased Elemental Ailment Threshold"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Attacks with this Weapon Penetrate 15% Elemental Resistances"
+          "+40% of Armour also applies to Fire Damage"
         ],
         "bondedStatText": []
       }
@@ -2488,19 +2141,9 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Helmets": {
         "statText": [
-          "15% reduced Slowing Potency of Debuffs on You"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "5% increased Attack Speed"
+          "+4 to Maximum Rage"
         ],
         "bondedStatText": []
       }
@@ -2514,30 +2157,21 @@
     "requiredLevel": 60,
     "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Helmets": {
         "statText": [
-          "Prevent +3% of Damage from Deflected Hits"
+          "+1 to Accuracy Rating per 1 Item Evasion Rating on Equipped Helmet"
         ],
         "bondedStatText": []
       },
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "Critical Hit chance is Lucky against Parried enemies"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Body Armours": {
         "statText": [
-          "+1 to Accuracy Rating per 1 Item Evasion Rating on Equipped Helmet"
+          "Prevent +3% of Damage from Deflected Hits"
         ],
         "bondedStatText": []
       }
@@ -2552,9 +2186,6 @@
     "limit": null,
     "effects": {
       "Gloves": {
-        "target": [
-          "Gloves"
-        ],
         "statText": [
           "10% increased Magnitude of Bleeding you inflict"
         ],
@@ -2562,10 +2193,7 @@
           "15% reduced Magnitude of Bleeding on You"
         ]
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Sceptres": {
         "statText": [
           "Allies in your Presence have 14% increased Critical Damage Bonus"
         ],
@@ -2583,29 +2211,15 @@
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Martial Weapon": {
         "statText": [
-          "Hits against you have 20% reduced Critical Damage Bonus"
+          "50% chance when you gain a Power Charge to gain an additional Power Charge"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Wand or Staff": {
         "statText": [
-          "+5% to Critical Damage Bonus"
-        ],
-        "bondedStatText": []
-      },
-      "Shield": {
-        "target": [
-          "Shields",
-          "Bucklers"
-        ],
-        "statText": [
-          "Hits against you have 20% reduced Critical Damage Bonus"
+          "50% chance when you gain a Power Charge to gain an additional Power Charge"
         ],
         "bondedStatText": []
       }

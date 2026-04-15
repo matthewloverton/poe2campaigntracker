@@ -32,26 +32,26 @@ export function getAugmentEffect(augment: Augment, category: string): string[] {
   return [...effect.statText, ...effect.bondedStatText];
 }
 
-/** Map item classes to augment categories */
+/** Map item classes to augment categories (matches poe2db category names) */
 export function itemClassToAugmentCategory(itemClass: string): string | null {
   const map: Record<string, string> = {
-    "Body Armour": "Body Armour",
-    "Helmet": "Helmet",
-    "Gloves": "Gloves",
-    "Boots": "Boots",
-    "Shield": "Shield",
-    "Buckler": "Shield",
-    "Wand": "Caster Weapons",
-    "Staff": "Caster Weapons",
-    "Sceptre": "Sceptre",
-    "Focus": "Focus",
-    "One Hand Mace": "Martial Weapons",
-    "Two Hand Mace": "Martial Weapons",
-    "Warstaff": "Martial Weapons",
-    "Spear": "Martial Weapons",
-    "Bow": "Bow",
-    "Crossbow": "Martial Weapons",
-    "TrapTool": "Martial Weapons",
+    "Body Armour": "Armour",
+    "Helmet": "Armour",
+    "Gloves": "Armour",
+    "Boots": "Armour",
+    "Shield": "Armour",
+    "Buckler": "Armour",
+    "Wand": "Wand or Staff",
+    "Staff": "Wand or Staff",
+    "Sceptre": "Wand or Staff",
+    "Focus": "Wand or Staff",
+    "One Hand Mace": "Martial Weapon",
+    "Two Hand Mace": "Martial Weapon",
+    "Warstaff": "Martial Weapon",
+    "Spear": "Martial Weapon",
+    "Bow": "Martial Weapon",
+    "Crossbow": "Martial Weapon",
+    "TrapTool": "Martial Weapon",
   };
   return map[itemClass] ?? null;
 }

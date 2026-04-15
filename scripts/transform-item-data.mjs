@@ -405,12 +405,43 @@ function nameFromKey(metaKey) {
   return AUGMENT_NAMES[last] ?? last.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
 }
 
-function transformAugments(raw) {
+/**
+ * Parse augment effects from poe2db HTML.
+ * Returns Map<name, { implicits: string[], bonded: string[] }>
+ */
+function parseAugmentEffects(html) {
+  const result = new Map();
+  if (!html) return result;
+
+  const blocks = html.split('data-hover="?s=Data%5CBaseItemTypes%2FMetadata%2FItems%2FSoulCores');
+  for (let i = 1; i < blocks.length; i++) {
+    const block = blocks[i];
+    const nameMatch = block.match(/href="[^"]+">([^<]+)/);
+    if (!nameMatch) continue;
+    const name = nameMatch[1];
+
+    const implicits = [];
+    for (const m of block.matchAll(/class="implicitMod">([\s\S]*?)<\/div>/g)) {
+      const text = m[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+      if (text) implicits.push(text);
+    }
+
+    const bonded = [];
+    for (const m of block.matchAll(/class="bondedMod">([\s\S]*?)<\/div>/g)) {
+      const text = m[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+      if (text && text !== "Bonded:") bonded.push(text);
+    }
+
+    result.set(name, { implicits, bonded });
+  }
+  return result;
+}
+
+function transformAugments(raw, poe2dbEffects) {
   const results = [];
 
   for (const [key, aug] of Object.entries(raw)) {
     const last = key.split("/").pop();
-    // Skip unreleased/placeholder entries
     if (/Special\d+$/.test(last)) continue;
 
     const name = nameFromKey(key);
@@ -419,14 +450,42 @@ function transformAugments(raw) {
       ? aug.type_name.replace(/\[([^|]*)\|?([^\]]*)\]/g, (_, a, b) => b || a)
       : typeId;
 
-    // Build effects per equipment category
+    // Use poe2db scraped effects if available
+    const scraped = poe2dbEffects.get(name);
     const effects = {};
-    for (const [catKey, cat] of Object.entries(aug.categories || {})) {
-      effects[catKey] = {
-        target: cat.target,
-        statText: (cat.stat_text || []).map(cleanModText),
-        bondedStatText: (cat.bonded_stat_text || []).map(cleanModText),
-      };
+
+    if (scraped) {
+      // Parse "Category: text" format from implicits
+      for (const line of scraped.implicits) {
+        const colonIdx = line.indexOf(": ");
+        if (colonIdx > -1) {
+          const cat = line.substring(0, colonIdx);
+          const text = line.substring(colonIdx + 2);
+          if (!effects[cat]) effects[cat] = { statText: [], bondedStatText: [] };
+          effects[cat].statText.push(text);
+        } else {
+          // "All Equipment" style (no category prefix)
+          if (!effects["All"]) effects["All"] = { statText: [], bondedStatText: [] };
+          effects["All"].statText.push(line);
+        }
+      }
+      for (const line of scraped.bonded) {
+        const colonIdx = line.indexOf(": ");
+        if (colonIdx > -1) {
+          const cat = line.substring(0, colonIdx);
+          const text = line.substring(colonIdx + 2);
+          if (!effects[cat]) effects[cat] = { statText: [], bondedStatText: [] };
+          effects[cat].bondedStatText.push(text);
+        }
+      }
+    } else {
+      // Fallback to RePoE data
+      for (const [catKey, cat] of Object.entries(aug.categories || {})) {
+        effects[catKey] = {
+          statText: (cat.stat_text || []).map(cleanModText),
+          bondedStatText: (cat.bonded_stat_text || []).map(cleanModText),
+        };
+      }
     }
 
     results.push({
@@ -624,13 +683,17 @@ async function main() {
 
   // 1. Download source data
   console.log("1. Downloading source data...");
-  const [rawBaseItems, rawMods, rawUniques, rawGems, rawSkills, rawAugments, poe2dbHtml] = await Promise.all([
+  const [rawBaseItems, rawMods, rawUniques, rawGems, rawSkills, rawAugments, poe2dbAugHtml, poe2dbHtml] = await Promise.all([
     fetchJSON(REPOE_SOURCES.base_items),
     fetchJSON(REPOE_SOURCES.mods),
     fetchJSON(REPOE_SOURCES.uniques),
     fetchJSON(REPOE_SOURCES.skill_gems),
     fetchJSON(REPOE_SOURCES.skills),
     fetchJSON(REPOE_SOURCES.augments),
+    fetchHTML("https://poe2db.tw/us/Augment").catch((err) => {
+      console.warn(`   Warning: Could not fetch poe2db augments: ${err.message}`);
+      return "";
+    }),
     fetchHTML("https://poe2db.tw/us/Unique_item").catch((err) => {
       console.warn(`   Warning: Could not fetch poe2db unique mods: ${err.message}`);
       return "";
@@ -646,7 +709,9 @@ async function main() {
   const mods = transformMods(rawMods);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
-  const augments = transformAugments(rawAugments);
+  const augEffects = parseAugmentEffects(poe2dbAugHtml);
+  console.log(`   Augment effects scraped: ${augEffects.size} items`);
+  const augments = transformAugments(rawAugments, augEffects);
 
   console.log(`   Base items: ${baseItems.length}`);
   console.log(`   Mods:       ${mods.length}`);
