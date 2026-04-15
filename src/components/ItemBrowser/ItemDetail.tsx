@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
 import { cleanModText } from "../../data/mods";
@@ -84,6 +84,18 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const [sockets, setSockets] = useState<(Augment | null)[]>(Array(socketCount).fill(null));
   const [socketSearch, setSocketSearch] = useState("");
   const [editingSocket, setEditingSocket] = useState<number | null>(null);
+
+  const socketDropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (editingSocket == null) return;
+    function handleClick(e: MouseEvent) {
+      if (socketDropdownRef.current && !socketDropdownRef.current.contains(e.target as Node)) {
+        setEditingSocket(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [editingSocket]);
 
   const augFamilyResults = useMemo(() => {
     if (editingSocket == null || !augCategory) return [];
@@ -344,7 +356,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                           </button>
                         )}
                         {editingSocket === i && (
-                          <div className={styles.socketDropdown}>
+                          <div className={styles.socketDropdown} ref={socketDropdownRef}>
                             <input
                               className={styles.socketSearchInput}
                               type="text"
