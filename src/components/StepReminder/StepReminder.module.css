@@ -77,7 +77,7 @@
 
 /* Add reminder button — hidden until parent stepWrapper is hovered */
 :global(.stepReminderAddBtn) {
-  display: none;
+  visibility: hidden;
   padding: 2px 14px 2px 28px;
   font-size: 11px;
   color: var(--text-secondary);

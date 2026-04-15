@@ -178,10 +178,10 @@
 
 /* Reveal the "add note" button only when hovering the wrapper */
 .stepWrapper:hover .addNoteBtn {
-  display: block;
+  visibility: visible;
 }
 
 /* Reveal the "add reminder" button only when hovering the wrapper */
 .stepWrapper:hover :global(.stepReminderAddBtn) {
-  display: block;
+  visibility: visible;
 }
