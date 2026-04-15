@@ -4,7 +4,7 @@ import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
 import { cleanModText } from "../../data/mods";
 import {
   type Augment,
-  searchAugments,
+  searchAugmentFamilies,
   getAugmentEffect,
   getAugmentBonded,
   itemClassToAugmentCategory,
@@ -85,9 +85,9 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const [socketSearch, setSocketSearch] = useState("");
   const [editingSocket, setEditingSocket] = useState<number | null>(null);
 
-  const augSearchResults = useMemo(() => {
+  const augFamilyResults = useMemo(() => {
     if (editingSocket == null || !augCategory) return [];
-    return searchAugments(socketSearch, augCategory).slice(0, 10);
+    return searchAugmentFamilies(socketSearch, augCategory);
   }, [socketSearch, editingSocket, augCategory]);
 
   const props = item.properties;
@@ -355,22 +355,55 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                               autoFocus
                             />
                             <div className={styles.socketResults}>
-                              {augSearchResults.map((a) => (
-                                <button
-                                  key={a.id}
-                                  className={styles.socketResult}
-                                  onClick={() => {
-                                    setSockets((prev) => { const next = [...prev]; next[i] = a; return next; });
-                                    setEditingSocket(null);
-                                  }}
-                                >
-                                  <span className={styles.socketResultName}>{a.name}</span>
-                                  <span className={styles.socketResultType}>{a.typeName}</span>
-                                  <span className={styles.socketResultEffect}>
-                                    {getAugmentEffect(a, augCategory).join(", ")}
-                                  </span>
-                                </button>
-                              ))}
+                              {augFamilyResults.map((fam) => {
+                                const display = fam.regular ?? fam.lesser ?? fam.greater;
+                                if (!display) return null;
+                                return (
+                                  <div key={fam.baseName} className={styles.socketFamilyRow}>
+                                    <div className={styles.socketFamilyInfo}>
+                                      <span className={styles.socketResultName}>{fam.baseName}</span>
+                                      <span className={styles.socketResultEffect}>
+                                        {getAugmentEffect(display, augCategory!).join(", ")}
+                                      </span>
+                                    </div>
+                                    <div className={styles.socketTierBtns}>
+                                      {fam.lesser && (
+                                        <button
+                                          className={styles.socketTierBtn}
+                                          onClick={() => {
+                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.lesser!; return next; });
+                                            setEditingSocket(null);
+                                          }}
+                                        >
+                                          L
+                                        </button>
+                                      )}
+                                      {fam.regular && (
+                                        <button
+                                          className={`${styles.socketTierBtn} ${styles.socketTierBtnActive}`}
+                                          onClick={() => {
+                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.regular!; return next; });
+                                            setEditingSocket(null);
+                                          }}
+                                        >
+                                          R
+                                        </button>
+                                      )}
+                                      {fam.greater && (
+                                        <button
+                                          className={styles.socketTierBtn}
+                                          onClick={() => {
+                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.greater!; return next; });
+                                            setEditingSocket(null);
+                                          }}
+                                        >
+                                          G
+                                        </button>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         )}

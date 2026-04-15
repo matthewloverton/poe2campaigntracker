@@ -260,40 +260,71 @@
   overflow-y: auto;
 }
 
-.socketResult {
+.socketFamilyRow {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px;
-  width: 100%;
+  align-items: center;
+  gap: 6px;
   padding: 4px 8px;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-size: 0.6rem;
-  cursor: pointer;
-  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.socketResult:hover {
-  background: var(--bg-hover);
+.socketFamilyRow:last-child {
+  border-bottom: none;
+}
+
+.socketFamilyInfo {
+  flex: 1;
+  min-width: 0;
 }
 
 .socketResultName {
+  font-size: 0.62rem;
   font-weight: 600;
   color: var(--accent-teal);
-}
-
-.socketResultType {
-  font-size: 0.52rem;
-  color: var(--text-secondary);
-  opacity: 0.5;
+  display: block;
 }
 
 .socketResultEffect {
-  width: 100%;
   font-size: 0.55rem;
   color: var(--text-secondary);
+  display: block;
+  line-height: 1.3;
+}
+
+.socketTierBtns {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.socketTierBtn {
+  width: 22px;
+  height: 20px;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.55rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.socketTierBtn:first-child { border-radius: 3px 0 0 3px; }
+.socketTierBtn:last-child { border-radius: 0 3px 3px 0; }
+.socketTierBtn:not(:first-child) { margin-left: -1px; }
+
+.socketTierBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.socketTierBtnActive {
+  color: var(--accent-teal);
+  border-color: var(--accent-teal);
 }
 
 .reqLine {

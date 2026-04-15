@@ -22,13 +22,15 @@ export const augmentById = new Map(allAugments.map((a) => [a.id, a]));
 
 /** Get augments that apply to a given equipment category */
 export function getAugmentsForCategory(category: string): Augment[] {
-  return allAugments.filter((a) => a.effects[category] != null);
+  return allAugments.filter((a) =>
+    a.effects[category] != null || a.effects["All"] != null || a.effects["All Equipment"] != null
+  );
 }
 
 /** Get the base effect text for an augment on a specific category */
 export function getAugmentEffect(augment: Augment, category: string): string[] {
   const effect = augment.effects[category];
-  const allEffect = augment.effects["All"];
+  const allEffect = augment.effects["All"] ?? augment.effects["All Equipment"];
   const texts: string[] = [];
   if (allEffect) texts.push(...allEffect.statText);
   if (effect) texts.push(...effect.statText);
@@ -74,11 +76,54 @@ export function defaultSocketCount(itemClass: string): number {
   return twoSocket.has(itemClass) ? 2 : 1;
 }
 
+export interface AugmentFamily {
+  baseName: string;
+  lesser?: Augment;
+  regular?: Augment;
+  greater?: Augment;
+}
+
+/** Group augments into Lesser/Regular/Greater families */
+export function getAugmentFamilies(category?: string): AugmentFamily[] {
+  let pool = allAugments;
+  if (category) pool = getAugmentsForCategory(category);
+
+  const families = new Map<string, AugmentFamily>();
+
+  for (const a of pool) {
+    let baseName = a.name;
+    let tier: "lesser" | "regular" | "greater" = "regular";
+
+    if (a.name.startsWith("Lesser ")) {
+      baseName = a.name.slice(7);
+      tier = "lesser";
+    } else if (a.name.startsWith("Greater ")) {
+      baseName = a.name.slice(8);
+      tier = "greater";
+    }
+
+    if (!families.has(baseName)) {
+      families.set(baseName, { baseName });
+    }
+    families.get(baseName)![tier] = a;
+  }
+
+  return [...families.values()].sort((a, b) => a.baseName.localeCompare(b.baseName));
+}
+
+/** Search augment families by name */
+export function searchAugmentFamilies(query: string, category?: string): AugmentFamily[] {
+  const q = query.toLowerCase();
+  const families = getAugmentFamilies(category);
+  if (!q) return families;
+  return families.filter((f) => f.baseName.toLowerCase().includes(q));
+}
+
 /** Search augments by name */
 export function searchAugments(query: string, category?: string): Augment[] {
   const q = query.toLowerCase();
   let pool = allAugments;
-  if (category) pool = pool.filter((a) => a.effects[category] != null);
+  if (category) pool = getAugmentsForCategory(category);
   if (!q) return pool;
   return pool.filter((a) => a.name.toLowerCase().includes(q));
 }
