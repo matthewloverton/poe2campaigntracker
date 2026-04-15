@@ -25,6 +25,7 @@ export function BuildPlan() {
   const activePhaseId = useCustomizationsStore((s) => s.activePhaseId);
   const setActivePhase = useCustomizationsStore((s) => s.setActivePhase);
   const addPhase = useCustomizationsStore((s) => s.addPhase);
+  const removePhase = useCustomizationsStore((s) => s.removePhase);
   const setGearSlot = useCustomizationsStore((s) => s.setGearSlot);
   const addSkillGroup = useCustomizationsStore((s) => s.addSkillGroup);
   const removeSkillGroup = useCustomizationsStore((s) => s.removeSkillGroup);
@@ -47,9 +48,17 @@ export function BuildPlan() {
 
 
 
-  function handleAddPhase(name: string, _trigger: PhaseTrigger) {
+  const updatePhaseTrigger = useCustomizationsStore((s) => s.updatePhaseTrigger);
+  const updatePhase = useCustomizationsStore((s) => s.updatePhase);
+
+  function handleAddPhase(name: string, trigger: PhaseTrigger) {
     addPhase(name);
-    // Phase trigger will be set via updatePhaseTrigger in a future enhancement
+    // Set the trigger on the newly created phase
+    const phases = useCustomizationsStore.getState().buildPhases;
+    const newest = phases[phases.length - 1];
+    if (newest) {
+      updatePhaseTrigger(newest.id, trigger);
+    }
   }
 
   function handleGearSlotClick(slot: GearSlotKey) {
@@ -158,6 +167,8 @@ export function BuildPlan() {
         activePhaseId={activePhaseId}
         onSelectPhase={setActivePhase}
         onAddPhase={handleAddPhase}
+        onRemovePhase={removePhase}
+        onRenamePhase={(id, name) => updatePhase(id, { name })}
       />
 
       {activePhase && (

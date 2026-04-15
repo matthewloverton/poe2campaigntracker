@@ -63,6 +63,13 @@ export function useAutoAdvance() {
       }
 
       advanceToZone(event.areaId);
+
+      // Auto-switch phase on zone trigger
+      const { buildPhases, setActivePhase } = useCustomizationsStore.getState();
+      const zonePhase = buildPhases.find(
+        (p) => p.trigger.type === "zone" && p.trigger.zoneId === event.areaId
+      );
+      if (zonePhase) setActivePhase(zonePhase.id);
     },
     [advanceToZone, pages, addToast]
   );
@@ -71,9 +78,17 @@ export function useAutoAdvance() {
     const prevLevel = useLevelStore.getState().level;
     useLevelStore.getState().setLevel(event.level, event.characterName, event.class);
 
+    // Auto-switch phase on level trigger (pick highest matching)
+    const { buildPhases, activePhaseId, setActivePhase } = useCustomizationsStore.getState();
+    const levelPhases = buildPhases
+      .filter((p) => p.trigger.type === "level" && p.trigger.level != null && p.trigger.level <= event.level)
+      .sort((a, b) => (b.trigger.level ?? 0) - (a.trigger.level ?? 0));
+    if (levelPhases.length > 0 && levelPhases[0].id !== activePhaseId) {
+      setActivePhase(levelPhases[0].id);
+    }
+
     // Check build plan for newly available gems/gear
-    const { buildPhases, activePhaseId } = useCustomizationsStore.getState();
-    const phase = buildPhases.find((p) => p.id === activePhaseId);
+    const phase = buildPhases.find((p) => p.id === (levelPhases[0]?.id ?? activePhaseId));
     if (!phase || prevLevel >= event.level) return;
 
     const items: UnlockItem[] = [];

@@ -7,6 +7,8 @@ interface PhaseBarProps {
   activePhaseId: string | null;
   onSelectPhase: (id: string) => void;
   onAddPhase: (name: string, trigger: PhaseTrigger) => void;
+  onRemovePhase: (id: string) => void;
+  onRenamePhase: (id: string, name: string) => void;
 }
 
 function triggerLabel(trigger: PhaseTrigger): string {
@@ -25,9 +27,13 @@ export function PhaseBar({
   activePhaseId,
   onSelectPhase,
   onAddPhase,
+  onRemovePhase,
+  onRenamePhase,
 }: PhaseBarProps) {
   const [showAdd, setShowAdd] = useState(false);
   const [name, setName] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
   const [triggerType, setTriggerType] = useState<PhaseTrigger["type"]>("level");
   const [level, setLevel] = useState("");
 
@@ -59,17 +65,41 @@ export function PhaseBar({
   return (
     <div className={styles.bar}>
       {sortedPhases.map((phase) => (
-        <button
-          key={phase.id}
-          className={`${styles.tab} ${phase.id === activePhaseId ? styles.tabActive : ""}`}
-          onClick={() => onSelectPhase(phase.id)}
-          title={phase.name}
-        >
-          <span className={styles.tabName}>{phase.name}</span>
-          <span className={styles.tabTrigger}>
-            {triggerLabel(phase.trigger)}
-          </span>
-        </button>
+        editingId === phase.id ? (
+          <div key={phase.id} className={`${styles.tab} ${styles.tabActive}`}>
+            <input
+              className={styles.editInput}
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (editName.trim()) onRenamePhase(phase.id, editName.trim());
+                  setEditingId(null);
+                }
+                if (e.key === "Escape") setEditingId(null);
+              }}
+              onBlur={() => {
+                if (editName.trim()) onRenamePhase(phase.id, editName.trim());
+                setEditingId(null);
+              }}
+              autoFocus
+            />
+          </div>
+        ) : (
+          <button
+            key={phase.id}
+            className={`${styles.tab} ${phase.id === activePhaseId ? styles.tabActive : ""}`}
+            onClick={() => onSelectPhase(phase.id)}
+            onDoubleClick={() => { setEditingId(phase.id); setEditName(phase.name); }}
+            onContextMenu={(e) => { e.preventDefault(); onRemovePhase(phase.id); }}
+            title={`${phase.name} (double-click to rename, right-click to remove)`}
+          >
+            <span className={styles.tabName}>{phase.name}</span>
+            <span className={styles.tabTrigger}>
+              {triggerLabel(phase.trigger)}
+            </span>
+          </button>
+        )
       ))}
 
       {showAdd ? (
