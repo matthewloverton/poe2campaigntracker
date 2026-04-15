@@ -264,6 +264,13 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
           max={100}
         />
         <button
+          className={`${styles.ilvlPreset} ${ilvl === item.dropLevel ? styles.ilvlPresetActive : ""}`}
+          onClick={() => { setIlvlEnabled(true); setIlvl(item.dropLevel); }}
+          title={`Base drop level: ${item.dropLevel}`}
+        >
+          Base
+        </button>
+        <button
           className={`${styles.ilvlPreset} ${ilvl === 83 ? styles.ilvlPresetActive : ""}`}
           onClick={() => { setIlvlEnabled(true); setIlvl(83); }}
         >

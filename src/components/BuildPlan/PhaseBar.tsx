@@ -85,7 +85,9 @@ export function PhaseBar({
   const [name, setName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
-  const [editingTriggerId, setEditingTriggerId] = useState<string | null>(null);
+  const [editTriggerType, setEditTriggerType] = useState<PhaseTrigger["type"]>("level");
+  const [editLevel, setEditLevel] = useState("");
+  const [editZoneId, setEditZoneId] = useState("");
   const [triggerType, setTriggerType] = useState<PhaseTrigger["type"]>("level");
   const [level, setLevel] = useState("");
   const [zoneId, setZoneId] = useState("");
@@ -105,25 +107,30 @@ export function PhaseBar({
     onReorderPhases(reordered);
   }
 
-  function startEditTrigger(phase: BuildPhase, e: React.MouseEvent) {
-    e.stopPropagation();
-    setEditingTriggerId(phase.id);
-    setTriggerType(phase.trigger.type);
-    setLevel(phase.trigger.level?.toString() ?? "");
-    setZoneId(phase.trigger.zoneId ?? "");
+  function startEdit(phase: BuildPhase) {
+    setEditingId(phase.id);
+    setEditName(phase.name);
+    setEditTriggerType(phase.trigger.type);
+    setEditLevel(phase.trigger.level?.toString() ?? "");
+    setEditZoneId(phase.trigger.zoneId ?? "");
   }
 
-  function submitTriggerEdit() {
-    if (!editingTriggerId) return;
-    const trigger: PhaseTrigger = { type: triggerType };
-    if (triggerType === "level" && level) trigger.level = parseInt(level, 10) || undefined;
-    if (triggerType === "zone" && zoneId) {
-      const area = areas.find((a) => a.id === zoneId);
-      trigger.zoneId = zoneId;
+  function submitEdit() {
+    if (!editingId) return;
+    if (editName.trim()) onRenamePhase(editingId, editName.trim());
+    const trigger: PhaseTrigger = { type: editTriggerType };
+    if (editTriggerType === "level" && editLevel) trigger.level = parseInt(editLevel, 10) || undefined;
+    if (editTriggerType === "zone" && editZoneId) {
+      const area = areas.find((a) => a.id === editZoneId);
+      trigger.zoneId = editZoneId;
       trigger.zoneName = area?.name;
     }
-    onUpdateTrigger(editingTriggerId, trigger);
-    setEditingTriggerId(null);
+    onUpdateTrigger(editingId, trigger);
+    setEditingId(null);
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
   }
 
   const sortedPhases = [...phases].sort((a, b) => a.order - b.order);
@@ -176,24 +183,59 @@ export function PhaseBar({
         <SortableContext items={sortedPhases.map((p) => p.id)} strategy={horizontalListSortingStrategy}>
           {sortedPhases.map((phase) => (
             editingId === phase.id ? (
-              <div key={phase.id} className={`${styles.tab} ${styles.tabActive}`}>
+              <div key={phase.id} className={styles.addForm}>
                 <input
-                  className={styles.editInput}
+                  className={styles.addInput}
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      if (editName.trim()) onRenamePhase(phase.id, editName.trim());
-                      setEditingId(null);
-                    }
-                    if (e.key === "Escape") setEditingId(null);
-                  }}
-                  onBlur={() => {
-                    if (editName.trim()) onRenamePhase(phase.id, editName.trim());
-                    setEditingId(null);
+                    if (e.key === "Enter") submitEdit();
+                    if (e.key === "Escape") cancelEdit();
                   }}
                   autoFocus
                 />
+                <select
+                  className={styles.addSelect}
+                  value={editTriggerType}
+                  onChange={(e) => setEditTriggerType(e.target.value as PhaseTrigger["type"])}
+                >
+                  <option value="level">At Level</option>
+                  <option value="zone">At Zone</option>
+                  <option value="manual">Manual</option>
+                </select>
+                {editTriggerType === "level" && (
+                  <input
+                    className={styles.levelInput}
+                    type="number"
+                    placeholder="Lvl"
+                    min={1}
+                    max={100}
+                    value={editLevel}
+                    onChange={(e) => setEditLevel(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") submitEdit();
+                      if (e.key === "Escape") cancelEdit();
+                    }}
+                  />
+                )}
+                {editTriggerType === "zone" && (
+                  <select
+                    className={styles.addSelect}
+                    value={editZoneId}
+                    onChange={(e) => setEditZoneId(e.target.value)}
+                  >
+                    <option value="">Select zone...</option>
+                    {Array.from(zonesByAct.entries()).map(([act, zones]) => (
+                      <optgroup key={act} label={`Act ${act}`}>
+                        {zones.map((z) => (
+                          <option key={z.id} value={z.id}>{capitalize(z.name)}</option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+                )}
+                <button className={`${styles.formBtn} ${styles.formBtnAdd}`} onClick={submitEdit}>Save</button>
+                <button className={`${styles.formBtn} ${styles.formBtnCancel}`} onClick={cancelEdit}>Cancel</button>
               </div>
             ) : (
               <SortablePhaseTab
@@ -201,15 +243,11 @@ export function PhaseBar({
                 phase={phase}
                 isActive={phase.id === activePhaseId}
                 onSelect={() => onSelectPhase(phase.id)}
-                onDoubleClick={() => { setEditingId(phase.id); setEditName(phase.name); }}
+                onDoubleClick={() => startEdit(phase)}
                 onContextMenu={(e) => { e.preventDefault(); onRemovePhase(phase.id); }}
               >
                 <span className={styles.tabName}>{phase.name}</span>
-                <span
-                  className={styles.tabTrigger}
-                  onClick={(e) => startEditTrigger(phase, e)}
-                  title="Click to edit trigger"
-                >
+                <span className={styles.tabTrigger}>
                   {triggerLabel(phase.trigger)}
                 </span>
               </SortablePhaseTab>
@@ -217,59 +255,6 @@ export function PhaseBar({
           ))}
         </SortableContext>
       </DndContext>
-
-      {/* Trigger edit popover */}
-      {editingTriggerId && (
-        <div className={styles.addForm}>
-          <select
-            className={styles.addSelect}
-            value={triggerType}
-            onChange={(e) => setTriggerType(e.target.value as PhaseTrigger["type"])}
-          >
-            <option value="level">At Level</option>
-            <option value="zone">At Zone</option>
-            <option value="manual">Manual</option>
-          </select>
-          {triggerType === "level" && (
-            <input
-              className={styles.levelInput}
-              type="number"
-              placeholder="Lvl"
-              min={1}
-              max={100}
-              value={level}
-              onChange={(e) => setLevel(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") submitTriggerEdit();
-                if (e.key === "Escape") setEditingTriggerId(null);
-              }}
-              autoFocus
-            />
-          )}
-          {triggerType === "zone" && (
-            <select
-              className={styles.addSelect}
-              value={zoneId}
-              onChange={(e) => setZoneId(e.target.value)}
-            >
-              <option value="">Select zone...</option>
-              {Array.from(zonesByAct.entries()).map(([act, zones]) => (
-                <optgroup key={act} label={`Act ${act}`}>
-                  {zones.map((z) => (
-                    <option key={z.id} value={z.id}>{capitalize(z.name)}</option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-          )}
-          <button className={`${styles.formBtn} ${styles.formBtnAdd}`} onClick={submitTriggerEdit}>
-            Save
-          </button>
-          <button className={`${styles.formBtn} ${styles.formBtnCancel}`} onClick={() => setEditingTriggerId(null)}>
-            Cancel
-          </button>
-        </div>
-      )}
 
       {showAdd ? (
         <div className={styles.addForm}>
