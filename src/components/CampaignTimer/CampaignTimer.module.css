@@ -1,3 +1,8 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .timer {
   display: flex;
   align-items: center;
@@ -48,4 +53,37 @@
 
 .btn:hover {
   background: var(--bg-hover);
+}
+
+/* ── Splits panel ──────────────────────────────────────── */
+.splits {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0 0;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.splitRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.splitAct {
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.splitTime {
+  font-size: 0.65rem;
+  color: var(--text-primary);
+}
+
+.splitCurrent .splitAct {
+  color: var(--accent-gold);
+}
+
+.splitCurrent .splitTime {
+  color: var(--accent-gold);
 }
