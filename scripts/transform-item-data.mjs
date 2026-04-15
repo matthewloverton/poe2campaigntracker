@@ -320,23 +320,99 @@ function transformUniques(raw, uniqueModsMap) {
 // Transform: Augments (Runes, Soul Cores, Idols, Abyssal Eyes)
 // ---------------------------------------------------------------------------
 
+/** Proper display names for augments, sourced from poe2db/wiki */
+const AUGMENT_NAMES = {
+  // Runes
+  RuneFire: "Desert Rune", RuneFireLesser: "Lesser Desert Rune", RuneFireGreater: "Greater Desert Rune",
+  RuneCold: "Glacial Rune", RuneColdLesser: "Lesser Glacial Rune", RuneColdGreater: "Greater Glacial Rune",
+  RuneLightning: "Storm Rune", RuneLightningLesser: "Lesser Storm Rune", RuneLightningGreater: "Greater Storm Rune",
+  RuneStrength: "Iron Rune", RuneStrengthLesser: "Lesser Iron Rune", RuneStrengthGreater: "Greater Iron Rune",
+  RuneLife: "Body Rune", RuneLifeLesser: "Lesser Body Rune", RuneLifeGreater: "Greater Body Rune",
+  RuneMana: "Mind Rune", RuneManaLesser: "Lesser Mind Rune", RuneManaGreater: "Greater Mind Rune",
+  RuneLifeRecovery: "Rebirth Rune", RuneLifeRecoveryLesser: "Lesser Rebirth Rune", RuneLifeRecoveryGreater: "Greater Rebirth Rune",
+  RuneAccuracy: "Inspiration Rune", RuneAccuracyLesser: "Lesser Inspiration Rune", RuneAccuracyGreater: "Greater Inspiration Rune",
+  RuneEnhance: "Stone Rune", RuneEnhanceLesser: "Lesser Stone Rune", RuneEnhanceGreater: "Greater Stone Rune",
+  RuneSpecial1: "Vision Rune", RuneSpecial1Lesser: "Lesser Vision Rune", RuneSpecial1Greater: "Greater Vision Rune",
+  RuneDexterity: "Robust Rune", RuneDexterityLesser: "Lesser Robust Rune", RuneDexterityGreater: "Greater Robust Rune",
+  RuneIntelligence: "Adept Rune", RuneIntelligenceLesser: "Lesser Adept Rune", RuneIntelligenceGreater: "Greater Adept Rune",
+  RuneSpirit: "Resolve Rune", RuneSpiritLesser: "Lesser Resolve Rune", RuneSpiritGreater: "Greater Resolve Rune",
+  RuneElementalResist: "Tempered Rune", RuneElementalResistLesser: "Lesser Tempered Rune", RuneElementalResistGreater: "Greater Tempered Rune",
+  // Soul Cores (named)
+  SoulCoreBleed: "Tacati's Soul Core of Affliction",
+  SoulCoreChaos: "Citaqualotl's Soul Core of Foulness",
+  SoulCoreCrit: "Xopec's Soul Core of Power",
+  SoulCoreDexterity: "Atmohua's Soul Core of Retreat",
+  SoulCoreElemental: "Topotante's Soul Core of Dampening",
+  SoulCoreEndurance: "Guatelitzi's Soul Core of Endurance",
+  SoulCoreFire: "Hayoxi's Soul Core of Heatproofing",
+  SoulCoreFlow: "Quipolatl's Soul Core of Flow",
+  SoulCoreInsulation: "Zalatl's Soul Core of Insulation",
+  SoulCoreLifeRecovery: "Estazunti's Soul Core of Convalescence",
+  SoulCoreLightning: "Uromoti's Soul Core of Attenuation",
+  SoulCoreMaxLife: "Opiloti's Soul Core of Assault",
+  SoulCoreMinion: "Xipocado's Soul Core of Dominion",
+  SoulCorePhysical: "Cholotl's Soul Core of War",
+  SoulCoreSpeed: "Tzamoto's Soul Core of Ferocity",
+  // Soul Cores (of X)
+  SoulCoreOfTacati: "Soul Core of Tacati",
+  SoulCoreOfOpiloti: "Soul Core of Opiloti",
+  SoulCoreOfJiquani: "Soul Core of Jiquani",
+  SoulCoreOfZalatl: "Soul Core of Zalatl",
+  SoulCoreOfCitaqualotl: "Soul Core of Citaqualotl",
+  SoulCoreOfPuhuarte: "Soul Core of Puhuarte",
+  SoulCoreOfTzamoto: "Soul Core of Tzamoto",
+  SoulCoreOfXopec: "Soul Core of Xopec",
+  SoulCoreOfAzcapa: "Soul Core of Azcapa",
+  SoulCoreOfTopotante: "Soul Core of Topotante",
+  SoulCoreOfQuipolatl: "Soul Core of Quipolatl",
+  SoulCoreOfTicaba: "Soul Core of Ticaba",
+  SoulCoreOfAtmohua: "Soul Core of Atmohua",
+  SoulCoreOfCholotl: "Soul Core of Cholotl",
+  SoulCoreOfZantipi: "Soul Core of Zantipi",
+  // Theses
+  SoulCoreGuatelitzisThesis: "Guatelitzi's Thesis",
+  SoulCoreCitaqualotlsThesis: "Citaqualotl's Thesis",
+  SoulCoreJiquanisThesis: "Jiquani's Thesis",
+  SoulCoreQuipolatlsThesis: "Quipolatl's Thesis",
+  // Idols
+  TalismanBear: "Bear Idol", TalismanBoar: "Boar Idol", TalismanCat: "Cat Idol",
+  TalismanFox: "Fox Idol", TalismanMonkey: "Monkey Idol", TalismanOwl: "Owl Idol",
+  TalismanOx: "Ox Idol", TalismanRabbit: "Rabbit Idol", TalismanSnake: "Snake Idol",
+  TalismanStag: "Stag Idol", TalismanWolf: "Wolf Idol",
+  RuneManaRecovery: "Resolve Rune", RuneManaRecoveryLesser: "Lesser Resolve Rune", RuneManaRecoveryGreater: "Greater Resolve Rune",
+  RunePhysical: "Tempered Rune", RunePhysicalLesser: "Lesser Tempered Rune", RunePhysicalGreater: "Greater Tempered Rune",
+  RuneStun: "Stone Rune", RuneStunLesser: "Lesser Stone Rune", RuneStunGreater: "Greater Stone Rune",
+  SoulCoreEnlighten: "Soul Core of Enlightenment",
+  SoulCoreFreeze: "Soul Core of Frost",
+  SoulCoreIgnite: "Soul Core of Ignition",
+  SoulCoreIntelligence: "Soul Core of Intellect",
+  SoulCoreLight: "Soul Core of Light",
+  SoulCoreMaxMana: "Soul Core of Mana",
+  SoulCoreShock: "Soul Core of Storms",
+  SoulCoreStrength: "Soul Core of Might",
+  // Theses (alternate format)
+  ThesisOfBlood: "Guatelitzi's Thesis",
+  ThesisOfExperiments: "Citaqualotl's Thesis",
+  ThesisOfSacrifice: "Jiquani's Thesis",
+  ThesisOfSouls: "Quipolatl's Thesis",
+  // Abyssal Eyes
+  AmanamusGaze: "Amanamu's Gaze", KurgalsGaze: "Kurgal's Gaze",
+  TecrodsGaze: "Tecrod's Gaze", UlamansGaze: "Ulaman's Gaze",
+};
+
 function nameFromKey(metaKey) {
-  // "Metadata/Items/SoulCores/RuneAccuracy" → "Accuracy Rune"
   const last = metaKey.split("/").pop();
-  // Split camelCase/PascalCase
-  const words = last.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
-  // Move prefix type to end: "Rune Accuracy" → "Accuracy Rune", "Soul Core Bleed" → "Bleed Soul Core"
-  const parts = words.split(" ");
-  if (parts[0] === "Rune" && parts.length > 1) return parts.slice(1).join(" ") + " Rune";
-  if (parts[0] === "Soul" && parts[1] === "Core" && parts.length > 2) return parts.slice(2).join(" ") + " Soul Core";
-  if (parts[0] === "Talisman" && parts.length > 1) return parts.slice(1).join(" ") + " Idol";
-  return words;
+  return AUGMENT_NAMES[last] ?? last.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
 }
 
 function transformAugments(raw) {
   const results = [];
 
   for (const [key, aug] of Object.entries(raw)) {
+    const last = key.split("/").pop();
+    // Skip unreleased/placeholder entries
+    if (/Special\d+$/.test(last)) continue;
+
     const name = nameFromKey(key);
     const typeId = aug.type_id;
     const typeName = aug.type_name

@@ -1,93 +1,22 @@
 [
   {
-    "id": "Metadata/Items/SoulCores/RuneAccuracyGreater",
-    "name": "Accuracy Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "12% increased Life and Mana Recovery from Flasks"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "24% increased Critical Hit Chance for Spells"
-        ],
-        "bondedStatText": [
-          "25% increased Critical Damage Bonus"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+110 to Accuracy Rating"
-        ],
-        "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneAccuracyLesser",
-    "name": "Accuracy Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "8% increased Life and Mana Recovery from Flasks"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "16% increased Critical Hit Chance for Spells"
-        ],
-        "bondedStatText": [
-          "25% increased Critical Damage Bonus"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+50 to Accuracy Rating"
-        ],
-        "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneAccuracy",
-    "name": "Accuracy Rune",
+    "id": "Metadata/Items/SoulCores/RuneIntelligence",
+    "name": "Adept Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 15,
     "limit": null,
     "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+8 to Intelligence"
+        ],
+        "bondedStatText": []
+      },
       "Armour": {
         "target": "Armour",
-        "statText": [
-          "10% increased Life and Mana Recovery from Flasks"
-        ],
+        "statText": [],
         "bondedStatText": [
           "+10 to maximum Life",
           "+10 to maximum Mana"
@@ -95,27 +24,24 @@
       },
       "Caster Weapons": {
         "target": "Wand or Staff",
-        "statText": [
-          "20% increased Critical Hit Chance for Spells"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "25% increased Critical Damage Bonus"
+          "+50 to maximum Energy Shield"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+80 to Accuracy Rating"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "Attacks have +1% to Critical Hit Chance"
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 5 to 8 Cold damage to Attacks"
         ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/AmanamusGaze",
-    "name": "Amanamus Gaze",
+    "name": "Amanamu's Gaze",
     "typeId": "AbyssalEye",
     "typeName": "Abyssal Eye",
     "requiredLevel": 60,
@@ -145,6 +71,30 @@
         ],
         "statText": [
           "Remove a Damaging Ailment when you use a Command Skill"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/SoulCoreDexterity",
+    "name": "Atmohua's Soul Core of Retreat",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "Convert 20% of Requirements to Dexterity"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Convert 20% of Requirements to Dexterity"
         ],
         "bondedStatText": []
       }
@@ -183,32 +133,6 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/SoulCoreBleed",
-    "name": "Bleed Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "20% increased Charm Charges gained"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "15% chance to cause Bleeding on Hit"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
     "id": "Metadata/Items/SoulCores/TalismanBoar",
     "name": "Boar Idol",
     "typeId": "Idol",
@@ -236,6 +160,44 @@
         ],
         "bondedStatText": [
           "25% increased Life Regeneration rate while Shapeshifted"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneLife",
+    "name": "Body Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+30 to maximum Life"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "+30 to maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Life"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Leeches 2.5% of Physical Damage as Life"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Life"
         ]
       }
     }
@@ -274,7 +236,7 @@
   },
   {
     "id": "Metadata/Items/SoulCores/SoulCoreChaos",
-    "name": "Chaos Soul Core",
+    "name": "Citaqualotl's Soul Core of Foulness",
     "typeId": "SoulCore",
     "typeName": "Soul Core",
     "requiredLevel": 0,
@@ -297,542 +259,45 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneColdGreater",
-    "name": "Cold Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+14% to Cold Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 10% of Damage as Extra Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 9 to 15 Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneColdLesser",
-    "name": "Cold Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+10% to Cold Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 6% of Damage as Extra Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 3 to 5 Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneCold",
-    "name": "Cold Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+12% to Cold Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 8% of Damage as Extra Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 6 to 10 Cold Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Freeze Buildup"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreCrit",
-    "name": "Crit Soul Core",
+    "id": "Metadata/Items/SoulCores/ThesisOfExperiments",
+    "name": "Citaqualotl's Thesis",
     "typeId": "SoulCore",
     "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
+    "requiredLevel": 60,
+    "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
       "Body Armour": {
         "target": [
           "Body Armours"
         ],
         "statText": [
-          "Hits against you have 20% reduced Critical Damage Bonus"
+          "+50% of Armour also applies to Chaos Damage while on full Energy Shield"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+5% to Critical Damage Bonus"
-        ],
-        "bondedStatText": []
-      },
-      "Shield": {
+      "Gloves": {
         "target": [
-          "Shields",
-          "Bucklers"
+          "Gloves"
         ],
         "statText": [
-          "Hits against you have 20% reduced Critical Damage Bonus"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneDexterityGreater",
-    "name": "Dexterity Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+10 to Dexterity"
+          "Each Runic Inscription from your Curse Skills causes you to Regenerate Mana per second equal to 10% of that Skill's Mana Cost"
         ],
         "bondedStatText": []
       },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneDexterityLesser",
-    "name": "Dexterity Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+6 to Dexterity"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneDexterity",
-    "name": "Dexterity Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+8 to Dexterity"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+80 to Evasion Rating"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 1 to 16 Lightning damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreDexterity",
-    "name": "Dexterity Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "Convert 20% of Requirements to Dexterity"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Convert 20% of Requirements to Dexterity"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreElemental",
-    "name": "Elemental Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Boots": {
+      "Helmet": {
         "target": [
-          "Boots"
+          "Helmets"
         ],
         "statText": [
-          "25% increased Elemental Ailment Threshold"
+          "A random Skill that requires Glory generates 15% of its maximum Glory when your Mark Activates"
         ],
         "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Attacks with this Weapon Penetrate 15% Elemental Resistances"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneEnhanceGreater",
-    "name": "Enhance Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "18% increased Armour, Evasion and Energy Shield"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "30% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "18% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneEnhanceLesser",
-    "name": "Enhance Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "14% increased Armour, Evasion and Energy Shield"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "20% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "14% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneEnhance",
-    "name": "Enhance Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "16% increased Armour, Evasion and Energy Shield"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "25% increased Spell Damage"
-        ],
-        "bondedStatText": [
-          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "16% increased Physical Damage"
-        ],
-        "bondedStatText": [
-          "20% increased effect of Fully Broken Armour"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreEnlighten",
-    "name": "Enlighten Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+5% to all Elemental Resistances"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "30% increased Elemental Damage with Attacks"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneFireGreater",
-    "name": "Fire Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+14% to Fire Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 10% of Damage as Extra Fire Damage"
-        ],
-        "bondedStatText": [
-          "25% increased Ignite Magnitude"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 13 to 16 Fire Damage"
-        ],
-        "bondedStatText": [
-          "25% increased Ignite Magnitude"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneFireLesser",
-    "name": "Fire Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+10% to Fire Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 6% of Damage as Extra Fire Damage"
-        ],
-        "bondedStatText": [
-          "25% increased Ignite Magnitude"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 4 to 6 Fire Damage"
-        ],
-        "bondedStatText": [
-          "25% increased Ignite Magnitude"
-        ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/RuneFire",
-    "name": "Fire Rune",
+    "name": "Desert Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 15,
@@ -901,60 +366,46 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/SoulCoreFreeze",
-    "name": "Freeze Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
+    "id": "Metadata/Items/SoulCores/RuneCold",
+    "name": "Glacial Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Armour": {
+        "target": "Armour",
         "statText": [
-          "+1% to Maximum Cold Resistance"
+          "+12% to Cold Resistance"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
+      "Caster Weapons": {
+        "target": "Wand or Staff",
         "statText": [
+          "Gain 8% of Damage as Extra Cold Damage"
+        ],
+        "bondedStatText": [
           "30% increased Freeze Buildup"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreIgnite",
-    "name": "Ignite Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "+1% to Maximum Fire Resistance"
-        ],
-        "bondedStatText": []
+        ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "30% increased Flammability Magnitude"
+          "Adds 6 to 10 Cold Damage"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "30% increased Freeze Buildup"
+        ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/RuneIntelligenceGreater",
-    "name": "Intelligence Greater Rune",
+    "name": "Greater Adept Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 30,
@@ -993,8 +444,682 @@
     }
   },
   {
+    "id": "Metadata/Items/SoulCores/RuneLifeGreater",
+    "name": "Greater Body Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+40 to maximum Life"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "+35 to maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Life"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Leeches 3% of Physical Damage as Life"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Life"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneFireGreater",
+    "name": "Greater Desert Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+14% to Fire Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 10% of Damage as Extra Fire Damage"
+        ],
+        "bondedStatText": [
+          "25% increased Ignite Magnitude"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 13 to 16 Fire Damage"
+        ],
+        "bondedStatText": [
+          "25% increased Ignite Magnitude"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneColdGreater",
+    "name": "Greater Glacial Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+14% to Cold Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 10% of Damage as Extra Cold Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Freeze Buildup"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 9 to 15 Cold Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Freeze Buildup"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneAccuracyGreater",
+    "name": "Greater Inspiration Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "12% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "24% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "+110 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneStrengthGreater",
+    "name": "Greater Iron Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+10 to Strength"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "target": "Armour",
+        "statText": [],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [],
+        "bondedStatText": [
+          "+100 to Armour"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 6 to 10 Fire damage to Attacks"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneManaGreater",
+    "name": "Greater Mind Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+35 to maximum Mana"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "+50 to maximum Mana"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Mana"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Leeches 2.5% of Physical Damage as Mana"
+        ],
+        "bondedStatText": [
+          "5% increased maximum Mana"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneLifeRecoveryGreater",
+    "name": "Greater Rebirth Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "Regenerate 0.35% of maximum Life per second"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "18% increased Energy Shield Recharge Rate"
+        ],
+        "bondedStatText": [
+          "8% of Damage taken Recouped as Life"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Gain 30 Life per enemy killed"
+        ],
+        "bondedStatText": [
+          "Regenerate 0.4% of maximum Life per second"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneManaRecoveryGreater",
+    "name": "Greater Resolve Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "18% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "24% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "16% increased Mana Cost Efficiency"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Gain 24 Mana per enemy killed"
+        ],
+        "bondedStatText": [
+          "12% of Skill Mana Costs Converted to Life Costs"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneDexterityGreater",
+    "name": "Greater Robust Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+10 to Dexterity"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "target": "Armour",
+        "statText": [],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 1 to 16 Lightning damage to Attacks"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneEnhanceGreater",
+    "name": "Greater Stone Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "18% increased Armour, Evasion and Energy Shield"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "30% increased Spell Damage"
+        ],
+        "bondedStatText": [
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "18% increased Physical Damage"
+        ],
+        "bondedStatText": [
+          "20% increased effect of Fully Broken Armour"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneStunGreater",
+    "name": "Greater Stone Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+80 to Stun Threshold"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain additional Stun Threshold equal to 14% of maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "30% increased Immobilisation buildup"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Causes 30% increased Stun Buildup"
+        ],
+        "bondedStatText": [
+          "40% increased Damage against Immobilised Enemies"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneLightningGreater",
+    "name": "Greater Storm Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+14% to Lightning Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 10% of Damage as Extra Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 1 to 30 Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RunePhysicalGreater",
+    "name": "Greater Tempered Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 30,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "31 to 52 Physical Thorns damage"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 9 to 12 Physical Damage"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/ThesisOfBlood",
+    "name": "Guatelitzi's Thesis",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 60,
+    "limit": "1 [Ancient|Ancient Augment]",
+    "effects": {
+      "Body Armour": {
+        "target": [
+          "Body Armours"
+        ],
+        "statText": [
+          "10% of Physical Damage prevented Recouped as Life"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "target": [
+          "Boots"
+        ],
+        "statText": [
+          "Lose 5% of maximum Life per second while Sprinting",
+          "25% increased Movement Speed while Sprinting"
+        ],
+        "bondedStatText": []
+      },
+      "Helmet": {
+        "target": [
+          "Helmets"
+        ],
+        "statText": [
+          "Gain Armour equal to 25% of Life Lost from Hits in the past 8 seconds"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneAccuracy",
+    "name": "Inspiration Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "10% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "20% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "+80 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneStrength",
+    "name": "Iron Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+8 to Strength"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "target": "Armour",
+        "statText": [],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [],
+        "bondedStatText": [
+          "+100 to Armour"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 6 to 10 Fire damage to Attacks"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/ThesisOfSacrifice",
+    "name": "Jiquani's Thesis",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 60,
+    "limit": "1 [Ancient|Ancient Augment]",
+    "effects": {
+      "Body Armour": {
+        "target": [
+          "Body Armours"
+        ],
+        "statText": [
+          "You Recoup 50% of Damage taken by your Offerings as Life"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "target": [
+          "Boots"
+        ],
+        "statText": [
+          "Sacrifice 10% of maximum Life to gain that much Guard when you Dodge Roll"
+        ],
+        "bondedStatText": []
+      },
+      "Gloves": {
+        "target": [
+          "Gloves"
+        ],
+        "statText": [
+          "One of your Persistent Minions revives when an Offering expires"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/KurgalsGaze",
+    "name": "Kurgal's Gaze",
+    "typeId": "AbyssalEye",
+    "typeName": "Abyssal Eye",
+    "requiredLevel": 60,
+    "limit": "1 [Ancient|Ancient Augment]",
+    "effects": {
+      "Boots": {
+        "target": [
+          "Boots"
+        ],
+        "statText": [
+          "15% increased Mana Cost Efficiency if you haven't Dodge Rolled Recently"
+        ],
+        "bondedStatText": []
+      },
+      "Gloves": {
+        "target": [
+          "Gloves"
+        ],
+        "statText": [
+          "40% increased effect of Arcane Surge on you"
+        ],
+        "bondedStatText": []
+      },
+      "Helmet": {
+        "target": [
+          "Helmets"
+        ],
+        "statText": [
+          "Increases and Reductions to Life Regeneration Rate also apply to Mana Regeneration Rate"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/RuneIntelligenceLesser",
-    "name": "Intelligence Lesser Rune",
+    "name": "Lesser Adept Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 0,
@@ -1033,147 +1158,8 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneIntelligence",
-    "name": "Intelligence Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+8 to Intelligence"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+50 to maximum Energy Shield"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 5 to 8 Cold damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreIntelligence",
-    "name": "Intelligence Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "Convert 20% of Requirements to Intelligence"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Convert 20% of Requirements to Intelligence"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/KurgalsGaze",
-    "name": "Kurgals Gaze",
-    "typeId": "AbyssalEye",
-    "typeName": "Abyssal Eye",
-    "requiredLevel": 60,
-    "limit": "1 [Ancient|Ancient Augment]",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "15% increased Mana Cost Efficiency if you haven't Dodge Rolled Recently"
-        ],
-        "bondedStatText": []
-      },
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "40% increased effect of Arcane Surge on you"
-        ],
-        "bondedStatText": []
-      },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Increases and Reductions to Life Regeneration Rate also apply to Mana Regeneration Rate"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLifeGreater",
-    "name": "Life Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+40 to maximum Life"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "+35 to maximum Energy Shield"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Life"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Leeches 3% of Physical Damage as Life"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Life"
-        ]
-      }
-    }
-  },
-  {
     "id": "Metadata/Items/SoulCores/RuneLifeLesser",
-    "name": "Life Lesser Rune",
+    "name": "Lesser Body Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 0,
@@ -1210,46 +1196,8 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneLifeRecoveryGreater",
-    "name": "Life Recovery Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "Regenerate 0.35% of maximum Life per second"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "18% increased Energy Shield Recharge Rate"
-        ],
-        "bondedStatText": [
-          "8% of Damage taken Recouped as Life"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 30 Life per enemy killed"
-        ],
-        "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLifeRecoveryLesser",
-    "name": "Life Recovery Lesser Rune",
+    "id": "Metadata/Items/SoulCores/RuneFireLesser",
+    "name": "Lesser Desert Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 0,
@@ -1258,7 +1206,7 @@
       "Armour": {
         "target": "Armour",
         "statText": [
-          "Regenerate 0.25% of maximum Life per second"
+          "+10% to Fire Resistance"
         ],
         "bondedStatText": [
           "+10 to maximum Life",
@@ -1268,138 +1216,117 @@
       "Caster Weapons": {
         "target": "Wand or Staff",
         "statText": [
-          "12% increased Energy Shield Recharge Rate"
+          "Gain 6% of Damage as Extra Fire Damage"
         ],
         "bondedStatText": [
-          "8% of Damage taken Recouped as Life"
+          "25% increased Ignite Magnitude"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Gain 10 Life per enemy killed"
+          "Adds 4 to 6 Fire Damage"
         ],
         "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
+          "25% increased Ignite Magnitude"
         ]
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneLifeRecovery",
-    "name": "Life Recovery Rune",
+    "id": "Metadata/Items/SoulCores/RuneColdLesser",
+    "name": "Lesser Glacial Rune",
     "typeId": "Rune",
     "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "Regenerate 0.3% of maximum Life per second"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "15% increased Energy Shield Recharge Rate"
-        ],
-        "bondedStatText": [
-          "8% of Damage taken Recouped as Life"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 20 Life per enemy killed"
-        ],
-        "bondedStatText": [
-          "Regenerate 0.4% of maximum Life per second"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLife",
-    "name": "Life Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+30 to maximum Life"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "+30 to maximum Energy Shield"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Life"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Leeches 2.5% of Physical Damage as Life"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Life"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreLight",
-    "name": "Light Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
     "requiredLevel": 0,
     "limit": null,
     "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
+      "Armour": {
+        "target": "Armour",
         "statText": [
-          "10% increased Quantity of Gold Dropped by Slain Enemies"
+          "+10% to Cold Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 6% of Damage as Extra Cold Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Freeze Buildup"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 3 to 5 Cold Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Freeze Buildup"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneAccuracyLesser",
+    "name": "Lesser Inspiration Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "8% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "16% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "+50 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneStrengthLesser",
+    "name": "Lesser Iron Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+6 to Strength"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "+15 to Spirit"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLightningGreater",
-    "name": "Lightning Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
       "Armour": {
         "target": "Armour",
-        "statText": [
-          "+14% to Lightning Resistance"
-        ],
+        "statText": [],
         "bondedStatText": [
           "+10 to maximum Life",
           "+10 to maximum Mana"
@@ -1407,141 +1334,24 @@
       },
       "Caster Weapons": {
         "target": "Wand or Staff",
-        "statText": [
-          "Gain 10% of Damage as Extra Lightning Damage"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
+          "+100 to Armour"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 1 to 30 Lightning Damage"
-        ],
+        "statText": [],
         "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLightningLesser",
-    "name": "Lightning Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+10% to Lightning Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 6% of Damage as Extra Lightning Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 1 to 10 Lightning Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneLightning",
-    "name": "Lightning Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+12% to Lightning Resistance"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 8% of Damage as Extra Lightning Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 1 to 20 Lightning Damage"
-        ],
-        "bondedStatText": [
-          "30% increased Magnitude of Shock you inflict"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneManaGreater",
-    "name": "Mana Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+35 to maximum Mana"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "+50 to maximum Mana"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Mana"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Leeches 2.5% of Physical Damage as Mana"
-        ],
-        "bondedStatText": [
-          "5% increased maximum Mana"
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 6 to 10 Fire damage to Attacks"
         ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/RuneManaLesser",
-    "name": "Mana Lesser Rune",
+    "name": "Lesser Mind Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 0,
@@ -1578,17 +1388,17 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneManaRecoveryGreater",
-    "name": "Mana Recovery Greater Rune",
+    "id": "Metadata/Items/SoulCores/RuneLifeRecoveryLesser",
+    "name": "Lesser Rebirth Rune",
     "typeId": "Rune",
     "typeName": "Rune",
-    "requiredLevel": 30,
+    "requiredLevel": 0,
     "limit": null,
     "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "18% increased Mana Regeneration Rate"
+          "Regenerate 0.25% of maximum Life per second"
         ],
         "bondedStatText": [
           "+10 to maximum Life",
@@ -1598,26 +1408,26 @@
       "Caster Weapons": {
         "target": "Wand or Staff",
         "statText": [
-          "24% increased Mana Regeneration Rate"
+          "12% increased Energy Shield Recharge Rate"
         ],
         "bondedStatText": [
-          "16% increased Mana Cost Efficiency"
+          "8% of Damage taken Recouped as Life"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Gain 24 Mana per enemy killed"
+          "Gain 10 Life per enemy killed"
         ],
         "bondedStatText": [
-          "12% of Skill Mana Costs Converted to Life Costs"
+          "Regenerate 0.4% of maximum Life per second"
         ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/RuneManaRecoveryLesser",
-    "name": "Mana Recovery Lesser Rune",
+    "name": "Lesser Resolve Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 0,
@@ -1654,17 +1464,57 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneManaRecovery",
-    "name": "Mana Recovery Rune",
+    "id": "Metadata/Items/SoulCores/RuneDexterityLesser",
+    "name": "Lesser Robust Rune",
     "typeId": "Rune",
     "typeName": "Rune",
-    "requiredLevel": 15,
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+6 to Dexterity"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "target": "Armour",
+        "statText": [],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 1 to 16 Lightning damage to Attacks"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneEnhanceLesser",
+    "name": "Lesser Stone Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
     "limit": null,
     "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "15% increased Mana Regeneration Rate"
+          "14% increased Armour, Evasion and Energy Shield"
         ],
         "bondedStatText": [
           "+10 to maximum Life",
@@ -1674,26 +1524,126 @@
       "Caster Weapons": {
         "target": "Wand or Staff",
         "statText": [
-          "20% increased Mana Regeneration Rate"
+          "20% increased Spell Damage"
         ],
         "bondedStatText": [
-          "16% increased Mana Cost Efficiency"
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Gain 16 Mana per enemy killed"
+          "14% increased Physical Damage"
         ],
         "bondedStatText": [
-          "12% of Skill Mana Costs Converted to Life Costs"
+          "20% increased effect of Fully Broken Armour"
         ]
       }
     }
   },
   {
+    "id": "Metadata/Items/SoulCores/RuneStunLesser",
+    "name": "Lesser Stone Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+40 to Stun Threshold"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain additional Stun Threshold equal to 10% of maximum Energy Shield"
+        ],
+        "bondedStatText": [
+          "30% increased Immobilisation buildup"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Causes 20% increased Stun Buildup"
+        ],
+        "bondedStatText": [
+          "40% increased Damage against Immobilised Enemies"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneLightningLesser",
+    "name": "Lesser Storm Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+10% to Lightning Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 6% of Damage as Extra Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 1 to 10 Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RunePhysicalLesser",
+    "name": "Lesser Tempered Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "6 to 9 Physical Thorns damage"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 3 to 4 Physical Damage"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/RuneMana",
-    "name": "Mana Rune",
+    "name": "Mind Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 15,
@@ -1730,58 +1680,6 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/SoulCoreMaxLife",
-    "name": "Max Life Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "3% increased maximum Life"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Recover 2% of maximum Life on Kill"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreMaxMana",
-    "name": "Max Mana Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "3% increased maximum Mana"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Recover 2% of maximum Mana on Kill"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
     "id": "Metadata/Items/SoulCores/TalismanMonkey",
     "name": "Monkey Idol",
     "typeId": "Idol",
@@ -1810,6 +1708,32 @@
         "bondedStatText": [
           "40% increased Damage while Shapeshifted"
         ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/SoulCoreMaxLife",
+    "name": "Opiloti's Soul Core of Assault",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armour": {
+        "target": [
+          "Body Armours"
+        ],
+        "statText": [
+          "3% increased maximum Life"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Recover 2% of maximum Life on Kill"
+        ],
+        "bondedStatText": []
       }
     }
   },
@@ -1879,72 +1803,37 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RunePhysicalGreater",
-    "name": "Physical Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
+    "id": "Metadata/Items/SoulCores/ThesisOfSouls",
+    "name": "Quipolatl's Thesis",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 60,
+    "limit": "1 [Ancient|Ancient Augment]",
     "effects": {
-      "Armour": {
-        "target": "Armour",
+      "Boots": {
+        "target": [
+          "Boots"
+        ],
         "statText": [
-          "31 to 52 Physical Thorns damage"
+          "Increases and Reductions to Movement Speed also\n apply to Energy Shield Recharge Rate"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 9 to 12 Physical Damage"
+      "Gloves": {
+        "target": [
+          "Gloves"
         ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RunePhysicalLesser",
-    "name": "Physical Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
         "statText": [
-          "6 to 9 Physical Thorns damage"
+          "Energy Shield Recharge starts after spending a total of\n 2000 Mana, no more than once every 2 seconds"
         ],
         "bondedStatText": []
       },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 3 to 4 Physical Damage"
+      "Helmet": {
+        "target": [
+          "Helmets"
         ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RunePhysical",
-    "name": "Physical Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 15,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
         "statText": [
-          "14 to 21 Physical Thorns damage"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 6 to 9 Physical Damage"
+          "+1 to maximum Mana per 2 Item Energy Shield on Equipped Helmet"
         ],
         "bondedStatText": []
       }
@@ -1983,28 +1872,118 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/SoulCoreShock",
-    "name": "Shock Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
+    "id": "Metadata/Items/SoulCores/RuneLifeRecovery",
+    "name": "Rebirth Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Armour": {
+        "target": "Armour",
         "statText": [
-          "+1% to Maximum Lightning Resistance"
+          "Regenerate 0.3% of maximum Life per second"
         ],
-        "bondedStatText": []
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "15% increased Energy Shield Recharge Rate"
+        ],
+        "bondedStatText": [
+          "8% of Damage taken Recouped as Life"
+        ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "30% increased chance to Shock"
+          "Gain 20 Life per enemy killed"
+        ],
+        "bondedStatText": [
+          "Regenerate 0.4% of maximum Life per second"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneManaRecovery",
+    "name": "Resolve Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "15% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "20% increased Mana Regeneration Rate"
+        ],
+        "bondedStatText": [
+          "16% increased Mana Cost Efficiency"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Gain 16 Mana per enemy killed"
+        ],
+        "bondedStatText": [
+          "12% of Skill Mana Costs Converted to Life Costs"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/RuneDexterity",
+    "name": "Robust Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "All": {
+        "target": "All Equipment",
+        "statText": [
+          "+8 to Dexterity"
         ],
         "bondedStatText": []
+      },
+      "Armour": {
+        "target": "Armour",
+        "statText": [],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [],
+        "bondedStatText": [
+          "+80 to Evasion Rating"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [],
+        "bondedStatText": [
+          "Adds 6 to 10 Physical Damage to Attacks",
+          "Adds 1 to 16 Lightning damage to Attacks"
+        ]
       }
     }
   },
@@ -2041,1034 +2020,184 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial1",
-    "name": "Special1 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "8% increased Attack Speed"
-        ],
-        "bondedStatText": [
-          "15% reduced Slowing Potency of Debuffs on You"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial1",
-    "name": "Special1 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
+    "id": "Metadata/Items/SoulCores/SoulCoreEnlighten",
+    "name": "Soul Core of Enlightenment",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
     "requiredLevel": 0,
     "limit": null,
     "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "Minions take 10% of Physical Damage as Lightning Damage"
-        ],
-        "bondedStatText": [
-          "Minions have +10% to all Elemental Resistances"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Minions gain 10% of their Physical Damage as Extra Lightning Damage"
-        ],
-        "bondedStatText": [
-          "Minions deal 20% increased Damage"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial1",
-    "name": "Special1 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "+40% of Armour also applies to Cold Damage"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial10",
-    "name": "Special10 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "50% reduced effect of Curses on you"
-        ],
-        "bondedStatText": [
-          "8% increased Curse Magnitudes"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial10",
-    "name": "Special10 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "50% chance when you gain a Power Charge to gain an additional Power Charge"
+          "+5% to all Elemental Resistances"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "50% chance when you gain a Power Charge to gain an additional Power Charge"
+          "30% increased Elemental Damage with Attacks"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial11",
-    "name": "Special11 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
+    "id": "Metadata/Items/SoulCores/SoulCoreFreeze",
+    "name": "Soul Core of Frost",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
     "effects": {
       "Helmet": {
         "target": [
           "Helmets"
         ],
         "statText": [
-          "2% increased Experience gain"
-        ],
-        "bondedStatText": [
-          "+10% to all Elemental Resistances"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial11",
-    "name": "Special11 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "12% increased speed of Recoup Effects"
+          "+1% to Maximum Cold Resistance"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "8% of Damage taken Recouped as Life"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial12",
-    "name": "Special12 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "25% increased Exposure Effect"
-        ],
-        "bondedStatText": [
-          "15% increased Magnitude of Non-Damaging Ailments you inflict"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial12",
-    "name": "Special12 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Enemies you Curse have -5% to Chaos Resistance"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial13",
-    "name": "Special13 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "50% increased Attack Damage against Rare or Unique Enemies"
-        ],
-        "bondedStatText": [
-          "+1 to Level of all Attack Skills"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial13",
-    "name": "Special13 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Bow": {
-        "target": [
-          "Bows"
-        ],
-        "statText": [
-          "20% increased Projectile Speed"
+          "30% increased Freeze Buildup"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial14",
-    "name": "Special14 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "50% increased Energy Shield Recharge Rate"
-        ],
-        "bondedStatText": [
-          "20% faster start of Energy Shield Recharge"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial14",
-    "name": "Special14 Soul Core",
+    "id": "Metadata/Items/SoulCores/SoulCoreIgnite",
+    "name": "Soul Core of Ignition",
     "typeId": "SoulCore",
     "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 19 to 29 Chaos damage"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial15",
-    "name": "Special15 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
+    "requiredLevel": 0,
+    "limit": null,
     "effects": {
       "Gloves": {
         "target": [
           "Gloves"
         ],
         "statText": [
-          "20% increased Magnitude of Damaging Ailments you inflict"
-        ],
-        "bondedStatText": [
-          "15% increased Duration of Damaging Ailments on Enemies"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial15",
-    "name": "Special15 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Minions deal 40% increased Damage with Command Skills"
+          "+1% to Maximum Fire Resistance"
         ],
         "bondedStatText": []
       },
-      "Sceptre": {
-        "target": [
-          "Sceptres"
-        ],
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Minions deal 40% increased Damage with Command Skills"
+          "30% increased Flammability Magnitude"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial16",
-    "name": "Special16 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "30% increased Magnitude of Non-Damaging Ailments you inflict"
-        ],
-        "bondedStatText": [
-          "15% increased Duration of Elemental Ailments on Enemies"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial17",
-    "name": "Special17 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "8% increased Cast Speed"
-        ],
-        "bondedStatText": [
-          "20% increased Mana Cost Efficiency while on Low Mana"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial18",
-    "name": "Special18 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Bow": {
-        "target": [
-          "Bows"
-        ],
-        "statText": [
-          "Bow Attacks fire an additional Arrow"
-        ],
-        "bondedStatText": [
-          "20% increased Projectile Speed"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial19",
-    "name": "Special19 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "25% chance for Spell Skills to fire 2 additional Projectiles"
-        ],
-        "bondedStatText": [
-          "Every Rage also grants 1% increased Spell Damage"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial2",
-    "name": "Special2 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Targets can be affected by +1 of your Poisons at the same time",
-          "25% reduced Poison Duration"
-        ],
-        "bondedStatText": [
-          "Gain 13% of Elemental Damage as Extra Chaos Damage"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial2",
-    "name": "Special2 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
+    "id": "Metadata/Items/SoulCores/SoulCoreIntelligence",
+    "name": "Soul Core of Intellect",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
     "requiredLevel": 0,
     "limit": null,
     "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "1 to 100 Lightning Thorns damage"
+          "Convert 20% of Requirements to Intelligence"
         ],
-        "bondedStatText": [
-          "15% increased Thorns damage"
-        ]
+        "bondedStatText": []
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Meta Skills gain 10% increased Energy"
-        ],
-        "bondedStatText": [
-          "Invocated Spells have 25% chance to consume half as much Energy"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial2",
-    "name": "Special2 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "+40% of Armour also applies to Lightning Damage"
+          "Convert 20% of Requirements to Intelligence"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial20",
-    "name": "Special20 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
+    "id": "Metadata/Items/SoulCores/SoulCoreLight",
+    "name": "Soul Core of Light",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
     "effects": {
       "Gloves": {
         "target": [
           "Gloves"
         ],
         "statText": [
-          "20% increased Withered Magnitude"
+          "10% increased Quantity of Gold Dropped by Slain Enemies"
         ],
-        "bondedStatText": [
-          "+7% to Chaos Resistance"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial21",
-    "name": "Special21 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
+        "bondedStatText": []
+      },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Adds 23 to 34 Fire Damage"
+          "+15 to Spirit"
         ],
-        "bondedStatText": [
-          "+2% to Maximum Fire Resistance"
-        ]
+        "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial22",
-    "name": "Special22 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
+    "id": "Metadata/Items/SoulCores/SoulCoreMaxMana",
+    "name": "Soul Core of Mana",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
     "effects": {
+      "Helmet": {
+        "target": [
+          "Helmets"
+        ],
+        "statText": [
+          "3% increased maximum Mana"
+        ],
+        "bondedStatText": []
+      },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Adds 19 to 28 Cold Damage"
+          "Recover 2% of maximum Mana on Kill"
         ],
-        "bondedStatText": [
-          "+2% to Maximum Cold Resistance"
-        ]
+        "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial23",
-    "name": "Special23 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Adds 1 to 60 Lightning Damage"
-        ],
-        "bondedStatText": [
-          "+2% to Maximum Lightning Resistance"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial24",
-    "name": "Special24 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "Adds 5 to 12 Physical Damage to Attacks"
-        ],
-        "bondedStatText": [
-          "Fissure Skills have +2 to Limit"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial25",
-    "name": "Special25 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "15% of Damage is taken from Mana before Life"
-        ],
-        "bondedStatText": [
-          "8% of Maximum Life Converted to Energy Shield"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial3",
-    "name": "Special3 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "20% increased total Power counted by Warcries"
-        ],
-        "bondedStatText": [
-          "20% increased Glory generation"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial3",
-    "name": "Special3 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
+    "id": "Metadata/Items/SoulCores/SoulCoreStrength",
+    "name": "Soul Core of Might",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
     "requiredLevel": 0,
     "limit": null,
     "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "Debuffs on you expire 8% faster"
-        ],
-        "bondedStatText": [
-          "15% increased Elemental Ailment Threshold"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "8% increased Skill Speed"
-        ],
-        "bondedStatText": [
-          "15% increased Reservation Efficiency of Herald Skills"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial3",
-    "name": "Special3 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "+40% of Armour also applies to Fire Damage"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial4",
-    "name": "Special4 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "12% increased Cost Efficiency"
-        ],
-        "bondedStatText": [
-          "Meta Skills have 12% increased Reservation Efficiency"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial4",
-    "name": "Special4 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "10% reduced effect of Shock on you"
-        ],
-        "bondedStatText": [
-          "10% reduced Shock duration on you"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Attacks with this Weapon have 10% chance to inflict Exposure"
-        ],
-        "bondedStatText": [
-          "20% increased Exposure Effect"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial4",
-    "name": "Special4 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "30% faster start of Energy Shield Recharge"
-        ],
-        "bondedStatText": []
-      },
-      "Focus": {
-        "target": [
-          "Foci"
-        ],
-        "statText": [
-          "30% faster start of Energy Shield Recharge"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial5",
-    "name": "Special5 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Enemies you Curse take 6% increased Damage"
-        ],
-        "bondedStatText": [
-          "20% increased Area of Effect of Curses"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial5",
-    "name": "Special5 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "+1 to Level of all Spell Skills"
-        ],
-        "bondedStatText": [
-          "Archon recovery period expires 30% faster"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial5",
-    "name": "Special5 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "8% increased Skill Effect Duration",
-          "8% increased Cooldown Recovery Rate"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial6",
-    "name": "Special6 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "+1 Charm Slot"
-        ],
-        "bondedStatText": [
-          "Storm Skills have +1 to Limit"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial6",
-    "name": "Special6 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 5% of Damage as Extra Damage of all Elements"
-        ],
-        "bondedStatText": [
-          "12% chance when collecting an Elemental Infusion to gain an\nadditional Elemental Infusion of the same type"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 5% of Damage as Extra Damage of all Elements"
-        ],
-        "bondedStatText": [
-          "8% chance to gain an additional random Charge when you gain a Charge"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial6",
-    "name": "Special6 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "+4 to Maximum Rage"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/TalismanSpecial7",
-    "name": "Special7 Idol",
-    "typeId": "Idol",
-    "typeName": "Idol",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "8% increased Reservation Efficiency of Minion Skills"
-        ],
-        "bondedStatText": [
-          "Minions Revive 8% faster"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial7",
-    "name": "Special7 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain 13% of Damage as Extra Chaos Damage"
-        ],
-        "bondedStatText": [
-          "Gain 8% of Damage as Extra Physical Damage"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Gain 13% of Damage as Extra Chaos Damage"
-        ],
-        "bondedStatText": [
-          "Gain 8% of Damage as Extra Physical Damage"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial7",
-    "name": "Special7 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "15% increased Curse Duration",
-          "15% increased Poison Duration"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneSpecial8",
-    "name": "Special8 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "8% increased Deflection Rating while moving"
-        ],
-        "bondedStatText": [
-          "Prevent +3% of Damage from Deflected Hits"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial8",
-    "name": "Special8 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "50% chance when you gain a Frenzy Charge to gain an additional Frenzy Charge"
+          "Convert 20% of Requirements to Strength"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "50% chance when you gain a Frenzy Charge to gain an additional Frenzy Charge"
+          "Convert 20% of Requirements to Strength"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneSpecial9",
-    "name": "Special9 Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "5% increased Movement Speed"
-        ],
-        "bondedStatText": [
-          "10% increased Cooldown Recovery Rate"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpecial9",
-    "name": "Special9 Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 50,
-    "limit": "1",
-    "effects": {
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "50% chance when you gain an Endurance Charge to gain an additional Endurance Charge"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "50% chance when you gain an Endurance Charge to gain an additional Endurance Charge"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreSpeed",
-    "name": "Speed Soul Core",
+    "id": "Metadata/Items/SoulCores/SoulCoreShock",
+    "name": "Soul Core of Storms",
     "typeId": "SoulCore",
     "typeName": "Soul Core",
     "requiredLevel": 0,
@@ -3079,14 +2208,14 @@
           "Boots"
         ],
         "statText": [
-          "15% reduced Slowing Potency of Debuffs on You"
+          "+1% to Maximum Lightning Resistance"
         ],
         "bondedStatText": []
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "5% increased Attack Speed"
+          "30% increased chance to Shock"
         ],
         "bondedStatText": []
       }
@@ -3125,161 +2254,17 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/RuneStrengthGreater",
-    "name": "Strength Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+10 to Strength"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneStrengthLesser",
-    "name": "Strength Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+6 to Strength"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneStrength",
-    "name": "Strength Rune",
+    "id": "Metadata/Items/SoulCores/RuneEnhance",
+    "name": "Stone Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 15,
     "limit": null,
     "effects": {
-      "All": {
-        "target": "All Equipment",
-        "statText": [
-          "+8 to Strength"
-        ],
-        "bondedStatText": []
-      },
-      "Armour": {
-        "target": "Armour",
-        "statText": [],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [],
-        "bondedStatText": [
-          "+100 to Armour"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [],
-        "bondedStatText": [
-          "Adds 6 to 10 Physical Damage to Attacks",
-          "Adds 6 to 10 Fire damage to Attacks"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/SoulCoreStrength",
-    "name": "Strength Soul Core",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
       "Armour": {
         "target": "Armour",
         "statText": [
-          "Convert 20% of Requirements to Strength"
-        ],
-        "bondedStatText": []
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Convert 20% of Requirements to Strength"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneStunGreater",
-    "name": "Stun Greater Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 30,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+80 to Stun Threshold"
+          "16% increased Armour, Evasion and Energy Shield"
         ],
         "bondedStatText": [
           "+10 to maximum Life",
@@ -3289,64 +2274,26 @@
       "Caster Weapons": {
         "target": "Wand or Staff",
         "statText": [
-          "Gain additional Stun Threshold equal to 14% of maximum Energy Shield"
+          "25% increased Spell Damage"
         ],
         "bondedStatText": [
-          "30% increased Immobilisation buildup"
+          "Break Armour on Critical Hit with Spells equal to 12% of Physical Damage dealt"
         ]
       },
       "Martial Weapons": {
         "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Causes 30% increased Stun Buildup"
+          "16% increased Physical Damage"
         ],
         "bondedStatText": [
-          "40% increased Damage against Immobilised Enemies"
-        ]
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/RuneStunLesser",
-    "name": "Stun Lesser Rune",
-    "typeId": "Rune",
-    "typeName": "Rune",
-    "requiredLevel": 0,
-    "limit": null,
-    "effects": {
-      "Armour": {
-        "target": "Armour",
-        "statText": [
-          "+40 to Stun Threshold"
-        ],
-        "bondedStatText": [
-          "+10 to maximum Life",
-          "+10 to maximum Mana"
-        ]
-      },
-      "Caster Weapons": {
-        "target": "Wand or Staff",
-        "statText": [
-          "Gain additional Stun Threshold equal to 10% of maximum Energy Shield"
-        ],
-        "bondedStatText": [
-          "30% increased Immobilisation buildup"
-        ]
-      },
-      "Martial Weapons": {
-        "target": "[MartialWeapon|Martial Weapon]",
-        "statText": [
-          "Causes 20% increased Stun Buildup"
-        ],
-        "bondedStatText": [
-          "40% increased Damage against Immobilised Enemies"
+          "20% increased effect of Fully Broken Armour"
         ]
       }
     }
   },
   {
     "id": "Metadata/Items/SoulCores/RuneStun",
-    "name": "Stun Rune",
+    "name": "Stone Rune",
     "typeId": "Rune",
     "typeName": "Rune",
     "requiredLevel": 15,
@@ -3383,8 +2330,72 @@
     }
   },
   {
+    "id": "Metadata/Items/SoulCores/RuneLightning",
+    "name": "Storm Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
+    "effects": {
+      "Armour": {
+        "target": "Armour",
+        "statText": [
+          "+12% to Lightning Resistance"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life",
+          "+10 to maximum Mana"
+        ]
+      },
+      "Caster Weapons": {
+        "target": "Wand or Staff",
+        "statText": [
+          "Gain 8% of Damage as Extra Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Adds 1 to 20 Lightning Damage"
+        ],
+        "bondedStatText": [
+          "30% increased Magnitude of Shock you inflict"
+        ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/SoulCoreBleed",
+    "name": "Tacati's Soul Core of Affliction",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmet": {
+        "target": [
+          "Helmets"
+        ],
+        "statText": [
+          "20% increased Charm Charges gained"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "15% chance to cause Bleeding on Hit"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/TecrodsGaze",
-    "name": "Tecrods Gaze",
+    "name": "Tecrod's Gaze",
     "typeId": "AbyssalEye",
     "typeName": "Abyssal Eye",
     "requiredLevel": 60,
@@ -3420,149 +2431,76 @@
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/ThesisOfBlood",
-    "name": "Thesis Of Blood",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 60,
-    "limit": "1 [Ancient|Ancient Augment]",
+    "id": "Metadata/Items/SoulCores/RunePhysical",
+    "name": "Tempered Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 15,
+    "limit": null,
     "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
+      "Armour": {
+        "target": "Armour",
         "statText": [
-          "10% of Physical Damage prevented Recouped as Life"
+          "14 to 21 Physical Thorns damage"
         ],
         "bondedStatText": []
       },
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "Lose 5% of maximum Life per second while Sprinting",
-          "25% increased Movement Speed while Sprinting"
-        ],
-        "bondedStatText": []
-      },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "Gain Armour equal to 25% of Life Lost from Hits in the past 8 seconds"
+          "Adds 6 to 9 Physical Damage"
         ],
         "bondedStatText": []
       }
     }
   },
   {
-    "id": "Metadata/Items/SoulCores/ThesisOfExperiments",
-    "name": "Thesis Of Experiments",
+    "id": "Metadata/Items/SoulCores/SoulCoreElemental",
+    "name": "Topotante's Soul Core of Dampening",
     "typeId": "SoulCore",
     "typeName": "Soul Core",
-    "requiredLevel": 60,
-    "limit": "1 [Ancient|Ancient Augment]",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "+50% of Armour also applies to Chaos Damage while on full Energy Shield"
-        ],
-        "bondedStatText": []
-      },
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "Each Runic Inscription from your Curse Skills causes you to Regenerate Mana per second equal to 10% of that Skill's Mana Cost"
-        ],
-        "bondedStatText": []
-      },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
-        "statText": [
-          "A random Skill that requires Glory generates 15% of its maximum Glory when your Mark Activates"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/ThesisOfSacrifice",
-    "name": "Thesis Of Sacrifice",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 60,
-    "limit": "1 [Ancient|Ancient Augment]",
-    "effects": {
-      "Body Armour": {
-        "target": [
-          "Body Armours"
-        ],
-        "statText": [
-          "You Recoup 50% of Damage taken by your Offerings as Life"
-        ],
-        "bondedStatText": []
-      },
-      "Boots": {
-        "target": [
-          "Boots"
-        ],
-        "statText": [
-          "Sacrifice 10% of maximum Life to gain that much Guard when you Dodge Roll"
-        ],
-        "bondedStatText": []
-      },
-      "Gloves": {
-        "target": [
-          "Gloves"
-        ],
-        "statText": [
-          "One of your Persistent Minions revives when an Offering expires"
-        ],
-        "bondedStatText": []
-      }
-    }
-  },
-  {
-    "id": "Metadata/Items/SoulCores/ThesisOfSouls",
-    "name": "Thesis Of Souls",
-    "typeId": "SoulCore",
-    "typeName": "Soul Core",
-    "requiredLevel": 60,
-    "limit": "1 [Ancient|Ancient Augment]",
+    "requiredLevel": 0,
+    "limit": null,
     "effects": {
       "Boots": {
         "target": [
           "Boots"
         ],
         "statText": [
-          "Increases and Reductions to Movement Speed also\n apply to Energy Shield Recharge Rate"
+          "25% increased Elemental Ailment Threshold"
         ],
         "bondedStatText": []
       },
-      "Gloves": {
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "Attacks with this Weapon Penetrate 15% Elemental Resistances"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/SoulCoreSpeed",
+    "name": "Tzamoto's Soul Core of Ferocity",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
         "target": [
-          "Gloves"
+          "Boots"
         ],
         "statText": [
-          "Energy Shield Recharge starts after spending a total of\n 2000 Mana, no more than once every 2 seconds"
+          "15% reduced Slowing Potency of Debuffs on You"
         ],
         "bondedStatText": []
       },
-      "Helmet": {
-        "target": [
-          "Helmets"
-        ],
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
         "statText": [
-          "+1 to maximum Mana per 2 Item Energy Shield on Equipped Helmet"
+          "5% increased Attack Speed"
         ],
         "bondedStatText": []
       }
@@ -3570,7 +2508,7 @@
   },
   {
     "id": "Metadata/Items/SoulCores/UlamansGaze",
-    "name": "Ulamans Gaze",
+    "name": "Ulaman's Gaze",
     "typeId": "AbyssalEye",
     "typeName": "Abyssal Eye",
     "requiredLevel": 60,
@@ -3634,6 +2572,42 @@
         "bondedStatText": [
           "25% increased Critical Hit Chance while Shapeshifted"
         ]
+      }
+    }
+  },
+  {
+    "id": "Metadata/Items/SoulCores/SoulCoreCrit",
+    "name": "Xopec's Soul Core of Power",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armour": {
+        "target": [
+          "Body Armours"
+        ],
+        "statText": [
+          "Hits against you have 20% reduced Critical Damage Bonus"
+        ],
+        "bondedStatText": []
+      },
+      "Martial Weapons": {
+        "target": "[MartialWeapon|Martial Weapon]",
+        "statText": [
+          "+5% to Critical Damage Bonus"
+        ],
+        "bondedStatText": []
+      },
+      "Shield": {
+        "target": [
+          "Shields",
+          "Bucklers"
+        ],
+        "statText": [
+          "Hits against you have 20% reduced Critical Damage Bonus"
+        ],
+        "bondedStatText": []
       }
     }
   }
