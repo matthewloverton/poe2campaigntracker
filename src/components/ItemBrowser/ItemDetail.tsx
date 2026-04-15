@@ -28,6 +28,15 @@ function displayClassName(cls: string): string {
   return ITEM_CLASS_DISPLAY_NAMES[cls] ?? cls;
 }
 
+/** Replace (min-max) ranges in mod text with median values */
+function resolveModMedian(mod: ItemMod): string {
+  const text = cleanModText(mod.text);
+  // Replace any (X-Y) or (X–Y) pattern with the average
+  return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
+    return String(Math.round((Number(a) + Number(b)) / 2));
+  });
+}
+
 /** Find which tier number a mod is within its group */
 function findTierLabel(mod: ItemMod, allMods: ItemMod[]): string {
   const sametype = allMods
@@ -299,7 +308,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {cleanModText(mod.text)}
+                        {resolveModMedian(mod)}
                       </span>
                       <button
                         className={styles.plannerRemove}
@@ -322,7 +331,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {cleanModText(mod.text)}
+                        {resolveModMedian(mod)}
                       </span>
                       <button
                         className={styles.plannerRemove}
