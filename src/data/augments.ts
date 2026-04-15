@@ -25,11 +25,21 @@ export function getAugmentsForCategory(category: string): Augment[] {
   return allAugments.filter((a) => a.effects[category] != null);
 }
 
-/** Get the effect text for an augment on a specific category */
+/** Get the base effect text for an augment on a specific category */
 export function getAugmentEffect(augment: Augment, category: string): string[] {
   const effect = augment.effects[category];
+  const allEffect = augment.effects["All"];
+  const texts: string[] = [];
+  if (allEffect) texts.push(...allEffect.statText);
+  if (effect) texts.push(...effect.statText);
+  return texts;
+}
+
+/** Get the bonded effect text for an augment on a specific category */
+export function getAugmentBonded(augment: Augment, category: string): string[] {
+  const effect = augment.effects[category];
   if (!effect) return [];
-  return [...effect.statText, ...effect.bondedStatText];
+  return effect.bondedStatText;
 }
 
 /** Map item classes to augment categories (matches poe2db category names) */
@@ -59,7 +69,7 @@ export function itemClassToAugmentCategory(itemClass: string): string | null {
 /** How many sockets an item class gets by default */
 export function defaultSocketCount(itemClass: string): number {
   const twoSocket = new Set([
-    "Body Armour", "Two Hand Mace", "Staff", "Warstaff", "Bow",
+    "Body Armour", "Two Hand Mace", "Staff", "Warstaff", "Bow", "Crossbow", "Spear",
   ]);
   return twoSocket.has(itemClass) ? 2 : 1;
 }

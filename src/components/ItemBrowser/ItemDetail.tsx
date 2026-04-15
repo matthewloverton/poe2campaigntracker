@@ -6,6 +6,7 @@ import {
   type Augment,
   searchAugments,
   getAugmentEffect,
+  getAugmentBonded,
   itemClassToAugmentCategory,
   defaultSocketCount,
 } from "../../data/augments";
@@ -318,16 +319,21 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                       <div key={i} className={styles.socketSlot}>
                         {aug ? (
                           <div className={styles.socketFilled}>
-                            <span className={styles.socketName}>{aug.name}</span>
-                            <span className={styles.socketEffect}>
-                              {getAugmentEffect(aug, augCategory).join(", ")}
-                            </span>
-                            <button
-                              className={styles.socketRemove}
-                              onClick={() => setSockets((prev) => { const next = [...prev]; next[i] = null; return next; })}
-                            >
-                              ×
-                            </button>
+                            <div className={styles.socketFilledTop}>
+                              <span className={styles.socketName}>{aug.name}</span>
+                              <button
+                                className={styles.socketRemove}
+                                onClick={() => setSockets((prev) => { const next = [...prev]; next[i] = null; return next; })}
+                              >
+                                ×
+                              </button>
+                            </div>
+                            {getAugmentEffect(aug, augCategory).map((t, j) => (
+                              <div key={j} className={styles.socketEffectLine}>{t}</div>
+                            ))}
+                            {getAugmentBonded(aug, augCategory).map((t, j) => (
+                              <div key={`b${j}`} className={styles.socketBondedLine}>{t}</div>
+                            ))}
                           </div>
                         ) : (
                           <button
