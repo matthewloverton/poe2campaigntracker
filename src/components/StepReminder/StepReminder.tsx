@@ -37,6 +37,7 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
   const [selectedRef, setSelectedRef] = useState<ReminderRef | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const searchWrapRef = useRef<HTMLDivElement>(null);
 
   const needsRef = selectedType === "gem" || selectedType === "gear";
 
@@ -162,7 +163,7 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
           </div>
 
           {needsRef && !selectedRef && (
-            <div className={styles.searchWrap}>
+            <div className={styles.searchWrap} ref={searchWrapRef}>
               <input
                 ref={searchRef}
                 className={styles.textInput}
@@ -174,8 +175,13 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
                   if (e.key === "Escape") handleCancel();
                 }}
               />
-              {searchResults.length > 0 && (
-                <div className={styles.searchResults}>
+              {searchResults.length > 0 && searchWrapRef.current && (() => {
+                const rect = searchWrapRef.current!.getBoundingClientRect();
+                return (
+                <div
+                  className={styles.searchResults}
+                  style={{ top: rect.bottom, left: rect.left, width: rect.width }}
+                >
                   {searchResults.map((r) => (
                     <button
                       key={r.refId}
@@ -193,7 +199,8 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
                     </button>
                   ))}
                 </div>
-              )}
+                );
+              })()}
             </div>
           )}
 
