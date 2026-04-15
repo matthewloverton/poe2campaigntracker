@@ -64,6 +64,33 @@
   word-break: break-word;
 }
 
+.cardInner {
+  position: relative;
+}
+
+.watchBtn {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  font-size: 0.55rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+  line-height: 1;
+}
+
+.card:hover .watchBtn {
+  opacity: 0.5;
+}
+
+.watchBtn:hover {
+  opacity: 1 !important;
+}
+
+.watchBtnActive {
+  opacity: 0.8 !important;
+}
+
 .level {
   font-size: 0.55rem;
   color: var(--text-secondary);

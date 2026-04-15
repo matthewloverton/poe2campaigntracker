@@ -7,6 +7,7 @@ import type {
   BuildGearEntry,
   StepReminder,
   VendorRegexEntry,
+  WatchlistEntry,
   GearLayout,
   GearSlotKey,
   SkillGroup,
@@ -65,6 +66,11 @@ interface CustomizationsState extends Customizations {
   setNote: (pageIndex: number, stepIndex: number, text: string) => void;
   removeNote: (pageIndex: number, stepIndex: number) => void;
   getNote: (pageIndex: number, stepIndex: number) => string | undefined;
+
+  // Watchlist actions
+  addToWatchlist: (entry: WatchlistEntry) => void;
+  removeFromWatchlist: (id: string) => void;
+  isWatched: (id: string) => boolean;
 }
 
 /**
@@ -165,6 +171,7 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
           stepReminders: saved.stepReminders ?? DEFAULT_CUSTOMIZATIONS.stepReminders,
           vendorRegexes: saved.vendorRegexes ?? DEFAULT_CUSTOMIZATIONS.vendorRegexes,
           inlineNotes: saved.inlineNotes ?? DEFAULT_CUSTOMIZATIONS.inlineNotes,
+          watchlist: (saved as Record<string, unknown>).watchlist as WatchlistEntry[] ?? [],
           activePhaseId: saved.activePhaseId ?? DEFAULT_CUSTOMIZATIONS.activePhaseId,
           loaded: true,
         });
@@ -438,5 +445,23 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
   getNote: (pageIndex: number, stepIndex: number): string | undefined => {
     const { inlineNotes } = get();
     return inlineNotes.find((n) => n.pageIndex === pageIndex && n.stepIndex === stepIndex)?.text;
+  },
+
+  addToWatchlist: (entry: WatchlistEntry) => {
+    set((state) => ({
+      watchlist: [...(state.watchlist ?? []), entry],
+    }));
+    debouncedSave(get().save);
+  },
+
+  removeFromWatchlist: (id: string) => {
+    set((state) => ({
+      watchlist: (state.watchlist ?? []).filter((w) => w.id !== id),
+    }));
+    debouncedSave(get().save);
+  },
+
+  isWatched: (id: string): boolean => {
+    return (get().watchlist ?? []).some((w) => w.id === id);
   },
 }));

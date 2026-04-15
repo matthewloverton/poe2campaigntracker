@@ -128,6 +128,7 @@ export { DEFAULT_BUILD_PHASE, EMPTY_GEAR_LAYOUT, GEAR_SLOT_LABELS, SLOT_ITEM_CLA
 export type {
   VendorRegexEntry,
   InlineNote,
+  WatchlistEntry,
   Customizations,
   GemData,
 } from "./types/customizations";

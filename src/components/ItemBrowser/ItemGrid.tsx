@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { BaseItem } from "../../types/itemDatabase";
+import { useCustomizationsStore } from "../../store/customizationsStore";
+import type { WatchlistEntry } from "../../types";
 import styles from "./ItemGrid.module.css";
 
 interface ItemGridProps {
@@ -46,6 +48,26 @@ function formatRequirements(item: BaseItem): string {
 
 export function ItemGrid({ items, selectedItemId, onSelectItem }: ItemGridProps) {
   const [iconErrors, setIconErrors] = useState<Set<string>>(new Set());
+  const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
+  const addToWatchlist = useCustomizationsStore((s) => s.addToWatchlist);
+  const removeFromWatchlist = useCustomizationsStore((s) => s.removeFromWatchlist);
+  const watchedIds = new Set(watchlist.map((w) => w.id));
+
+  const toggleWatch = useCallback((item: BaseItem, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (watchedIds.has(item.id)) {
+      removeFromWatchlist(item.id);
+    } else {
+      const entry: WatchlistEntry = {
+        id: item.id,
+        name: item.name,
+        type: "item",
+        iconPath: item.iconPath,
+        unlockLevel: item.requirements.level,
+      };
+      addToWatchlist(entry);
+    }
+  }, [watchedIds, addToWatchlist, removeFromWatchlist]);
 
   function handleIconError(id: string) {
     setIconErrors((prev) => {
@@ -73,9 +95,16 @@ export function ItemGrid({ items, selectedItemId, onSelectItem }: ItemGridProps)
             className={`${styles.card} ${isSelected ? styles.cardSelected : ""}`}
             onClick={() => onSelectItem(item)}
           >
-            {/* Icon area with level badge */}
+            {/* Icon area with level badge and watch toggle */}
             <div className={styles.iconArea}>
               <span className={styles.levelBadge}>Lvl {item.dropLevel}</span>
+              <span
+                className={`${styles.watchBtn} ${watchedIds.has(item.id) ? styles.watchBtnActive : ""}`}
+                onClick={(e) => toggleWatch(item, e)}
+                title={watchedIds.has(item.id) ? "Stop tracking" : "Track for level-up alerts"}
+              >
+                {watchedIds.has(item.id) ? "\u{1F441}" : "\u{1F441}"}
+              </span>
               <div className={styles.iconWrap}>
                 {!iconErrors.has(item.id) && item.iconPath ? (
                   <img

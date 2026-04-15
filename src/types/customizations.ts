@@ -16,12 +16,21 @@ export interface InlineNote {
   text: string;
 }
 
+export interface WatchlistEntry {
+  id: string;
+  name: string;
+  type: "gem" | "item";
+  iconPath?: string;
+  unlockLevel: number;
+}
+
 export interface Customizations {
   buildPhases: BuildPhase[];
   stepReminders: StepReminder[];
   vendorRegexes: VendorRegexEntry[];
   inlineNotes: InlineNote[];
   activePhaseId: string | null;
+  watchlist: WatchlistEntry[];
 }
 
 export const DEFAULT_CUSTOMIZATIONS: Customizations = {
@@ -30,6 +39,7 @@ export const DEFAULT_CUSTOMIZATIONS: Customizations = {
   vendorRegexes: [],
   inlineNotes: [],
   activePhaseId: null,
+  watchlist: [],
 };
 
 export type { GemEntry as GemData } from "./itemDatabase";

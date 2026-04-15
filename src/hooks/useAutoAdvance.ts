@@ -16,7 +16,7 @@ interface ToastMessage {
 export interface UnlockItem {
   name: string;
   iconPath?: string;
-  type: "gem" | "gear";
+  type: "gem" | "gear" | "item";
 }
 
 export interface UnlockNotification {
@@ -105,6 +105,16 @@ export function useAutoAdvance() {
         if (dropLevel > prevLevel && dropLevel <= event.level) {
           items.push({ name: sup.name, iconPath: sup.iconPath, type: "gem" });
         }
+      }
+    }
+
+    // Check watchlist
+    const seenIds = new Set(items.map((i) => i.name));
+    const watchlist = useCustomizationsStore.getState().watchlist ?? [];
+    for (const w of watchlist) {
+      if (seenIds.has(w.name)) continue;
+      if (w.unlockLevel > prevLevel && w.unlockLevel <= event.level) {
+        items.push({ name: w.name, iconPath: w.iconPath, type: w.type });
       }
     }
 

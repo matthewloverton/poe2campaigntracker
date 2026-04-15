@@ -32,6 +32,8 @@ export function BuildPlan() {
   const reorderSkillGroups = useCustomizationsStore((s) => s.reorderSkillGroups);
   const reorderSupportsInGroup = useCustomizationsStore((s) => s.reorderSupportsInGroup);
   const setSupportInGroup = useCustomizationsStore((s) => s.setSupportInGroup);
+  const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
+  const removeFromWatchlist = useCustomizationsStore((s) => s.removeFromWatchlist);
 
   const activePhase = buildPhases.find((p) => p.id === activePhaseId) ?? null;
 
@@ -172,6 +174,34 @@ export function BuildPlan() {
             <div className={styles.regexSection}>
               <div className={styles.regexHeader}>Vendor Regex</div>
               <VendorRegex />
+
+              {watchlist.length > 0 && (
+                <>
+                  <div className={styles.regexHeader} style={{ marginTop: 10 }}>Tracked</div>
+                  <div className={styles.trackedList}>
+                    {watchlist.map((w) => (
+                      <div key={w.id} className={styles.trackedItem}>
+                        {w.iconPath && (
+                          <img
+                            className={styles.trackedIcon}
+                            src={`/assets/${w.iconPath}`}
+                            alt={w.name}
+                          />
+                        )}
+                        <span className={styles.trackedName}>{w.name}</span>
+                        <span className={styles.trackedLevel}>Lv {w.unlockLevel}</span>
+                        <button
+                          className={styles.trackedRemove}
+                          onClick={() => removeFromWatchlist(w.id)}
+                          title="Stop tracking"
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 

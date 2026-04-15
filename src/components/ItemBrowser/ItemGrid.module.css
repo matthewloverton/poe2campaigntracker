@@ -68,6 +68,31 @@
   line-height: 1.2;
 }
 
+.watchBtn {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  z-index: 2;
+  font-size: 0.7rem;
+  cursor: pointer;
+  opacity: 0.2;
+  transition: opacity 0.15s;
+  padding: 1px 3px;
+  line-height: 1;
+}
+
+.card:hover .watchBtn {
+  opacity: 0.5;
+}
+
+.watchBtn:hover {
+  opacity: 1 !important;
+}
+
+.watchBtnActive {
+  opacity: 0.8;
+}
+
 .iconWrap {
   width: 148px;
   height: 148px;
