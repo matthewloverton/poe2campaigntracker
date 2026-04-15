@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, createRef } from "react";
 import { useGuideStore } from "../../store/guideStore";
 import { areaById } from "../../data/areas";
 import { getZoneLayouts } from "../../data/zoneLayouts";
 import { StepRenderer } from "../StepRenderer";
 import { InlineNote } from "../InlineNote/InlineNote";
-import { StepReminder } from "../StepReminder/StepReminder";
+import { StepReminder, type StepReminderHandle } from "../StepReminder/StepReminder";
 import styles from "./GuidePanel.module.css";
-import noteStyles from "../InlineNote/InlineNote.module.css";
 
 export function GuidePanel() {
   const { pages, currentPageIndex, nextPage, prevPage, goToAct } = useGuideStore();
   const currentZoneId = useGuideStore((s) => s.currentZoneId);
   const currentPage = pages[currentPageIndex];
 
-  // Track which step index is being forced into note-edit mode
   const [editingNoteStep, setEditingNoteStep] = useState<number | null>(null);
   const [layoutIndex, setLayoutIndex] = useState(0);
+  const reminderRefs = useRef<React.RefObject<StepReminderHandle | null>[]>([]);
 
   if (!currentPage) return <div className={styles.panel}>No guide data loaded.</div>;
 
@@ -53,6 +52,13 @@ export function GuidePanel() {
       </div>
       <div className={styles.progressBar}><div className={styles.progressFill} style={{ width: `${progress}%` }} /></div>
       <div className={styles.steps}>
+        {(() => {
+          // Ensure refs array matches step count
+          while (reminderRefs.current.length < currentPage.steps.length) {
+            reminderRefs.current.push(createRef());
+          }
+          return null;
+        })()}
         {currentPage.steps.map((step, i) => {
           const isOptional = step.raw.startsWith("optional:");
           // Check if this hint follows an optional step
@@ -75,14 +81,18 @@ export function GuidePanel() {
                 forceEdit={isForceEdit}
                 onEditDone={() => setEditingNoteStep(null)}
               />
-              <button
-                className={noteStyles.addNoteBtn}
-                onClick={() => setEditingNoteStep(i)}
-                tabIndex={-1}
-              >
-                + add note
-              </button>
-              <StepReminder pageIndex={currentPage.globalIndex} stepIndex={i} />
+              <StepReminder ref={reminderRefs.current[i]} pageIndex={currentPage.globalIndex} stepIndex={i} />
+              <div className={styles.insertLine}>
+                <button
+                  className={styles.insertBtn}
+                  onClick={() => reminderRefs.current[i]?.current?.openForm()}
+                  tabIndex={-1}
+                  title="Add reminder"
+                >
+                  +
+                </button>
+                <div className={styles.insertRule} />
+              </div>
             </div>
           );
         })}

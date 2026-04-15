@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useImperativeHandle, forwardRef } from "react";
 import { useCustomizationsStore } from "../../store/customizationsStore";
 import { searchGems } from "../../data/gems";
 import { searchItems } from "../../data/items";
@@ -9,6 +9,10 @@ import styles from "./StepReminder.module.css";
 interface StepReminderProps {
   pageIndex: number;
   stepIndex: number;
+}
+
+export interface StepReminderHandle {
+  openForm: () => void;
 }
 
 type ReminderType = StepReminderType["type"];
@@ -22,7 +26,7 @@ const TYPE_LABELS: Record<ReminderType, string> = {
 
 const REMINDER_TYPES: ReminderType[] = ["gem", "gear", "craft", "note"];
 
-export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
+export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(function StepReminder({ pageIndex, stepIndex }, ref) {
   const getRemindersForStep = useCustomizationsStore((s) => s.getRemindersForStep);
   const addReminder = useCustomizationsStore((s) => s.addReminder);
   const removeReminder = useCustomizationsStore((s) => s.removeReminder);
@@ -40,6 +44,10 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
   const searchWrapRef = useRef<HTMLDivElement>(null);
 
   const needsRef = selectedType === "gem" || selectedType === "gear";
+
+  useImperativeHandle(ref, () => ({
+    openForm: () => handleAdd(),
+  }));
 
   useEffect(() => {
     if (showForm) {
@@ -247,11 +255,7 @@ export function StepReminder({ pageIndex, stepIndex }: StepReminderProps) {
             </button>
           </div>
         </div>
-      ) : (
-        <button className="stepReminderAddBtn" onClick={handleAdd} tabIndex={-1}>
-          + add reminder
-        </button>
-      )}
+      ) : null}
     </>
   );
-}
+});

@@ -176,12 +176,47 @@
   position: relative;
 }
 
-/* Reveal the "add note" button only when hovering the wrapper */
-.stepWrapper:hover .addNoteBtn {
-  visibility: visible;
+/* ── Insert line between steps ─────────────────────────── */
+.insertLine {
+  display: flex;
+  align-items: center;
+  height: 12px;
+  padding: 0 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
 }
 
-/* Reveal the "add reminder" button only when hovering the wrapper */
-.stepWrapper:hover :global(.stepReminderAddBtn) {
-  visibility: visible;
+.stepWrapper:hover .insertLine {
+  opacity: 1;
+}
+
+.insertBtn {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.insertBtn:hover {
+  color: #cc99ff;
+  border-color: #cc99ff;
+}
+
+.insertRule {
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+  margin-left: 6px;
+  opacity: 0.4;
 }
