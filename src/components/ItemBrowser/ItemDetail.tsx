@@ -29,13 +29,11 @@ function displayClassName(cls: string): string {
 }
 
 /** Replace (min-max) ranges in mod text with resolved values */
-function resolveModRoll(mod: ItemMod, mode: "min" | "median" | "max", pct?: number): string {
+function resolveModRoll(mod: ItemMod, pct?: number): string {
   const text = cleanModText(mod.text);
   return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
     const min = Number(a), max = Number(b);
     if (pct != null) return String(Math.round(min + (max - min) * pct / 100));
-    if (mode === "min") return String(min);
-    if (mode === "max") return String(max);
     return String(Math.round((min + max) / 2));
   });
 }
@@ -70,7 +68,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
   const [quality, setQuality] = useState(20);
-  const [rollMode, setRollMode] = useState<"min" | "median" | "max">("median");
   const [modRolls, setModRolls] = useState<Record<string, number>>({}); // modId → 0-100 percentile
 
   const props = item.properties;
@@ -85,8 +82,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     function rollValue(mod: ItemMod, s: { min: number; max: number }): number {
       const pct = modRolls[mod.id];
       if (pct != null) return Math.round(s.min + (s.max - s.min) * pct / 100);
-      if (rollMode === "max") return s.max;
-      if (rollMode === "min") return s.min;
       return Math.round((s.min + s.max) / 2);
     }
 
@@ -156,7 +151,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     }
 
     return result;
-  }, [selectedMods, quality, rollMode, modRolls, item, isWeapon, hasDefences, props]);
+  }, [selectedMods, quality, modRolls, item, isWeapon, hasDefences, props]);
 
   const reqs: string[] = [];
   if (item.requirements.level > 0) reqs.push(`Level ${item.requirements.level}`);
@@ -272,17 +267,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                     onChange={(e) => setQuality(Number(e.target.value))}
                   />
                   <span className={styles.qualityValue}>{quality}%</span>
-                  <span className={styles.rollToggle}>
-                    {(["min", "median", "max"] as const).map((m) => (
-                      <button
-                        key={m}
-                        className={`${styles.rollBtn} ${rollMode === m ? styles.rollBtnActive : ""}`}
-                        onClick={() => setRollMode(m)}
-                      >
-                        {m}
-                      </button>
-                    ))}
-                  </span>
                 </div>
               )}
 
@@ -331,29 +315,33 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                   </div>
                   {selectedPrefixes.map((mod) => (
                     <div key={mod.id} className={styles.plannerMod}>
-                      <span className={styles.plannerTier}>
-                        {findTierLabel(mod, allModsList)}
-                      </span>
-                      <span className={styles.plannerModText}>
-                        {resolveModRoll(mod, rollMode, modRolls[mod.id])}
-                      </span>
+                      <div className={styles.plannerModTop}>
+                        <span className={styles.plannerTier}>
+                          {findTierLabel(mod, allModsList)}
+                        </span>
+                        <span className={styles.plannerModText}>
+                          {resolveModRoll(mod, modRolls[mod.id])}
+                        </span>
+                        <button
+                          className={styles.plannerRemove}
+                          onClick={() => removeMod(mod.id)}
+                        >
+                          ×
+                        </button>
+                      </div>
                       {mod.stats.some((s) => s.min !== s.max) && (
-                        <input
-                          type="range"
-                          className={styles.modRollSlider}
-                          min={0}
-                          max={100}
-                          value={modRolls[mod.id] ?? 50}
-                          onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
-                          title={`Roll: ${modRolls[mod.id] ?? 50}%`}
-                        />
+                        <div className={styles.plannerModRoll}>
+                          <input
+                            type="range"
+                            className={styles.modRollSlider}
+                            min={0}
+                            max={100}
+                            value={modRolls[mod.id] ?? 50}
+                            onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
+                          />
+                          <span className={styles.modRollLabel}>{modRolls[mod.id] ?? 50}%</span>
+                        </div>
                       )}
-                      <button
-                        className={styles.plannerRemove}
-                        onClick={() => removeMod(mod.id)}
-                      >
-                        ×
-                      </button>
                     </div>
                   ))}
                 </div>
@@ -365,29 +353,33 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                   </div>
                   {selectedSuffixes.map((mod) => (
                     <div key={mod.id} className={styles.plannerMod}>
-                      <span className={styles.plannerTier}>
-                        {findTierLabel(mod, allModsList)}
-                      </span>
-                      <span className={styles.plannerModText}>
-                        {resolveModRoll(mod, rollMode, modRolls[mod.id])}
-                      </span>
+                      <div className={styles.plannerModTop}>
+                        <span className={styles.plannerTier}>
+                          {findTierLabel(mod, allModsList)}
+                        </span>
+                        <span className={styles.plannerModText}>
+                          {resolveModRoll(mod, modRolls[mod.id])}
+                        </span>
+                        <button
+                          className={styles.plannerRemove}
+                          onClick={() => removeMod(mod.id)}
+                        >
+                          ×
+                        </button>
+                      </div>
                       {mod.stats.some((s) => s.min !== s.max) && (
-                        <input
-                          type="range"
-                          className={styles.modRollSlider}
-                          min={0}
-                          max={100}
-                          value={modRolls[mod.id] ?? 50}
-                          onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
-                          title={`Roll: ${modRolls[mod.id] ?? 50}%`}
-                        />
+                        <div className={styles.plannerModRoll}>
+                          <input
+                            type="range"
+                            className={styles.modRollSlider}
+                            min={0}
+                            max={100}
+                            value={modRolls[mod.id] ?? 50}
+                            onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
+                          />
+                          <span className={styles.modRollLabel}>{modRolls[mod.id] ?? 50}%</span>
+                        </div>
                       )}
-                      <button
-                        className={styles.plannerRemove}
-                        onClick={() => removeMod(mod.id)}
-                      >
-                        ×
-                      </button>
                     </div>
                   ))}
                 </div>

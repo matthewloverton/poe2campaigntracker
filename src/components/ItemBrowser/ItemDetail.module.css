@@ -137,33 +137,6 @@
   min-width: 22px;
 }
 
-.rollToggle {
-  display: flex;
-  margin-left: 8px;
-  gap: 0;
-}
-
-.rollBtn {
-  padding: 1px 6px;
-  background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  font-size: 0.55rem;
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.rollBtn:first-child { border-radius: 3px 0 0 3px; }
-.rollBtn:last-child { border-radius: 0 3px 3px 0; }
-.rollBtn:not(:first-child) { margin-left: -1px; }
-
-.rollBtn:hover { color: var(--text-primary); }
-
-.rollBtnActive {
-  color: var(--accent-teal);
-  border-color: var(--accent-teal);
-  z-index: 1;
-}
 
 .reqLine {
   font-size: 0.68rem;
@@ -259,10 +232,26 @@
 }
 
 .plannerMod {
+  padding: 3px 0;
+}
+
+.plannerModTop {
   display: flex;
   align-items: flex-start;
   gap: 4px;
-  padding: 2px 0;
+}
+
+.plannerModRoll {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0 0 24px;
+}
+
+.modRollLabel {
+  font-size: 0.55rem;
+  color: var(--text-secondary);
+  min-width: 24px;
 }
 
 .plannerTier {
@@ -282,7 +271,8 @@
 }
 
 .modRollSlider {
-  width: 40px;
+  flex: 1;
+  max-width: 120px;
   height: 3px;
   -webkit-appearance: none;
   appearance: none;
