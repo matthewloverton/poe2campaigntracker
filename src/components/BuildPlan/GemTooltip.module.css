@@ -1,0 +1,67 @@
+/* GemTooltip — hover tooltip for gem details */
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  z-index: 100;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-gold);
+  border-radius: 5px;
+  padding: 8px 10px;
+  min-width: 170px;
+  max-width: 240px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 4px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+.pill {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.pillType {
+  color: var(--accent-teal);
+  background: rgba(78, 205, 196, 0.1);
+}
+
+.level {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.levelValue {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.supportText {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

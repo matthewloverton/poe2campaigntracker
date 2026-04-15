@@ -1,0 +1,22 @@
+.panel { border-bottom: 1px solid var(--border-color); }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-panel);
+  border: none;
+  color: var(--accent-gold);
+  font-size: 0.85em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.header:hover { background: var(--bg-hover); }
+
+.chevron { font-size: 0.9em; color: var(--text-secondary); }
+
+.content { padding: 8px; }

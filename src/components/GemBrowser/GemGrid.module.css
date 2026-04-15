@@ -1,0 +1,42 @@
+/* GemGrid — tier-grouped card layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+/* ── Tier section ────────────────────────────────────────── */
+.tierSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tierHeader {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border-gold);
+  margin-bottom: 2px;
+}
+
+.tierGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 4px;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}

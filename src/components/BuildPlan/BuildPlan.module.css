@@ -1,0 +1,176 @@
+.container { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+.content { flex: 1; overflow-y: auto; }
+
+.emptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 12px; }
+.emptyText { color: var(--text-secondary); font-size: 0.85rem; }
+.createBtn { padding: 8px 20px; background: var(--accent-teal); border: none; border-radius: 4px; color: var(--bg-primary); font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+
+.gearSection { border-bottom: 1px solid var(--border-color); padding: 8px 0; }
+.gemsSection { padding: 10px; }
+.sectionHeader { font-size: 0.72rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 8px; }
+.addSkillBtn { width: 100%; padding: 8px; background: none; border: 1px dashed var(--border-color); border-radius: 4px; color: var(--text-secondary); font-size: 0.72rem; cursor: pointer; margin-top: 4px; }
+.addSkillBtn:hover { border-color: var(--accent-teal); color: var(--accent-teal); }
+
+.regexSection { border-top: 1px solid var(--border-color); padding: 0 10px; }
+.regexToggle { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 0; background: none; border: none; color: var(--text-secondary); font-size: 0.72rem; cursor: pointer; text-align: left; }
+.regexToggle:hover { color: var(--text-primary); }
+.regexChevron { font-size: 0.55rem; width: 10px; }
+
+/* ── GemSearch Modal ──────────────────────────────────────── */
+
+.gsOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gsModal {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  width: 360px;
+  max-width: 90vw;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.gsModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.gsModalTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gsCloseBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.gsCloseBtn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.gsSearchRow {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.gsSearchInput {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+.gsSearchInput:focus {
+  border-color: var(--accent-gold);
+}
+
+.gsCategorySelect {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 5px 6px;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+}
+
+.gsCategorySelect:focus {
+  border-color: var(--accent-gold);
+}
+
+.gsResultsList {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.gsNoResults {
+  padding: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.gsResultRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 7px 12px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+  gap: 8px;
+}
+
+.gsResultRow:hover {
+  background: var(--bg-hover);
+}
+
+.gsResultRow:last-child {
+  border-bottom: none;
+}
+
+.gsGemName {
+  font-size: 13px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.gsCategoryBadge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+  text-transform: capitalize;
+}
+
+.gsCat_skill {
+  color: #7ec8e3;
+  background: rgba(126, 200, 227, 0.12);
+}
+
+.gsCat_support {
+  color: #b0b0ff;
+  background: rgba(176, 176, 255, 0.12);
+}
+
+.gsCat_spirit {
+  color: #a8ff78;
+  background: rgba(168, 255, 120, 0.12);
+}

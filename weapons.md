@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - button "Update cookie preferences" [ref=e3] [cursor=pointer]
+  - banner [ref=e5]:
+    - navigation [ref=e6]:
+      - generic [ref=e7]
+  - main [ref=e30]:
+    - generic [ref=e33]:
+      - link "Atziri v0.4" [ref=e34] [cursor=pointer]:
+        - /url: Atziris_Temple
+      - link "Waystones" [ref=e37] [cursor=pointer]:
+        - /url: Waystones
+      - link "Shrine" [ref=e39] [cursor=pointer]:
+        - /url: Shrine
+      - link "Strongbox" [ref=e42] [cursor=pointer]:
+        - /url: Strongbox
+      - link "Essence" [ref=e45] [cursor=pointer]:
+        - /url: Essence
+      - link "Archnemesis" [ref=e48] [cursor=pointer]:
+        - /url: Archnemesis
+      - link "Azmeri Spirit v0.2" [ref=e51] [cursor=pointer]:
+        - /url: Azmeri_Spirit
+      - link "Rogue Exile" [ref=e54] [cursor=pointer]:
+        - /url: Rogue_Exile
+      - link "Map Boss" [ref=e57] [cursor=pointer]:
+        - /url: Map_Boss
+      - link "Precursor Towers" [ref=e59] [cursor=pointer]:
+        - /url: Precursor_Towers
+      - link "Corrupted Nexus" [ref=e61] [cursor=pointer]:
+        - /url: Corrupted_Nexus
+      - link "Abyss v0.3" [ref=e63] [cursor=pointer]:
+        - /url: Abyss
+      - link "Breach" [ref=e65] [cursor=pointer]:
+        - /url: Breach
+      - link "Ritual" [ref=e67] [cursor=pointer]:
+        - /url: Ritual
+      - link "Delirium" [ref=e69] [cursor=pointer]:
+        - /url: Delirium
+      - link "Expedition" [ref=e71] [cursor=pointer]:
+        - /url: Expedition
+      - link "The Burning Monolith" [ref=e73] [cursor=pointer]:
+        - /url: The_Burning_Monolith
+      - link "Trial of the Sekhemas" [ref=e75] [cursor=pointer]:
+        - /url: Trial_of_the_Sekhemas
+      - link "The Trial of Chaos" [ref=e77] [cursor=pointer]:
+        - /url: The_Trial_of_Chaos
+    - heading "Community Wiki" [level=4] [ref=e81]
+    - generic [ref=e83]:
+      - link "Edit" [ref=e84] [cursor=pointer]:
+        - /url: /us/marked?id=Weapons
+      - generic [ref=e85]
+      - generic [ref=e92]
+    - generic [ref=e95]:
+      - generic [ref=e97]
+      - generic [ref=e130]: Copyright © 2014-2025 PoE2DB.
+  - status [ref=e132]
+  - generic [ref=e134]:
+    - generic:
+      - link "Language Picker English" [ref=e135] [cursor=pointer]:
+        - /url: javascript:;
+      - generic
+    - generic [ref=e138]:
+      - generic [ref=e139]
+      - generic [ref=e143]
+    - generic [ref=e147]:
+      - generic [ref=e148]
+      - generic [ref=e151]

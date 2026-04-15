@@ -1,0 +1,3 @@
+.layout { display: flex; height: 100vh; background: var(--bg-primary); }
+.primary { flex: 3; overflow: hidden; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); }
+.secondary { flex: 2; overflow: hidden; display: flex; flex-direction: column; }

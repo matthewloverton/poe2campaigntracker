@@ -1,0 +1,80 @@
+.step {
+  padding: 10px 14px;
+  line-height: 1.8;
+  font-size: 15px;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.step:last-child {
+  border-bottom: none;
+}
+
+.hint {
+  font-size: 13px;
+  padding-left: 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left-color: rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+}
+
+.optional {
+  border-left-color: var(--accent-teal);
+  opacity: 0.7;
+}
+
+.optionalHint {
+  opacity: 0.5;
+  border-left-color: var(--accent-teal);
+}
+
+.lastStep {
+  border-left-color: var(--accent-gold);
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin: 0 3px;
+  display: inline;
+  object-fit: contain;
+}
+
+.zone {
+  color: #cc99ff;
+  font-weight: 600;
+  background: rgba(204, 153, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.arena {
+  color: #ff9933;
+  font-weight: 600;
+}
+
+.quest {
+  color: #ffcc00;
+}
+
+.separator {
+  color: #555;
+  margin: 0 6px;
+}
+
+.kill {
+  color: #ff4444;
+  font-weight: 700;
+}
+
+.optionalTag {
+  color: var(--accent-teal);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}

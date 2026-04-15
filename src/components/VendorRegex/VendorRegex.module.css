@@ -1,0 +1,227 @@
+/* VendorRegex panel */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: background 0.2s;
+}
+
+/* Subtle teal highlight when in town */
+.panelInTown {
+  background: rgba(78, 205, 196, 0.05);
+}
+
+/* Town badge */
+.townBadge {
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  background: rgba(78, 205, 196, 0.12);
+  border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+/* Regex list */
+.regexList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Regex row */
+.regexRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.regexRow:hover {
+  background: var(--bg-hover);
+}
+
+.regexRow:last-child {
+  border-bottom: none;
+}
+
+.regexRowCopied {
+  background: rgba(78, 205, 196, 0.08);
+}
+
+/* Label */
+.regexLabel {
+  flex-shrink: 0;
+  min-width: 80px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+/* Regex code */
+.regexCode {
+  flex: 1;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 12px;
+  color: var(--accent-teal);
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Copy indicator */
+.copyIndicator {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  min-width: 36px;
+  text-align: right;
+  transition: color 0.15s, opacity 0.15s;
+}
+
+.regexRow:hover .copyIndicator {
+  opacity: 0.8;
+}
+
+.regexRowCopied .copyIndicator {
+  color: var(--accent-teal);
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Remove button */
+.removeBtn {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  border-radius: 3px;
+  padding: 0;
+}
+
+.regexRow:hover .removeBtn {
+  opacity: 1;
+}
+
+.removeBtn:hover {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.12);
+}
+
+/* Add button */
+.addBtn {
+  margin: 6px 8px;
+  padding: 6px 10px;
+  background: none;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.addBtn:hover {
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+
+/* Add form */
+.addForm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 8px 10px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.formInput {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  border-color: var(--accent-teal);
+}
+
+.formInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.formInputMono {
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.formActions {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.saveBtn {
+  padding: 4px 12px;
+  background: var(--accent-teal);
+  border: none;
+  border-radius: 4px;
+  color: #0a0f1e;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.saveBtn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.saveBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cancelBtn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}

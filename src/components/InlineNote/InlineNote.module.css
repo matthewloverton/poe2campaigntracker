@@ -1,0 +1,39 @@
+.noteDisplay {
+  padding: 4px 14px 4px 28px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.noteDisplay:hover { background: var(--bg-hover); }
+.noteIcon { font-size: 11px; }
+.noteText { color: var(--accent-gold); font-style: italic; }
+
+.noteEdit { padding: 4px 14px 4px 28px; }
+.noteInput {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-gold);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.addNoteBtn {
+  display: none;
+  padding: 2px 14px 2px 28px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0.6;
+  background: none;
+  border: none;
+  text-align: left;
+}
+.addNoteBtn:hover {
+  opacity: 1;
+  color: var(--accent-gold);
+}

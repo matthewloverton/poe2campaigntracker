@@ -1,0 +1,4245 @@
+[
+  {
+    "id": "228",
+    "name": "Ab Aeterno",
+    "itemClass": "Boots",
+    "iconPath": "items/AbAeterno.webp",
+    "mods": [
+      "(15-30)% increased Movement Speed",
+      "(100-150)% increased Armour, Evasion and Energy Shield",
+      "Dodge Roll avoids all Hits",
+      "10% less Movement and Skill Speed per Dodge Roll in the past 20 seconds"
+    ]
+  },
+  {
+    "id": "371",
+    "name": "Adonia's Ego",
+    "itemClass": "Wand",
+    "iconPath": "items/CourtlyDiscord.webp",
+    "mods": [
+      "+(100-150) to maximum Mana",
+      "+3 to Level of all Spell Skills",
+      "(15-30)% increased Cast Speed",
+      "-10% to all Elemental Resistances per Power Charge",
+      "(-1-1) to Maximum Power Charges"
+    ]
+  },
+  {
+    "id": "93",
+    "name": "Aerisvane's Wings",
+    "itemClass": "Gloves",
+    "iconPath": "items/AerisvanesWings.webp",
+    "mods": [
+      "(50-70)% increased Armour and Evasion",
+      "(5-10)% increased Attack Speed",
+      "+(20-30) to Intelligence",
+      "Decimating Strike"
+    ]
+  },
+  {
+    "id": "128",
+    "name": "Alkem Eira",
+    "itemClass": "Shield",
+    "iconPath": "items/AlkemEira.webp",
+    "mods": [
+      "(10-15)% increased Block chance",
+      "(30-50)% increased Armour and Energy Shield",
+      "+(50-70) to maximum Mana",
+      "Damage Blocked is Recouped as Mana"
+    ]
+  },
+  {
+    "id": "54",
+    "name": "Alpha's Howl",
+    "itemClass": "Helmet",
+    "iconPath": "items/AlphasHowl.webp",
+    "mods": [
+      "(80-100)% increased Evasion Rating",
+      "+100 to Spirit",
+      "+(50-75)% to Cold Resistance",
+      "Presence Radius is doubled"
+    ]
+  },
+  {
+    "id": "177",
+    "name": "Andvarius",
+    "itemClass": "Ring",
+    "iconPath": "items/Andvarius.webp",
+    "mods": [
+      "(50-70)% increased Rarity of Items found",
+      "+10 to Dexterity",
+      "-20% to all Elemental Resistances"
+    ]
+  },
+  {
+    "id": "37",
+    "name": "Apron of Emiran",
+    "itemClass": "Body Armour",
+    "iconPath": "items/ApronOfEmiran.webp",
+    "mods": [
+      "(30-50)% increased Evasion and Energy Shield",
+      "+(10-20) to Dexterity",
+      "Bleeding you inflict is Aggravated",
+      "(40-60)% reduced Duration of Bleeding on You"
+    ]
+  },
+  {
+    "id": "125",
+    "name": "Arvil's Wheel",
+    "itemClass": "Shield",
+    "iconPath": "items/ArvilsWheel.webp",
+    "mods": [
+      "(60-100)% increased Armour and Evasion",
+      "+(40-60) to maximum Life",
+      "+(40-60) to maximum Mana",
+      "Lose 1% of maximum Life on Kill",
+      "Lose 1% of maximum Mana on Kill",
+      "(30-50)% increased Skill Effect Duration"
+    ]
+  },
+  {
+    "id": "12",
+    "name": "Ashrend",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Ashrend.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(10-20) to Strength",
+      "+(30-40)% to Fire Resistance",
+      "Cannot be Ignited",
+      "-10 Physical Damage taken from Attack Hits"
+    ]
+  },
+  {
+    "id": "138",
+    "name": "Asphyxia's Wrath",
+    "itemClass": "Quiver",
+    "iconPath": "items/AsphyxiasWrath.webp",
+    "mods": [
+      "Adds (3-4) to (5-8) Cold damage to Attacks",
+      "(5-10)% increased Attack Speed",
+      "+(5-10)% to Cold Resistance",
+      "Enemies Chilled by your Hits increase damage taken by Chill Magnitude",
+      "Attacks Gain (5-10)% of Damage as Extra Cold Damage"
+    ]
+  },
+  {
+    "id": "244",
+    "name": "Assailum",
+    "itemClass": "Helmet",
+    "iconPath": "items/Assailum.webp",
+    "mods": [
+      "(200-300)% increased Armour and Evasion",
+      "+(200-400) to Accuracy Rating",
+      "(30-50)% increased Critical Hit Chance",
+      "Skills have a (100-150)% longer Perfect Timing window"
+    ]
+  },
+  {
+    "id": "151",
+    "name": "Astramentis",
+    "itemClass": "Amulet",
+    "iconPath": "items/Astramentis.webp",
+    "mods": [
+      "+(50-100) to all Attributes",
+      "-4 Physical Damage taken from Attack Hits"
+    ]
+  },
+  {
+    "id": "74",
+    "name": "Atsak's Sight",
+    "itemClass": "Helmet",
+    "iconPath": "items/BalefulTemperance.webp",
+    "mods": [
+      "(100-150)% increased Evasion and Energy Shield",
+      "(30-40)% increased Critical Hit Chance",
+      "+(10-20) to Dexterity",
+      "+(10-20) to Intelligence",
+      "Critical Hits Poison the enemy"
+    ]
+  },
+  {
+    "id": "79",
+    "name": "Atziri's Acuity",
+    "itemClass": "Gloves",
+    "iconPath": "items/AtzirisAcuity.webp",
+    "mods": [
+      "(80-100)% increased Armour",
+      "(30-50)% increased Critical Hit Chance",
+      "+(20-30) to Intelligence",
+      "Leech from Critical Hits is instant"
+    ]
+  },
+  {
+    "id": "399",
+    "name": "Atziri's Contempt",
+    "itemClass": "Spear",
+    "iconPath": "items/AtziriStaffBlood.webp",
+    "mods": [
+      "(100-120)% increased Physical Damage",
+      "Adds (83-97) to (123-153) Fire Damage",
+      "Adds 1 to (193-207) Lightning Damage",
+      "(10-16)% increased Attack Speed",
+      "(60-80)% increased Presence Area of Effect",
+      "Spear Skills inflict a Bloodstone Lance on Hit, up to a maximum of 30 on each target"
+    ]
+  },
+  {
+    "id": "60",
+    "name": "Atziri's Disdain",
+    "itemClass": "Helmet",
+    "iconPath": "items/AtzirisDisdain.webp",
+    "mods": [
+      "+(60-100) to maximum Mana",
+      "(10-20)% increased Rarity of Items found",
+      "10% of Damage taken bypasses Energy Shield",
+      "Gain (10-15)% of maximum Life as Extra maximum Energy Shield"
+    ]
+  },
+  {
+    "id": "393",
+    "name": "Atziri's Rule",
+    "itemClass": "Staff",
+    "iconPath": "items/AtziriStaff.webp",
+    "mods": [
+      "(10-20)% increased maximum Life",
+      "+(3-5) to Level of all Corrupted Spell Skill Gems",
+      "(10-20)% increased Cast Speed",
+      "+(20-30) to Intelligence",
+      "Spells which cost Life Gain (80-120)% of Damage as Extra Physical Damage"
+    ]
+  },
+  {
+    "id": "396",
+    "name": "Atziri's Splendour",
+    "itemClass": "Body Armour",
+    "iconPath": "items/AtzirisSplendour.webp",
+    "mods": [
+      "Only Soul Cores can be Socketed in this item",
+      "Has no Attribute Requirements",
+      "(80-120)% increased Armour, Evasion and Energy Shield",
+      "+(10-20)% to all Elemental Resistances",
+      "Skills from Corrupted Gems have 50% of Mana Costs Converted to Life Costs",
+      "This item gains bonuses from Socketed Soul Cores as though it was also a [Random socketable equipment type]",
+      "Has 6 Augment Sockets (Hidden)"
+    ]
+  },
+  {
+    "id": "397",
+    "name": "Atziri's Step",
+    "itemClass": "Boots",
+    "iconPath": "items/AtzirisStep.webp",
+    "mods": [
+      "30% increased Movement Speed",
+      "(80-120)% increased Evasion Rating",
+      "+(70-100) to maximum Life",
+      "Gain Deflection Rating equal to (40-60)% of Evasion Rating",
+      "(-12--6)% to amount of Damage Prevented by Deflection",
+      "Cannot be Light Stunned by Deflected Hits"
+    ]
+  },
+  {
+    "id": "91",
+    "name": "Aurseize",
+    "itemClass": "Gloves",
+    "iconPath": "items/Aurseize.webp",
+    "mods": [
+      "(40-60)% increased Armour and Evasion",
+      "(40-50)% increased Rarity of Items found",
+      "Lose 2% of maximum Life on Kill"
+    ]
+  },
+  {
+    "id": "153",
+    "name": "Beacon of Azis",
+    "itemClass": "Amulet",
+    "iconPath": "items/BeaconOfAzis.webp",
+    "mods": [
+      "+(60-100) to maximum Mana",
+      "+30 to Spirit",
+      "30% increased Light Radius",
+      "Critical Hits ignore Enemy Monster Elemental Resistances"
+    ]
+  },
+  {
+    "id": "249",
+    "name": "Beetlebite",
+    "itemClass": "Boots",
+    "iconPath": "items/ChainsOfDeshret.webp",
+    "mods": [
+      "(20-30)% increased Movement Speed",
+      "(60-120)% increased Evasion and Energy Shield",
+      "Aggravate Bleeding on Enemies when they Enter your Presence",
+      "100% increased Thorns damage"
+    ]
+  },
+  {
+    "id": "30",
+    "name": "Belly of the Beast",
+    "itemClass": "Body Armour",
+    "iconPath": "items/BellyOfTheBeast.webp",
+    "mods": [
+      "(100-150)% increased Armour and Evasion",
+      "+(100-150) to maximum Life",
+      "+(100-150) to Stun Threshold",
+      "Life Recovery from Flasks is instant",
+      "(25-30) to (35-40) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "254",
+    "name": "Beyond Reach",
+    "itemClass": "Quiver",
+    "iconPath": "items/BreachQuiver.webp",
+    "mods": [
+      "(10-15)% reduced Attack Speed",
+      "Chaos Damage from Hits also Contributes to Freeze Buildup",
+      "Chaos Damage from Hits also Contributes to Electrocute Buildup",
+      "Attacks Gain (10-20)% of Physical Damage as extra Chaos Damage"
+    ]
+  },
+  {
+    "id": "278",
+    "name": "Bijouborne",
+    "itemClass": "Belt",
+    "iconPath": "items/Twinclasp.webp",
+    "mods": [
+      "+(50-100) to maximum Mana",
+      "(10-50)% reduced Charm Effect Duration",
+      "+2 Charm Slots",
+      "+(15-25) to Dexterity",
+      "(20-30)% increased Charm Charges gained"
+    ]
+  },
+  {
+    "id": "103",
+    "name": "Birth of Fury",
+    "itemClass": "Boots",
+    "iconPath": "items/BirthOfFury.webp",
+    "mods": [
+      "20% increased Movement Speed",
+      "+(40-60) to maximum Life",
+      "+(20-30)% to Fire Resistance",
+      "Drop Ignited Ground while moving, which lasts 8 seconds and Ignites as though dealing Fire Damage equal to 10% of your maximum Life"
+    ]
+  },
+  {
+    "id": "183",
+    "name": "Birthright Buckle",
+    "itemClass": "Belt",
+    "iconPath": "items/BirthrightBuckle.webp",
+    "mods": [
+      "+(100-150) to Armour",
+      "(10-15)% reduced Flask Charges used",
+      "(20-30)% increased Flask Charges gained",
+      "Life Flasks used while on Low Life apply Recovery Instantly",
+      "Mana Flasks used while on Low Mana apply Recovery Instantly"
+    ]
+  },
+  {
+    "id": "19",
+    "name": "Bitterbloom",
+    "itemClass": "Body Armour",
+    "iconPath": "items/DarkwoodPerianth.webp",
+    "mods": [
+      "(50-100)% increased Energy Shield",
+      "+(50-100) to maximum Mana",
+      "50% increased Energy Shield Recharge Rate",
+      "Energy Shield Recharge starts when you use a Mana Flask"
+    ]
+  },
+  {
+    "id": "45",
+    "name": "Black Sun Crest",
+    "itemClass": "Helmet",
+    "iconPath": "items/BlackSunCrest.webp",
+    "mods": [
+      "(50-80)% increased Armour",
+      "20% reduced Light Radius",
+      "(5-15)% increased Strength",
+      "(5-15)% increased Dexterity",
+      "(5-15)% increased Intelligence"
+    ]
+  },
+  {
+    "id": "1",
+    "name": "Blackbraid",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Blackbraid.webp",
+    "mods": [
+      "+(40-60) to Armour",
+      "+(5-15) to Strength",
+      "+(5-15) to Intelligence",
+      "+10% to all Elemental Resistances",
+      "+(100-150)% of Armour also applies to Elemental Damage",
+      "+(40-60) to Stun Threshold"
+    ]
+  },
+  {
+    "id": "170",
+    "name": "Blackflame",
+    "itemClass": "Ring",
+    "iconPath": "items/Blackflame.webp",
+    "mods": [
+      "(15-30)% increased Mana Regeneration Rate",
+      "50% increased Ignite Magnitude",
+      "50% reduced Ignite Duration on Enemies",
+      "Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite"
+    ]
+  },
+  {
+    "id": "139",
+    "name": "Blackgleam",
+    "itemClass": "Quiver",
+    "iconPath": "items/Blackgleam.webp",
+    "mods": [
+      "Adds (3-5) to (6-9) Fire damage to Attacks",
+      "+(30-50) to maximum Mana",
+      "50% increased Flammability Magnitude",
+      "Projectiles Pierce all Ignited enemies",
+      "Attacks Gain (5-10)% of Damage as Extra Fire Damage"
+    ]
+  },
+  {
+    "id": "157",
+    "name": "Blackheart",
+    "itemClass": "Ring",
+    "iconPath": "items/Blackheart.webp",
+    "mods": [
+      "(3-6) Life Regeneration per second",
+      "Adds (4-6) to (8-10) Chaos Damage to Attacks",
+      "25% chance to Intimidate Enemies for 4 seconds on Hit"
+    ]
+  },
+  {
+    "id": "232",
+    "name": "Blessed Bonds",
+    "itemClass": "Gloves",
+    "iconPath": "items/BlessedBonds.webp",
+    "mods": [
+      "+(60-100) to Evasion Rating",
+      "+(30-50) to maximum Energy Shield",
+      "Gain (25-35) Mana per enemy killed",
+      "Inflict Cold Exposure on Igniting an Enemy",
+      "Inflict Fire Exposure on Shocking an Enemy",
+      "Inflict Lightning Exposure on Critical Hit"
+    ]
+  },
+  {
+    "id": "162",
+    "name": "Blistering Bond",
+    "itemClass": "Ring",
+    "iconPath": "items/BlisteringBond.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(20-30)% to Fire Resistance",
+      "(-15--10)% to Cold Resistance",
+      "You take Fire Damage instead of Physical Damage from Bleeding"
+    ]
+  },
+  {
+    "id": "300",
+    "name": "Blood Price",
+    "itemClass": "Helmet",
+    "iconPath": "items/BloodPrice.webp",
+    "mods": [
+      "(80-120)% increased Armour",
+      "(10-15) Life Regeneration per second",
+      "+(100-150) to Stun Threshold",
+      "(30-60)% increased Presence Area of Effect",
+      "Enemies in your Presence have at least 10% of Life Reserved"
+    ]
+  },
+  {
+    "id": "322",
+    "name": "Bloodbarrier",
+    "itemClass": "Shield",
+    "iconPath": "items/BloodBarrier.webp",
+    "mods": [
+      "(10-15)% increased Block chance",
+      "+(13-17)% to Chaos Resistance",
+      "(5-10) Life Regeneration per second",
+      "Inflict Corrupted Blood for 5 seconds on Block, dealing 50% ofyour maximum Life as Physical damage per second"
+    ]
+  },
+  {
+    "id": "96",
+    "name": "Blueflame Bracers",
+    "itemClass": "Gloves",
+    "iconPath": "items/SunConstrictor.webp",
+    "mods": [
+      "+20 to maximum Energy Shield",
+      "+(10-20) to Intelligence",
+      "+(5-15)% to Fire Resistance",
+      "+(5-15)% to Cold Resistance",
+      "100% of Fire Damage Converted to Cold Damage"
+    ]
+  },
+  {
+    "id": "110",
+    "name": "Bones of Ullr",
+    "itemClass": "Boots",
+    "iconPath": "items/BonesOfUllr.webp",
+    "mods": [
+      "(5-15)% increased Movement Speed",
+      "(40-60)% increased Energy Shield",
+      "+(20-40) to maximum Life",
+      "+(20-40) to maximum Mana",
+      "(20-30)% increased Reservation Efficiency of Skills which create Undead Minions"
+    ]
+  },
+  {
+    "id": "0",
+    "name": "Bramblejack",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Bramblejack.webp",
+    "mods": [
+      "+(60-100) to maximum Life",
+      "+(60-100) to Stun Threshold",
+      "Cannot Evade Enemy Attacks",
+      "250% of Melee Physical Damage taken reflected to Attacker",
+      "Regenerate 5% of maximum Life per second while Surrounded"
+    ]
+  },
+  {
+    "id": "104",
+    "name": "Briarpatch",
+    "itemClass": "Boots",
+    "iconPath": "items/Briarpatch.webp",
+    "mods": [
+      "(10-20)% increased Movement Speed",
+      "+(40-60) to maximum Life",
+      "+(60-80) to Stun Threshold",
+      "+25% to Thorns Critical Hit Chance",
+      "(10-15) to (20-25) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "13",
+    "name": "Briskwrap",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Briskwrap.webp",
+    "mods": [
+      "(60-100)% increased Evasion Rating",
+      "(40-60)% increased Flask Life Recovery rate",
+      "(40-60)% increased Flask Mana Recovery rate",
+      "+(20-30) to Dexterity",
+      "+(20-30)% to Cold Resistance",
+      "Gain Deflection Rating equal to (20-30)% of Evasion Rating"
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Bristleboar",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Bristleboar.webp",
+    "mods": [
+      "50% reduced Evasion Rating",
+      "+(40-60) to maximum Life",
+      "(3-5) Life Regeneration per second",
+      "Gain 5 Rage when Hit by an Enemy",
+      "Gain 10 Rage when Critically Hit by an Enemy"
+    ]
+  },
+  {
+    "id": "67",
+    "name": "Bronzebeard",
+    "itemClass": "Helmet",
+    "iconPath": "items/Bronzebeard.webp",
+    "mods": [
+      "10% reduced Movement Speed",
+      "(50-100)% increased Armour and Energy Shield",
+      "+100 to maximum Life",
+      "(35-50)% reduced Effect of Chill on you",
+      "(35-50)% reduced Magnitude of Ignite on you",
+      "(35-50)% reduced effect of Shock on you"
+    ]
+  },
+  {
+    "id": "362",
+    "name": "Bursting Decay",
+    "itemClass": "Ring",
+    "iconPath": "items/BurstingDecay.webp",
+    "mods": [
+      "(15-25)% increased Rarity of Items found",
+      "+(17-23)% to Chaos Resistance",
+      "Lose 5% of maximum Life per second",
+      "Attacks have added Physical damage equal to 3% of maximum Life"
+    ]
+  },
+  {
+    "id": "107",
+    "name": "Bushwhack",
+    "itemClass": "Boots",
+    "iconPath": "items/Bushwack.webp",
+    "mods": [
+      "(15-25)% increased Movement Speed",
+      "(50-80)% increased Evasion Rating",
+      "+(10-20) to Dexterity",
+      "Physical Damage is Pinning"
+    ]
+  },
+  {
+    "id": "184",
+    "name": "Byrnabas",
+    "itemClass": "Belt",
+    "iconPath": "items/Byrnabas.webp",
+    "mods": [
+      "+(40-60) to maximum Mana",
+      "+(30-40)% to Lightning Resistance",
+      "(7-12) Life Regeneration per second",
+      "Cannot be Shocked"
+    ]
+  },
+  {
+    "id": "368",
+    "name": "Cadiro's Gambit",
+    "itemClass": "Quiver",
+    "iconPath": "items/PerandusTurnstile.webp",
+    "mods": [
+      "Each Arrow fired is a Crescendo, Splinter, Reversing, Diamond, Covetous, or Blunt Arrow"
+    ]
+  },
+  {
+    "id": "324",
+    "name": "Calgyra's Arc",
+    "itemClass": "Shield",
+    "iconPath": "items/CalgyrasArc.webp",
+    "mods": [
+      "(60-100)% increased Evasion Rating",
+      "+(60-100) to maximum Mana",
+      "+(10-20) to Intelligence",
+      "Infinite Parry Range",
+      "50% increased Parried Debuff Duration"
+    ]
+  },
+  {
+    "id": "168",
+    "name": "Call of the Brotherhood",
+    "itemClass": "Ring",
+    "iconPath": "items/CallOfTheBrotherhood.webp",
+    "mods": [
+      "+(10-20) to Intelligence",
+      "(25-35)% increased Mana Regeneration Rate",
+      "(20-30)% increased Freeze Buildup",
+      "100% of Lightning Damage Converted to Cold Damage"
+    ]
+  },
+  {
+    "id": "86",
+    "name": "Candlemaker",
+    "itemClass": "Gloves",
+    "iconPath": "items/Candlemaker.webp",
+    "mods": [
+      "(50-80)% increased Energy Shield",
+      "(20-40)% increased Fire Damage",
+      "(10-20)% reduced Cold Damage",
+      "+(20-40)% to Fire Resistance",
+      "(-20--10)% to Cold Resistance",
+      "Flammability Magnitude is doubled"
+    ]
+  },
+  {
+    "id": "145",
+    "name": "Carnage Heart",
+    "itemClass": "Amulet",
+    "iconPath": "items/CarnageHeart.webp",
+    "mods": [
+      "20% reduced maximum Life",
+      "+(10-20) to all Attributes",
+      "+(10-20)% to all Elemental Resistances",
+      "(100-200)% increased amount of Life Leeched"
+    ]
+  },
+  {
+    "id": "338",
+    "name": "Chainsting",
+    "itemClass": "Spear",
+    "iconPath": "items/Chainsting.webp",
+    "mods": [
+      "Adds (13-17) to (22-28) Physical Damage",
+      "+(100-150) to Accuracy Rating",
+      "10% increased Attack Speed",
+      "All Damage from Hits with this Weapon Contributes to Pin Buildup",
+      "(20-30)% increased Projectile Speed with this Weapon"
+    ]
+  },
+  {
+    "id": "318",
+    "name": "Chernobog's Pillar",
+    "itemClass": "Shield",
+    "iconPath": "items/ChernobogsPillar.webp",
+    "mods": [
+      "(100-150)% increased Armour",
+      "+(30-40)% to Fire Resistance",
+      "+(23-29)% to Chaos Resistance",
+      "+(150-200) to Stun Threshold",
+      "Gain 1% of damage as Fire damage per 1% Chance to Block"
+    ]
+  },
+  {
+    "id": "256",
+    "name": "Choir of the Storm",
+    "itemClass": "Amulet",
+    "iconPath": "items/ChoirOfTheStorm.webp",
+    "mods": [
+      "+(50-100)% to Lightning Resistance",
+      "Critical Hits Ignore Enemy Monster Lightning Resistance",
+      "Trigger Lightning Bolt Skill on Critical Hit"
+    ]
+  },
+  {
+    "id": "290",
+    "name": "Cloak of Defiance",
+    "itemClass": "Body Armour",
+    "iconPath": "items/CloakOfDefiance.webp",
+    "mods": [
+      "(50-100)% increased Energy Shield",
+      "+(100-150) to maximum Mana",
+      "(50-100)% increased Mana Regeneration Rate",
+      "50% of Damage is taken from Mana before Life"
+    ]
+  },
+  {
+    "id": "22",
+    "name": "Cloak of Flame",
+    "itemClass": "Body Armour",
+    "iconPath": "items/CloakOfFlame.webp",
+    "mods": [
+      "+(30-50) to maximum Energy Shield",
+      "+(30-50)% to Fire Resistance",
+      "(30-50)% reduced Ignite Duration on you",
+      "50% of Physical Damage taken as Fire Damage",
+      "25 to 35 Fire Thorns damage"
+    ]
+  },
+  {
+    "id": "26",
+    "name": "Coat of Red",
+    "itemClass": "Body Armour",
+    "iconPath": "items/CoatOfRed.webp",
+    "mods": [
+      "(80-100)% increased Armour and Evasion",
+      "+(80-100) to maximum Life",
+      "+(75-150) to Stun Threshold",
+      "25% chance to be inflicted with Bleeding when Hit"
+    ]
+  },
+  {
+    "id": "247",
+    "name": "Collapsing Horizon",
+    "itemClass": "Warstaff",
+    "iconPath": "items/CollapsingHorizon.webp",
+    "mods": [
+      "100% increased Elemental Damage with Attacks",
+      "+(5-10)% to Critical Hit Chance",
+      "+(2-4) to Level of all Elemental Skills",
+      "Trigger skills refund half of Energy spent"
+    ]
+  },
+  {
+    "id": "370",
+    "name": "Constricting Command",
+    "itemClass": "Helmet",
+    "iconPath": "items/ConstrictingCommand.webp",
+    "mods": [
+      "+(80-120) to maximum Life",
+      "+(10-15) to all Attributes",
+      "(8-12) Life Regeneration per second",
+      "Require (2-4) fewer enemies to be Surrounded"
+    ]
+  },
+  {
+    "id": "70",
+    "name": "Cornathaum",
+    "itemClass": "Helmet",
+    "iconPath": "items/Cornathaum.webp",
+    "mods": [
+      "(10-20)% increased Rarity of Items found",
+      "+(40-50) to Intelligence",
+      "30% increased Light Radius",
+      "5% increased Experience gain"
+    ]
+  },
+  {
+    "id": "48",
+    "name": "Corona of the Red Sun",
+    "itemClass": "Helmet",
+    "iconPath": "items/CoronaOfTheRedSun.webp",
+    "mods": [
+      "+(100-150) to Accuracy Rating",
+      "+(60-80) to maximum Life",
+      "+(20-25)% to Fire Resistance",
+      "25% increased Light Radius",
+      "Leeching Life from your Hits causes Allies in your Presence to also Leech the same amount of Life"
+    ]
+  },
+  {
+    "id": "100",
+    "name": "Corpsewade",
+    "itemClass": "Boots",
+    "iconPath": "items/Corpsewade.webp",
+    "mods": [
+      "10% increased Movement Speed",
+      "(30-50)% increased Armour",
+      "+(5-10) to Strength",
+      "Trigger Decompose every 1.2 metres travelled"
+    ]
+  },
+  {
+    "id": "377",
+    "name": "Cospri's Will",
+    "itemClass": "Body Armour",
+    "iconPath": "items/CosprisWill.webp",
+    "mods": [
+      "(150-200)% increased Evasion and Energy Shield",
+      "+(23-29)% to Chaos Resistance",
+      "Curses you inflict have infinite Duration",
+      "Curses you inflict can affect Hexproof Enemies",
+      "Withered you inflict has infinite Duration"
+    ]
+  },
+  {
+    "id": "36",
+    "name": "Couture of Crimson",
+    "itemClass": "Body Armour",
+    "iconPath": "items/CoutureOfCrimson.webp",
+    "mods": [
+      "(50-100)% increased Armour and Energy Shield",
+      "(10-15)% increased maximum Life",
+      "Life Leech can Overflow Maximum Life",
+      "(40-60)% reduced Duration of Bleeding on You"
+    ]
+  },
+  {
+    "id": "188",
+    "name": "Coward's Legacy",
+    "itemClass": "Belt",
+    "iconPath": "items/CowardsLegacy.webp",
+    "mods": [
+      "(-20--10) to Strength",
+      "+(20-30) to Dexterity",
+      "(30-40)% increased Life and Mana Recovery from Flasks",
+      "You are considered on Low Life while at 75% of maximum Life or below instead"
+    ]
+  },
+  {
+    "id": "161",
+    "name": "Cracklecreep",
+    "itemClass": "Ring",
+    "iconPath": "items/Cracklecreep.webp",
+    "mods": [
+      "(20-30)% increased Fire Damage",
+      "(3.1-6) Life Regeneration per second",
+      "(20-30)% increased Mana Regeneration Rate",
+      "Ignites you inflict spread to other Enemies that stay within 1.5 metres for 1 second"
+    ]
+  },
+  {
+    "id": "131",
+    "name": "Crest of Ardura",
+    "itemClass": "Shield",
+    "iconPath": "items/CrestOfArdura.webp",
+    "mods": [
+      "(60-100)% increased Armour and Energy Shield",
+      "+(10-20) to Intelligence",
+      "(30-50)% increased Mana Regeneration Rate",
+      "(30-50)% increased Cooldown Recovery Rate"
+    ]
+  },
+  {
+    "id": "299",
+    "name": "Crown of Eyes",
+    "itemClass": "Helmet",
+    "iconPath": "items/CrownOfEyes.webp",
+    "mods": [
+      "(100-140)% increased Energy Shield",
+      "+(150-200) to Accuracy Rating",
+      "+(10-15) to all Attributes",
+      "-10% to Fire Resistance",
+      "Increases and Reductions to Spell damage also apply to Attacks"
+    ]
+  },
+  {
+    "id": "68",
+    "name": "Crown of the Pale King",
+    "itemClass": "Helmet",
+    "iconPath": "items/CrownOfThePaleKing.webp",
+    "mods": [
+      "(50-100)% increased Armour and Energy Shield",
+      "+(40-80) to maximum Life",
+      "10% increased Rarity of Items found",
+      "(10-15) to (20-25) Physical Thorns damage",
+      "Thorns can Retaliate against all Hits"
+    ]
+  },
+  {
+    "id": "66",
+    "name": "Crown of the Victor",
+    "itemClass": "Helmet",
+    "iconPath": "items/CrownOfTheVictor.webp",
+    "mods": [
+      "(10-15)% increased Rarity of Items found",
+      "Gain 10 Life per enemy killed",
+      "Gain 10 Mana per enemy killed",
+      "+1 to Level of all Skills"
+    ]
+  },
+  {
+    "id": "55",
+    "name": "Crown of Thorns",
+    "itemClass": "Helmet",
+    "iconPath": "items/CrownOfThorns.webp",
+    "mods": [
+      "+(100-150) to maximum Energy Shield",
+      "Lose 5 Life when you use a Skill",
+      "(3-5) to (6-10) Physical Thorns damage",
+      "Pain Attunement"
+    ]
+  },
+  {
+    "id": "328",
+    "name": "Cursecarver",
+    "itemClass": "Wand",
+    "iconPath": "items/Clawmark.webp",
+    "mods": [
+      "(80-100)% increased Spell Damage",
+      "(10-20)% increased Cast Speed",
+      "Lose 10 Life per enemy killed",
+      "(30-50)% increased Mana Regeneration Rate",
+      "+4 to Level of [Random Curse] Skills"
+    ]
+  },
+  {
+    "id": "340",
+    "name": "Daevata's Wind",
+    "itemClass": "Spear",
+    "iconPath": "items/DaevatasWind.webp",
+    "mods": [
+      "Adds (10-15) to (21-26) Physical Damage",
+      "+100 to Evasion Rating",
+      "(10-20)% increased Attack Speed",
+      "(30-60)% increased Melee Damage if you've dealt a Projectile Attack Hit in the past eight seconds",
+      "(30-60)% increased Projectile Damage if you've dealt a Melee Hit in the past eight seconds"
+    ]
+  },
+  {
+    "id": "383",
+    "name": "Darkness Enthroned",
+    "itemClass": "Belt",
+    "iconPath": "items/DarknessEnthroned.webp",
+    "mods": [
+      "This item gains bonuses from Socketed Items as though it was a Body Armour",
+      "(50-100)% increased effect of Socketed Items",
+      "Has 2 Augment Sockets (Hidden)"
+    ]
+  },
+  {
+    "id": "114",
+    "name": "Darkray Vectors",
+    "itemClass": "Boots",
+    "iconPath": "items/DarkrayVectors.webp",
+    "mods": [
+      "(50-100)% increased Armour and Evasion",
+      "+(20-30)% to Lightning Resistance",
+      "25% reduced Light Radius",
+      "5% increased Movement Speed per Frenzy Charge",
+      "+1 to Maximum Frenzy Charges"
+    ]
+  },
+  {
+    "id": "363",
+    "name": "Death Articulated",
+    "itemClass": "Gloves",
+    "iconPath": "items/DeathArticulated.webp",
+    "mods": [
+      "(100-150)% increased Armour and Evasion",
+      "(5-10)% increased Attack Speed",
+      "+(17-23)% to Chaos Resistance",
+      "Lose 5% of maximum Life per second",
+      "Regenerate 5 Rage per second",
+      "No Inherent loss of Rage"
+    ]
+  },
+  {
+    "id": "172",
+    "name": "Death Rush",
+    "itemClass": "Ring",
+    "iconPath": "items/DeathRush.webp",
+    "mods": [
+      "+(75-125) to Accuracy Rating",
+      "+(75-125) to Evasion Rating",
+      "Leech 5% of Physical Attack Damage as Life",
+      "You gain Onslaught for 4 seconds on Kill"
+    ]
+  },
+  {
+    "id": "217",
+    "name": "Death's Harp",
+    "itemClass": "Bow",
+    "iconPath": "items/DeathsHarp.webp",
+    "mods": [
+      "+(20-25)% to Critical Damage Bonus",
+      "Bow Attacks fire 3 additional Arrows",
+      "Gain (20-30) Life per enemy killed",
+      "Gain (12-18) Mana per enemy killed"
+    ]
+  },
+  {
+    "id": "92",
+    "name": "Deathblow",
+    "itemClass": "Gloves",
+    "iconPath": "items/Deathblow.webp",
+    "mods": [
+      "(100-150)% increased Armour and Evasion",
+      "(5-10)% increased Attack Speed",
+      "Gain (20-30) Life per enemy killed",
+      "Gain (20-30) Mana per enemy killed",
+      "Culling Strike"
+    ]
+  },
+  {
+    "id": "147",
+    "name": "Defiance of Destiny",
+    "itemClass": "Amulet",
+    "iconPath": "items/DefianceOfDestiny.webp",
+    "mods": [
+      "(6-10)% increased maximum Life",
+      "+(10-20) to Strength",
+      "(25-40)% increased Mana Regeneration Rate",
+      "Recover (20-30)% of Missing Life before being Hit by an Enemy"
+    ]
+  },
+  {
+    "id": "47",
+    "name": "Deidbell",
+    "itemClass": "Helmet",
+    "iconPath": "items/Deidbell.webp",
+    "mods": [
+      "(60-100)% increased Armour",
+      "+(10-20) to Strength",
+      "(20-30)% increased Warcry Speed",
+      "Warcries Explode Corpses dealing 10% of their Life as Physical Damage",
+      "Warcry Skills have (20-30)% increased Area of Effect"
+    ]
+  },
+  {
+    "id": "89",
+    "name": "Demon Stitcher",
+    "itemClass": "Gloves",
+    "iconPath": "items/DemonStitcher.webp",
+    "mods": [
+      "+(40-60) to maximum Energy Shield",
+      "+(80-120) to maximum Life",
+      "(6-12)% increased Cast Speed",
+      "Sacrifice (5-15)% of Life to gain that much Energy Shield when you Cast a Spell"
+    ]
+  },
+  {
+    "id": "119",
+    "name": "Dionadair",
+    "itemClass": "Shield",
+    "iconPath": "items/Dionadair.webp",
+    "mods": [
+      "(60-80)% increased Armour",
+      "+(10-15) to Strength",
+      "(3-5) Life Regeneration per second",
+      "20% reduced Stun Threshold",
+      "Double Stun Threshold while Shield is Raised"
+    ]
+  },
+  {
+    "id": "159",
+    "name": "Doedre's Damning",
+    "itemClass": "Ring",
+    "iconPath": "items/DoedresDamning.webp",
+    "mods": [
+      "+(5-15)% to all Elemental Resistances",
+      "Gain (1-10) Mana per enemy killed",
+      "You can apply an additional Curse"
+    ]
+  },
+  {
+    "id": "87",
+    "name": "Doedre's Tenure",
+    "itemClass": "Gloves",
+    "iconPath": "items/EnraptHands.webp",
+    "mods": [
+      "+(20-30) to maximum Energy Shield",
+      "100% increased Spell Damage",
+      "(15-25)% reduced Cast Speed",
+      "+(10-15) to Intelligence"
+    ]
+  },
+  {
+    "id": "344",
+    "name": "Doomfletch",
+    "itemClass": "Bow",
+    "iconPath": "items/Doomfletch.webp",
+    "mods": [
+      "Adds (5-7) to (10-12) Physical Damage",
+      "+10 to Dexterity",
+      "(30-50)% increased Mana Regeneration Rate",
+      "Attacks with this Weapon gain 100% of Physical damage as Extra damage of each Element"
+    ]
+  },
+  {
+    "id": "121",
+    "name": "Doomgate",
+    "itemClass": "Shield",
+    "iconPath": "items/Doomgate.webp",
+    "mods": [
+      "(80-100)% increased Block chance",
+      "(100-150)% increased Armour",
+      "+(13-17)% to Chaos Resistance",
+      "You take (25-40)% of damage from Blocked Hits",
+      "Enemies are Culled on Block"
+    ]
+  },
+  {
+    "id": "31",
+    "name": "Doryani's Prototype",
+    "itemClass": "Body Armour",
+    "iconPath": "items/DoryanisPrototype.webp",
+    "mods": [
+      "(50-100)% increased Armour and Evasion",
+      "+(60-80) to maximum Life",
+      "+100% of Armour also applies to Lightning Damage",
+      "Enemies in your Presence have Lightning Resistance equal to yours",
+      "Lightning Resistance does not affect Lightning damage taken"
+    ]
+  },
+  {
+    "id": "388",
+    "name": "Double Vision",
+    "itemClass": "Crossbow",
+    "iconPath": "items/DoubleVision.webp",
+    "mods": [
+      "Adds (14-21) to (25-37) Physical Damage",
+      "+5% to Critical Hit Chance",
+      "(15-25)% increased Reload Speed",
+      "When you reload, triggers Gemini Surge to alternatelygain (2-6) Cold Surges or (2-6) Fire Surges"
+    ]
+  },
+  {
+    "id": "305",
+    "name": "Dreadfist",
+    "itemClass": "Gloves",
+    "iconPath": "items/Dreadfist.webp",
+    "mods": [
+      "(60-100)% increased Armour",
+      "(20-30)% increased Critical Damage Bonus",
+      "Critical Hits inflict Impale",
+      "Critical Hits cannot Extract Impale",
+      "(20-31) to (31-49) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "164",
+    "name": "Dream Fragments",
+    "itemClass": "Ring",
+    "iconPath": "items/DreamFragments.webp",
+    "mods": [
+      "(10-15)% increased maximum Mana",
+      "(30-50)% increased Mana Regeneration Rate",
+      "You cannot be Chilled or Frozen"
+    ]
+  },
+  {
+    "id": "398",
+    "name": "Drillneck",
+    "itemClass": "Quiver",
+    "iconPath": "items/Drillneck.webp",
+    "mods": [
+      "+(60-90) to maximum Life",
+      "(8-12)% increased Attack Speed",
+      "Gain Deflection Rating equal to (24-32)% of Evasion Rating",
+      "Attack Projectiles Return if they Pierced at least (2-4) times",
+      "Projectiles deal (42-64)% increased Damage with Hits for each time they have Pierced",
+      "Projectiles have (42-64)% increased Critical Hit chance for each time they have Pierced"
+    ]
+  },
+  {
+    "id": "319",
+    "name": "Dunkelhalt",
+    "itemClass": "Shield",
+    "iconPath": "items/Dunkelhalt.webp",
+    "mods": [
+      "(20-30)% increased Block chance",
+      "+(20-30) to Evasion Rating",
+      "You take 50% of damage from Blocked Hits",
+      "50% increased Parried Debuff Magnitude"
+    ]
+  },
+  {
+    "id": "210",
+    "name": "Dusk Vigil",
+    "itemClass": "Staff",
+    "iconPath": "items/DuskVigil.webp",
+    "mods": [
+      "Gain (30-50)% of Damage as Extra Fire Damage",
+      "(80-120)% increased Spell Damage",
+      "Gain (5-10) Life per enemy killed",
+      "25% increased Mana Regeneration Rate",
+      "Trigger Ember Fusillade Skill on casting a Spell"
+    ]
+  },
+  {
+    "id": "14",
+    "name": "Dustbloom",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Dustbloom.webp",
+    "mods": [
+      "(100-150)% increased Evasion Rating",
+      "+(20-30)% to Cold Resistance",
+      "Maximum 10 Fragile Regrowth",
+      "0.5% of maximum Life Regenerated per second per Fragile Regrowth",
+      "10% increased Mana Regeneration Rate per Fragile Regrowth",
+      "Lose all Fragile Regrowth when Hit",
+      "Gain 1 Fragile Regrowth each second"
+    ]
+  },
+  {
+    "id": "212",
+    "name": "Earthbound",
+    "itemClass": "Staff",
+    "iconPath": "items/Earthbound.webp",
+    "mods": [
+      "(80-120)% increased Spell Damage",
+      "(10-20)% increased Cast Speed",
+      "(20-30)% increased Mana Regeneration Rate",
+      "Trigger Spark Skill on killing a Shocked Enemy"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Edyrn's Tusks",
+    "itemClass": "Body Armour",
+    "iconPath": "items/EdyrnsTusks.webp",
+    "mods": [
+      "(120-160)% increased Armour",
+      "50% chance to inflict Bleeding on Hit",
+      "50% reduced Slowing Potency of Debuffs on You",
+      "(15-20) to (25-30) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "52",
+    "name": "Elevore",
+    "itemClass": "Helmet",
+    "iconPath": "items/Elevore.webp",
+    "mods": [
+      "(50-80)% increased Evasion Rating",
+      "+(20-30) to Dexterity",
+      "Charms gain 0.5 charges per Second",
+      "+1 Charm Slot"
+    ]
+  },
+  {
+    "id": "309",
+    "name": "Empire's Grasp",
+    "itemClass": "Gloves",
+    "iconPath": "items/EmpiresGrasp.webp",
+    "mods": [
+      "(150-200)% increased Armour",
+      "+(20-30) to Strength",
+      "Gain (30-50) Life per enemy killed",
+      "(10-20)% increased Global Physical Damage",
+      "Knockback direction is reversed"
+    ]
+  },
+  {
+    "id": "209",
+    "name": "Enezun's Charge",
+    "itemClass": "Wand",
+    "iconPath": "items/EnezunsCharge.webp",
+    "mods": [
+      "(80-100)% increased Spell Damage",
+      "(30-50)% increased Critical Hit Chance for Spells",
+      "Gain (10-15) Mana per enemy killed",
+      "25% chance to not destroy Corpses when Consuming Corpses"
+    ]
+  },
+  {
+    "id": "32",
+    "name": "Enfolding Dawn",
+    "itemClass": "Body Armour",
+    "iconPath": "items/EnfoldingDawn.webp",
+    "mods": [
+      "(50-100)% increased Armour and Energy Shield",
+      "+100 to Spirit",
+      "+(5-15)% to all Elemental Resistances",
+      "Gain no inherent bonus from Intelligence"
+    ]
+  },
+  {
+    "id": "62",
+    "name": "Erian's Cobble",
+    "itemClass": "Helmet",
+    "iconPath": "items/GrimrotCoif.webp",
+    "mods": [
+      "+(0-40) to Armour",
+      "+(0-30) to Evasion Rating",
+      "+(0-20) to maximum Energy Shield",
+      "+(0-60) to Accuracy Rating",
+      "+(0-30) to maximum Life",
+      "+(0-20) to maximum Mana",
+      "(0-20)% increased Rarity of Items found",
+      "(0-30)% increased Critical Hit Chance",
+      "+(0-10) to Strength",
+      "+(0-10) to Dexterity",
+      "+(0-10) to Intelligence",
+      "+(0-10)% to Fire Resistance",
+      "+(0-10)% to Cold Resistance",
+      "+(0-10)% to Lightning Resistance",
+      "(0-6) Life Regeneration per second"
+    ]
+  },
+  {
+    "id": "310",
+    "name": "Essentia Sanguis",
+    "itemClass": "Gloves",
+    "iconPath": "items/EssentiaSanguis.webp",
+    "mods": [
+      "(50-70)% increased Evasion and Energy Shield",
+      "Adds 1 to (30-50) Lightning damage to Attacks",
+      "+(15-25) to Intelligence",
+      "+(25-35)% to Lightning Resistance",
+      "Life Leech is Converted to Energy Shield Leech"
+    ]
+  },
+  {
+    "id": "275",
+    "name": "Evergrasping Ring",
+    "itemClass": "Ring",
+    "iconPath": "items/EvergraspingRing.webp",
+    "mods": [
+      "+(60-100) to maximum Mana",
+      "Allies in your Presence Gain (15-25)% of Damage as Extra Chaos Damage",
+      "Enemies in your Presence Gain (6-12)% of Damage as Extra Chaos Damage"
+    ]
+  },
+  {
+    "id": "155",
+    "name": "Eye of Chayula",
+    "itemClass": "Amulet",
+    "iconPath": "items/EyeOfChayula.webp",
+    "mods": [
+      "(20-30)% reduced maximum Life",
+      "+(10-15) to all Attributes",
+      "Cannot be Light Stunned"
+    ]
+  },
+  {
+    "id": "44",
+    "name": "Ezomyte Peak",
+    "itemClass": "Helmet",
+    "iconPath": "items/EzomytePeak.webp",
+    "mods": [
+      "(50-100)% increased Armour",
+      "+(50-80) to maximum Life",
+      "(3-6) Life Regeneration per second",
+      "(10-20)% increased Area of Effect",
+      "Unwavering Stance"
+    ]
+  },
+  {
+    "id": "387",
+    "name": "Fairgraves' Curse",
+    "itemClass": "Bow",
+    "iconPath": "items/DealersHand.webp",
+    "mods": [
+      "Adds (76-98) to (126-193) Fire Damage",
+      "(30-50)% increased Flammability Magnitude",
+      "(10-20)% increased Ignite Magnitude",
+      "30% reduced Life Recovery rate",
+      "-30 Physical Damage taken from Hits",
+      "Attack Hits inflict Spectral Fire for 8 seconds"
+    ]
+  },
+  {
+    "id": "127",
+    "name": "Feathered Fortress",
+    "itemClass": "Shield",
+    "iconPath": "items/FeatheredFortress.webp",
+    "mods": [
+      "+(20-30) to Strength",
+      "+(20-30) to Dexterity",
+      "+(20-30)% to Fire Resistance",
+      "+(20-30)% to Cold Resistance",
+      "No Movement Speed Penalty while Shield is Raised"
+    ]
+  },
+  {
+    "id": "154",
+    "name": "Fireflower",
+    "itemClass": "Amulet",
+    "iconPath": "items/Fireflower.webp",
+    "mods": [
+      "(10-15)% increased Rarity of Items found",
+      "(30-40)% increased Mana Regeneration Rate",
+      "Take 100 Fire Damage when you Ignite an Enemy",
+      "+(1-4) to Level of all Fire Skills"
+    ]
+  },
+  {
+    "id": "152",
+    "name": "Fixation of Yix",
+    "itemClass": "Amulet",
+    "iconPath": "items/FixationOfYix.webp",
+    "mods": [
+      "+100 to maximum Life",
+      "Allies in your Presence have (30-50)% increased Critical Hit Chance",
+      "Allies in your Presence have (30-50)% increased Critical Damage Bonus",
+      "Allies in your Presence have (10-20)% increased Attack Speed",
+      "Allies in your Presence have (10-20)% increased Cast Speed",
+      "50% reduced Presence Area of Effect"
+    ]
+  },
+  {
+    "id": "221",
+    "name": "Font of Power",
+    "itemClass": "Sceptre",
+    "iconPath": "items/FontOfPower.webp",
+    "mods": [
+      "(30-50)% increased Spirit",
+      "+(40-60) to maximum Mana",
+      "(20-30)% increased Mana Regeneration Rate",
+      "When a Party Member in your Presence Casts a Spell, youSacrifice 20% of Mana and they Leech that Mana"
+    ]
+  },
+  {
+    "id": "58",
+    "name": "Forbidden Gaze",
+    "itemClass": "Helmet",
+    "iconPath": "items/ForbiddenGaze.webp",
+    "mods": []
+  },
+  {
+    "id": "11",
+    "name": "Foxshade",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Foxform.webp",
+    "mods": [
+      "+(50-70) to Evasion Rating",
+      "+(20-30) to Dexterity",
+      "10% increased Movement Speed when on Full Life",
+      "100% increased Evasion Rating when on Full Life"
+    ]
+  },
+  {
+    "id": "105",
+    "name": "Gamblesprint",
+    "itemClass": "Boots",
+    "iconPath": "items/Gamblesprint.webp",
+    "mods": [
+      "(100-140)% increased Evasion Rating",
+      "+(10-15) to Dexterity",
+      "+(15-25)% to Lightning Resistance",
+      "Gain 0% to 40% increased Movement Speed at random when Hit, until Hit again"
+    ]
+  },
+  {
+    "id": "117",
+    "name": "Ghostmarch",
+    "itemClass": "Boots",
+    "iconPath": "items/Ghostmarch.webp",
+    "mods": [
+      "15% increased Movement Speed",
+      "(100-150)% increased Evasion and Energy Shield",
+      "+(30-50) to maximum Mana",
+      "+(17-23)% to Chaos Resistance",
+      "Dodge Roll passes through Enemies"
+    ]
+  },
+  {
+    "id": "18",
+    "name": "Ghostwrithe",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Ghostwrithe.webp",
+    "mods": [
+      "+100 to maximum Energy Shield",
+      "+(29-37)% to Chaos Resistance",
+      "35% of Maximum Life Converted to Energy Shield"
+    ]
+  },
+  {
+    "id": "276",
+    "name": "Gifts from Above",
+    "itemClass": "Ring",
+    "iconPath": "items/GiftsFromAbove.webp",
+    "mods": [
+      "(20-30)% increased Critical Hit Chance",
+      "(20-30)% increased Light Radius",
+      "(20-30)% increased Rarity of Items Dropped by Enemies killed with a Critical Hit",
+      "You have Consecrated Ground around you while stationary"
+    ]
+  },
+  {
+    "id": "236",
+    "name": "Glimpse of Chaos",
+    "itemClass": "Helmet",
+    "iconPath": "items/GlimpseOfChaos.webp",
+    "mods": [
+      "Can be modified while Corrupted",
+      "+(50-150) to maximum Life",
+      "+(50-150) to maximum Mana",
+      "(-30-30)% to Fire Resistance",
+      "(-30-30)% to Cold Resistance",
+      "(-30-30)% to Lightning Resistance",
+      "Chaos Resistance is zero"
+    ]
+  },
+  {
+    "id": "288",
+    "name": "Gloamgown",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Gloamgown.webp",
+    "mods": [
+      "(100-140)% increased Energy Shield",
+      "+(30-40) to Spirit",
+      "+(25-35)% to Cold Resistance",
+      "1000% increased Energy Shield Recharge Rate",
+      "Your base Energy Shield Recharge Delay is 10 seconds"
+    ]
+  },
+  {
+    "id": "38",
+    "name": "Gloomform",
+    "itemClass": "Body Armour",
+    "iconPath": "items/GatheringGloom.webp",
+    "mods": [
+      "(100-150)% increased Evasion Rating",
+      "+(10-20) to Dexterity",
+      "+(10-20)% to Fire Resistance",
+      "20% reduced Light Radius",
+      "You have a Smoke Cloud around you while stationary"
+    ]
+  },
+  {
+    "id": "158",
+    "name": "Glowswarm",
+    "itemClass": "Ring",
+    "iconPath": "items/Glowswarm.webp",
+    "mods": [
+      "+(40-60) to maximum Mana",
+      "(20-30)% increased Flask Mana Recovery rate",
+      "Mana Flasks gain (0.17-0.25) charges per Second"
+    ]
+  },
+  {
+    "id": "50",
+    "name": "Goldrim",
+    "itemClass": "Helmet",
+    "iconPath": "items/Goldrim.webp",
+    "mods": [
+      "+(30-50) to Evasion Rating",
+      "10% increased Rarity of Items found",
+      "+(25-35)% to all Elemental Resistances"
+    ]
+  },
+  {
+    "id": "277",
+    "name": "Goregirdle",
+    "itemClass": "Belt",
+    "iconPath": "items/Goregirdle.webp",
+    "mods": [
+      "+(20-30) to Strength",
+      "(10-20) Life Regeneration per second",
+      "Defend with 200% of Armour",
+      "Maximum Physical Damage Reduction is 50%"
+    ]
+  },
+  {
+    "id": "94",
+    "name": "Gravebind",
+    "itemClass": "Gloves",
+    "iconPath": "items/Gravebind.webp",
+    "mods": [
+      "(40-60)% increased Armour and Energy Shield",
+      "+(10-15)% to Cold Resistance",
+      "Gain (7-10) Life per enemy killed",
+      "Gain (4-6) Mana per enemy killed",
+      "Enemies in your Presence killed by anyone count as being killed by you instead"
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Greed's Embrace",
+    "itemClass": "Body Armour",
+    "iconPath": "items/GreedsEmbrace.webp",
+    "mods": [
+      "50% increased Strength Requirement",
+      "20% reduced Movement Speed",
+      "(100-150)% increased Armour",
+      "(30-50)% increased Rarity of Items found",
+      "+(20-30)% to Fire Resistance"
+    ]
+  },
+  {
+    "id": "61",
+    "name": "Greymake",
+    "itemClass": "Helmet",
+    "iconPath": "items/Greymake.webp",
+    "mods": [
+      "+(30-50) to Strength",
+      "+(30-50) to Dexterity",
+      "+(30-50) to Intelligence",
+      "-1 to all Attributes per Level",
+      "Has 4 Augment Sockets (Hidden)"
+    ]
+  },
+  {
+    "id": "391",
+    "name": "Grip of Kulemak",
+    "itemClass": "Ring",
+    "iconPath": "items/TokenOfPassage01.webp",
+    "mods": [
+      "(20-30)% reduced Presence Area of Effect",
+      "(20-30)% reduced Light Radius"
+    ]
+  },
+  {
+    "id": "81",
+    "name": "Grip of Winter",
+    "itemClass": "Gloves",
+    "iconPath": "items/GripOfWinter.webp",
+    "mods": [
+      "(30-50)% increased Evasion Rating",
+      "Adds (3-5) to (6-8) Cold damage to Attacks",
+      "+(20-30)% to Cold Resistance",
+      "(40-50)% increased Freeze Buildup",
+      "(20-30)% increased Magnitude of Chill you inflict"
+    ]
+  },
+  {
+    "id": "364",
+    "name": "Guiding Palm",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmFire.webp",
+    "mods": []
+  },
+  {
+    "id": "365",
+    "name": "Guiding Palm",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmCold.webp",
+    "mods": []
+  },
+  {
+    "id": "366",
+    "name": "Guiding Palm",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmLightning.webp",
+    "mods": []
+  },
+  {
+    "id": "223",
+    "name": "Guiding Palm of the Eye",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmCold.webp",
+    "mods": [
+      "Gain 25% of Damage as Extra Cold Damage",
+      "Allies in your Presence deal (15-23) to (28-35) added Attack Cold Damage",
+      "50% of your Base Life Regeneration is granted to Allies in your Presence",
+      "+(20-30) to Intelligence",
+      "25% increased Light Radius",
+      "Grants effect of Guided Freezing Shrine"
+    ]
+  },
+  {
+    "id": "222",
+    "name": "Guiding Palm of the Heart",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmFire.webp",
+    "mods": [
+      "Gain 25% of Damage as Extra Fire Damage",
+      "Allies in your Presence deal (15-23) to (28-35) added Attack Fire Damage",
+      "50% of your Base Life Regeneration is granted to Allies in your Presence",
+      "+(20-30) to Strength",
+      "25% increased Light Radius",
+      "Grants effect of Guided Meteoric Shrine"
+    ]
+  },
+  {
+    "id": "224",
+    "name": "Guiding Palm of the Mind",
+    "itemClass": "Sceptre",
+    "iconPath": "items/GuidingPalmLightning.webp",
+    "mods": [
+      "Gain 25% of Damage as Extra Lightning Damage",
+      "Allies in your Presence deal 1 to (56-70) added Attack Lightning Damage",
+      "50% of your Base Life Regeneration is granted to Allies in your Presence",
+      "+(20-30) to Dexterity",
+      "25% increased Light Radius",
+      "Grants effect of Guided Tempest Shrine"
+    ]
+  },
+  {
+    "id": "253",
+    "name": "Hand of Wisdom and Action",
+    "itemClass": "Gloves",
+    "iconPath": "items/HandOfWisdomAndAction.webp",
+    "mods": [
+      "+(15-25) to Dexterity",
+      "+(15-25) to Intelligence",
+      "1% increased Attack Speed per 20 Dexterity",
+      "Adds 1 to 10 Lightning Damage to Attacks per 20 Intelligence"
+    ]
+  },
+  {
+    "id": "239",
+    "name": "Hateforge",
+    "itemClass": "Gloves",
+    "iconPath": "items/Hateforge.webp",
+    "mods": [
+      "(300-400)% increased Armour",
+      "Gain (3-6) Rage on Hit",
+      "Gain a random Charge on reaching Maximum Rage, no more than once every (3-6) seconds",
+      "Lose all Rage on reaching Maximum Rage",
+      "(-10-10) to Maximum Rage"
+    ]
+  },
+  {
+    "id": "189",
+    "name": "Headhunter",
+    "itemClass": "Belt",
+    "iconPath": "items/Headhunter.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(20-40) to Strength",
+      "+(20-40) to Dexterity",
+      "When you kill a Rare monster, you gain its Modifiers for 60 seconds"
+    ]
+  },
+  {
+    "id": "174",
+    "name": "Heartbound Loop",
+    "itemClass": "Ring",
+    "iconPath": "items/HeartboundLoop.webp",
+    "mods": [
+      "Minions have (10-15)% increased maximum Life",
+      "(10-15) Life Regeneration per second",
+      "(20-40)% increased Mana Regeneration Rate",
+      "300 Physical Damage taken on Minion Death",
+      "Minions Revive (10-15)% faster"
+    ]
+  },
+  {
+    "id": "302",
+    "name": "Heatshiver",
+    "itemClass": "Helmet",
+    "iconPath": "items/Heatshiver.webp",
+    "mods": [
+      "(50-70)% increased Evasion Rating",
+      "+(60-100) to maximum Mana",
+      "+(20-30)% to Fire Resistance",
+      "+(20-30)% to Cold Resistance",
+      "Gain 1% of Cold damage as Extra Fire damage per 1% Chill Magnitude on enemy"
+    ]
+  },
+  {
+    "id": "381",
+    "name": "Hinekora's Sight",
+    "itemClass": "Amulet",
+    "iconPath": "items/HinekorasSight.webp",
+    "mods": [
+      "+(300-600) to Accuracy Rating",
+      "+(300-600) to Evasion Rating",
+      "Cannot be Blinded"
+    ]
+  },
+  {
+    "id": "42",
+    "name": "Horns of Bynden",
+    "itemClass": "Helmet",
+    "iconPath": "items/HornsOfBrynden.webp",
+    "mods": [
+      "+20 to Armour",
+      "(5-15)% increased Rarity of Items found",
+      "+(20-30) to Strength",
+      "Every Rage also grants 1% increased Armour",
+      "Gain 1 Rage on Melee Hit"
+    ]
+  },
+  {
+    "id": "34",
+    "name": "Husk of Dreams",
+    "itemClass": "Body Armour",
+    "iconPath": "items/HuskOfDreams.webp",
+    "mods": [
+      "(100-150)% increased Armour and Energy Shield",
+      "-10% to Fire Resistance",
+      "+(17-23)% to Chaos Resistance",
+      "(20-30)% increased Flask Charges gained",
+      "50% less Flask Charges used"
+    ]
+  },
+  {
+    "id": "291",
+    "name": "Hyrri's Ire",
+    "itemClass": "Body Armour",
+    "iconPath": "items/HyrrisIre.webp",
+    "mods": [
+      "(200-250)% increased Evasion Rating",
+      "Gain (15-25)% of Damage as Extra Cold Damage",
+      "+(30-40) to Dexterity",
+      "25% increased Freeze Duration on Enemies",
+      "Evasion Rating is doubled if you have not been Hit Recently"
+    ]
+  },
+  {
+    "id": "272",
+    "name": "Icefang Orbit",
+    "itemClass": "Ring",
+    "iconPath": "items/IcefangOrbit.webp",
+    "mods": [
+      "Adds (5-7) to (9-13) Physical Damage to Attacks",
+      "+(20-30) to Dexterity",
+      "(10-20)% chance to Poison on Hit",
+      "All Damage taken from Hits while Poisoned Contributes to Magnitude of Chill on you",
+      "All Damage from Hits against Poisoned targets Contributes to Chill Magnitude",
+      "(15-25)% increased Magnitude of Poison you inflict"
+    ]
+  },
+  {
+    "id": "33",
+    "name": "Icetomb",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Icetomb.webp",
+    "mods": [
+      "+(20-30) to Strength",
+      "+(20-30) to Intelligence",
+      "+(30-40)% to Cold Resistance",
+      "Gain Cold Thorns Damage equal to (10-18)% of your maximum Mana"
+    ]
+  },
+  {
+    "id": "82",
+    "name": "Idle Hands",
+    "itemClass": "Gloves",
+    "iconPath": "items/IdleHands.webp",
+    "mods": [
+      "(40-60)% increased Evasion Rating",
+      "+(60-100) to Accuracy Rating",
+      "+(5-10) to Intelligence",
+      "25% increased Attack Speed while on Full Mana",
+      "You count as on Full Mana while at 90% of maximum Mana or above"
+    ]
+  },
+  {
+    "id": "141",
+    "name": "Idol of Uldurn",
+    "itemClass": "Amulet",
+    "iconPath": "items/IdolOfUldurn.webp",
+    "mods": [
+      "+(60-80) to maximum Life",
+      "+(10-20) to Dexterity",
+      "Skills have +1 to Limit"
+    ]
+  },
+  {
+    "id": "140",
+    "name": "Igniferis",
+    "itemClass": "Amulet",
+    "iconPath": "items/Igniferis.webp",
+    "mods": [
+      "+(10-20)% to Fire Resistance",
+      "(20-30)% increased Mana Regeneration Rate",
+      "25% increased Light Radius",
+      "Life Recovery from Regeneration is not applied",
+      "Every 4 seconds, Recover 1 Life for every 0.2 Life Recovery per second from Regeneration"
+    ]
+  },
+  {
+    "id": "303",
+    "name": "Indigon",
+    "itemClass": "Helmet",
+    "iconPath": "items/Indigon.webp",
+    "mods": [
+      "(100-140)% increased Energy Shield",
+      "+(80-120) to maximum Mana",
+      "(5-10)% increased Cost of Skills for each 200 total Mana Spent Recently",
+      "(10-15)% increased Spell damage for each 200 total Mana you have Spent Recently",
+      "Mana Recovery other than Regeneration cannot Recover Mana"
+    ]
+  },
+  {
+    "id": "186",
+    "name": "Infernoclasp",
+    "itemClass": "Belt",
+    "iconPath": "items/Infernoclasp.webp",
+    "mods": []
+  },
+  {
+    "id": "250",
+    "name": "Ingenuity",
+    "itemClass": "Belt",
+    "iconPath": "items/Widowmaker.webp",
+    "mods": [
+      "(-20-20)% reduced Charm Charges gained",
+      "(-10-10)% reduced Charm Charges used",
+      "(20-30)% increased bonuses gained from left Equipped Ring",
+      "(20-30)% increased bonuses gained from right Equipped Ring"
+    ]
+  },
+  {
+    "id": "49",
+    "name": "Innsmouth",
+    "itemClass": "Helmet",
+    "iconPath": "items/Innsmouth.webp",
+    "mods": [
+      "+(20-30) to Evasion Rating",
+      "25% reduced maximum Mana",
+      "+(10-20)% to Cold Resistance",
+      "+(13-19)% to Chaos Resistance",
+      "100% increased Mana Regeneration Rate"
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Irongrasp",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Irongrasp.webp",
+    "mods": [
+      "(100-150)% increased Armour and Evasion",
+      "+(20-30) to Strength",
+      "+(100-150) to Stun Threshold",
+      "Iron Grip",
+      "Iron Will"
+    ]
+  },
+  {
+    "id": "63",
+    "name": "Ironride",
+    "itemClass": "Helmet",
+    "iconPath": "items/Ironride.webp",
+    "mods": [
+      "(60-80)% increased Armour and Evasion",
+      "+(30-50) to maximum Life",
+      "+(30-50) to maximum Mana",
+      "+(10-15)% to Lightning Resistance",
+      "You have no Accuracy Penalty at Distance"
+    ]
+  },
+  {
+    "id": "90",
+    "name": "Jarngreipr",
+    "itemClass": "Gloves",
+    "iconPath": "items/Jarngreipr.webp",
+    "mods": [
+      "50% increased Armour and Evasion",
+      "Adds (2-3) to (5-6) Physical Damage to Attacks",
+      "+(30-50) to maximum Life",
+      "(4-8)% increased Attack Speed",
+      "Strength can satisfy other Attribute Requirements of Melee Weapons and Melee Skills"
+    ]
+  },
+  {
+    "id": "179",
+    "name": "Kalandra's Touch",
+    "itemClass": "Ring",
+    "iconPath": "items/MirrorRing.webp",
+    "mods": [
+      "Reflects opposite Ring"
+    ]
+  },
+  {
+    "id": "380",
+    "name": "Kaltenhalt",
+    "itemClass": "Shield",
+    "iconPath": "items/Kaltenhalt.webp",
+    "mods": [
+      "(80-120)% increased Evasion Rating",
+      "+5% to Maximum Cold Resistance",
+      "+40% to Cold Resistance",
+      "Modifiers to Stun Buildup apply to Freeze Buildup instead for Parry",
+      "100% of Parry Physical Damage Converted to Cold Damage",
+      "25 to 35 Cold Thorns damage"
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Kaom's Heart",
+    "itemClass": "Body Armour",
+    "iconPath": "items/KaomsHeart.webp",
+    "mods": [
+      "+1500 to maximum Life",
+      "You have no Spirit"
+    ]
+  },
+  {
+    "id": "182",
+    "name": "Keelhaul",
+    "itemClass": "Belt",
+    "iconPath": "items/Keelhaul.webp",
+    "mods": [
+      "(-25-25)% reduced Flask Life Recovery rate",
+      "(-25-25)% reduced Flask Mana Recovery rate",
+      "Life Flasks gain 0.25 charges per Second",
+      "Mana Flasks gain 0.25 charges per Second"
+    ]
+  },
+  {
+    "id": "241",
+    "name": "Keeper of the Arc",
+    "itemClass": "Helmet",
+    "iconPath": "items/KeeperOfTheArc.webp",
+    "mods": [
+      "(150-250)% increased Armour and Energy Shield",
+      "(15-25) Life Regeneration per second",
+      "(15-25)% increased Mana Regeneration Rate",
+      "Alternating every 5 seconds:Take 40% less Damage from HitsTake 40% less Damage over time"
+    ]
+  },
+  {
+    "id": "98",
+    "name": "Killjoy",
+    "itemClass": "Gloves",
+    "iconPath": "items/Killjoy.webp",
+    "mods": [
+      "(30-60)% increased Evasion and Energy Shield",
+      "+(30-50) to maximum Life",
+      "(20-30)% increased Critical Damage Bonus",
+      "Life Flasks do not recover Life",
+      "On-Kill Effects happen twice"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Kingsguard",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Kingsguard.webp",
+    "mods": [
+      "+(60-80) to maximum Life",
+      "+(40-60) to maximum Mana",
+      "+(5-10)% to all Elemental Resistances",
+      "25% reduced Endurance Charge Duration",
+      "Recover 5% of maximum Life for each Endurance Charge consumed"
+    ]
+  },
+  {
+    "id": "88",
+    "name": "Kitoko's Current",
+    "itemClass": "Gloves",
+    "iconPath": "items/GaruksCurrent.webp",
+    "mods": [
+      "(30-50)% increased Energy Shield",
+      "+(10-20) to Dexterity",
+      "(10-15)% reduced Attack and Cast Speed",
+      "Lightning damage from Hits Contributes to Electrocution Buildup"
+    ]
+  },
+  {
+    "id": "73",
+    "name": "Leer Cast",
+    "itemClass": "Helmet",
+    "iconPath": "items/Leercast.webp",
+    "mods": [
+      "+(30-50) to maximum Life",
+      "+(30-50) to maximum Mana",
+      "Allies in your Presence deal 50% increased Damage",
+      "+(10-20) to Dexterity",
+      "25% reduced Damage"
+    ]
+  },
+  {
+    "id": "99",
+    "name": "Legionstride",
+    "itemClass": "Boots",
+    "iconPath": "items/Legionstride.webp",
+    "mods": [
+      "+(50-70) to Armour",
+      "+(50-70) to Stun Threshold",
+      "-10 Physical damage taken from Projectile Attacks",
+      "+10% to Block chance"
+    ]
+  },
+  {
+    "id": "311",
+    "name": "Leopold's Applause",
+    "itemClass": "Gloves",
+    "iconPath": "items/LeopoldsApplause.webp",
+    "mods": [
+      "(60-100)% increased Energy Shield",
+      "+(60-100) to maximum Mana",
+      "(10-15)% increased Rarity of Items found",
+      "Damage Penetrates 10% Elemental Resistances",
+      "Your Hits can Penetrate Elemental Resistances down to a minimum of -50%"
+    ]
+  },
+  {
+    "id": "166",
+    "name": "Levinstone",
+    "itemClass": "Ring",
+    "iconPath": "items/StoneOfOndar.webp",
+    "mods": [
+      "+(40-60) to maximum Mana",
+      "(10-20)% increased chance to Shock",
+      "+1 to Level of all Lightning Skills"
+    ]
+  },
+  {
+    "id": "208",
+    "name": "Lifesprig",
+    "itemClass": "Wand",
+    "iconPath": "items/Lifesprig.webp",
+    "mods": [
+      "+(10-20) to maximum Mana",
+      "+(1-3) to Level of all Spell Skills",
+      "(5-10)% increased Cast Speed",
+      "Leeches 1% of maximum Life when you Cast a Spell"
+    ]
+  },
+  {
+    "id": "376",
+    "name": "Lightning Coil",
+    "itemClass": "Body Armour",
+    "iconPath": "items/LightningCoil.webp",
+    "mods": [
+      "(80-120)% increased Armour and Evasion",
+      "+(80-100) to maximum Life",
+      "+(20-30) to Dexterity",
+      "(-40--30)% to Lightning Resistance",
+      "(30-50)% of Physical damage from Hits taken as Lightning damage"
+    ]
+  },
+  {
+    "id": "148",
+    "name": "Ligurium Talisman",
+    "itemClass": "Amulet",
+    "iconPath": "items/LiguriumTalisman.webp",
+    "mods": [
+      "+(30-40) to maximum Energy Shield",
+      "+(25-35) to Spirit",
+      "+(20-30) to Intelligence",
+      "Life Regeneration is applied to Energy Shield instead"
+    ]
+  },
+  {
+    "id": "373",
+    "name": "Lioneye's Glare",
+    "itemClass": "Bow",
+    "iconPath": "items/LioneyesGlare.webp",
+    "mods": [
+      "(150-240)% increased Physical Damage",
+      "+(300-500) to Accuracy Rating",
+      "10% increased Attack Speed",
+      "+(20-30) to Dexterity",
+      "+2 metres to Dodge Roll distance if you haven't Dodge Rolled Recently",
+      "-1 metre to Dodge Roll distance if you've Dodge Rolled Recently",
+      "Barrageable Attacks with this Bow Repeat +2 times if no enemies are in your Presence"
+    ]
+  },
+  {
+    "id": "78",
+    "name": "Lochtonial Caress",
+    "itemClass": "Gloves",
+    "iconPath": "items/LochtonialCaress.webp",
+    "mods": [
+      "(10-15)% increased Skill Speed",
+      "+(15-25) to Armour",
+      "+(40-60) to maximum Life",
+      "(10-15)% reduced maximum Mana",
+      "Share Charges with Allies in your Presence"
+    ]
+  },
+  {
+    "id": "108",
+    "name": "Luminous Pace",
+    "itemClass": "Boots",
+    "iconPath": "items/BatedPace.webp",
+    "mods": [
+      "10% increased Movement Speed",
+      "+(20-30) to maximum Energy Shield",
+      "+(5-10) to Intelligence",
+      "(20-30)% reduced Energy Shield Recharge Rate",
+      "100% faster start of Energy Shield Recharge"
+    ]
+  },
+  {
+    "id": "123",
+    "name": "Lycosidae",
+    "itemClass": "Shield",
+    "iconPath": "items/Lycosa.webp",
+    "mods": [
+      "(15-20)% increased Block chance",
+      "(60-100)% increased Armour",
+      "Accuracy Rating is Doubled",
+      "Blocking Damage Poisons the Enemy as though dealing 200 Base Chaos Damage"
+    ]
+  },
+  {
+    "id": "238",
+    "name": "Mahuxotl's Machination",
+    "itemClass": "Shield",
+    "iconPath": "items/MahuxotlsMachination.webp",
+    "mods": [
+      "(333-666)% increased Armour and Energy Shield",
+      "(66-333)% increased effect of Socketed Soul Cores",
+      "Everlasting Sacrifice"
+    ]
+  },
+  {
+    "id": "84",
+    "name": "Maligaro's Virtuosity",
+    "itemClass": "Gloves",
+    "iconPath": "items/MaligarosVirtuosity.webp",
+    "mods": [
+      "(60-80)% increased Evasion Rating",
+      "(20-30)% increased Critical Hit Chance",
+      "5% increased Attack Speed",
+      "+(10-20) to Dexterity",
+      "Your Critical Hit Chance cannot be Rerolled",
+      "Your Critical Damage Bonus is 250%"
+    ]
+  },
+  {
+    "id": "72",
+    "name": "Mask of the Sanguimancer",
+    "itemClass": "Helmet",
+    "iconPath": "items/PhantomBlood.webp",
+    "mods": [
+      "+(20-25) to Evasion Rating",
+      "+(10-15) to maximum Energy Shield",
+      "(20-40)% increased Critical Hit Chance for Spells",
+      "+(10-20) to Strength",
+      "+(10-20) to Intelligence",
+      "Blood Magic"
+    ]
+  },
+  {
+    "id": "59",
+    "name": "Mask of the Stitched Demon",
+    "itemClass": "Helmet",
+    "iconPath": "items/MaskOfTheStitchedDemon.webp",
+    "mods": [
+      "(120-160)% increased Energy Shield",
+      "+(17-23)% to Chaos Resistance",
+      "Cannot have Energy Shield",
+      "Regenerate 0.05 Life per second per Maximum Energy Shield"
+    ]
+  },
+  {
+    "id": "205",
+    "name": "Matsya",
+    "itemClass": "Warstaff",
+    "iconPath": "items/Matsya.webp",
+    "mods": [
+      "Adds (6-9) to (10-15) Cold Damage",
+      "Adds 1 to (19-29) Lightning Damage",
+      "+(3-5)% to Critical Hit Chance",
+      "(15-20)% increased Attack Speed",
+      "(25-40)% increased Mana Regeneration Rate",
+      "Skills reserve 50% less Spirit"
+    ]
+  },
+  {
+    "id": "180",
+    "name": "Meginord's Girdle",
+    "itemClass": "Belt",
+    "iconPath": "items/MeginordsGirdle.webp",
+    "mods": [
+      "+(40-50) to Strength",
+      "+(10-15)% to Cold Resistance",
+      "50% increased Flask Charges used",
+      "100% increased Flask Charges gained"
+    ]
+  },
+  {
+    "id": "126",
+    "name": "Merit of Service",
+    "itemClass": "Shield",
+    "iconPath": "items/MeritOfService.webp",
+    "mods": []
+  },
+  {
+    "id": "181",
+    "name": "Midnight Braid",
+    "itemClass": "Belt",
+    "iconPath": "items/MidnightBraid.webp",
+    "mods": [
+      "+(30-50) to maximum Mana",
+      "+(5-10)% to all Elemental Resistances",
+      "50% of Damage taken Recouped as Mana"
+    ]
+  },
+  {
+    "id": "375",
+    "name": "Mind of the Council",
+    "itemClass": "Helmet",
+    "iconPath": "items/MindOfTheCouncil.webp",
+    "mods": [
+      "(150-200)% increased Evasion and Energy Shield",
+      "+(60-90) to maximum Mana",
+      "+(20-30)% to Lightning Resistance",
+      "Attacks cost an additional 6% of your maximum Mana",
+      "Attacks have Added maximum Lightning Damage equal to (6-9)% of maximum Mana"
+    ]
+  },
+  {
+    "id": "169",
+    "name": "Ming's Heart",
+    "itemClass": "Ring",
+    "iconPath": "items/MingsHeart.webp",
+    "mods": [
+      "20% reduced maximum Life",
+      "Gain (30-40)% of Damage as Extra Chaos Damage",
+      "30% reduced Global Defences"
+    ]
+  },
+  {
+    "id": "218",
+    "name": "Mist Whisper",
+    "itemClass": "Crossbow",
+    "iconPath": "items/MistWhisper.webp",
+    "mods": [
+      "Adds (8-10) to (13-15) Cold Damage",
+      "Gain 5 Mana per enemy killed",
+      "(30-50)% increased Freeze Buildup",
+      "30% increased Chill Duration on Enemies",
+      "Attacks Chain 2 additional times"
+    ]
+  },
+  {
+    "id": "225",
+    "name": "Morior Invictus",
+    "itemClass": "Body Armour",
+    "iconPath": "items/MoriorInvictus_M.webp",
+    "mods": [
+      "(300-400)% increased Armour, Evasion and Energy Shield",
+      "Has 4 Augment Sockets (Hidden)"
+    ]
+  },
+  {
+    "id": "369",
+    "name": "Murkshaft",
+    "itemClass": "Quiver",
+    "iconPath": "items/Murkshaft.webp",
+    "mods": [
+      "Adds (6-10) to (13-17) Physical Damage to Attacks",
+      "Gain (10-15) Mana per enemy killed",
+      "(10-20)% increased Poison Duration",
+      "(20-30)% chance to Poison on Hit with Attacks",
+      "Blind Targets when you Poison them"
+    ]
+  },
+  {
+    "id": "53",
+    "name": "Myris Uxor",
+    "itemClass": "Helmet",
+    "iconPath": "items/MyrisUxor.webp",
+    "mods": [
+      "(40-60)% increased Evasion Rating",
+      "+(100-150) to Accuracy Rating",
+      "+(40-60) to maximum Mana",
+      "100% increased Culling Strike Threshold"
+    ]
+  },
+  {
+    "id": "206",
+    "name": "Nazir's Judgement",
+    "itemClass": "Warstaff",
+    "iconPath": "items/NazirsJudgement.webp",
+    "mods": [
+      "Adds (30-36) to (75-81) Physical Damage",
+      "+(50-100) to Accuracy Rating",
+      "(10-20)% increased Stun Duration",
+      "Dazes on Hit",
+      "(35-50)% increased Melee Damage against Heavy Stunned enemies"
+    ]
+  },
+  {
+    "id": "21",
+    "name": "Necromantle",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Necromantle.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(30-50) to maximum Mana",
+      "Minions have +(17-23)% to Chaos Resistance",
+      "Minions gain (20-30)% of their maximum Life as Extra maximum Energy Shield",
+      "Minions Revive 50% faster"
+    ]
+  },
+  {
+    "id": "306",
+    "name": "Nightscale",
+    "itemClass": "Gloves",
+    "iconPath": "items/Nightscale.webp",
+    "mods": [
+      "(60-100)% increased Energy Shield",
+      "(30-50)% increased Critical Hit Chance",
+      "+(10-20) to Intelligence",
+      "+(20-30)% to Cold Resistance",
+      "150% increased Mana Regeneration Rate if you've dealt a Critical Hit Recently",
+      "Cannot Regenerate Mana if you haven't dealt a Critical Hit Recently"
+    ]
+  },
+  {
+    "id": "320",
+    "name": "Nocturne",
+    "itemClass": "Shield",
+    "iconPath": "items/Nocturne.webp",
+    "mods": [
+      "+(60-80) to maximum Mana",
+      "+(10-15)% to all Elemental Resistances",
+      "20% increased Accuracy Rating",
+      "Parried enemies take more Spell Damage instead of more Attack Damage",
+      "100% increased Parried Debuff Duration"
+    ]
+  },
+  {
+    "id": "80",
+    "name": "Northpaw",
+    "itemClass": "Gloves",
+    "iconPath": "items/Northpaw.webp",
+    "mods": [
+      "+(15-25) to Evasion Rating",
+      "Adds (3-5) to (8-10) Physical Damage to Attacks",
+      "(10-15)% increased Critical Damage Bonus",
+      "Base Critical Hit Chance for Attacks with Weapons is 7%"
+    ]
+  },
+  {
+    "id": "129",
+    "name": "Oaksworn",
+    "itemClass": "Shield",
+    "iconPath": "items/Oaksworn.webp",
+    "mods": [
+      "(40-60)% increased Block chance",
+      "(80-120)% increased Armour and Energy Shield",
+      "+(17-23)% to Chaos Resistance",
+      "50% increased Life Regeneration rate"
+    ]
+  },
+  {
+    "id": "115",
+    "name": "Obern's Bastion",
+    "itemClass": "Boots",
+    "iconPath": "items/ObernsBastion.webp",
+    "mods": [
+      "(150-200)% increased Armour and Evasion",
+      "(20-25) Life Regeneration per second",
+      "200% increased Stun Recovery",
+      "(30-50)% reduced Chill Duration on you",
+      "(30-50)% reduced Freeze Duration on you",
+      "(30-50)% reduced Shock duration on you"
+    ]
+  },
+  {
+    "id": "171",
+    "name": "Original Sin",
+    "itemClass": "Ring",
+    "iconPath": "items/OriginalSin.webp",
+    "mods": [
+      "+(17-23)% to Chaos Resistance",
+      "100% of Elemental Damage Converted to Chaos Damage"
+    ]
+  },
+  {
+    "id": "85",
+    "name": "Painter's Servant",
+    "itemClass": "Gloves",
+    "iconPath": "items/PaintersServant.webp",
+    "mods": [
+      "Gain (5-10)% of Elemental Damage as Extra Cold Damage",
+      "Gain (5-10)% of Elemental Damage as Extra Fire Damage",
+      "Gain (5-10)% of Elemental Damage as Extra Lightning Damage",
+      "33% of Elemental Damage Converted to Cold Damage",
+      "33% of Elemental Damage Converted to Fire Damage",
+      "33% of Elemental Damage Converted to Lightning Damage"
+    ]
+  },
+  {
+    "id": "374",
+    "name": "Palm of the Dreamer",
+    "itemClass": "Sceptre",
+    "iconPath": "items/OpenPalmOfTheDreamer.webp",
+    "mods": [
+      "Allies in your Presence deal (13-17) to (25-37) added Attack Chaos Damage",
+      "+(7-13) to all Attributes",
+      "23% reduced Light Radius",
+      "(-13-13)% reduced Skill Effect Duration",
+      "Gain 27% of Damage as Extra Chaos Damage",
+      "Grants effect of Dreaming Gloom Shrine"
+    ]
+  },
+  {
+    "id": "29",
+    "name": "Pariah's Embrace",
+    "itemClass": "Body Armour",
+    "iconPath": "items/PariahsEmbrace.webp",
+    "mods": [
+      "(50-80)% increased Armour and Evasion",
+      "+50 to Spirit",
+      "+(10-15) to all Attributes",
+      "(10-15) Life Regeneration per second",
+      "(20-40)% increased Mana Cost Efficiency"
+    ]
+  },
+  {
+    "id": "176",
+    "name": "Perandus Seal",
+    "itemClass": "Ring",
+    "iconPath": "items/PerandusSeal.webp",
+    "mods": [
+      "+(30-50) to maximum Mana",
+      "+(5-10) to all Attributes",
+      "(10-15)% increased Quantity of Gold Dropped by Slain Enemies"
+    ]
+  },
+  {
+    "id": "245",
+    "name": "Perfidy",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Perfidy.webp",
+    "mods": [
+      "(300-450)% increased Armour and Evasion",
+      "(10-30)% chance to Avoid Physical Damage from Hits",
+      "(10-30)% chance to Avoid Fire Damage from Hits",
+      "(10-30)% chance to Avoid Cold Damage from Hits",
+      "(10-30)% chance to Avoid Lightning Damage from Hits",
+      "(10-30)% chance to Avoid Chaos Damage from Hits",
+      "Enemies in your Presence are Intimidated"
+    ]
+  },
+  {
+    "id": "203",
+    "name": "Pillar of the Caged God",
+    "itemClass": "Warstaff",
+    "iconPath": "items/PillarOfTheCagedGod.webp",
+    "mods": [
+      "1% increased Area of Effect for Attacks per 10 Intelligence",
+      "1% increased Attack Speed per 10 Dexterity",
+      "10% increased Weapon Damage per 10 Strength"
+    ]
+  },
+  {
+    "id": "97",
+    "name": "Plaguefinger",
+    "itemClass": "Gloves",
+    "iconPath": "items/Plaguefinger.webp",
+    "mods": [
+      "(30-50)% increased Evasion and Energy Shield",
+      "(4-6)% increased Attack Speed",
+      "(20-30)% chance to Poison on Hit",
+      "All Damage from Hits Contributes to Poison Magnitude"
+    ]
+  },
+  {
+    "id": "163",
+    "name": "Polcirkeln",
+    "itemClass": "Ring",
+    "iconPath": "items/Polcirkeln.webp",
+    "mods": [
+      "(20-30)% increased Cold Damage",
+      "+(40-60) to maximum Mana",
+      "+(10-15) to Strength",
+      "Enemies Chilled by your Hits can be Shattered as though Frozen"
+    ]
+  },
+  {
+    "id": "118",
+    "name": "Powertread",
+    "itemClass": "Boots",
+    "iconPath": "items/Powertread.webp",
+    "mods": [
+      "(15-20)% increased Movement Speed",
+      "(60-80)% increased Evasion and Energy Shield",
+      "+(10-20) to Intelligence",
+      "+1 to Maximum Power Charges",
+      "12% increased Critical Damage Bonus per Power Charge"
+    ]
+  },
+  {
+    "id": "251",
+    "name": "Pragmatism",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Pragmatism.webp",
+    "mods": [
+      "(200-300)% increased Armour and Evasion",
+      "+(10-20)% to all Elemental Resistances",
+      "-17% to Chaos Resistance",
+      "Charms use no Charges"
+    ]
+  },
+  {
+    "id": "23",
+    "name": "Prayers for Rain",
+    "itemClass": "Body Armour",
+    "iconPath": "items/PrayersForRain.webp",
+    "mods": [
+      "(60-100)% increased Energy Shield",
+      "+(10-15) to Intelligence",
+      "+(10-20)% to Lightning Resistance",
+      "30% slower start of Energy Shield Recharge",
+      "Energy Shield Recharge is not interrupted by Damage if Recharge began Recently"
+    ]
+  },
+  {
+    "id": "315",
+    "name": "Prism Guardian",
+    "itemClass": "Shield",
+    "iconPath": "items/PrismGuardian.webp",
+    "mods": [
+      "(150-200)% increased Armour and Energy Shield",
+      "+50 to Spirit",
+      "+(20-30) to Dexterity",
+      "+(10-20)% to all Elemental Resistances",
+      "1% increased Spirit Reservation Efficiency of Buff Skills per 100 Maximum Life"
+    ]
+  },
+  {
+    "id": "273",
+    "name": "Prized Pain",
+    "itemClass": "Ring",
+    "iconPath": "items/PrizedPain.webp",
+    "mods": [
+      "+(20-30) to Strength",
+      "Skills gain a Base Life Cost equal to 10% of Base Mana Cost",
+      "Deal your Thorns Damage to Enemies you Stun with Melee Attacks",
+      "(24-35) to (35-53) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "16",
+    "name": "Quatl's Molt",
+    "itemClass": "Body Armour",
+    "iconPath": "items/QuatlsMolt.webp",
+    "mods": [
+      "(60-80)% increased Evasion Rating",
+      "+(60-80) to maximum Life",
+      "+(17-23)% to Chaos Resistance",
+      "Gain Deflection Rating equal to (40-60)% of Evasion Rating",
+      "(10-20) Life Regeneration per second",
+      "Cannot be Poisoned"
+    ]
+  },
+  {
+    "id": "17",
+    "name": "Queen of the Forest",
+    "itemClass": "Body Armour",
+    "iconPath": "items/QueenOfTheForest.webp",
+    "mods": [
+      "(250-300)% increased Evasion Rating",
+      "(-15--10)% to Fire Resistance",
+      "+(25-30)% to Cold Resistance",
+      "+(10-15)% to Lightning Resistance",
+      "Increases Movement Speed by 25%, plus 1% per 600 Evasion Rating, up to a maximum of 75%Other Modifiers to Movement Speed except for Sprinting do not apply"
+    ]
+  },
+  {
+    "id": "215",
+    "name": "Quill Rain",
+    "itemClass": "Bow",
+    "iconPath": "items/QuillRain.webp",
+    "mods": [
+      "100% increased Attack Speed",
+      "+(10-20) to Dexterity",
+      "(50-100)% increased Arrow Speed",
+      "40% less Attack Damage"
+    ]
+  },
+  {
+    "id": "51",
+    "name": "Radiant Grief",
+    "itemClass": "Helmet",
+    "iconPath": "items/RadiantGrief.webp",
+    "mods": [
+      "(80-100)% increased Evasion Rating",
+      "+(15-25)% to Fire Resistance",
+      "30% increased Light Radius",
+      "Enemies in your Presence are Ignited as though dealt 100 Base Fire Damage"
+    ]
+  },
+  {
+    "id": "219",
+    "name": "Rampart Raptor",
+    "itemClass": "Crossbow",
+    "iconPath": "items/RampartRaptor.webp",
+    "mods": [
+      "(40-60)% increased Physical Damage",
+      "(30-40)% increased Attack Speed",
+      "30% reduced Reload Speed",
+      "Bolts fired by Crossbow Attacks have 100% chance to notexpend Ammunition if you've Reloaded Recently"
+    ]
+  },
+  {
+    "id": "348",
+    "name": "Rearguard",
+    "itemClass": "Quiver",
+    "iconPath": "items/Rearguard.webp",
+    "mods": [
+      "Adds (7-11) to (14-20) Physical Damage to Attacks",
+      "+(150-200) to Armour",
+      "(20-30)% increased Projectile Speed",
+      "+(15-25)% to Block chance"
+    ]
+  },
+  {
+    "id": "317",
+    "name": "Redblade Banner",
+    "itemClass": "Shield",
+    "iconPath": "items/RedbladeBanner.webp",
+    "mods": [
+      "(10-15)% increased Block chance",
+      "(60-100)% increased Armour",
+      "+(20-30) to Strength",
+      "+(100-150) to Stun Threshold",
+      "Enemies in your Presence count as having double Power"
+    ]
+  },
+  {
+    "id": "41",
+    "name": "Redflare Conduit",
+    "itemClass": "Body Armour",
+    "iconPath": "items/RedflareConduit.webp",
+    "mods": [
+      "+(50-70) to maximum Mana",
+      "+(20-30)% to Lightning Resistance",
+      "20% chance to gain a Power Charge on Hit",
+      "Lose all Power Charges on reaching maximum Power Charges",
+      "Shocks you when you reach maximum Power Charges"
+    ]
+  },
+  {
+    "id": "144",
+    "name": "Revered Resin",
+    "itemClass": "Amulet",
+    "iconPath": "items/ReveredResin.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "(20-30)% increased Flask Life Recovery rate",
+      "Life Flasks gain (0.17-0.25) charges per Second"
+    ]
+  },
+  {
+    "id": "132",
+    "name": "Rise of the Phoenix",
+    "itemClass": "Shield",
+    "iconPath": "items/Crest06.webp",
+    "mods": [
+      "+5% to Maximum Fire Resistance",
+      "+(20-25)% to Fire Resistance",
+      "+25% to Fire Resistance while on Low Life",
+      "Regenerate 3% of maximum Life per second",
+      "Regenerate 3% of maximum Life per second while on Low Life"
+    ]
+  },
+  {
+    "id": "321",
+    "name": "Rondel de Ezo",
+    "itemClass": "Shield",
+    "iconPath": "items/RondelDeEzo.webp",
+    "mods": [
+      "(50-150)% increased Evasion Rating",
+      "+(10-20) to Dexterity",
+      "5 Life Regeneration per second",
+      "100% increased Block chance against Projectiles",
+      "Curse Enemies with Enfeeble on Block"
+    ]
+  },
+  {
+    "id": "149",
+    "name": "Rondel of Fragility",
+    "itemClass": "Amulet",
+    "iconPath": "items/RondelOfFragility.webp",
+    "mods": [
+      "(15-30)% increased Skill Speed",
+      "(20-30)% increased Critical Hit Chance",
+      "-30% to all Elemental Resistances",
+      "(30-50)% increased Damage"
+    ]
+  },
+  {
+    "id": "187",
+    "name": "Ryslatha's Coil",
+    "itemClass": "Belt",
+    "iconPath": "items/RyslathasCoil.webp",
+    "mods": [
+      "+(80-100) to maximum Life",
+      "(30-50)% increased Flask Life Recovery rate",
+      "(30-40)% more maximum Physical Attack Damage",
+      "(30-40)% less minimum Physical Attack Damage"
+    ]
+  },
+  {
+    "id": "229",
+    "name": "Sacred Flame",
+    "itemClass": "Sceptre",
+    "iconPath": "items/SacredFlame.webp",
+    "mods": [
+      "Gain (40-60)% of Damage as Extra Fire Damage",
+      "Allies in your Presence Regenerate (2-3)% of their Maximum Life per second",
+      "Allies in your Presence Gain (20-30)% of Damage as Extra Fire Damage",
+      "Enemies in your Presence Resist Elemental Damage based on their Lowest Resistance"
+    ]
+  },
+  {
+    "id": "289",
+    "name": "Sacrosanctum",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Sacrosanctum.webp",
+    "mods": [
+      "(80-120)% increased Armour and Energy Shield",
+      "+(20-30) to Strength",
+      "+(20-30) to Intelligence",
+      "+(17-23)% to Chaos Resistance",
+      "(10-20)% of Damage taken Recouped as Life",
+      "Damage taken Recouped as Life is also Recouped as Energy Shield"
+    ]
+  },
+  {
+    "id": "130",
+    "name": "Saffell's Frame",
+    "itemClass": "Shield",
+    "iconPath": "items/SaffelsFrame.webp",
+    "mods": [
+      "+(15-25)% to Fire Resistance",
+      "+(15-25)% to Cold Resistance",
+      "+(15-25)% to Lightning Resistance",
+      "Cannot Block",
+      "Modifiers to Maximum Block Chance instead apply to Maximum Resistances"
+    ]
+  },
+  {
+    "id": "342",
+    "name": "Saitha's Spear",
+    "itemClass": "Spear",
+    "iconPath": "items/SaithasSpear.webp",
+    "mods": [
+      "Adds (14-26) to (27-32) Physical Damage",
+      "Adds (33-41) to (47-53) Fire Damage",
+      "(15-25)% chance to cause Bleeding on Hit",
+      "Aggravating any Bleeding with this Weapon also Aggravates all Ignites on the target",
+      "(25-40)% chance to Aggravate Bleeding on Hit"
+    ]
+  },
+  {
+    "id": "280",
+    "name": "Sands of Silk",
+    "itemClass": "Body Armour",
+    "iconPath": "items/SandsOfSilk.webp",
+    "mods": [
+      "(50-100)% increased Evasion Rating",
+      "+(50-80) to maximum Mana",
+      "+(10-20) to Dexterity",
+      "+(10-20) to Intelligence",
+      "+(10-15)% to Fire Resistance",
+      "(15-30)% increased Cooldown Recovery Rate"
+    ]
+  },
+  {
+    "id": "231",
+    "name": "Sandstorm Visage",
+    "itemClass": "Helmet",
+    "iconPath": "items/SandstormVisage.webp",
+    "mods": [
+      "+(80-120) to maximum Energy Shield",
+      "+(20-30) to Dexterity",
+      "Enemies in your Presence are Blinded",
+      "Every second, inflicts Critical Weakness on enemies in your Presence for (15-20) seconds"
+    ]
+  },
+  {
+    "id": "207",
+    "name": "Sanguine Diviner",
+    "itemClass": "Wand",
+    "iconPath": "items/SanguineDiviner.webp",
+    "mods": [
+      "(80-100)% increased Spell Damage",
+      "Gain (10-15) Life per enemy killed",
+      "25% chance to inflict Bleeding on Hit",
+      "25% of Spell Mana Cost Converted to Life Cost"
+    ]
+  },
+  {
+    "id": "297",
+    "name": "Scold's Bridle",
+    "itemClass": "Helmet",
+    "iconPath": "items/ScoldsBridle.webp",
+    "mods": [
+      "+(75-150) to maximum Energy Shield",
+      "(60-100)% increased Spell Damage",
+      "+(80-100) to maximum Mana",
+      "15% reduced Cast Speed",
+      "Take (25-100)% of Mana Costs you pay for Skills as Physical Damage"
+    ]
+  },
+  {
+    "id": "160",
+    "name": "Seed of Cataclysm",
+    "itemClass": "Ring",
+    "iconPath": "items/SeedOfCataclysm.webp",
+    "mods": [
+      "(30-50)% increased Critical Hit Chance for Spells",
+      "(30-50)% increased Critical Spell Damage Bonus",
+      "+(13-17)% to Chaos Resistance",
+      "10% increased Mana Cost of Skills"
+    ]
+  },
+  {
+    "id": "233",
+    "name": "Sekhema's Resolve",
+    "itemClass": "Ring",
+    "iconPath": "items/EmberheartSeal.webp",
+    "mods": [
+      "(10-20)% increased Rarity of Items found",
+      "+(10-20) to all Attributes",
+      "Lightning Resistance is unaffected by Area Penalties",
+      "You can only Socket Emerald Jewels in this item"
+    ]
+  },
+  {
+    "id": "234",
+    "name": "Sekhema's Resolve",
+    "itemClass": "Ring",
+    "iconPath": "items/RimeveilSeal.webp",
+    "mods": [
+      "(10-20)% increased Rarity of Items found",
+      "+(10-20) to all Attributes",
+      "Lightning Resistance is unaffected by Area Penalties",
+      "You can only Socket Emerald Jewels in this item"
+    ]
+  },
+  {
+    "id": "235",
+    "name": "Sekhema's Resolve",
+    "itemClass": "Ring",
+    "iconPath": "items/StormforgedSeal.webp",
+    "mods": [
+      "(10-20)% increased Rarity of Items found",
+      "+(10-20) to all Attributes",
+      "Lightning Resistance is unaffected by Area Penalties",
+      "You can only Socket Emerald Jewels in this item"
+    ]
+  },
+  {
+    "id": "156",
+    "name": "Serpent's Egg",
+    "itemClass": "Amulet",
+    "iconPath": "items/TheSerpentsEgg.webp",
+    "mods": [
+      "+(10-20) to all Attributes",
+      "+(17-23)% to Chaos Resistance",
+      "(20-30)% increased Mana Regeneration Rate",
+      "Gain an additional Charge when you gain a Charge"
+    ]
+  },
+  {
+    "id": "95",
+    "name": "Shackles of the Wretched",
+    "itemClass": "Gloves",
+    "iconPath": "items/ShacklesOfTheWretched.webp",
+    "mods": [
+      "(30-50)% increased Armour and Energy Shield",
+      "You cannot be Chilled for 6 seconds after being Chilled",
+      "You cannot be Frozen for 6 seconds after being Frozen",
+      "You cannot be Ignited for 6 seconds after being Ignited",
+      "You cannot be Shocked for 6 seconds after being Shocked",
+      "Curses you inflict are reflected back to you"
+    ]
+  },
+  {
+    "id": "379",
+    "name": "Shankgonne",
+    "itemClass": "Boots",
+    "iconPath": "items/Shankgonne.webp",
+    "mods": [
+      "(80-100)% increased Armour and Evasion",
+      "(10-20)% increased Rarity of Items found",
+      "+(15-25)% to Fire Resistance",
+      "Gain Deflection Rating equal to 20% of Armour",
+      "+(200-300) to Stun Threshold",
+      "You cannot Sprint"
+    ]
+  },
+  {
+    "id": "190",
+    "name": "Shavronne's Satchel",
+    "itemClass": "Belt",
+    "iconPath": "items/ShavronnesSatchel.webp",
+    "mods": [
+      "(20-30)% reduced Flask Life Recovery rate",
+      "+(20-30) to Intelligence",
+      "(20-30)% increased Flask Charges gained",
+      "Life Recovery from Flasks also applies to Energy Shield"
+    ]
+  },
+  {
+    "id": "39",
+    "name": "Sierran Inheritance",
+    "itemClass": "Body Armour",
+    "iconPath": "items/MutewindSail.webp",
+    "mods": [
+      "(50-80)% increased Evasion and Energy Shield",
+      "-15% to Cold Resistance",
+      "+(30-40)% to Lightning Resistance",
+      "(30-50)% faster start of Energy Shield Recharge",
+      "All Damage taken from Hits Contributes to Magnitude of Chill inflicted on you",
+      "The Effect of Chill on you is reversed"
+    ]
+  },
+  {
+    "id": "294",
+    "name": "Silks of Veneration",
+    "itemClass": "Body Armour",
+    "iconPath": "items/SilksOfVeneration.webp",
+    "mods": [
+      "(150-200)% increased Energy Shield",
+      "+(30-50) to Spirit",
+      "+(20-30) to Intelligence",
+      "(30-50)% increased Energy Shield Recharge Rate",
+      "Current Energy Shield also grants Elemental Damage reduction"
+    ]
+  },
+  {
+    "id": "323",
+    "name": "Silverthorne",
+    "itemClass": "Shield",
+    "iconPath": "items/Silverthorne.webp",
+    "mods": [
+      "(60-100)% increased Evasion Rating",
+      "+(10-15)% to all Elemental Resistances",
+      "Parrying applies 10 Stacks of Critical Weakness",
+      "100% increased Parry Damage"
+    ]
+  },
+  {
+    "id": "227",
+    "name": "Sine Aequo",
+    "itemClass": "Gloves",
+    "iconPath": "items/SineAequo.webp",
+    "mods": [
+      "(10-15)% increased Skill Speed",
+      "(100-150)% increased Armour, Evasion and Energy Shield",
+      "Immobilise enemies at 50% buildup instead of 100%",
+      "Enemies Immobilised by you take 20% more Damage"
+    ]
+  },
+  {
+    "id": "326",
+    "name": "Sire of Shards",
+    "itemClass": "Staff",
+    "iconPath": "items/SireOfShards.webp",
+    "mods": [
+      "(80-120)% increased Spell Damage",
+      "(10-20)% increased Cast Speed",
+      "+(5-10)% to all Elemental Resistances",
+      "20% increased Light Radius",
+      "Spells fire 4 additional ProjectilesSpells fire Projectiles in a circle"
+    ]
+  },
+  {
+    "id": "252",
+    "name": "Skin of the Loyal",
+    "itemClass": "Body Armour",
+    "iconPath": "items/SkinOfTheLoyal.webp",
+    "mods": [
+      "+(5-40)% to all Elemental Resistances",
+      "Elemental Ailment Threshold is increased by Uncapped Chaos Resistance",
+      "Armour is increased by Uncapped Fire Resistance",
+      "Energy Shield is increased by Uncapped Cold Resistance",
+      "Evasion Rating is increased by Uncapped Lightning Resistance"
+    ]
+  },
+  {
+    "id": "339",
+    "name": "Skysliver",
+    "itemClass": "Spear",
+    "iconPath": "items/Skysliver.webp",
+    "mods": [
+      "No Physical Damage",
+      "Adds 1 to (80-120) Lightning Damage",
+      "(15-30)% increased Attack Speed",
+      "(50-100)% increased chance to Shock",
+      "Rolls only the minimum or maximum Damage value for each Damage Type"
+    ]
+  },
+  {
+    "id": "346",
+    "name": "Slivertongue",
+    "itemClass": "Bow",
+    "iconPath": "items/Slivertongue.webp",
+    "mods": [
+      "Adds (40-48) to (65-72) Physical Damage",
+      "+(4-6)% to Critical Hit Chance",
+      "Leeches (5-8)% of Physical Damage as Life",
+      "Leeches (4-7)% of Physical Damage as Mana",
+      "Arrows Fork",
+      "Arrows Pierce all targets after Forking"
+    ]
+  },
+  {
+    "id": "83",
+    "name": "Snakebite",
+    "itemClass": "Gloves",
+    "iconPath": "items/Snakebite.webp",
+    "mods": [
+      "(40-60)% increased Evasion Rating",
+      "+(7-17)% to Chaos Resistance",
+      "(6-10) Life Regeneration per second",
+      "(20-30)% chance to Poison on Hit",
+      "Targets can be affected by +1 of your Poisons at the same time"
+    ]
+  },
+  {
+    "id": "175",
+    "name": "Snakepit",
+    "itemClass": "Ring",
+    "iconPath": "items/Snakepit.webp",
+    "mods": [
+      "(20-30)% increased Spell Damage",
+      "(10-15)% increased Cast Speed",
+      "Left ring slot: Projectiles from Spells cannot Chain",
+      "Left ring slot: Projectiles from Spells Fork",
+      "Right ring slot: Projectiles from Spells Chain +1 times",
+      "Right ring slot: Projectiles from Spells cannot Fork",
+      "Projectiles from Spells cannot Pierce"
+    ]
+  },
+  {
+    "id": "226",
+    "name": "Solus Ipse",
+    "itemClass": "Helmet",
+    "iconPath": "items/SolusIpse.webp",
+    "mods": [
+      "(150-200)% increased Armour, Evasion and Energy Shield",
+      "+(60-100) to maximum Mana",
+      "25% increased Light Radius",
+      "Equipment and Skill Gems have 25% increased Attribute Requirements",
+      "You can Socket 2 additional copies of each Lineage Support Gem, in different Skills"
+    ]
+  },
+  {
+    "id": "281",
+    "name": "Soul Mantle",
+    "itemClass": "Body Armour",
+    "iconPath": "items/SoulMantle.webp",
+    "mods": [
+      "(80-120)% increased Armour and Energy Shield",
+      "+10 to Strength",
+      "+15 to Intelligence",
+      "(20-30)% reduced Totem Life",
+      "+1 to maximum number of Summoned Totems",
+      "Inflicts a random Curse on you when your Totems die, ignoring Curse limit"
+    ]
+  },
+  {
+    "id": "185",
+    "name": "Soul Tether",
+    "itemClass": "Belt",
+    "iconPath": "items/SoulTether.webp",
+    "mods": [
+      "+(40-60) to maximum Energy Shield",
+      "+(20-30) to Intelligence",
+      "You lose 5% of maximum Energy Shield per second",
+      "Excess Life Recovery from Leech is applied to Energy Shield"
+    ]
+  },
+  {
+    "id": "343",
+    "name": "Spire of Ire",
+    "itemClass": "Spear",
+    "iconPath": "items/SpireOfIre.webp",
+    "mods": [
+      "(15-20)% increased Attack Speed",
+      "Leeches (10-20)% of Physical Damage as Life",
+      "Adds (167-201) to (267-333) Chaos damage",
+      "When you Consume a Charge Trigger Chaotic Surge to gain 2 Chaos Surges",
+      "Life Leech recovers based on your Chaos damage instead of Physical damage"
+    ]
+  },
+  {
+    "id": "336",
+    "name": "Splinter of Lorrata",
+    "itemClass": "Spear",
+    "iconPath": "items/SplinterOfLorrata.webp",
+    "mods": [
+      "Adds (2-3) to (6-8) Physical Damage",
+      "Deal no Elemental Damage",
+      "20% increased Melee Strike Range with this weapon",
+      "Any number of Poisons from this Weapon can affect a target at the same time",
+      "Always Poison on Hit with this weapon"
+    ]
+  },
+  {
+    "id": "216",
+    "name": "Splinterheart",
+    "itemClass": "Bow",
+    "iconPath": "items/Splinterheart.webp",
+    "mods": [
+      "(120-160)% increased Physical Damage",
+      "+(50-70) to Accuracy Rating",
+      "(20-30)% increased Projectile Speed",
+      "Projectiles Split towards +2 targets"
+    ]
+  },
+  {
+    "id": "301",
+    "name": "Starkonja's Head",
+    "itemClass": "Helmet",
+    "iconPath": "items/StarkonjasHead.webp",
+    "mods": [
+      "(100-200)% increased Evasion Rating",
+      "(15-25)% increased Critical Hit Chance",
+      "+(30-40) to Dexterity",
+      "150% increased Global Evasion Rating when on Low Life",
+      "15% of Damage from Hits is taken from your Damageable Companion's Life before you"
+    ]
+  },
+  {
+    "id": "269",
+    "name": "Stone of Lazhwar",
+    "itemClass": "Amulet",
+    "iconPath": "items/StoneOfLazhwar.webp",
+    "mods": [
+      "+(50-100) to maximum Mana",
+      "(15-25)% increased Cast Speed",
+      "+(15-25)% to Block Chance while holding a Focus"
+    ]
+  },
+  {
+    "id": "268",
+    "name": "Strugglescream",
+    "itemClass": "Amulet",
+    "iconPath": "items/DeliriumAmulet.webp",
+    "mods": [
+      "Can have 3 additional Instilled Modifiers"
+    ]
+  },
+  {
+    "id": "325",
+    "name": "Sunsplinter",
+    "itemClass": "Shield",
+    "iconPath": "items/Sunsplinter.webp",
+    "mods": [
+      "(100-300)% increased Evasion Rating",
+      "+1% to Maximum Fire Resistance",
+      "+2% to Maximum Cold Resistance",
+      "+3% to Maximum Lightning Resistance",
+      "+2 to Level of all Cold Skills",
+      "+1 to Level of all Fire Skills",
+      "+3 to Level of all Lightning Skills"
+    ]
+  },
+  {
+    "id": "146",
+    "name": "Surefooted Sigil",
+    "itemClass": "Amulet",
+    "iconPath": "items/SurefootedSigil.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(5-15) to Dexterity",
+      "+1 metre to Dodge Roll distance",
+      "50% increased Evasion Rating if you've Dodge Rolled Recently"
+    ]
+  },
+  {
+    "id": "240",
+    "name": "Svalinn",
+    "itemClass": "Shield",
+    "iconPath": "items/Svalinn.webp",
+    "mods": [
+      "(200-300)% increased Armour",
+      "Chance to Block Damage is Lucky",
+      "You take (0-20)% of damage from Blocked Hits"
+    ]
+  },
+  {
+    "id": "292",
+    "name": "Tabula Rasa",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TabulaRasa.webp",
+    "mods": [
+      "Has 6 Jewel Sockets"
+    ]
+  },
+  {
+    "id": "341",
+    "name": "Tangletongue",
+    "itemClass": "Spear",
+    "iconPath": "items/Tangletongue.webp",
+    "mods": [
+      "Adds (14-18) to (30-36) Physical Damage",
+      "+(5-8)% to Critical Hit Chance",
+      "+(15-25) to Intelligence",
+      "Bifurcates Critical Hits",
+      "10% of Skill Mana Costs Converted to Life Costs"
+    ]
+  },
+  {
+    "id": "211",
+    "name": "Taryn's Shiver",
+    "itemClass": "Staff",
+    "iconPath": "items/TarynsShiver.webp",
+    "mods": [
+      "(80-120)% increased Spell Damage",
+      "(10-20)% increased Cast Speed",
+      "30% increased Freeze Buildup",
+      "Enemies Frozen by you take 100% increased Damage"
+    ]
+  },
+  {
+    "id": "230",
+    "name": "Temporalis",
+    "itemClass": "Body Armour",
+    "iconPath": "items/PilgrimsImage.webp",
+    "mods": [
+      "+(100-150) to maximum Energy Shield",
+      "+(10-20)% to all Elemental Resistances",
+      "(5-30)% of Damage taken Recouped as Life",
+      "(5-30)% of Damage taken Recouped as Mana",
+      "Skills have (-2--1) seconds to Cooldown"
+    ]
+  },
+  {
+    "id": "24",
+    "name": "Tetzlapokal's Desire",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TetzlapokalsDesire.webp",
+    "mods": [
+      "(100-150)% increased Energy Shield",
+      "+(20-30) to Strength",
+      "+(20-30) to Intelligence",
+      "+(17-23)% to Chaos Resistance",
+      "Life Recharges"
+    ]
+  },
+  {
+    "id": "150",
+    "name": "The Anvil",
+    "itemClass": "Amulet",
+    "iconPath": "items/TheAnvil.webp",
+    "mods": [
+      "10% reduced Movement Speed",
+      "10% reduced Skill Speed",
+      "(25-50)% increased Armour",
+      "25% increased Block chance",
+      "+(5-10)% to maximum Block chance"
+    ]
+  },
+  {
+    "id": "27",
+    "name": "The Barrow Dweller",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheBarrowDweller.webp",
+    "mods": [
+      "(60-100)% increased Armour and Evasion",
+      "(-20--10)% to Fire Resistance",
+      "+50% to Cold Resistance",
+      "Damage of Enemies Hitting you is Unlucky while you are on Low Life",
+      "50% chance to Avoid Death from Hits"
+    ]
+  },
+  {
+    "id": "20",
+    "name": "The Black Doubt",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheBlackDoubt.webp",
+    "mods": [
+      "(60-100)% increased Energy Shield",
+      "+(10-30) to Intelligence",
+      "+(10-20)% to Cold Resistance",
+      "Damage over Time bypasses your Energy ShieldWhile not on Full Life, Sacrifice 10% of maximum Mana per Second to Recover that much Life"
+    ]
+  },
+  {
+    "id": "298",
+    "name": "The Black Insignia",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheBlackCrest.webp",
+    "mods": [
+      "(70-100)% increased Evasion Rating",
+      "(10-20)% increased Rarity of Items found",
+      "+(15-25)% to Lightning Resistance",
+      "Gain Tailwind on Critical Hit, no more than once per second",
+      "Lose all Tailwind when Hit"
+    ]
+  },
+  {
+    "id": "202",
+    "name": "The Blood Thorn",
+    "itemClass": "Warstaff",
+    "iconPath": "items/TheBloodThorn.webp",
+    "mods": [
+      "Adds (8-12) to (16-18) Physical Damage",
+      "+(10-15) to Strength",
+      "Causes Bleeding on Hit",
+      "(4-5) to (8-10) Physical Thorns damage"
+    ]
+  },
+  {
+    "id": "8",
+    "name": "The Brass Dome",
+    "itemClass": "Body Armour",
+    "iconPath": "items/BrassDome.webp",
+    "mods": [
+      "(700-800)% increased Armour",
+      "(-5--1)% to all Maximum Elemental Resistances",
+      "+(200-300) to Stun Threshold",
+      "Take no Extra Damage from Critical Hits"
+    ]
+  },
+  {
+    "id": "304",
+    "name": "The Bringer of Rain",
+    "itemClass": "Helmet",
+    "iconPath": "items/BringerOfRain.webp",
+    "mods": [
+      "(600-800)% increased Armour and Evasion",
+      "+(200-300) to Accuracy Rating",
+      "100% increased Critical Hit Chance",
+      "(30-60) Life Regeneration per second",
+      "Can't use Body Armour",
+      "You can wield Two-Handed Axes, Maces and Swords in one hand",
+      "This item gains bonuses from Socketed Items as though it was a Body Armour",
+      "Has 4 Augment Sockets (Hidden)"
+    ]
+  },
+  {
+    "id": "248",
+    "name": "The Burden of Shadows",
+    "itemClass": "Staff",
+    "iconPath": "items/BurdenOfShadows.webp",
+    "mods": [
+      "(20-30)% increased Cast Speed",
+      "Skill Mana Costs Converted to Life Costs",
+      "Skills gain 1% of Damage as Chaos Damage per 3 Life Cost"
+    ]
+  },
+  {
+    "id": "167",
+    "name": "The Burrower",
+    "itemClass": "Ring",
+    "iconPath": "items/TheBurrower.webp",
+    "mods": [
+      "-10% to Cold Resistance",
+      "+(20-30)% to Lightning Resistance",
+      "(30-50)% increased Mana Regeneration Rate",
+      "Lightning Damage of Enemies Hitting you is Unlucky"
+    ]
+  },
+  {
+    "id": "285",
+    "name": "The Coming Calamity",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheComingCalamity.webp",
+    "mods": [
+      "+(30-40)% to all Elemental Resistances",
+      "Herald Skills deal (50-100)% increased Damage",
+      "Enemies in your Presence have no Elemental Resistances"
+    ]
+  },
+  {
+    "id": "25",
+    "name": "The Covenant",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheCovenant.webp",
+    "mods": [
+      "(100-150)% increased Energy Shield",
+      "+(100-150) to maximum Life",
+      "10% of Spell Damage Leeched as Life",
+      "Skills gain a Base Life Cost equal to 100% of Base Mana Cost"
+    ]
+  },
+  {
+    "id": "40",
+    "name": "The Dancing Mirage",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheDancingMirage.webp",
+    "mods": [
+      "(150-200)% increased Evasion and Energy Shield",
+      "+(10-20)% to Lightning Resistance",
+      "20% less Damage taken if you have not been Hit Recently",
+      "100% increased Evasion Rating if you have been Hit Recently"
+    ]
+  },
+  {
+    "id": "220",
+    "name": "The Dark Defiler",
+    "itemClass": "Sceptre",
+    "iconPath": "items/DarkDefiler.webp",
+    "mods": [
+      "+(20-30) to maximum Mana",
+      "+(5-10) to Intelligence",
+      "(10-30)% increased Mana Regeneration Rate",
+      "Gain 5% of Damage as Chaos Damage per Undead Minion"
+    ]
+  },
+  {
+    "id": "296",
+    "name": "The Deepest Tower",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheDeepestTower.webp",
+    "mods": []
+  },
+  {
+    "id": "56",
+    "name": "The Devouring Diadem",
+    "itemClass": "Helmet",
+    "iconPath": "items/DevouringDiadem.webp",
+    "mods": [
+      "(60-100)% increased Energy Shield",
+      "+(40-60) to maximum Life",
+      "+(10-20) to Intelligence",
+      "+(13-19)% to Chaos Resistance",
+      "Every 3 seconds, Consume a nearby Corpse to Recover 20% of maximum Life"
+    ]
+  },
+  {
+    "id": "142",
+    "name": "The Everlasting Gaze",
+    "itemClass": "Amulet",
+    "iconPath": "items/TheEverlastingGaze.webp",
+    "mods": [
+      "+(40-60) to maximum Mana",
+      "(40-60)% increased Mana Regeneration Rate",
+      "Gain (4-6)% of maximum Mana as Extra maximum Energy Shield"
+    ]
+  },
+  {
+    "id": "284",
+    "name": "The Fallen Formation",
+    "itemClass": "Body Armour",
+    "iconPath": "items/FallenFormation.webp",
+    "mods": []
+  },
+  {
+    "id": "361",
+    "name": "The Gnashing Sash",
+    "itemClass": "Belt",
+    "iconPath": "items/GnashingSash.webp",
+    "mods": [
+      "(15-35)% increased Flask Life Recovery rate",
+      "+(17-23)% to Chaos Resistance",
+      "Lose 5% of maximum Life per second",
+      "Life Recovery from Flasks can Overflow Maximum Life"
+    ]
+  },
+  {
+    "id": "71",
+    "name": "The Hollow Mask",
+    "itemClass": "Helmet",
+    "iconPath": "items/MaskOfTheHollow.webp",
+    "mods": [
+      "+(60-80) to maximum Life",
+      "15% additional Physical Damage Reduction",
+      "-10% to all Elemental Resistances",
+      "+13% to Chaos Resistance"
+    ]
+  },
+  {
+    "id": "101",
+    "name": "The Infinite Pursuit",
+    "itemClass": "Boots",
+    "iconPath": "items/TheInfinitePursuit.webp",
+    "mods": [
+      "10% increased Movement Speed",
+      "(100-150)% increased Armour",
+      "+(80-100) to maximum Life",
+      "(80-100)% increased Chance to be afflicted by Ailments when Hit",
+      "25% increased Movement Speed while affected by an Ailment"
+    ]
+  },
+  {
+    "id": "113",
+    "name": "The Knight-errant",
+    "itemClass": "Boots",
+    "iconPath": "items/KnightErrant.webp",
+    "mods": [
+      "10% increased Movement Speed",
+      "(30-50)% increased Armour and Evasion",
+      "+(30-50) to Stun Threshold",
+      "+(30-50) to Ailment Threshold",
+      "Iron Reflexes"
+    ]
+  },
+  {
+    "id": "367",
+    "name": "The Last Lament",
+    "itemClass": "Crossbow",
+    "iconPath": "items/TheGrandDesign.webp",
+    "mods": [
+      "(250-300)% increased Physical Damage",
+      "(10-20)% increased Attack Speed",
+      "(40-60)% reduced Reload Speed",
+      "Leeches (5-10)% of Physical Damage as Life",
+      "(10-20)% chance to load a bolt into all Crossbow skills on Kill",
+      "Sacrifice 300 Life to not consume the last bolt when firing"
+    ]
+  },
+  {
+    "id": "347",
+    "name": "The Lethal Draw",
+    "itemClass": "Quiver",
+    "iconPath": "items/TheLethalDraw.webp",
+    "mods": [
+      "(5-10)% increased Attack Speed",
+      "Gain 5 Life per Enemy Hit with Attacks",
+      "(15-25)% chance to Pierce an Enemy",
+      "Bow Attacks consume 10% of your maximum Life Flask Charges if possible to deal added Physical damage equal to (5-10)% of Flask's Life Recovery amount"
+    ]
+  },
+  {
+    "id": "287",
+    "name": "The Mutable Star",
+    "itemClass": "Body Armour",
+    "iconPath": "items/MutableStar.webp",
+    "mods": [
+      "(100-150)% increased Armour and Energy Shield",
+      "(50-100)% increased Energy Shield Recharge Rate",
+      "(25-35) Life Regeneration per second",
+      "(30-50)% reduced Ignite Duration on you",
+      "Defend against Hits as though you had 1% more Armour per 1% current Energy Shield",
+      "(30-50)% reduced Duration of Bleeding on You"
+    ]
+  },
+  {
+    "id": "257",
+    "name": "The Pandemonius",
+    "itemClass": "Amulet",
+    "iconPath": "items/ThePandemonius.webp",
+    "mods": [
+      "+(50-100)% to Cold Resistance",
+      "Damage Penetrates 75% Cold Resistance",
+      "Blind Chilled enemies on Hit"
+    ]
+  },
+  {
+    "id": "307",
+    "name": "The Prisoner's Manacles",
+    "itemClass": "Gloves",
+    "iconPath": "items/PrisonersManacles.webp",
+    "mods": [
+      "(200-300)% increased Armour and Energy Shield",
+      "+100 to maximum Life",
+      "100% increased Attribute Requirements",
+      "+(20-40)% to Lightning Resistance",
+      "(15-30) Life Regeneration per second",
+      "Debuffs you inflict have (20-30)% increased Slow Magnitude",
+      "Cannot Immobilise enemies"
+    ]
+  },
+  {
+    "id": "15",
+    "name": "The Rat Cage",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheRatCage.webp",
+    "mods": [
+      "(100-150)% increased Evasion Rating",
+      "+300 to maximum Life",
+      "25% reduced Attribute Requirements",
+      "100% of Fire Damage from Hits taken as Physical Damage"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "The Road Warrior",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TheRoadWarrior.webp",
+    "mods": [
+      "+(10-15) to all Attributes",
+      "+(15-30)% to Fire Resistance",
+      "+(15-30)% to Lightning Resistance",
+      "(10-15) Life Regeneration per second",
+      "Moving while Bleeding doesn't cause you to take extra damage"
+    ]
+  },
+  {
+    "id": "213",
+    "name": "The Searing Touch",
+    "itemClass": "Staff",
+    "iconPath": "items/SearingTouch.webp",
+    "mods": [
+      "(80-120)% increased Fire Damage",
+      "(10-20)% increased Cast Speed",
+      "100% increased Flammability Magnitude",
+      "100% increased Ignite Magnitude",
+      "Ignites you inflict spread to other Enemies that stay within 1.5 metres for 1 second"
+    ]
+  },
+  {
+    "id": "204",
+    "name": "The Sentry",
+    "itemClass": "Warstaff",
+    "iconPath": "items/TheSentry.webp",
+    "mods": [
+      "No Physical Damage",
+      "Adds (25-32) to (40-50) Fire Damage",
+      "+(30-50) to Accuracy Rating",
+      "+20% to Fire Resistance",
+      "100% increased Flammability Magnitude",
+      "30% increased Light Radius"
+    ]
+  },
+  {
+    "id": "64",
+    "name": "The Smiling Knight",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheSmilingKnight.webp",
+    "mods": [
+      "+(50-100) to Accuracy Rating",
+      "(150-200)% increased Armour and Evasion",
+      "(15-25)% increased Critical Hit Chance",
+      "Aggravate Bleeding on targets you Critically Hit with Attacks"
+    ]
+  },
+  {
+    "id": "124",
+    "name": "The Surrender",
+    "itemClass": "Shield",
+    "iconPath": "items/TheSurrender.webp",
+    "mods": [
+      "(40-60)% increased Block chance",
+      "(150-200)% increased Armour",
+      "+(150-200) to Stun Threshold",
+      "Recover 4% of maximum Life when you Block"
+    ]
+  },
+  {
+    "id": "76",
+    "name": "The Three Dragons",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheThreeDragons.webp",
+    "mods": [
+      "(40-60)% increased Evasion and Energy Shield",
+      "+(10-20)% to all Elemental Resistances",
+      "Fire Damage from Hits Contributes to Shock Chance instead of Flammability and Ignite Magnitudes",
+      "Cold Damage from Hits Contributes to Flammability and Ignite Magnitudes instead of Chill Magnitude or Freeze Buildup",
+      "Lightning Damage from Hits Contributes to Freeze Buildup instead of Shock Chance"
+    ]
+  },
+  {
+    "id": "386",
+    "name": "The Unborn Lich",
+    "itemClass": "Staff",
+    "iconPath": "items/KulemaksBirth.webp",
+    "mods": [
+      "(60-80)% increased Desecrated Modifier magnitudes"
+    ]
+  },
+  {
+    "id": "75",
+    "name": "The Vertex",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheVertex.webp",
+    "mods": [
+      "Has no Attribute Requirements",
+      "(100-150)% increased Evasion and Energy Shield",
+      "(20-30)% increased Critical Hit Chance",
+      "+(13-17)% to Chaos Resistance",
+      "Skill Gems have no Attribute Requirements"
+    ]
+  },
+  {
+    "id": "65",
+    "name": "The Vile Knight",
+    "itemClass": "Helmet",
+    "iconPath": "items/TheVileKnight.webp",
+    "mods": [
+      "(60-100)% increased Armour and Evasion",
+      "+(75-125) to Accuracy Rating",
+      "(10-15) Life Regeneration per second",
+      "Deal 4% increased Damage with Hits to Rare or Unique Enemies for each second they've ever been in your Presence, up to a maximum of 200%"
+    ]
+  },
+  {
+    "id": "122",
+    "name": "The Wailing Wall",
+    "itemClass": "Shield",
+    "iconPath": "items/TheWailingWall.webp",
+    "mods": []
+  },
+  {
+    "id": "372",
+    "name": "The Whispering Ice",
+    "itemClass": "Staff",
+    "iconPath": "items/WhisperingIce.webp",
+    "mods": [
+      "+(5-7) to Level of all Cold Spell Skills",
+      "(10-20)% reduced Cast Speed",
+      "(5-10)% increased Intelligence",
+      "2% increased Spell Damage per 10 Intelligence",
+      "Inflict Elemental Exposure on Hit, lowering Total Elemental Resistances by (50-60)%"
+    ]
+  },
+  {
+    "id": "327",
+    "name": "The Wicked Quill",
+    "itemClass": "Wand",
+    "iconPath": "items/TheWickedQuill.webp",
+    "mods": [
+      "(60-100)% increased Spell Damage",
+      "+(60-100) to maximum Mana",
+      "+(7-13)% to Chaos Resistance",
+      "Spells have a 25% chance to inflict Withered for 4 seconds on Hit"
+    ]
+  },
+  {
+    "id": "173",
+    "name": "Thief's Torment",
+    "itemClass": "Ring",
+    "iconPath": "items/ThiefsTorment.webp",
+    "mods": [
+      "(30-40)% increased Rarity of Items found",
+      "+(10-15)% to all Elemental Resistances",
+      "Gain 25 Life per Enemy Hit with Attacks",
+      "Can't use other Rings",
+      "Gain 15 Mana per Enemy Hit with Attacks",
+      "50% reduced Duration of Curses on you"
+    ]
+  },
+  {
+    "id": "46",
+    "name": "Thrillsteel",
+    "itemClass": "Helmet",
+    "iconPath": "items/Thrillsteel.webp",
+    "mods": [
+      "Onslaught"
+    ]
+  },
+  {
+    "id": "378",
+    "name": "Thunderfist",
+    "itemClass": "Gloves",
+    "iconPath": "items/Thunderfist.webp",
+    "mods": [
+      "(1-111)% increased Evasion and Energy Shield",
+      "(1-11)% increased Attack Speed",
+      "+(1-33)% to Lightning Resistance",
+      "Adds 1 to (77-111) Lightning Damage to Unarmed Melee Hits",
+      "+(0.1-1.1)% to Unarmed Melee Attack Critical Hit Chance"
+    ]
+  },
+  {
+    "id": "106",
+    "name": "Thunderstep",
+    "itemClass": "Boots",
+    "iconPath": "items/ThunderousSilence.webp",
+    "mods": []
+  },
+  {
+    "id": "4",
+    "name": "Titanrot Cataphract",
+    "itemClass": "Body Armour",
+    "iconPath": "items/TitanrotCataphract.webp",
+    "mods": [
+      "(400-500)% increased Armour",
+      "(15-30)% increased Strength",
+      "10% reduced Dexterity",
+      "10% reduced Intelligence",
+      "You have no Life Regeneration"
+    ]
+  },
+  {
+    "id": "102",
+    "name": "Trampletoe",
+    "itemClass": "Boots",
+    "iconPath": "items/Trampletoe.webp",
+    "mods": [
+      "15% increased Movement Speed",
+      "(50-100)% increased Armour",
+      "50% increased Attribute Requirements",
+      "Deal 30% of Overkill damage to enemies within 2 metres of the enemy killed"
+    ]
+  },
+  {
+    "id": "77",
+    "name": "Treefingers",
+    "itemClass": "Gloves",
+    "iconPath": "items/Treefingers.webp",
+    "mods": [
+      "(30-60)% increased Armour",
+      "Adds (6-10) to (12-16) Physical Damage to Attacks",
+      "5% reduced Attack Speed",
+      "+(15-20) to Strength",
+      "(20-30)% increased Stun Buildup",
+      "Giant's Blood"
+    ]
+  },
+  {
+    "id": "337",
+    "name": "Tyranny's Grip",
+    "itemClass": "Spear",
+    "iconPath": "items/ArmsLength.webp",
+    "mods": [
+      "(150-200)% increased Physical Damage",
+      "(10-15)% reduced Attack Speed",
+      "+(15-30) to Strength",
+      "Strikes deal Splash Damage",
+      "Knocks Back Enemies on Hit",
+      "Cannot use Projectile Attacks"
+    ]
+  },
+  {
+    "id": "382",
+    "name": "Umbilicus Immortalis",
+    "itemClass": "Belt",
+    "iconPath": "items/UmbilicusImmortalis.webp",
+    "mods": [
+      "(30-40)% reduced Flask Effect Duration",
+      "+(20-30) to Intelligence",
+      "Minions have (20-30)% increased maximum Life",
+      "Your Life Flask also applies to your Minions",
+      "Minions cannot Die while affected by a Life Flask",
+      "(20-30)% increased Flask Charges gained"
+    ]
+  },
+  {
+    "id": "143",
+    "name": "Ungil's Harmony",
+    "itemClass": "Amulet",
+    "iconPath": "items/UngilsHarmony.webp",
+    "mods": [
+      "+(30-50) to maximum Life",
+      "+(30-50) to maximum Mana",
+      "(100-200)% increased Critical Hit Chance",
+      "+(60-100) to Stun Threshold",
+      "Your Critical Hits do not deal extra Damage"
+    ]
+  },
+  {
+    "id": "308",
+    "name": "Valako's Vice",
+    "itemClass": "Gloves",
+    "iconPath": "items/ValakosVice.webp",
+    "mods": [
+      "(50-100)% increased Armour and Evasion",
+      "(5-10)% increased Attack Speed",
+      "+(20-30) to Strength",
+      "+(20-30) to Dexterity",
+      "+(30-50)% to Lightning Resistance",
+      "100% of Fire damage Converted to Lightning damage"
+    ]
+  },
+  {
+    "id": "69",
+    "name": "Veil of the Night",
+    "itemClass": "Helmet",
+    "iconPath": "items/VeilOfTheNight.webp",
+    "mods": [
+      "50% increased maximum Life",
+      "+(10-20) to all Attributes",
+      "40% reduced Light Radius",
+      "You have no Elemental Resistances"
+    ]
+  },
+  {
+    "id": "271",
+    "name": "Venopuncture",
+    "itemClass": "Ring",
+    "iconPath": "items/Venopuncture.webp",
+    "mods": [
+      "Adds (5-7) to (9-13) Physical Damage to Attacks",
+      "+(20-30) to Strength",
+      "All Damage taken from Hits while Bleeding Contributes to Magnitude of Chill on you",
+      "All Damage from Hits against Bleeding targets Contributes to Chill Magnitude",
+      "(10-20)% chance to inflict Bleeding on Hit",
+      "(15-25)% increased Magnitude of Bleeding you inflict"
+    ]
+  },
+  {
+    "id": "178",
+    "name": "Ventor's Gamble",
+    "itemClass": "Ring",
+    "iconPath": "items/VentorsGamble.webp",
+    "mods": [
+      "+(0-80) to maximum Life",
+      "+(0-20) to Spirit",
+      "(-25-25)% reduced Rarity of Items found",
+      "(-40-40)% to Fire Resistance",
+      "(-40-40)% to Cold Resistance",
+      "(-40-40)% to Lightning Resistance"
+    ]
+  },
+  {
+    "id": "274",
+    "name": "Vigilant View",
+    "itemClass": "Ring",
+    "iconPath": "items/VigilantView.webp",
+    "mods": [
+      "+(100-150) to Accuracy Rating",
+      "+(100-150) to Evasion Rating",
+      "(10-20)% increased Rarity of Items found",
+      "+(20-30) to Dexterity",
+      "Enemies have an Accuracy Penalty against you based on Distance",
+      "Maximum Chance to Evade is 50%"
+    ]
+  },
+  {
+    "id": "295",
+    "name": "Vis Mortis",
+    "itemClass": "Body Armour",
+    "iconPath": "items/VisMortis.webp",
+    "mods": [
+      "(70-100)% increased Energy Shield",
+      "+(70-100) to maximum Mana",
+      "Minions have 50% reduced maximum Life",
+      "Minions have Unholy Might"
+    ]
+  },
+  {
+    "id": "57",
+    "name": "Visage of Ayah",
+    "itemClass": "Helmet",
+    "iconPath": "items/VisageOfAyah.webp",
+    "mods": [
+      "(50-80)% increased Energy Shield",
+      "(10-15)% increased Rarity of Items found",
+      "(20-30)% increased Critical Hit Chance",
+      "+(10-20)% to Lightning Resistance",
+      "Eldritch Battery"
+    ]
+  },
+  {
+    "id": "35",
+    "name": "Voll's Protector",
+    "itemClass": "Body Armour",
+    "iconPath": "items/VollsProtector.webp",
+    "mods": [
+      "(150-200)% increased Armour and Energy Shield",
+      "25% reduced maximum Mana",
+      "+(13-17)% to Chaos Resistance",
+      "25% chance to gain a Power Charge on Critical Hit"
+    ]
+  },
+  {
+    "id": "345",
+    "name": "Voltaxic Rift",
+    "itemClass": "Bow",
+    "iconPath": "items/VoltaxicRift.webp",
+    "mods": [
+      "Adds 1 to (300-500) Lightning Damage",
+      "(10-15)% increased Attack Speed",
+      "100% of Lightning Damage Converted to Chaos Damage",
+      "Chaos Damage from Hits also Contributes to Shock Chance"
+    ]
+  },
+  {
+    "id": "279",
+    "name": "Waistgate",
+    "itemClass": "Belt",
+    "iconPath": "items/Waistgate.webp",
+    "mods": [
+      "+(50-80) to maximum Life",
+      "+(50-80) to maximum Mana",
+      "(20-30)% increased Flask Life Recovery rate",
+      "(20-30)% increased Flask Mana Recovery rate",
+      "Life and Mana Flasks can be equipped in either slot"
+    ]
+  },
+  {
+    "id": "116",
+    "name": "Wake of Destruction",
+    "itemClass": "Boots",
+    "iconPath": "items/WakeOfDestruction.webp",
+    "mods": [
+      "10% increased Movement Speed",
+      "(30-60)% increased Armour and Energy Shield",
+      "Adds 1 to (30-50) Lightning damage to Attacks",
+      "Drop Shocked Ground while moving, lasting 8 seconds"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Wandering Reliquary",
+    "itemClass": "Body Armour",
+    "iconPath": "items/WanderingReliquary.webp",
+    "mods": [
+      "(50-100)% increased Armour",
+      "+(40-60) to maximum Mana",
+      "+(10-20) to Strength",
+      "+(60-80) to Stun Threshold",
+      "50% of Physical Damage prevented Recouped as Life"
+    ]
+  },
+  {
+    "id": "109",
+    "name": "Wanderlust",
+    "itemClass": "Boots",
+    "iconPath": "items/Wanderlust.webp",
+    "mods": [
+      "20% increased Movement Speed",
+      "+(10-20) to maximum Energy Shield",
+      "+5 to Dexterity",
+      "Your speed is unaffected by Slows"
+    ]
+  },
+  {
+    "id": "286",
+    "name": "Waveshaper",
+    "itemClass": "Body Armour",
+    "iconPath": "items/Waveshaper.webp",
+    "mods": [
+      "+(100-200) to maximum Energy Shield",
+      "+(20-40) to Spirit",
+      "+(25-35)% to Fire Resistance",
+      "+(25-35)% to Cold Resistance",
+      "Increases and Reductions to Mana Regeneration Rate alsoapply to Energy Shield Recharge Rate",
+      "Gain (30-50)% of Maximum Mana as Armour"
+    ]
+  },
+  {
+    "id": "165",
+    "name": "Whisper of the Brotherhood",
+    "itemClass": "Ring",
+    "iconPath": "items/WhisperOfTheBrotherhood.webp",
+    "mods": [
+      "(5-10)% increased Skill Speed",
+      "+(10-20) to Dexterity",
+      "(25-35)% increased Mana Regeneration Rate",
+      "100% of Cold Damage Converted to Lightning Damage"
+    ]
+  },
+  {
+    "id": "293",
+    "name": "Widow's Reign",
+    "itemClass": "Body Armour",
+    "iconPath": "items/WidowsReign.webp",
+    "mods": [
+      "(100-150)% increased Armour and Evasion",
+      "+(100-150) to maximum Life",
+      "+(17-23)% to Chaos Resistance",
+      "+(200-300) to Ailment Threshold",
+      "Life that would be lost by taking Damage is instead Reserveduntil you take no Damage to Life for 3 seconds"
+    ]
+  },
+  {
+    "id": "214",
+    "name": "Widowhail",
+    "itemClass": "Bow",
+    "iconPath": "items/Widowhail.webp",
+    "mods": [
+      "(150-250)% increased bonuses gained from Equipped Quiver"
+    ]
+  },
+  {
+    "id": "316",
+    "name": "Window to Paradise",
+    "itemClass": "Shield",
+    "iconPath": "items/WindowToParadise.webp",
+    "mods": [
+      "(60-120)% increased Armour",
+      "+(60-100) to maximum Mana",
+      "+(10-15)% to all Elemental Resistances",
+      "Inflict Elemental Exposure to Enemies 3 metres in front of youfor 4 seconds, every 0.25 seconds while raised"
+    ]
+  },
+  {
+    "id": "112",
+    "name": "Windscream",
+    "itemClass": "Boots",
+    "iconPath": "items/Windscream.webp",
+    "mods": [
+      "(10-20)% increased Movement Speed",
+      "(50-100)% increased Energy Shield",
+      "+(10-20) to Intelligence",
+      "Curse Skills have (10-20)% increased Cast Speed",
+      "Curses have no Activation Delay"
+    ]
+  },
+  {
+    "id": "43",
+    "name": "Wings of Caelyn",
+    "itemClass": "Helmet",
+    "iconPath": "items/WingsOfCaelyn.webp",
+    "mods": [
+      "+20 to Armour",
+      "(5-15)% increased Rarity of Items found",
+      "+(20-30) to Dexterity",
+      "Gain 1 Rage on Melee Hit",
+      "Every Rage also grants 1% increased Stun Threshold"
+    ]
+  },
+  {
+    "id": "111",
+    "name": "Wondertrap",
+    "itemClass": "Boots",
+    "iconPath": "items/Wondertrap.webp",
+    "mods": [
+      "(10-20)% increased Movement Speed",
+      "+(30-50) to maximum Energy Shield",
+      "+(10-20) to Strength",
+      "+(10-20) to Dexterity",
+      "+(10-20) to Intelligence",
+      "50% increased Rarity of Items found when on Low Life"
+    ]
+  },
+  {
+    "id": "120",
+    "name": "Wulfsbane",
+    "itemClass": "Shield",
+    "iconPath": "items/Wulfsbane.webp",
+    "mods": [
+      "+(40-60) to maximum Life",
+      "+(10-15) to Strength",
+      "+(60-80) to Stun Threshold",
+      "Permanently Intimidate enemies on Block"
+    ]
+  },
+  {
+    "id": "255",
+    "name": "Xoph's Blood",
+    "itemClass": "Amulet",
+    "iconPath": "items/XophsBlood.webp",
+    "mods": [
+      "(10-20)% increased maximum Life",
+      "+(50-100)% to Fire Resistance",
+      "Enemies in your Presence have -25% to Fire Resistance"
+    ]
+  },
+  {
+    "id": "270",
+    "name": "Yoke of Suffering",
+    "itemClass": "Amulet",
+    "iconPath": "items/YokeOfSuffering.webp",
+    "mods": [
+      "+(10-15)% to all Elemental Resistances",
+      "(15-30)% increased Elemental Damage",
+      "Enemies take (15-20)% increased Damage for each Elemental Ailment type amongyour Ailments on them",
+      "(30-40)% reduced Duration of Ignite, Shock and Chill on Enemies"
+    ]
+  },
+  {
+    "id": "283",
+    "name": "Yriel's Fostering",
+    "itemClass": "Body Armour",
+    "iconPath": "items/YrielsFostering.webp",
+    "mods": [
+      "(100-150)% increased Evasion Rating",
+      "+(80-120) to maximum Life",
+      "+(10-30) to Spirit",
+      "(40-60)% reduced Poison Duration on you",
+      "You can have two Companions of different types",
+      "(40-60)% reduced Duration of Bleeding on You"
+    ]
+  },
+  {
+    "id": "237",
+    "name": "Zerphi's Genesis",
+    "itemClass": "Belt",
+    "iconPath": "items/ZerphisGenesis.webp",
+    "mods": [
+      "+(10-30) to Strength",
+      "Corrupted Blood cannot be inflicted on you",
+      "50% of charges used by Charms granted to your Life Flasks",
+      "(10-30)% increased Charm Charges used"
+    ]
+  },
+  {
+    "id": "282",
+    "name": "Zerphi's Serape",
+    "itemClass": "Body Armour",
+    "iconPath": "items/ZerphisSerape.webp",
+    "mods": [
+      "(60-80)% increased Evasion and Energy Shield",
+      "+(40-60) to maximum Mana",
+      "50% increased Attribute Requirements",
+      "(-30-30)% reduced Life Regeneration rate",
+      "(-30-30)% reduced Mana Regeneration Rate",
+      "Soul Eater"
+    ]
+  }
+]

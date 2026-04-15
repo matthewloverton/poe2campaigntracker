@@ -1,0 +1,222 @@
+/* GearSlot — individual gear slot with hover tooltip */
+
+.slot {
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.slotEmpty {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+}
+
+.slotEmpty:hover {
+  border-color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.emptyLabel {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-secondary);
+  opacity: 0.45;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.2;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Filled state ────────────────────────────────────────── */
+.slotFilled {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+}
+
+.slotFilled:hover {
+  border-color: var(--accent-gold);
+}
+
+.slotUnique {
+  border-color: var(--color-gold);
+}
+
+.itemImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+  pointer-events: none;
+}
+
+/* ── Priority badge ──────────────────────────────────────── */
+.priorityBadge {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  min-width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 168, 76, 0.85);
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1;
+  padding: 0 2px;
+  pointer-events: none;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────── */
+.tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-gold);
+  border-radius: 5px;
+  padding: 10px 12px;
+  min-width: 200px;
+  max-width: 280px;
+  pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Invisible bridge to cover the gap between slot and tooltip */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.tooltipName {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 2px;
+}
+
+.tooltipNameUnique {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-bottom: 2px;
+}
+
+.tooltipClass {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+/* ── Stats ───────────────────────────────────────────────── */
+.tooltipStats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tooltipStat {
+  font-size: 11px;
+  color: var(--text-primary);
+}
+
+.tooltipStatLabel {
+  color: var(--text-secondary);
+  margin-right: 4px;
+}
+
+/* ── Requirements ────────────────────────────────────────── */
+.tooltipReqs {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.tooltipReqLabel {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* ── Desired mods ────────────────────────────────────────── */
+.tooltipMods {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+}
+
+.tooltipMod {
+  font-size: 11px;
+  color: var(--accent-teal);
+  padding: 1px 0;
+  line-height: 1.3;
+}
+
+.tooltipMod::before {
+  content: "\2022 ";
+  opacity: 0.6;
+}
+
+.tooltipModUnique {
+  font-size: 11px;
+  color: var(--color-purple);
+  padding: 1px 0;
+  line-height: 1.3;
+}
+
+.tooltipModUnique::before {
+  content: "\2022 ";
+  opacity: 0.6;
+}
+
+/* ── Notes ───────────────────────────────────────────────── */
+.tooltipNotes {
+  font-size: 10px;
+  font-style: italic;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+/* ── Remove button ───────────────────────────────────────── */
+.tooltipRemoveBtn {
+  display: block;
+  width: 100%;
+  padding: 4px 0;
+  background: none;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  border-radius: 3px;
+  color: rgba(255, 68, 68, 0.7);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.tooltipRemoveBtn:hover {
+  border-color: #ff4444;
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.08);
+}

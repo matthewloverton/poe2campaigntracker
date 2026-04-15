@@ -1,0 +1,39 @@
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-hover: #1f2b47;
+  --bg-panel: #0f1629;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-gold: #c9a84c;
+  --accent-teal: #4ecdc4;
+  --border-color: #2a2a4a;
+  --color-red: #ff4444;
+  --color-green: #44cc44;
+  --color-yellow: #cccc44;
+  --color-purple: #cc99ff;
+  --font-size: 14px;
+  --gem-color-str: #c44;
+  --gem-color-dex: #4a4;
+  --gem-color-int: #66f;
+  --gem-color-neutral: #aaa;
+  --color-gold: #decf9d;
+  --bg-stone: #1e1c16;
+  --border-gold: #5a4a2a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", -apple-system, sans-serif;
+  font-size: var(--font-size);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  user-select: none;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a6a; }
