@@ -3,7 +3,8 @@ import type { GemEntry } from "../../types/itemDatabase";
 import {
   GEM_CRAFTING_TYPE_LABELS,
 } from "../../types/itemDatabase";
-import { searchGems } from "../../data/gems";
+import { searchGems, gemById } from "../../data/gems";
+import { useCustomizationsStore } from "../../store/customizationsStore";
 import { GemGrid } from "./GemGrid";
 import { GemDetail } from "./GemDetail";
 import styles from "./GemBrowser.module.css";
@@ -41,11 +42,19 @@ export function GemBrowser({ onClose, onSelectGem, defaultSection, selectLabel }
   const [category, setCategory] = useState<SidebarCategory>(initCategory);
   const [selectedGem, setSelectedGem] = useState<GemEntry | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
+  const [showTracked, setShowTracked] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
+  const trackedGemIds = new Set(watchlist.filter((w) => w.type === "gem").map((w) => w.id));
 
   const filteredGems = useMemo(() => {
+    if (showTracked) {
+      return watchlist
+        .filter((w) => w.type === "gem")
+        .map((w) => gemById.get(w.id))
+        .filter(Boolean) as GemEntry[];
+    }
     if (query.trim()) {
-      // Search across everything when typing
       return searchGems(query);
     }
 
@@ -63,7 +72,7 @@ export function GemBrowser({ onClose, onSelectGem, defaultSection, selectLabel }
     } else {
       return results.filter((g) => g.gemType === "support" && !isLineage(g));
     }
-  }, [query, category]);
+  }, [query, category, showTracked, watchlist]);
 
   // Counts for sidebar
   const counts = useMemo(() => {
@@ -119,8 +128,16 @@ export function GemBrowser({ onClose, onSelectGem, defaultSection, selectLabel }
               type="text"
               placeholder="Search gems..."
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => { setQuery(e.target.value); setShowTracked(false); }}
             />
+            {trackedGemIds.size > 0 && (
+              <button
+                className={`${styles.segBtn} ${showTracked ? styles.segBtnActive : ""}`}
+                onClick={() => { setShowTracked(!showTracked); setQuery(""); }}
+              >
+                Tracked ({trackedGemIds.size})
+              </button>
+            )}
           </div>
           <button className={styles.closeBtn} onClick={onClose} type="button">
             &times;

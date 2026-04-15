@@ -4,8 +4,9 @@ import {
   ITEM_CLASS_GROUPS,
   ITEM_CLASS_DISPLAY_NAMES,
 } from "../../types/itemDatabase";
-import { itemsByClass, searchItems } from "../../data/items";
+import { itemsByClass, searchItems, itemById } from "../../data/items";
 import { getUniquesByClass } from "../../data/uniques";
+import { useCustomizationsStore } from "../../store/customizationsStore";
 import { ItemGrid } from "./ItemGrid";
 import { ItemDetail } from "./ItemDetail";
 import styles from "./ItemBrowser.module.css";
@@ -82,10 +83,13 @@ export function ItemBrowser({
   const [activeSubCategory, setActiveSubCategory] = useState(initSub);
   const [defenceFilter, setDefenceFilter] = useState<string | null>(null);
   const [showUniques, setShowUniques] = useState(false);
+  const [showTracked, setShowTracked] = useState(false);
   const [selectedItem, setSelectedItem] = useState<BaseItem | null>(null);
   const [selectedUnique, setSelectedUnique] = useState<UniqueItem | null>(null);
   const [search, setSearch] = useState("");
   const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
+  const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
+  const trackedItemIds = new Set(watchlist.filter((w) => w.type === "item").map((w) => w.id));
 
   // Sub-categories: if allowedClasses provided, only show those; otherwise use tab groups
   const subCategories = allowedClasses ?? ITEM_CLASS_GROUPS[activeTab];
@@ -97,6 +101,12 @@ export function ItemBrowser({
 
   // Items for current view
   const filteredItems = useMemo(() => {
+    if (showTracked) {
+      return watchlist
+        .filter((w) => w.type === "item")
+        .map((w) => itemById.get(w.id))
+        .filter(Boolean) as BaseItem[];
+    }
     if (search.trim()) {
       let results = searchItems(search);
       if (allowedClasses) {
@@ -111,7 +121,7 @@ export function ItemBrowser({
       items = items.filter((item) => item.tags.includes(defenceFilter));
     }
     return items;
-  }, [search, activeSubCategory, activeTab, defenceFilter, showUniques, allowedClasses]);
+  }, [search, activeSubCategory, activeTab, defenceFilter, showUniques, showTracked, allowedClasses, watchlist]);
 
   // Available defence filters for current armour slot
   const availableDefenceFilters = useMemo(() => {
@@ -238,7 +248,7 @@ export function ItemBrowser({
                 className={`${styles.filterBtn} ${
                   !showUniques && defenceFilter === null ? styles.filterBtnActive : ""
                 }`}
-                onClick={() => { setShowUniques(false); setDefenceFilter(null); }}
+                onClick={() => { setShowUniques(false); setShowTracked(false); setDefenceFilter(null); }}
               >
                 All
               </button>
@@ -252,6 +262,7 @@ export function ItemBrowser({
                   }`}
                   onClick={() => {
                     setShowUniques(false);
+                    setShowTracked(false);
                     setDefenceFilter(defenceFilter === f.tag ? null : f.tag);
                   }}
                 >
@@ -267,10 +278,26 @@ export function ItemBrowser({
                   }`}
                   onClick={() => {
                     setShowUniques(!showUniques);
+                    setShowTracked(false);
                     setDefenceFilter(null);
                   }}
                 >
                   Uniques ({uniqueItems.length})
+                </button>
+              )}
+
+              {trackedItemIds.size > 0 && (
+                <button
+                  className={`${styles.filterBtn} ${styles.filterBtnUniques} ${
+                    showTracked ? styles.filterBtnActive : ""
+                  }`}
+                  onClick={() => {
+                    setShowTracked(!showTracked);
+                    setShowUniques(false);
+                    setDefenceFilter(null);
+                  }}
+                >
+                  Tracked ({trackedItemIds.size})
                 </button>
               )}
             </div>

@@ -1,5 +1,6 @@
 /* GemCard — individual gem display */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,14 +65,10 @@
   word-break: break-word;
 }
 
-.cardInner {
-  position: relative;
-}
-
 .watchBtn {
   position: absolute;
-  top: -2px;
-  right: -6px;
+  top: 2px;
+  right: 2px;
   cursor: pointer;
   color: var(--text-secondary);
   opacity: 0;
