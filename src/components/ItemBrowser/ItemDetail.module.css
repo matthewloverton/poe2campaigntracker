@@ -281,6 +281,27 @@
   line-height: 1.3;
 }
 
+.modRollSlider {
+  width: 40px;
+  height: 3px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border-color);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.modRollSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  cursor: pointer;
+}
+
 .plannerRemove {
   background: none;
   border: none;

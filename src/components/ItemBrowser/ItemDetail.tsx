@@ -29,10 +29,11 @@ function displayClassName(cls: string): string {
 }
 
 /** Replace (min-max) ranges in mod text with resolved values */
-function resolveModRoll(mod: ItemMod, mode: "min" | "median" | "max"): string {
+function resolveModRoll(mod: ItemMod, mode: "min" | "median" | "max", pct?: number): string {
   const text = cleanModText(mod.text);
   return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
     const min = Number(a), max = Number(b);
+    if (pct != null) return String(Math.round(min + (max - min) * pct / 100));
     if (mode === "min") return String(min);
     if (mode === "max") return String(max);
     return String(Math.round((min + max) / 2));
@@ -70,6 +71,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
 
   const [quality, setQuality] = useState(20);
   const [rollMode, setRollMode] = useState<"min" | "median" | "max">("median");
+  const [modRolls, setModRolls] = useState<Record<string, number>>({}); // modId → 0-100 percentile
 
   const props = item.properties;
   const isWeapon = props.physicalDamageMin != null && props.physicalDamageMax != null;
@@ -80,15 +82,19 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     const mods = [...selectedMods.values()];
 
     // Extract local stat values from selected mods
+    function rollValue(mod: ItemMod, s: { min: number; max: number }): number {
+      const pct = modRolls[mod.id];
+      if (pct != null) return Math.round(s.min + (s.max - s.min) * pct / 100);
+      if (rollMode === "max") return s.max;
+      if (rollMode === "min") return s.min;
+      return Math.round((s.min + s.max) / 2);
+    }
+
     function sumStat(statId: string): number {
       let total = 0;
       for (const mod of mods) {
         for (const s of mod.stats) {
-          if (s.id === statId) {
-            if (rollMode === "max") total += s.max;
-            else if (rollMode === "min") total += s.min;
-            else total += Math.round((s.min + s.max) / 2);
-          }
+          if (s.id === statId) total += rollValue(mod, s);
         }
       }
       return total;
@@ -150,7 +156,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     }
 
     return result;
-  }, [selectedMods, quality, rollMode, item, isWeapon, hasDefences, props]);
+  }, [selectedMods, quality, rollMode, modRolls, item, isWeapon, hasDefences, props]);
 
   const reqs: string[] = [];
   if (item.requirements.level > 0) reqs.push(`Level ${item.requirements.level}`);
@@ -329,8 +335,19 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {resolveModRoll(mod, rollMode)}
+                        {resolveModRoll(mod, rollMode, modRolls[mod.id])}
                       </span>
+                      {mod.stats.some((s) => s.min !== s.max) && (
+                        <input
+                          type="range"
+                          className={styles.modRollSlider}
+                          min={0}
+                          max={100}
+                          value={modRolls[mod.id] ?? 50}
+                          onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
+                          title={`Roll: ${modRolls[mod.id] ?? 50}%`}
+                        />
+                      )}
                       <button
                         className={styles.plannerRemove}
                         onClick={() => removeMod(mod.id)}
@@ -352,8 +369,19 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {resolveModRoll(mod, rollMode)}
+                        {resolveModRoll(mod, rollMode, modRolls[mod.id])}
                       </span>
+                      {mod.stats.some((s) => s.min !== s.max) && (
+                        <input
+                          type="range"
+                          className={styles.modRollSlider}
+                          min={0}
+                          max={100}
+                          value={modRolls[mod.id] ?? 50}
+                          onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
+                          title={`Roll: ${modRolls[mod.id] ?? 50}%`}
+                        />
+                      )}
                       <button
                         className={styles.plannerRemove}
                         onClick={() => removeMod(mod.id)}
