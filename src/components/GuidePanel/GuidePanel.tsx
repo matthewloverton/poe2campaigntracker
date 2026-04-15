@@ -91,7 +91,6 @@ export function GuidePanel() {
                 >
                   +
                 </button>
-                <div className={styles.insertRule} />
               </div>
             </div>
           );

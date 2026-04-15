@@ -178,45 +178,46 @@
 
 /* ── Insert line between steps ─────────────────────────── */
 .insertLine {
-  display: flex;
-  align-items: center;
-  height: 12px;
-  padding: 0 6px;
+  position: relative;
+  height: 1px;
+  background: var(--border-color);
+  margin: 2px 6px;
   opacity: 0;
   transition: opacity 0.15s;
 }
 
 .stepWrapper:hover .insertLine {
-  opacity: 1;
+  opacity: 0.3;
 }
 
 .insertBtn {
-  width: 16px;
-  height: 16px;
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
+  background: var(--bg-panel);
   border: 1px solid var(--border-color);
   border-radius: 50%;
   color: var(--text-secondary);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
   cursor: pointer;
-  flex-shrink: 0;
   padding: 0;
-  transition: color 0.15s, border-color 0.15s;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.stepWrapper:hover .insertBtn {
+  opacity: 0.6;
 }
 
 .insertBtn:hover {
+  opacity: 1 !important;
   color: #cc99ff;
   border-color: #cc99ff;
-}
-
-.insertRule {
-  flex: 1;
-  height: 1px;
-  background: var(--border-color);
-  margin-left: 6px;
-  opacity: 0.4;
 }
