@@ -73,13 +73,12 @@
   top: 0;
   right: 2px;
   z-index: 2;
-  font-size: 0.65rem;
   cursor: pointer;
+  color: var(--text-secondary);
   opacity: 0;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, color 0.15s;
   padding: 2px 3px;
   line-height: 1;
-  filter: grayscale(1) brightness(2);
 }
 
 .card:hover .watchBtn {
@@ -88,11 +87,12 @@
 
 .watchBtn:hover {
   opacity: 1 !important;
+  color: var(--text-primary);
 }
 
 .watchBtnActive {
-  opacity: 0.8 !important;
-  filter: grayscale(1) brightness(3);
+  opacity: 0.9 !important;
+  color: var(--accent-gold);
 }
 
 .iconWrap {

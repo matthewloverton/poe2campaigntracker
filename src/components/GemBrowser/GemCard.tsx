@@ -70,7 +70,10 @@ export function GemCard({ gem, selected, onClick }: GemCardProps) {
           onClick={toggleWatch}
           title={isWatched ? "Stop tracking" : "Track for level-up alerts"}
         >
-          {"\u{1F441}"}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
         </span>
       </div>
       <span className={styles.name}>{gem.name}</span>
