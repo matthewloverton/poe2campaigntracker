@@ -27,6 +27,7 @@ const REPOE_SOURCES = {
   uniques: `${REPOE_BASE}/uniques.min.json`,
   skill_gems: `${REPOE_BASE}/skill_gems.min.json`,
   skills: `${REPOE_BASE}/skills.min.json`,
+  augments: `${REPOE_BASE}/augments.min.json`,
 };
 
 const SKIP_ART = process.argv.includes("--skip-art");
@@ -316,6 +317,58 @@ function transformUniques(raw, uniqueModsMap) {
 }
 
 // ---------------------------------------------------------------------------
+// Transform: Augments (Runes, Soul Cores, Idols, Abyssal Eyes)
+// ---------------------------------------------------------------------------
+
+function nameFromKey(metaKey) {
+  // "Metadata/Items/SoulCores/RuneAccuracy" → "Accuracy Rune"
+  const last = metaKey.split("/").pop();
+  // Split camelCase/PascalCase
+  const words = last.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2");
+  // Move prefix type to end: "Rune Accuracy" → "Accuracy Rune", "Soul Core Bleed" → "Bleed Soul Core"
+  const parts = words.split(" ");
+  if (parts[0] === "Rune" && parts.length > 1) return parts.slice(1).join(" ") + " Rune";
+  if (parts[0] === "Soul" && parts[1] === "Core" && parts.length > 2) return parts.slice(2).join(" ") + " Soul Core";
+  if (parts[0] === "Talisman" && parts.length > 1) return parts.slice(1).join(" ") + " Idol";
+  return words;
+}
+
+function transformAugments(raw) {
+  const results = [];
+
+  for (const [key, aug] of Object.entries(raw)) {
+    const name = nameFromKey(key);
+    const typeId = aug.type_id;
+    const typeName = aug.type_name
+      ? aug.type_name.replace(/\[([^|]*)\|?([^\]]*)\]/g, (_, a, b) => b || a)
+      : typeId;
+
+    // Build effects per equipment category
+    const effects = {};
+    for (const [catKey, cat] of Object.entries(aug.categories || {})) {
+      effects[catKey] = {
+        target: cat.target,
+        statText: (cat.stat_text || []).map(cleanModText),
+        bondedStatText: (cat.bonded_stat_text || []).map(cleanModText),
+      };
+    }
+
+    results.push({
+      id: key,
+      name,
+      typeId,
+      typeName,
+      requiredLevel: aug.required_level ?? 0,
+      limit: aug.limit ?? null,
+      effects,
+    });
+  }
+
+  results.sort((a, b) => a.name.localeCompare(b.name));
+  return results;
+}
+
+// ---------------------------------------------------------------------------
 // Transform: Gems
 // ---------------------------------------------------------------------------
 
@@ -495,12 +548,13 @@ async function main() {
 
   // 1. Download source data
   console.log("1. Downloading source data...");
-  const [rawBaseItems, rawMods, rawUniques, rawGems, rawSkills, poe2dbHtml] = await Promise.all([
+  const [rawBaseItems, rawMods, rawUniques, rawGems, rawSkills, rawAugments, poe2dbHtml] = await Promise.all([
     fetchJSON(REPOE_SOURCES.base_items),
     fetchJSON(REPOE_SOURCES.mods),
     fetchJSON(REPOE_SOURCES.uniques),
     fetchJSON(REPOE_SOURCES.skill_gems),
     fetchJSON(REPOE_SOURCES.skills),
+    fetchJSON(REPOE_SOURCES.augments),
     fetchHTML("https://poe2db.tw/us/Unique_item").catch((err) => {
       console.warn(`   Warning: Could not fetch poe2db unique mods: ${err.message}`);
       return "";
@@ -516,11 +570,13 @@ async function main() {
   const mods = transformMods(rawMods);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
+  const augments = transformAugments(rawAugments);
 
   console.log(`   Base items: ${baseItems.length}`);
   console.log(`   Mods:       ${mods.length}`);
   console.log(`   Uniques:    ${uniques.length}`);
   console.log(`   Gems:       ${gems.length}`);
+  console.log(`   Augments:   ${augments.length}`);
   console.log();
 
   // 3. Write JSON files
@@ -530,6 +586,7 @@ async function main() {
     writeFile(join(RAW_DIR, "item_mods.json"), JSON.stringify(mods, null, 2)),
     writeFile(join(RAW_DIR, "uniques.json"), JSON.stringify(uniques, null, 2)),
     writeFile(join(RAW_DIR, "skill_gems.json"), JSON.stringify(gems, null, 2)),
+    writeFile(join(RAW_DIR, "augments.json"), JSON.stringify(augments, null, 2)),
   ]);
   console.log("   JSON files written to src/data/raw/\n");
 

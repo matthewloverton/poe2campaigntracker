@@ -2,6 +2,13 @@ import { useState, useMemo } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
 import { cleanModText } from "../../data/mods";
+import {
+  type Augment,
+  searchAugments,
+  getAugmentEffect,
+  itemClassToAugmentCategory,
+  defaultSocketCount,
+} from "../../data/augments";
 import { ModTable } from "./ModTable";
 import styles from "./ItemDetail.module.css";
 
@@ -69,6 +76,18 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
 
   const [quality, setQuality] = useState(20);
   const [modRolls, setModRolls] = useState<Record<string, number>>({}); // modId → 0-100 percentile
+
+  // Augment socket state
+  const augCategory = itemClassToAugmentCategory(item.itemClass);
+  const socketCount = defaultSocketCount(item.itemClass);
+  const [sockets, setSockets] = useState<(Augment | null)[]>(Array(socketCount).fill(null));
+  const [socketSearch, setSocketSearch] = useState("");
+  const [editingSocket, setEditingSocket] = useState<number | null>(null);
+
+  const augSearchResults = useMemo(() => {
+    if (editingSocket == null || !augCategory) return [];
+    return searchAugments(socketSearch, augCategory).slice(0, 10);
+  }, [socketSearch, editingSocket, augCategory]);
 
   const props = item.properties;
   const isWeapon = props.physicalDamageMin != null && props.physicalDamageMax != null;
@@ -289,6 +308,71 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                   ))}
                 </div>
               )}
+
+              {/* Augment sockets */}
+              {augCategory && (
+                <div className={styles.socketSection}>
+                  <div className={styles.socketLabel}>Sockets ({sockets.filter(Boolean).length}/{socketCount})</div>
+                  <div className={styles.socketSlots}>
+                    {sockets.map((aug, i) => (
+                      <div key={i} className={styles.socketSlot}>
+                        {aug ? (
+                          <div className={styles.socketFilled}>
+                            <span className={styles.socketName}>{aug.name}</span>
+                            <span className={styles.socketEffect}>
+                              {getAugmentEffect(aug, augCategory).join(", ")}
+                            </span>
+                            <button
+                              className={styles.socketRemove}
+                              onClick={() => setSockets((prev) => { const next = [...prev]; next[i] = null; return next; })}
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            className={styles.socketEmpty}
+                            onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
+                          >
+                            + Socket {i + 1}
+                          </button>
+                        )}
+                        {editingSocket === i && (
+                          <div className={styles.socketDropdown}>
+                            <input
+                              className={styles.socketSearchInput}
+                              type="text"
+                              placeholder="Search augments..."
+                              value={socketSearch}
+                              onChange={(e) => setSocketSearch(e.target.value)}
+                              onKeyDown={(e) => { if (e.key === "Escape") setEditingSocket(null); }}
+                              autoFocus
+                            />
+                            <div className={styles.socketResults}>
+                              {augSearchResults.map((a) => (
+                                <button
+                                  key={a.id}
+                                  className={styles.socketResult}
+                                  onClick={() => {
+                                    setSockets((prev) => { const next = [...prev]; next[i] = a; return next; });
+                                    setEditingSocket(null);
+                                  }}
+                                >
+                                  <span className={styles.socketResultName}>{a.name}</span>
+                                  <span className={styles.socketResultType}>{a.typeName}</span>
+                                  <span className={styles.socketResultEffect}>
+                                    {getAugmentEffect(a, augCategory).join(", ")}
+                                  </span>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -339,7 +423,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                             value={modRolls[mod.id] ?? 50}
                             onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
                           />
-                          <span className={styles.modRollLabel}>{modRolls[mod.id] ?? 50}%</span>
                         </div>
                       )}
                     </div>
@@ -377,7 +460,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                             value={modRolls[mod.id] ?? 50}
                             onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
                           />
-                          <span className={styles.modRollLabel}>{modRolls[mod.id] ?? 50}%</span>
                         </div>
                       )}
                     </div>

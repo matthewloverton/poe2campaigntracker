@@ -138,6 +138,158 @@
 }
 
 
+/* ── Augment sockets ────────────────────────────────────── */
+.socketSection {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+
+.socketLabel {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.socketSlots {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.socketSlot {
+  position: relative;
+}
+
+.socketEmpty {
+  width: 100%;
+  padding: 4px 8px;
+  background: none;
+  border: 1px dashed var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.socketEmpty:hover {
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+
+.socketFilled {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  background: rgba(78, 205, 196, 0.06);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 3px;
+}
+
+.socketName {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  flex-shrink: 0;
+}
+
+.socketEffect {
+  font-size: 0.58rem;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.socketRemove {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.socketRemove:hover {
+  opacity: 1;
+  color: var(--color-red);
+}
+
+.socketDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.socketSearchInput {
+  width: 100%;
+  padding: 4px 8px;
+  background: var(--bg-secondary);
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.62rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.socketResults {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.socketResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  width: 100%;
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.6rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.socketResult:hover {
+  background: var(--bg-hover);
+}
+
+.socketResultName {
+  font-weight: 600;
+  color: var(--accent-teal);
+}
+
+.socketResultType {
+  font-size: 0.52rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.socketResultEffect {
+  width: 100%;
+  font-size: 0.55rem;
+  color: var(--text-secondary);
+}
+
 .reqLine {
   font-size: 0.68rem;
   color: var(--text-secondary);
