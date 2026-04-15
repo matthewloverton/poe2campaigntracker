@@ -196,6 +196,22 @@
     }
   },
   {
+    "id": "poe2db/Cholotl's_Soul_Core_of_War",
+    "name": "Cholotl's Soul Core of War",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Bows": {
+        "statText": [
+          "20% increased Projectile Speed"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/SoulCoreChaos",
     "name": "Citaqualotl's Soul Core of Foulness",
     "typeId": "SoulCore",
@@ -240,6 +256,78 @@
     }
   },
   {
+    "id": "poe2db/Countess_Seske's_Rune_of_Archery",
+    "name": "Countess Seske's Rune of Archery",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Bows": {
+        "statText": [
+          "Bow Attacks fire an additional Arrow"
+        ],
+        "bondedStatText": [
+          "20% increased Projectile Speed"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Courtesan_Mannan's_Rune_of_Cruelty",
+    "name": "Courtesan Mannan's Rune of Cruelty",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "20% increased Magnitude of Damaging Ailments you inflict"
+        ],
+        "bondedStatText": [
+          "15% increased Duration of Damaging Ailments on Enemies"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Craiceann's_Rune_of_Recovery",
+    "name": "Craiceann's Rune of Recovery",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armours": {
+        "statText": [
+          "50% increased Energy Shield Recharge Rate"
+        ],
+        "bondedStatText": [
+          "20% faster start of Energy Shield Recharge"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Craiceann's_Rune_of_Warding",
+    "name": "Craiceann's Rune of Warding",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armours": {
+        "statText": [
+          "50% reduced effect of Curses on you"
+        ],
+        "bondedStatText": [
+          "8% increased Curse Magnitudes"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/RuneFire",
     "name": "Desert Rune",
     "typeId": "Rune",
@@ -269,6 +357,144 @@
         ],
         "bondedStatText": [
           "+10 to maximum Life, +10 to maximum Mana"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Estazunti's_Soul_Core_of_Convalescence",
+    "name": "Estazunti's Soul Core of Convalescence",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
+        "statText": [
+          "12% increased speed of Recoup Effects"
+        ],
+        "bondedStatText": []
+      },
+      "Helmets": {
+        "statText": [
+          "8% of Damage taken Recouped as Life"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Farrul's_Rune_of_Grace",
+    "name": "Farrul's Rune of Grace",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
+        "statText": [
+          "8% increased Deflection Rating while moving"
+        ],
+        "bondedStatText": [
+          "Prevent +3% of Damage from Deflected Hits"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Farrul's_Rune_of_the_Chase",
+    "name": "Farrul's Rune of the Chase",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
+        "statText": [
+          "5% increased Movement Speed"
+        ],
+        "bondedStatText": [
+          "10% increased Cooldown Recovery Rate"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Farrul's_Rune_of_the_Hunt",
+    "name": "Farrul's Rune of the Hunt",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "50% increased Attack Damage against Rare or Unique Enemies"
+        ],
+        "bondedStatText": [
+          "+1 to Level of all Attack Skills"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Fenumus'_Rune_of_Agony",
+    "name": "Fenumus' Rune of Agony",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Gain 13% of Damage as Extra Chaos Damage"
+        ],
+        "bondedStatText": [
+          "Gain 8% of Damage as Extra Physical Damage"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "Gain 13% of Damage as Extra Chaos Damage"
+        ],
+        "bondedStatText": [
+          "Gain 8% of Damage as Extra Physical Damage"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Fenumus'_Rune_of_Draining",
+    "name": "Fenumus' Rune of Draining",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "20% increased Withered Magnitude"
+        ],
+        "bondedStatText": [
+          "+7% to Chaos Resistance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Fenumus'_Rune_of_Spinning",
+    "name": "Fenumus' Rune of Spinning",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "8% increased Cast Speed"
+        ],
+        "bondedStatText": [
+          "20% increased Mana Cost Efficiency while on Low Mana"
         ]
       }
     }
@@ -674,6 +900,110 @@
     }
   },
   {
+    "id": "poe2db/Greater_Rune_of_Alacrity",
+    "name": "Greater Rune of Alacrity",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "8% increased Skill Speed"
+        ],
+        "bondedStatText": [
+          "15% increased Reservation Efficiency of Herald Skills"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "Debuffs on you expire 8% faster"
+        ],
+        "bondedStatText": [
+          "15% increased Elemental Ailment Threshold"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Greater_Rune_of_Leadership",
+    "name": "Greater Rune of Leadership",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Minions gain 10% of their Physical Damage as Extra Lightning Damage"
+        ],
+        "bondedStatText": [
+          "Minions deal 20% increased Damage"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "Minions take 10% of Physical Damage as Lightning Damage"
+        ],
+        "bondedStatText": [
+          "Minions have +10% to all Elemental Resistances"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Greater_Rune_of_Nobility",
+    "name": "Greater Rune of Nobility",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Attacks with this Weapon have 10% chance to inflict Exposure"
+        ],
+        "bondedStatText": [
+          "20% increased Exposure Effect"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "10% reduced effect of Shock on you"
+        ],
+        "bondedStatText": [
+          "10% reduced Shock duration on you"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Greater_Rune_of_Tithing",
+    "name": "Greater Rune of Tithing",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Meta Skills gain 10% increased Energy"
+        ],
+        "bondedStatText": [
+          "Invocated Spells have 25% chance to consume half as much Energy"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "1 to 100 Lightning Thorns damage"
+        ],
+        "bondedStatText": [
+          "15% increased Thorns damage"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/RuneEnhanceGreater",
     "name": "Greater Stone Rune",
     "typeId": "Rune",
@@ -804,6 +1134,62 @@
     }
   },
   {
+    "id": "poe2db/Greater_Vision_Rune",
+    "name": "Greater Vision Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "+110 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "24% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "12% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life, +10 to maximum Mana"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Guatelitzi's_Soul_Core_of_Endurance",
+    "name": "Guatelitzi's Soul Core of Endurance",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "50% chance when you gain an Endurance Charge to gain an additional Endurance Charge"
+        ],
+        "bondedStatText": []
+      },
+      "Wand or Staff": {
+        "statText": [
+          "50% chance when you gain an Endurance Charge to gain an additional Endurance Charge"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/ThesisOfBlood",
     "name": "Guatelitzi's Thesis",
     "typeId": "SoulCore",
@@ -828,6 +1214,166 @@
           "Lose 5% of maximum Life per second while Sprinting, 25% increased Movement Speed while Sprinting"
         ],
         "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Hayoxi's_Soul_Core_of_Heatproofing",
+    "name": "Hayoxi's Soul Core of Heatproofing",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "+40% of Armour also applies to Cold Damage"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Hedgewitch_Assandra's_Rune_of_Wisdom",
+    "name": "Hedgewitch Assandra's Rune of Wisdom",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Wand or Staff": {
+        "statText": [
+          "+1 to Level of all Spell Skills"
+        ],
+        "bondedStatText": [
+          "Archon recovery period expires 30% faster"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Eeshta",
+    "name": "Idol of Eeshta",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "12% increased Cost Efficiency"
+        ],
+        "bondedStatText": [
+          "Meta Skills have 12% increased Reservation Efficiency"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Egrin",
+    "name": "Idol of Egrin",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "Enemies you Curse take 6% increased Damage"
+        ],
+        "bondedStatText": [
+          "20% increased Area of Effect of Curses"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Grold",
+    "name": "Idol of Grold",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "20% increased total Power counted by Warcries"
+        ],
+        "bondedStatText": [
+          "20% increased Glory generation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Maxarius",
+    "name": "Idol of Maxarius",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armours": {
+        "statText": [
+          "+1 Charm Slot"
+        ],
+        "bondedStatText": [
+          "Storm Skills have +1 to Limit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Ralakesh",
+    "name": "Idol of Ralakesh",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "8% increased Reservation Efficiency of Minion Skills"
+        ],
+        "bondedStatText": [
+          "Minions Revive 8% faster"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Sirrius",
+    "name": "Idol of Sirrius",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "8% increased Attack Speed"
+        ],
+        "bondedStatText": [
+          "15% reduced Slowing Potency of Debuffs on You"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Idol_of_Thruldana",
+    "name": "Idol of Thruldana",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "25% reduced Poison Duration, Targets can be affected by +1 of your Poisons at the same time"
+        ],
+        "bondedStatText": [
+          "Gain 13% of Elemental Damage as Extra Chaos Damage"
+        ]
       }
     }
   },
@@ -952,6 +1498,24 @@
           "15% increased Mana Cost Efficiency if you haven't Dodge Rolled Recently"
         ],
         "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Lady_Hestra's_Rune_of_Winter",
+    "name": "Lady Hestra's Rune of Winter",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Adds 19 to 28 Cold Damage"
+        ],
+        "bondedStatText": [
+          "+2% to Maximum Cold Resistance"
+        ]
       }
     }
   },
@@ -1420,6 +1984,40 @@
     }
   },
   {
+    "id": "poe2db/Lesser_Vision_Rune",
+    "name": "Lesser Vision Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "+50 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "16% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "8% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life, +10 to maximum Mana"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/RuneMana",
     "name": "Mind Rune",
     "typeId": "Rune",
@@ -1550,6 +2148,48 @@
         "bondedStatText": [
           "+20% of Armour also applies to Elemental Damage while Shapeshifted"
         ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Primate_Idol",
+    "name": "Primate Idol",
+    "typeId": "Idol",
+    "typeName": "Idol",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "Minions have 12% increased maximum Life"
+        ],
+        "bondedStatText": [
+          "Remnants can be collected from 20% further away"
+        ]
+      },
+      "Sceptres": {
+        "statText": [
+          "Allies in your Presence deal 30% increased Damage"
+        ],
+        "bondedStatText": [
+          "40% increased Damage while Shapeshifted"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Quipolatl's_Soul_Core_of_Flow",
+    "name": "Quipolatl's Soul Core of Flow",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "8% increased Skill Effect Duration, 8% increased Cooldown Recovery Rate"
+        ],
+        "bondedStatText": []
       }
     }
   },
@@ -1722,6 +2362,68 @@
     }
   },
   {
+    "id": "poe2db/Saqawal's_Rune_of_Erosion",
+    "name": "Saqawal's Rune of Erosion",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "25% increased Exposure Effect"
+        ],
+        "bondedStatText": [
+          "15% increased Magnitude of Non-Damaging Ailments you inflict"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Saqawal's_Rune_of_Memory",
+    "name": "Saqawal's Rune of Memory",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Helmets": {
+        "statText": [
+          "2% increased Experience gain"
+        ],
+        "bondedStatText": [
+          "+10% to all Elemental Resistances"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Saqawal's_Rune_of_the_Sky",
+    "name": "Saqawal's Rune of the Sky",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Gain 5% of Damage as Extra Damage of all Elements"
+        ],
+        "bondedStatText": [
+          "8% chance to gain an additional random Charge when you gain a Charge"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "Gain 5% of Damage as Extra Damage of all Elements"
+        ],
+        "bondedStatText": [
+          "12% chance when collecting an Elemental Infusion to gain anadditional Elemental Infusion of the same type"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/TalismanSnake",
     "name": "Snake Idol",
     "typeId": "Idol",
@@ -1744,6 +2446,94 @@
         "bondedStatText": [
           "10% increased Skill Speed while Shapeshifted"
         ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Atmohua",
+    "name": "Soul Core of Atmohua",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Convert 20% of Requirements to Strength"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "statText": [
+          "Convert 20% of Requirements to Strength"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Azcapa",
+    "name": "Soul Core of Azcapa",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "+15 to Spirit"
+        ],
+        "bondedStatText": []
+      },
+      "Gloves": {
+        "statText": [
+          "10% increased Quantity of Gold Dropped by Slain Enemies"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Cholotl",
+    "name": "Soul Core of Cholotl",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Convert 20% of Requirements to Dexterity"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "statText": [
+          "Convert 20% of Requirements to Dexterity"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Citaqualotl",
+    "name": "Soul Core of Citaqualotl",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "30% increased Elemental Damage with Attacks"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "statText": [
+          "+5% to all Elemental Resistances"
+        ],
+        "bondedStatText": []
       }
     }
   },
@@ -1836,6 +2626,28 @@
     }
   },
   {
+    "id": "poe2db/Soul_Core_of_Jiquani",
+    "name": "Soul Core of Jiquani",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Recover 2% of maximum Life on Kill"
+        ],
+        "bondedStatText": []
+      },
+      "Body Armours": {
+        "statText": [
+          "3% increased maximum Life"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/SoulCoreLight",
     "name": "Soul Core of Light",
     "typeId": "SoulCore",
@@ -1902,6 +2714,72 @@
     }
   },
   {
+    "id": "poe2db/Soul_Core_of_Opiloti",
+    "name": "Soul Core of Opiloti",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "15% chance to cause Bleeding on Hit"
+        ],
+        "bondedStatText": []
+      },
+      "Helmets": {
+        "statText": [
+          "20% increased Charm Charges gained"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Puhuarte",
+    "name": "Soul Core of Puhuarte",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "30% increased Flammability Magnitude"
+        ],
+        "bondedStatText": []
+      },
+      "Gloves": {
+        "statText": [
+          "+1% to Maximum Fire Resistance"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Quipolatl",
+    "name": "Soul Core of Quipolatl",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "5% increased Attack Speed"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "statText": [
+          "15% reduced Slowing Potency of Debuffs on You"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/SoulCoreShock",
     "name": "Soul Core of Storms",
     "typeId": "SoulCore",
@@ -1918,6 +2796,166 @@
       "Martial Weapons": {
         "statText": [
           "30% increased chance to Shock"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Tacati",
+    "name": "Soul Core of Tacati",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "15% chance to Poison on Hit with this weapon"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "statText": [
+          "+11% to Chaos Resistance"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Ticaba",
+    "name": "Soul Core of Ticaba",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "+5% to Critical Damage Bonus"
+        ],
+        "bondedStatText": []
+      },
+      "Body Armours": {
+        "statText": [
+          "Hits against you have 20% reduced Critical Damage Bonus"
+        ],
+        "bondedStatText": []
+      },
+      "Shields, Bucklers": {
+        "statText": [
+          "Hits against you have 20% reduced Critical Damage Bonus"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Topotante",
+    "name": "Soul Core of Topotante",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Attacks with this Weapon Penetrate 15% Elemental Resistances"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "statText": [
+          "25% increased Elemental Ailment Threshold"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Tzamoto",
+    "name": "Soul Core of Tzamoto",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "30% increased Freeze Buildup"
+        ],
+        "bondedStatText": []
+      },
+      "Helmets": {
+        "statText": [
+          "+1% to Maximum Cold Resistance"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Xopec",
+    "name": "Soul Core of Xopec",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "30% increased chance to Shock"
+        ],
+        "bondedStatText": []
+      },
+      "Boots": {
+        "statText": [
+          "+1% to Maximum Lightning Resistance"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Zalatl",
+    "name": "Soul Core of Zalatl",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Recover 2% of maximum Mana on Kill"
+        ],
+        "bondedStatText": []
+      },
+      "Helmets": {
+        "statText": [
+          "3% increased maximum Mana"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Soul_Core_of_Zantipi",
+    "name": "Soul Core of Zantipi",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Convert 20% of Requirements to Intelligence"
+        ],
+        "bondedStatText": []
+      },
+      "Armour": {
+        "statText": [
+          "Convert 20% of Requirements to Intelligence"
         ],
         "bondedStatText": []
       }
@@ -2118,6 +3156,114 @@
     }
   },
   {
+    "id": "poe2db/Thane_Girt's_Rune_of_Wildness",
+    "name": "Thane Girt's Rune of Wildness",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Wand or Staff": {
+        "statText": [
+          "25% chance for Spell Skills to fire 2 additional Projectiles"
+        ],
+        "bondedStatText": [
+          "Every Rage also grants 1% increased Spell Damage"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Thane_Grannell's_Rune_of_Mastery",
+    "name": "Thane Grannell's Rune of Mastery",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "30% increased Magnitude of Non-Damaging Ailments you inflict"
+        ],
+        "bondedStatText": [
+          "15% increased Duration of Elemental Ailments on Enemies"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Thane_Leld's_Rune_of_Spring",
+    "name": "Thane Leld's Rune of Spring",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Adds 1 to 60 Lightning Damage"
+        ],
+        "bondedStatText": [
+          "+2% to Maximum Lightning Resistance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/Thane_Myrk's_Rune_of_Summer",
+    "name": "Thane Myrk's Rune of Summer",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "Adds 23 to 34 Fire Damage"
+        ],
+        "bondedStatText": [
+          "+2% to Maximum Fire Resistance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/The_Greatwolf's_Rune_of_Claws",
+    "name": "The Greatwolf's Rune of Claws",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Gloves": {
+        "statText": [
+          "Adds 5 to 12 Physical Damage to Attacks"
+        ],
+        "bondedStatText": [
+          "Fissure Skills have +2 to Limit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "poe2db/The_Greatwolf's_Rune_of_Willpower",
+    "name": "The Greatwolf's Rune of Willpower",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Body Armours": {
+        "statText": [
+          "15% of Damage is taken from Mana before Life"
+        ],
+        "bondedStatText": [
+          "8% of Maximum Life Converted to Energy Shield"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/SoulCoreElemental",
     "name": "Topotante's Soul Core of Dampening",
     "typeId": "SoulCore",
@@ -2178,6 +3324,56 @@
     }
   },
   {
+    "id": "poe2db/Uromoti's_Soul_Core_of_Attenuation",
+    "name": "Uromoti's Soul Core of Attenuation",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
+        "statText": [
+          "15% increased Curse Duration, 15% increased Poison Duration"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Vision_Rune",
+    "name": "Vision Rune",
+    "typeId": "Rune",
+    "typeName": "Rune",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Martial Weapon": {
+        "statText": [
+          "+80 to Accuracy Rating"
+        ],
+        "bondedStatText": [
+          "Attacks have +1% to Critical Hit Chance"
+        ]
+      },
+      "Wand or Staff": {
+        "statText": [
+          "20% increased Critical Hit Chance for Spells"
+        ],
+        "bondedStatText": [
+          "25% increased Critical Damage Bonus"
+        ]
+      },
+      "Armour": {
+        "statText": [
+          "10% increased Life and Mana Recovery from Flasks"
+        ],
+        "bondedStatText": [
+          "+10 to maximum Life, +10 to maximum Mana"
+        ]
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/TalismanWolf",
     "name": "Wolf Idol",
     "typeId": "Idol",
@@ -2204,6 +3400,28 @@
     }
   },
   {
+    "id": "poe2db/Xipocado's_Soul_Core_of_Dominion",
+    "name": "Xipocado's Soul Core of Dominion",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Wand or Staff": {
+        "statText": [
+          "Minions deal 40% increased Damage with Command Skills"
+        ],
+        "bondedStatText": []
+      },
+      "Sceptres": {
+        "statText": [
+          "Minions deal 40% increased Damage with Command Skills"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
     "id": "Metadata/Items/SoulCores/SoulCoreCrit",
     "name": "Xopec's Soul Core of Power",
     "typeId": "SoulCore",
@@ -2220,6 +3438,22 @@
       "Wand or Staff": {
         "statText": [
           "50% chance when you gain a Power Charge to gain an additional Power Charge"
+        ],
+        "bondedStatText": []
+      }
+    }
+  },
+  {
+    "id": "poe2db/Zalatl's_Soul_Core_of_Insulation",
+    "name": "Zalatl's Soul Core of Insulation",
+    "typeId": "SoulCore",
+    "typeName": "Soul Core",
+    "requiredLevel": 0,
+    "limit": null,
+    "effects": {
+      "Boots": {
+        "statText": [
+          "+40% of Armour also applies to Lightning Damage"
         ],
         "bondedStatText": []
       }

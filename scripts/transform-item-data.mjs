@@ -499,6 +499,51 @@ function transformAugments(raw, poe2dbEffects) {
     });
   }
 
+  // Add entries that exist in poe2db but not in RePoE
+  const existingNames = new Set(results.map((r) => r.name));
+  for (const [name, data] of poe2dbEffects) {
+    if (existingNames.has(name)) continue;
+    // Determine type from name
+    let typeId = "Rune";
+    let typeName = "Rune";
+    if (name.includes("Soul Core") || name.includes("Thesis")) { typeId = "SoulCore"; typeName = "Soul Core"; }
+    else if (name.includes("Idol")) { typeId = "Idol"; typeName = "Idol"; }
+    else if (name.includes("Gaze")) { typeId = "AbyssalEye"; typeName = "Abyssal Eye"; }
+
+    const effects = {};
+    for (const line of data.implicits) {
+      const colonIdx = line.indexOf(": ");
+      if (colonIdx > -1) {
+        const cat = line.substring(0, colonIdx);
+        const text = line.substring(colonIdx + 2);
+        if (!effects[cat]) effects[cat] = { statText: [], bondedStatText: [] };
+        effects[cat].statText.push(text);
+      } else {
+        if (!effects["All Equipment"]) effects["All Equipment"] = { statText: [], bondedStatText: [] };
+        effects["All Equipment"].statText.push(line);
+      }
+    }
+    for (const line of data.bonded) {
+      const colonIdx = line.indexOf(": ");
+      if (colonIdx > -1) {
+        const cat = line.substring(0, colonIdx);
+        const text = line.substring(colonIdx + 2);
+        if (!effects[cat]) effects[cat] = { statText: [], bondedStatText: [] };
+        effects[cat].bondedStatText.push(text);
+      }
+    }
+
+    results.push({
+      id: `poe2db/${name.replace(/\s+/g, "_")}`,
+      name,
+      typeId,
+      typeName,
+      requiredLevel: 0,
+      limit: null,
+      effects,
+    });
+  }
+
   results.sort((a, b) => a.name.localeCompare(b.name));
   return results;
 }

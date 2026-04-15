@@ -325,6 +325,7 @@
 .socketTierBtnActive {
   color: var(--accent-teal);
   border-color: var(--accent-teal);
+  z-index: 1;
 }
 
 .reqLine {
