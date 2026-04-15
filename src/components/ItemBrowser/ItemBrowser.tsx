@@ -85,6 +85,7 @@ export function ItemBrowser({
   const [selectedItem, setSelectedItem] = useState<BaseItem | null>(null);
   const [selectedUnique, setSelectedUnique] = useState<UniqueItem | null>(null);
   const [search, setSearch] = useState("");
+  const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
 
   // Sub-categories: if allowedClasses provided, only show those; otherwise use tab groups
   const subCategories = allowedClasses ?? ITEM_CLASS_GROUPS[activeTab];
@@ -289,13 +290,23 @@ export function ItemBrowser({
                   {onSelectItem && (
                     <button
                       className={styles.selectBtn}
-                      onClick={() => onSelectItem(selectedItem)}
+                      onClick={() => {
+                        if (onSaveCraft && craftMods.length > 0) {
+                          onSaveCraft(selectedItem, craftMods);
+                        } else {
+                          onSelectItem(selectedItem);
+                        }
+                      }}
                     >
                       Select
                     </button>
                   )}
                 </div>
-                <ItemDetail item={selectedItem} onSaveCraft={onSaveCraft} />
+                <ItemDetail
+                  item={selectedItem}
+                  onSaveCraft={onSelectItem ? undefined : onSaveCraft}
+                  onModsChange={setCraftMods}
+                />
               </div>
             ) : selectedUnique ? (
               <div className={styles.detailView}>

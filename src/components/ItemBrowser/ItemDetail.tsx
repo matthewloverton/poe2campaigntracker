@@ -8,6 +8,7 @@ import styles from "./ItemDetail.module.css";
 interface ItemDetailProps {
   item: BaseItem;
   onSaveCraft?: (item: BaseItem, selectedMods: ItemMod[]) => void;
+  onModsChange?: (mods: ItemMod[]) => void;
 }
 
 function formatAps(attackTime: number): string {
@@ -37,11 +38,22 @@ function findTierLabel(mod: ItemMod, allMods: ItemMod[]): string {
   return `T${sametype.length - idx}`;
 }
 
-export function ItemDetail({ item, onSaveCraft }: ItemDetailProps) {
+export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps) {
   const [iconError, setIconError] = useState(false);
 
   // Craft planner state — lifted from ModTable so we can render it in the top area
   const [selectedMods, setSelectedMods] = useState<Map<string, ItemMod>>(new Map());
+
+  // Notify parent when selected mods change
+  const updateMods = (mods: Map<string, ItemMod>) => {
+    setSelectedMods(mods);
+    onModsChange?.([...mods.values()]);
+  };
+  const removeMod = (modId: string) => {
+    const next = new Map(selectedMods);
+    next.delete(modId);
+    updateMods(next);
+  };
   // Keep a ref to all mods for tier label computation
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
@@ -161,7 +173,7 @@ export function ItemDetail({ item, onSaveCraft }: ItemDetailProps) {
             {hasSelections && (
               <button
                 className={styles.plannerClear}
-                onClick={() => setSelectedMods(new Map())}
+                onClick={() => updateMods(new Map())}
               >
                 Clear
               </button>
@@ -184,13 +196,7 @@ export function ItemDetail({ item, onSaveCraft }: ItemDetailProps) {
                       </span>
                       <button
                         className={styles.plannerRemove}
-                        onClick={() => {
-                          setSelectedMods((prev) => {
-                            const next = new Map(prev);
-                            next.delete(mod.id);
-                            return next;
-                          });
-                        }}
+                        onClick={() => removeMod(mod.id)}
                       >
                         ×
                       </button>
@@ -213,13 +219,7 @@ export function ItemDetail({ item, onSaveCraft }: ItemDetailProps) {
                       </span>
                       <button
                         className={styles.plannerRemove}
-                        onClick={() => {
-                          setSelectedMods((prev) => {
-                            const next = new Map(prev);
-                            next.delete(mod.id);
-                            return next;
-                          });
-                        }}
+                        onClick={() => removeMod(mod.id)}
                       >
                         ×
                       </button>
@@ -249,7 +249,7 @@ export function ItemDetail({ item, onSaveCraft }: ItemDetailProps) {
         <ModTable
           item={item}
           selectedMods={selectedMods}
-          onSelectedModsChange={setSelectedMods}
+          onSelectedModsChange={updateMods}
           onAllModsLoaded={setAllModsList}
         />
       </div>

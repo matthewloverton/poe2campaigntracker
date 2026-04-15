@@ -7,6 +7,7 @@ import { GemBrowser } from "./components/GemBrowser/GemBrowser";
 import { CampaignTimer } from "./components/CampaignTimer/CampaignTimer";
 import { LevelIndicator } from "./components/LevelIndicator/LevelIndicator";
 import { ToastContainer } from "./components/Toast/Toast";
+import { UnlockOverlay } from "./components/UnlockOverlay/UnlockOverlay";
 import { BuildPlan } from "./components/BuildPlan/BuildPlan";
 import { Settings } from "./components/Settings/Settings";
 import { useSettingsStore } from "./store/settingsStore";
@@ -47,7 +48,7 @@ export default function App() {
   const updateSettings = useSettingsStore((s) => s.update);
   const timerState = useTimerStore((s) => s.state);
   const splitAct = useTimerStore((s) => s.splitAct);
-  const { toasts, dismissToast } = useAutoAdvance();
+  const { toasts, dismissToast, unlocks, dismissUnlock } = useAutoAdvance();
   usePersistence();
 
   const currentPage = useGuideStore((s) => s.pages[s.currentPageIndex]);
@@ -55,6 +56,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showItemBrowser, setShowItemBrowser] = useState(false);
   const [showGemBrowser, setShowGemBrowser] = useState(false);
+  const [testUnlock, setTestUnlock] = useState<import("./hooks/useAutoAdvance").UnlockNotification | null>(null);
 
   useEffect(() => {
     if (clientTxtPath) return;
@@ -94,8 +96,14 @@ export default function App() {
                 </button>
               </div>
             </div>
-            <div style={{ flex: 1, overflow: "hidden" }}>
+            <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
               <BuildPlan />
+              {(unlocks.length > 0 || testUnlock) && (
+                <UnlockOverlay
+                  notification={testUnlock ?? unlocks[0]}
+                  onDismiss={() => testUnlock ? setTestUnlock(null) : dismissUnlock(unlocks[0].id)}
+                />
+              )}
             </div>
           </>
         }
@@ -124,6 +132,32 @@ export default function App() {
                   title="Settings"
                 >
                   ⚙
+                </button>
+                <button
+                  onClick={() => {
+                    const testUnlock = {
+                      id: Date.now(),
+                      level: 15,
+                      items: [
+                        { name: "Volcano", iconPath: "gems/DruidVolcano.webp", type: "gem" as const },
+                        { name: "Concentrated Area", iconPath: "gems/ConcentratedEffectSupport.webp", type: "gem" as const },
+                        { name: "Iron Greaves", iconPath: "items/BootsStr02.webp", type: "gear" as const },
+                      ],
+                    };
+                    setTestUnlock(testUnlock);
+                  }}
+                  style={{
+                    background: "none",
+                    border: "1px solid var(--border-color)",
+                    color: "var(--text-secondary)",
+                    fontSize: "0.6rem",
+                    cursor: "pointer",
+                    padding: "2px 6px",
+                    borderRadius: "3px",
+                  }}
+                  title="Test unlock overlay"
+                >
+                  Toast
                 </button>
               </div>
             </div>

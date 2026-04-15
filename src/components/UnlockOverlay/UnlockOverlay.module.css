@@ -1,0 +1,131 @@
+/* UnlockOverlay — dims build plan, shows unlocked items */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.3s ease;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.overlayFading {
+  animation: fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+  padding: 20px 28px;
+  text-align: center;
+  max-width: 400px;
+  animation: slideUp 0.3s ease;
+  pointer-events: none;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.cardFading {
+  animation: slideDown 0.6s ease forwards;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(12px); opacity: 0; }
+}
+
+.levelBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 72px;
+}
+
+.iconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  border: 2px solid var(--border-gold);
+  background: var(--bg-stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.iconWrapGem {
+  border-radius: 50%;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+}
+
+.iconFallback {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.3;
+}
+
+.itemName {
+  font-size: 0.58rem;
+  color: var(--accent-gold);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.dismiss {
+  font-size: 0.55rem;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  margin-top: 12px;
+}
