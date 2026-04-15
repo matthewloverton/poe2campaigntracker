@@ -84,7 +84,11 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
       let total = 0;
       for (const mod of mods) {
         for (const s of mod.stats) {
-          if (s.id === statId) total += rollMode === "max" ? s.max : rollMode === "min" ? s.min : (s.min + s.max) / 2;
+          if (s.id === statId) {
+            if (rollMode === "max") total += s.max;
+            else if (rollMode === "min") total += s.min;
+            else total += Math.round((s.min + s.max) / 2);
+          }
         }
       }
       return total;
