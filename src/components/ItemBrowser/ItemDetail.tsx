@@ -28,12 +28,14 @@ function displayClassName(cls: string): string {
   return ITEM_CLASS_DISPLAY_NAMES[cls] ?? cls;
 }
 
-/** Replace (min-max) ranges in mod text with median values */
-function resolveModMedian(mod: ItemMod): string {
+/** Replace (min-max) ranges in mod text with resolved values */
+function resolveModRoll(mod: ItemMod, mode: "min" | "median" | "max"): string {
   const text = cleanModText(mod.text);
-  // Replace any (X-Y) or (X–Y) pattern with the average
   return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
-    return String(Math.round((Number(a) + Number(b)) / 2));
+    const min = Number(a), max = Number(b);
+    if (mode === "min") return String(min);
+    if (mode === "max") return String(max);
+    return String(Math.round((min + max) / 2));
   });
 }
 
@@ -67,6 +69,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
   const [quality, setQuality] = useState(20);
+  const [rollMode, setRollMode] = useState<"min" | "median" | "max">("median");
 
   const props = item.properties;
   const isWeapon = props.physicalDamageMin != null && props.physicalDamageMax != null;
@@ -76,12 +79,12 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const modifiedStats = useMemo(() => {
     const mods = [...selectedMods.values()];
 
-    // Extract local stat values from selected mods (use average of min/max)
+    // Extract local stat values from selected mods
     function sumStat(statId: string): number {
       let total = 0;
       for (const mod of mods) {
         for (const s of mod.stats) {
-          if (s.id === statId) total += (s.min + s.max) / 2;
+          if (s.id === statId) total += rollMode === "max" ? s.max : rollMode === "min" ? s.min : (s.min + s.max) / 2;
         }
       }
       return total;
@@ -143,7 +146,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     }
 
     return result;
-  }, [selectedMods, quality, item, isWeapon, hasDefences, props]);
+  }, [selectedMods, quality, rollMode, item, isWeapon, hasDefences, props]);
 
   const reqs: string[] = [];
   if (item.requirements.level > 0) reqs.push(`Level ${item.requirements.level}`);
@@ -246,7 +249,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                 )}
               </div>
 
-              {/* Quality slider */}
+              {/* Quality + roll mode */}
               {(isWeapon || hasDefences) && (
                 <div className={styles.qualityRow}>
                   <span className={styles.qualityLabel}>Quality</span>
@@ -259,6 +262,17 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                     onChange={(e) => setQuality(Number(e.target.value))}
                   />
                   <span className={styles.qualityValue}>{quality}%</span>
+                  <span className={styles.rollToggle}>
+                    {(["min", "median", "max"] as const).map((m) => (
+                      <button
+                        key={m}
+                        className={`${styles.rollBtn} ${rollMode === m ? styles.rollBtnActive : ""}`}
+                        onClick={() => setRollMode(m)}
+                      >
+                        {m}
+                      </button>
+                    ))}
+                  </span>
                 </div>
               )}
 
@@ -311,7 +325,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {resolveModMedian(mod)}
+                        {resolveModRoll(mod, rollMode)}
                       </span>
                       <button
                         className={styles.plannerRemove}
@@ -334,7 +348,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                         {findTierLabel(mod, allModsList)}
                       </span>
                       <span className={styles.plannerModText}>
-                        {resolveModMedian(mod)}
+                        {resolveModRoll(mod, rollMode)}
                       </span>
                       <button
                         className={styles.plannerRemove}
