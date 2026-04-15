@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import type { BuildPhase, PhaseTrigger } from "../../types/buildPlan";
+import { areas } from "../../data/areas";
 import styles from "./PhaseBar.module.css";
 
 interface PhaseBarProps {
@@ -16,10 +17,14 @@ function triggerLabel(trigger: PhaseTrigger): string {
     case "level":
       return trigger.level ? `Lvl ${trigger.level}+` : "Level";
     case "zone":
-      return trigger.zoneName ?? "Zone";
+      return trigger.zoneName ? capitalize(trigger.zoneName) : "Zone";
     case "manual":
       return "Manual";
   }
+}
+
+function capitalize(s: string): string {
+  return s.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function PhaseBar({
@@ -36,8 +41,21 @@ export function PhaseBar({
   const [editName, setEditName] = useState("");
   const [triggerType, setTriggerType] = useState<PhaseTrigger["type"]>("level");
   const [level, setLevel] = useState("");
+  const [zoneId, setZoneId] = useState("");
 
   const sortedPhases = [...phases].sort((a, b) => a.order - b.order);
+
+  // Campaign zones grouped by act for the dropdown
+  const zonesByAct = useMemo(() => {
+    const grouped = new Map<number, { id: string; name: string }[]>();
+    for (const area of areas) {
+      if (area.act > 4) continue; // campaign only
+      const list = grouped.get(area.act) ?? [];
+      list.push({ id: area.id, name: area.name });
+      grouped.set(area.act, list);
+    }
+    return grouped;
+  }, []);
 
   const handleSubmit = useCallback(() => {
     const trimmed = name.trim();
@@ -47,17 +65,24 @@ export function PhaseBar({
     if (triggerType === "level" && level) {
       trigger.level = parseInt(level, 10) || undefined;
     }
+    if (triggerType === "zone" && zoneId) {
+      const area = areas.find((a) => a.id === zoneId);
+      trigger.zoneId = zoneId;
+      trigger.zoneName = area?.name;
+    }
 
     onAddPhase(trimmed, trigger);
     setName("");
     setLevel("");
+    setZoneId("");
     setTriggerType("level");
     setShowAdd(false);
-  }, [name, triggerType, level, onAddPhase]);
+  }, [name, triggerType, level, zoneId, onAddPhase]);
 
   const handleCancel = useCallback(() => {
     setName("");
     setLevel("");
+    setZoneId("");
     setTriggerType("level");
     setShowAdd(false);
   }, []);
@@ -141,6 +166,22 @@ export function PhaseBar({
                 if (e.key === "Escape") handleCancel();
               }}
             />
+          )}
+          {triggerType === "zone" && (
+            <select
+              className={styles.addSelect}
+              value={zoneId}
+              onChange={(e) => setZoneId(e.target.value)}
+            >
+              <option value="">Select zone...</option>
+              {Array.from(zonesByAct.entries()).map(([act, zones]) => (
+                <optgroup key={act} label={`Act ${act}`}>
+                  {zones.map((z) => (
+                    <option key={z.id} value={z.id}>{z.name}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
           )}
           <button
             className={`${styles.formBtn} ${styles.formBtnAdd}`}
