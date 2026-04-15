@@ -97,9 +97,10 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
       const flatMin = sumStat("local_minimum_added_physical_damage");
       const flatMax = sumStat("local_maximum_added_physical_damage");
       const incPhys = sumStat("local_physical_damage_+%");
-      const mult = 1 + (quality + incPhys) / 100;
-      result.physMin = Math.round((props.physicalDamageMin + flatMin) * mult);
-      result.physMax = Math.round((props.physicalDamageMax + flatMax) * mult);
+      const modMult = 1 + incPhys / 100;
+      const qualMult = 1 + quality / 100;
+      result.physMin = Math.round((props.physicalDamageMin + flatMin) * modMult * qualMult);
+      result.physMax = Math.round((props.physicalDamageMax + flatMax) * modMult * qualMult);
 
       if (props.attackTime != null) {
         const incSpeed = sumStat("local_attack_speed_+%");
@@ -125,17 +126,19 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
       const flatEv = sumStat("local_base_evasion_rating");
       const flatEs = sumStat("local_energy_shield");
 
+      const qualMult = 1 + quality / 100;
+
       if (props.armour) {
         const base = (props.armour.min + props.armour.max) / 2;
-        result.armour = Math.round((base + flatAr) * (1 + (quality + incAr) / 100));
+        result.armour = Math.round((base + flatAr) * (1 + incAr / 100) * qualMult);
       }
       if (props.evasion) {
         const base = (props.evasion.min + props.evasion.max) / 2;
-        result.evasion = Math.round((base + flatEv) * (1 + (quality + incEv) / 100));
+        result.evasion = Math.round((base + flatEv) * (1 + incEv / 100) * qualMult);
       }
       if (props.energyShield) {
         const base = (props.energyShield.min + props.energyShield.max) / 2;
-        result.energyShield = Math.round((base + flatEs) * (1 + (quality + incEs) / 100));
+        result.energyShield = Math.round((base + flatEs) * (1 + incEs / 100) * qualMult);
       }
     }
 
