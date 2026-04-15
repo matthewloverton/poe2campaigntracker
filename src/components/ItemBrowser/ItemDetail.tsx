@@ -57,9 +57,81 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   // Keep a ref to all mods for tier label computation
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
+  const [quality, setQuality] = useState(20);
+
   const props = item.properties;
   const isWeapon = props.physicalDamageMin != null && props.physicalDamageMax != null;
   const hasDefences = props.armour != null || props.evasion != null || props.energyShield != null;
+
+  // Calculate modified stats from quality + selected mods
+  const modifiedStats = useMemo(() => {
+    const mods = [...selectedMods.values()];
+
+    // Extract local stat values from selected mods (use average of min/max)
+    function sumStat(statId: string): number {
+      let total = 0;
+      for (const mod of mods) {
+        for (const s of mod.stats) {
+          if (s.id === statId) total += (s.min + s.max) / 2;
+        }
+      }
+      return total;
+    }
+
+    const result: {
+      physMin?: number; physMax?: number;
+      armour?: number; evasion?: number; energyShield?: number;
+      aps?: number;
+    } = {};
+
+    if (isWeapon && props.physicalDamageMin != null && props.physicalDamageMax != null) {
+      const flatMin = sumStat("local_minimum_added_physical_damage");
+      const flatMax = sumStat("local_maximum_added_physical_damage");
+      const incPhys = sumStat("local_physical_damage_+%");
+      const mult = 1 + (quality + incPhys) / 100;
+      result.physMin = Math.round((props.physicalDamageMin + flatMin) * mult);
+      result.physMax = Math.round((props.physicalDamageMax + flatMax) * mult);
+
+      if (props.attackTime != null) {
+        const incSpeed = sumStat("local_attack_speed_+%");
+        const modifiedTime = props.attackTime / (1 + incSpeed / 100);
+        result.aps = 1000 / modifiedTime;
+      }
+    }
+
+    if (hasDefences) {
+      const incAr = sumStat("local_physical_damage_reduction_rating_+%")
+        + sumStat("local_armour_and_evasion_+%")
+        + sumStat("local_armour_and_energy_shield_+%")
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+      const incEv = sumStat("local_evasion_rating_+%")
+        + sumStat("local_armour_and_evasion_+%")
+        + sumStat("local_evasion_and_energy_shield_+%")
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+      const incEs = sumStat("local_energy_shield_+%")
+        + sumStat("local_armour_and_energy_shield_+%")
+        + sumStat("local_evasion_and_energy_shield_+%")
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+      const flatAr = sumStat("local_base_physical_damage_reduction_rating");
+      const flatEv = sumStat("local_base_evasion_rating");
+      const flatEs = sumStat("local_energy_shield");
+
+      if (props.armour) {
+        const base = (props.armour.min + props.armour.max) / 2;
+        result.armour = Math.round((base + flatAr) * (1 + (quality + incAr) / 100));
+      }
+      if (props.evasion) {
+        const base = (props.evasion.min + props.evasion.max) / 2;
+        result.evasion = Math.round((base + flatEv) * (1 + (quality + incEv) / 100));
+      }
+      if (props.energyShield) {
+        const base = (props.energyShield.min + props.energyShield.max) / 2;
+        result.energyShield = Math.round((base + flatEs) * (1 + (quality + incEs) / 100));
+      }
+    }
+
+    return result;
+  }, [selectedMods, quality, item, isWeapon, hasDefences, props]);
 
   const reqs: string[] = [];
   if (item.requirements.level > 0) reqs.push(`Level ${item.requirements.level}`);
@@ -102,13 +174,23 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                 {isWeapon && (
                   <>
                     <span className={styles.stat}>
-                      {props.physicalDamageMin}-{props.physicalDamageMax}{" "}
-                      <span className={styles.statLabel}>Damage</span>
+                      {props.physicalDamageMin}-{props.physicalDamageMax}
+                      {modifiedStats.physMin != null && (
+                        <span className={styles.modifiedValue}>
+                          {" "}({modifiedStats.physMin}-{modifiedStats.physMax})
+                        </span>
+                      )}
+                      {" "}<span className={styles.statLabel}>Damage</span>
                     </span>
                     {props.attackTime != null && (
                       <span className={styles.stat}>
-                        {formatAps(props.attackTime)}{" "}
-                        <span className={styles.statLabel}>APS</span>
+                        {formatAps(props.attackTime)}
+                        {modifiedStats.aps != null && (
+                          <span className={styles.modifiedValue}>
+                            {" "}({modifiedStats.aps.toFixed(2)})
+                          </span>
+                        )}
+                        {" "}<span className={styles.statLabel}>APS</span>
                       </span>
                     )}
                     {props.criticalStrikeChance != null && (
@@ -123,25 +205,50 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                   <>
                     {props.armour && (
                       <span className={styles.stat}>
-                        {formatDefence(props.armour, "")}{" "}
-                        <span className={styles.statLabel}>Armour</span>
+                        {formatDefence(props.armour, "")}
+                        {modifiedStats.armour != null && (
+                          <span className={styles.modifiedValue}> ({modifiedStats.armour})</span>
+                        )}
+                        {" "}<span className={styles.statLabel}>Armour</span>
                       </span>
                     )}
                     {props.evasion && (
                       <span className={styles.stat}>
-                        {formatDefence(props.evasion, "")}{" "}
-                        <span className={styles.statLabel}>Evasion</span>
+                        {formatDefence(props.evasion, "")}
+                        {modifiedStats.evasion != null && (
+                          <span className={styles.modifiedValue}> ({modifiedStats.evasion})</span>
+                        )}
+                        {" "}<span className={styles.statLabel}>Evasion</span>
                       </span>
                     )}
                     {props.energyShield && (
                       <span className={styles.stat}>
-                        {formatDefence(props.energyShield, "")}{" "}
-                        <span className={styles.statLabel}>ES</span>
+                        {formatDefence(props.energyShield, "")}
+                        {modifiedStats.energyShield != null && (
+                          <span className={styles.modifiedValue}> ({modifiedStats.energyShield})</span>
+                        )}
+                        {" "}<span className={styles.statLabel}>ES</span>
                       </span>
                     )}
                   </>
                 )}
               </div>
+
+              {/* Quality slider */}
+              {(isWeapon || hasDefences) && (
+                <div className={styles.qualityRow}>
+                  <span className={styles.qualityLabel}>Quality</span>
+                  <input
+                    type="range"
+                    className={styles.qualitySlider}
+                    min={0}
+                    max={20}
+                    value={quality}
+                    onChange={(e) => setQuality(Number(e.target.value))}
+                  />
+                  <span className={styles.qualityValue}>{quality}%</span>
+                </div>
+              )}
 
               {reqs.length > 0 && (
                 <div className={styles.reqLine}>
