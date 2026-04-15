@@ -62,12 +62,20 @@ export interface BuildPhase {
   regexes: string[];
 }
 
+export interface ReminderRef {
+  refId: string;
+  refType: "gem" | "item" | "unique";
+  name: string;
+  iconPath?: string;
+}
+
 export interface StepReminder {
   id: string;
   pageIndex: number;
   stepIndex: number;
   type: "gem" | "gear" | "craft" | "note";
   text: string;
+  ref?: ReminderRef;
 }
 
 export const EMPTY_GEAR_LAYOUT: GearLayout = {
