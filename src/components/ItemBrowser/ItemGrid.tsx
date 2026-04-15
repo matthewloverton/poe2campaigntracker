@@ -63,7 +63,7 @@ export function ItemGrid({ items, selectedItemId, onSelectItem }: ItemGridProps)
         name: item.name,
         type: "item",
         iconPath: item.iconPath,
-        unlockLevel: item.requirements.level,
+        unlockLevel: item.requirements.level || item.dropLevel,
       };
       addToWatchlist(entry);
     }
