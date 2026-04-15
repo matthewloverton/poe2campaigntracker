@@ -39,7 +39,7 @@ function buildGroupNumbers(groups: ModGroup[]): Map<string, number> {
 }
 
 export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLoaded }: ModTableProps) {
-  const [ilvlEnabled, setIlvlEnabled] = useState(false);
+  const [ilvlEnabled, setIlvlEnabled] = useState(true);
   const [ilvl, setIlvl] = useState(item.dropLevel);
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set());
   const [narrowTab, setNarrowTab] = useState<"prefixes" | "suffixes">("prefixes");
@@ -263,6 +263,18 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
           min={1}
           max={100}
         />
+        <button
+          className={`${styles.ilvlPreset} ${ilvl === 83 ? styles.ilvlPresetActive : ""}`}
+          onClick={() => { setIlvlEnabled(true); setIlvl(83); }}
+        >
+          83
+        </button>
+        <button
+          className={`${styles.ilvlPreset} ${ilvl === 86 ? styles.ilvlPresetActive : ""}`}
+          onClick={() => { setIlvlEnabled(true); setIlvl(86); }}
+        >
+          86
+        </button>
       </div>
 
       {/* Tag filters */}

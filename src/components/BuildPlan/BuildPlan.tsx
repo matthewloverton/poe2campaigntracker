@@ -26,6 +26,7 @@ export function BuildPlan() {
   const setActivePhase = useCustomizationsStore((s) => s.setActivePhase);
   const addPhase = useCustomizationsStore((s) => s.addPhase);
   const removePhase = useCustomizationsStore((s) => s.removePhase);
+  const reorderPhases = useCustomizationsStore((s) => s.reorderPhases);
   const setGearSlot = useCustomizationsStore((s) => s.setGearSlot);
   const addSkillGroup = useCustomizationsStore((s) => s.addSkillGroup);
   const removeSkillGroup = useCustomizationsStore((s) => s.removeSkillGroup);
@@ -169,6 +170,8 @@ export function BuildPlan() {
         onAddPhase={handleAddPhase}
         onRemovePhase={removePhase}
         onRenamePhase={(id, name) => updatePhase(id, { name })}
+        onReorderPhases={(ids) => reorderPhases(ids)}
+        onUpdateTrigger={updatePhaseTrigger}
       />
 
       {activePhase && (
