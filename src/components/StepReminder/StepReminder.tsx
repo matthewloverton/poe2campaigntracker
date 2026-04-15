@@ -9,6 +9,7 @@ import styles from "./StepReminder.module.css";
 interface StepReminderProps {
   pageIndex: number;
   stepIndex: number;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export interface StepReminderHandle {
@@ -26,7 +27,7 @@ const TYPE_LABELS: Record<ReminderType, string> = {
 
 const REMINDER_TYPES: ReminderType[] = ["gem", "gear", "craft", "note"];
 
-export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(function StepReminder({ pageIndex, stepIndex }, ref) {
+export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(function StepReminder({ pageIndex, stepIndex, onOpenChange }, ref) {
   const getRemindersForStep = useCustomizationsStore((s) => s.getRemindersForStep);
   const addReminder = useCustomizationsStore((s) => s.addReminder);
   const removeReminder = useCustomizationsStore((s) => s.removeReminder);
@@ -88,6 +89,7 @@ export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(fu
     setSearch("");
     setSelectedRef(null);
     setShowForm(true);
+    onOpenChange?.(true);
   }
 
   function handleSave() {
@@ -109,6 +111,7 @@ export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(fu
     setSearch("");
     setSelectedRef(null);
     setShowForm(false);
+    onOpenChange?.(false);
   }
 
   function handleCancel() {
@@ -116,6 +119,7 @@ export const StepReminder = forwardRef<StepReminderHandle, StepReminderProps>(fu
     setSearch("");
     setSelectedRef(null);
     setShowForm(false);
+    onOpenChange?.(false);
   }
 
   function handleSelectRef(ref: ReminderRef) {

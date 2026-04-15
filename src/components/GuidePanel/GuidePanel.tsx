@@ -13,6 +13,7 @@ export function GuidePanel() {
   const currentPage = pages[currentPageIndex];
 
   const [editingNoteStep, setEditingNoteStep] = useState<number | null>(null);
+  const [openReminderStep, setOpenReminderStep] = useState<number | null>(null);
   const [layoutIndex, setLayoutIndex] = useState(0);
   const reminderRefs = useRef<React.RefObject<StepReminderHandle | null>[]>([]);
 
@@ -81,17 +82,27 @@ export function GuidePanel() {
                 forceEdit={isForceEdit}
                 onEditDone={() => setEditingNoteStep(null)}
               />
-              <StepReminder ref={reminderRefs.current[i]} pageIndex={currentPage.globalIndex} stepIndex={i} />
-              <div className={styles.insertLine}>
-                <button
-                  className={styles.insertBtn}
-                  onClick={() => reminderRefs.current[i]?.current?.openForm()}
-                  tabIndex={-1}
-                  title="Add reminder"
-                >
-                  +
-                </button>
-              </div>
+              <StepReminder
+                ref={reminderRefs.current[i]}
+                pageIndex={currentPage.globalIndex}
+                stepIndex={i}
+                onOpenChange={(open) => setOpenReminderStep(open ? i : null)}
+              />
+              {openReminderStep !== i && (
+                <div className={styles.insertLine}>
+                  <button
+                    className={styles.insertBtn}
+                    onClick={() => reminderRefs.current[i]?.current?.openForm()}
+                    tabIndex={-1}
+                    title="Add reminder"
+                  >
+                    <svg width="10" height="10" viewBox="0 0 10 10">
+                      <line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      <line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}

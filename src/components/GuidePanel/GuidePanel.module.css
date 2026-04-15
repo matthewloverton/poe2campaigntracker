@@ -181,7 +181,7 @@
   position: relative;
   height: 1px;
   background: var(--border-color);
-  margin: 2px 6px;
+  margin: 3px 6px;
   opacity: 0;
   transition: opacity 0.15s;
 }
@@ -190,34 +190,34 @@
   opacity: 0.3;
 }
 
+.stepWrapper:hover .insertBtn {
+  opacity: 0.6;
+}
+
 .insertBtn {
   position: absolute;
-  left: -14px;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border: 1px solid var(--text-secondary);
   border-radius: 50%;
-  color: var(--text-secondary);
-  font-size: 10px;
-  line-height: 1;
+  color: var(--text-primary);
   cursor: pointer;
   padding: 0;
+  z-index: 5;
   opacity: 0;
-  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.stepWrapper:hover .insertBtn {
-  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s, background 0.15s;
 }
 
 .insertBtn:hover {
   opacity: 1 !important;
   color: #cc99ff;
   border-color: #cc99ff;
+  background: var(--bg-panel);
 }
