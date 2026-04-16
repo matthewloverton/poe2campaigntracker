@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, HTMLAttributes } from "react";
 import {
   DndContext, closestCenter, KeyboardSensor, PointerSensor,
   useSensor, useSensors, DragEndEvent,
@@ -9,29 +9,51 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+/** Props the consumer spreads onto its chosen drag-handle element. */
+export type DragHandleProps = HTMLAttributes<HTMLElement>;
+
 interface DragListProps {
   items: { id: string }[];
   onReorder: (ids: string[]) => void;
-  renderItem: (item: { id: string }, index: number) => ReactNode;
+  /**
+   * Render the row. When `withHandle` is true, spread `handleProps` on the
+   * element you want to be the drag affordance — clicks elsewhere in the row
+   * (e.g. text selection in inputs) won't initiate a drag.
+   */
+  renderItem: (
+    item: { id: string },
+    index: number,
+    handleProps: DragHandleProps,
+  ) => ReactNode;
+  /** When true, the wrapper does not capture pointer events; only the handle does. */
+  withHandle?: boolean;
 }
 
-function SortableItem({ id, children }: { id: string; children: ReactNode }) {
+interface SortableItemProps {
+  id: string;
+  withHandle: boolean;
+  children: (handleProps: DragHandleProps) => ReactNode;
+}
+
+function SortableItem({ id, withHandle, children }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   const yOnly = transform ? { ...transform, x: 0 } : null;
   const style = {
     transform: CSS.Transform.toString(yOnly),
     transition: isDragging ? "none" : transition,
     opacity: isDragging ? 0.5 : 1,
-    cursor: "grab",
+    cursor: withHandle ? "default" : "grab",
   };
+  const handleProps = { ...attributes, ...listeners } as DragHandleProps;
+  const wrapperProps = withHandle ? {} : handleProps;
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children}
+    <div ref={setNodeRef} style={style} {...wrapperProps}>
+      {children(handleProps)}
     </div>
   );
 }
 
-export function DragList({ items, onReorder, renderItem }: DragListProps) {
+export function DragList({ items, onReorder, renderItem, withHandle = false }: DragListProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -53,8 +75,8 @@ export function DragList({ items, onReorder, renderItem }: DragListProps) {
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
         {items.map((item, index) => (
-          <SortableItem key={item.id} id={item.id}>
-            {renderItem(item, index)}
+          <SortableItem key={item.id} id={item.id} withHandle={withHandle}>
+            {(handleProps) => renderItem(item, index, handleProps)}
           </SortableItem>
         ))}
       </SortableContext>

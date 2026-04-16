@@ -2,6 +2,7 @@ import { useMemo, useRef } from "react";
 import { tokenize } from "../../lib/tokenizer";
 import { StepRenderer } from "../StepRenderer";
 import { useGuidesStore } from "../../store/guidesStore";
+import type { DragHandleProps } from "../DragList/DragList";
 import styles from "./StepRow.module.css";
 import { IconPicker } from "./pickers/IconPicker";
 import { ZonePicker } from "./pickers/ZonePicker";
@@ -14,9 +15,10 @@ interface Props {
   entryIdx: number;
   stepIdx: number;
   raw: string;
+  dragHandleProps?: DragHandleProps;
 }
 
-export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
+export function StepRow({ guideId, act, entryIdx, stepIdx, raw, dragHandleProps }: Props) {
   const setStepLine = useGuidesStore((s) => s.setStepLine);
   const toggleHint = useGuidesStore((s) => s.toggleStepHint);
   const toggleOptional = useGuidesStore((s) => s.toggleStepOptional);
@@ -46,6 +48,15 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
   return (
     <div className={styles.row}>
       <div className={styles.toolbar}>
+        {dragHandleProps && (
+          <span
+            {...dragHandleProps}
+            className={styles.dragHandle}
+            title="Drag to reorder"
+          >
+            ⋮⋮
+          </span>
+        )}
         <button
           className={`${styles.toggle} ${isHint ? styles.toggleActive : ""}`}
           onClick={() => toggleHint(guideId, act, entryIdx, stepIdx)}
