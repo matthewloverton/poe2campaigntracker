@@ -1,8 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { tokenize } from "../../lib/tokenizer";
 import { StepRenderer } from "../StepRenderer";
 import { useGuidesStore } from "../../store/guidesStore";
 import styles from "./StepRow.module.css";
+import { IconPicker } from "./pickers/IconPicker";
+import { ZonePicker } from "./pickers/ZonePicker";
+import { ColorPicker } from "./pickers/ColorPicker";
+import { SimplePicker } from "./pickers/SimplePicker";
 
 interface Props {
   guideId: string;
@@ -22,6 +26,23 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
   const isHint = raw.startsWith("(hint)");
   const isOptional = raw.startsWith("optional:");
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  function insertAtCursor(snippet: string) {
+    const el = inputRef.current;
+    if (!el) return setStepLine(guideId, act, entryIdx, stepIdx, raw + snippet);
+    const start = el.selectionStart ?? raw.length;
+    const end = el.selectionEnd ?? raw.length;
+    const next = raw.slice(0, start) + snippet + raw.slice(end);
+    setStepLine(guideId, act, entryIdx, stepIdx, next);
+    // restore focus + cursor position after re-render
+    requestAnimationFrame(() => {
+      el.focus();
+      const pos = start + snippet.length;
+      el.setSelectionRange(pos, pos);
+    });
+  }
+
   return (
     <div className={styles.row}>
       <div className={styles.toolbar}>
@@ -37,7 +58,17 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
         >
           Optional
         </button>
-        {/* Picker buttons land in Task 11 */}
+        <IconPicker onInsert={insertAtCursor} />
+        <ZonePicker onInsert={insertAtCursor} />
+        <ColorPicker onInsert={insertAtCursor} />
+        <SimplePicker label="Quest" format={(v) => `(quest:${v})`} onInsert={insertAtCursor} />
+        <SimplePicker label="Arena" format={(v) => `arena:${v}`} onInsert={insertAtCursor} />
+        <SimplePicker
+          label="Class"
+          format={(v) => `<${v}>`}
+          onInsert={insertAtCursor}
+          suggestions={["witch", "warrior", "ranger", "monk", "mercenary", "sorceress", "druid"]}
+        />
         <button
           className={styles.deleteBtn}
           onClick={() => { if (confirm("Delete step?")) deleteStep(guideId, act, entryIdx, stepIdx); }}
@@ -46,6 +77,7 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
         </button>
       </div>
       <input
+        ref={inputRef}
         className={styles.rawInput}
         type="text"
         value={raw}
