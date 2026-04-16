@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { guidePages, getGuidePages } from "../data/guide";
+import { guidePages, storedGuideToPages } from "../data/guide";
+import { useGuidesStore } from "./guidesStore";
 import type { GuidePage } from "../types";
 
 interface GuideState {
@@ -8,7 +9,7 @@ interface GuideState {
   currentPageIndex: number;
   conditions: Record<string, string>;
   currentZoneId: string | null;
-  activeGuide: "default" | "custom";
+  activeGuide: string;
   currentPage: GuidePage | null;
   currentAct: number;
   totalPages: number;
@@ -19,7 +20,7 @@ interface GuideState {
   setCondition: (key: string, value: string) => void;
   advanceToZone: (areaId: string) => void;
   setCurrentZone: (areaId: string) => void;
-  setGuide: (guide: "default" | "custom") => void;
+  setGuide: (id: string) => void;
   reset: () => void;
 }
 
@@ -44,7 +45,7 @@ export const useGuideStore = create<GuideState>((set, get) => {
     currentPageIndex: 0,
     conditions: defaultConditions,
     currentZoneId: null,
-    activeGuide: "default" as "default" | "custom",
+    activeGuide: "default",
 
     get currentPage() { return get().pages[get().currentPageIndex] ?? null; },
     get currentAct() { return get().currentPage?.act ?? 1; },
@@ -77,10 +78,24 @@ export const useGuideStore = create<GuideState>((set, get) => {
       return { ...s, currentZoneId: normalizedId };
     }),
     setCurrentZone: (areaId) => set({ currentZoneId: areaId.toLowerCase() }),
-    setGuide: (guide) => set((s) => {
-      const newPages = getGuidePages(guide);
-      const filtered = filterPages(newPages, s.conditions);
-      return { allPages: newPages, pages: filtered, currentPageIndex: 0, activeGuide: guide };
+    setGuide: (id: string) => set((s) => {
+      let resolvedId = id;
+      let newPages: GuidePage[];
+      let newConditions = s.conditions;
+      if (id === "default") {
+        newPages = guidePages;
+      } else {
+        const g = useGuidesStore.getState().guides.find((x) => x.id === id);
+        if (!g) {
+          newPages = guidePages;
+          resolvedId = "default";
+        } else {
+          newPages = storedGuideToPages(g);
+          newConditions = { ...s.conditions, ...g.activeConditions };
+        }
+      }
+      const filtered = filterPages(newPages, newConditions);
+      return { allPages: newPages, pages: filtered, currentPageIndex: 0, activeGuide: resolvedId, conditions: newConditions };
     }),
     reset: () => set((s) => ({ currentPageIndex: 0, currentZoneId: null, pages: filterPages(s.allPages, s.conditions) })),
   };

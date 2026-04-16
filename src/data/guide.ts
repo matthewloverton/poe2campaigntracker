@@ -1,5 +1,5 @@
 import { tokenize } from "../lib/tokenizer";
-import type { GuidePage, GuideStep, GuideCondition } from "../types";
+import type { GuidePage, GuideStep, GuideCondition, StoredGuide } from "../types";
 import rawGuideData from "./raw/guide.json";
 import rawCustomGuide from "./raw/guide-custom.json";
 
@@ -111,4 +111,16 @@ export const customGuidePages: GuidePage[] = transformGuideData(
 
 export function getGuidePages(guide: "default" | "custom"): GuidePage[] {
   return guide === "custom" ? customGuidePages : guidePages;
+}
+
+export function storedGuideToPages(guide: StoredGuide): GuidePage[] {
+  // Flatten StoredAct[] into the RawGuide shape the transformer expects
+  const raw: RawGuide = guide.acts.map((a) =>
+    a.entries.map<RawEntry>((e) =>
+      e.type === "page"
+        ? e.lines
+        : { condition: e.condition, lines: e.lines },
+    ),
+  );
+  return transformGuideData(raw);
 }

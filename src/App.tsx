@@ -15,6 +15,7 @@ import { useSettingsStore } from "./store/settingsStore";
 import { useTimerStore } from "./store/timerStore";
 import { useCustomizationsStore } from "./store/customizationsStore";
 import { useGuideStore } from "./store/guideStore";
+import { useGuidesStore } from "./store/guidesStore";
 import { usePersistence } from "./hooks/usePersistence";
 import { useAutoAdvance } from "./hooks/useAutoAdvance";
 
@@ -46,6 +47,7 @@ export default function App() {
   const loadTimer = useTimerStore((s) => s.load);
   const loadHistory = useTimerStore((s) => s.loadHistory);
   const loadCustomizations = useCustomizationsStore((s) => s.load);
+  const loadGuides = useGuidesStore((s) => s.load);
   const clientTxtPath = useSettingsStore((s) => s.settings.clientTxtPath);
   const guideSetting = useSettingsStore((s) => s.settings.guide);
   const updateSettings = useSettingsStore((s) => s.update);
@@ -83,11 +85,13 @@ export default function App() {
   }, [currentPage?.act, timerState, splitAct]);
 
   useEffect(() => {
-    loadSettings();
-    loadTimer();
-    loadHistory();
-    loadCustomizations();
-  }, [loadSettings, loadTimer, loadHistory, loadCustomizations]);
+    loadGuides().then(() => {
+      loadSettings();
+      loadTimer();
+      loadHistory();
+      loadCustomizations();
+    });
+  }, [loadSettings, loadTimer, loadHistory, loadCustomizations, loadGuides]);
 
   return (
     <>

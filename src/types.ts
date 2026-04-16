@@ -54,7 +54,7 @@ export interface Settings {
   clientTxtPath: string | null;
   fontSize: number;
   displayMode: "companion" | "overlay";
-  guide: "default" | "custom";
+  guide: string;
   notifications: {
     autoAdvance: boolean;
     gemAlerts: boolean;
