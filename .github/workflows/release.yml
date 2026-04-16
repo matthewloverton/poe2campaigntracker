@@ -14,6 +14,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build changelog
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          configurationJson: |
+            {
+              "categories": [
+                { "title": "### ✨ Features",       "labels": [], "rules": [{ "pattern": "^feat(\\([^)]+\\))?:",  "on_property": "title" }] },
+                { "title": "### 🐛 Fixes",          "labels": [], "rules": [{ "pattern": "^fix(\\([^)]+\\))?:",   "on_property": "title" }] },
+                { "title": "### 🧹 Refactors",      "labels": [], "rules": [{ "pattern": "^refactor(\\([^)]+\\))?:", "on_property": "title" }] },
+                { "title": "### 📦 Build / CI",     "labels": [], "rules": [{ "pattern": "^(ci|build|chore)(\\([^)]+\\))?:", "on_property": "title" }] },
+                { "title": "### 📚 Docs",           "labels": [], "rules": [{ "pattern": "^docs(\\([^)]+\\))?:",  "on_property": "title" }] },
+                { "title": "### 🧪 Tests",          "labels": [], "rules": [{ "pattern": "^test(\\([^)]+\\))?:",  "on_property": "title" }] }
+              ],
+              "template": "#{{CHANGELOG}}\n\n<!-- uncategorized: -->\n#{{UNCATEGORIZED}}",
+              "commit_template": "- #{{TITLE}} (`#{{MERGE_SHA}}`)",
+              "pr_template":     "- #{{TITLE}} (##{{NUMBER}})",
+              "empty_template":  "_No changes._"
+            }
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -39,5 +63,6 @@ jobs:
         with:
           tagName: ${{ github.ref_name }}
           releaseName: "PoE2 Campaign Tracker ${{ github.ref_name }}"
+          releaseBody: ${{ steps.changelog.outputs.changelog }}
           releaseDraft: true
           prerelease: false
