@@ -257,3 +257,30 @@ describe("guidesStore — persistence & migration", () => {
     expect(payload.guides).toHaveLength(1);
   });
 });
+
+describe("guidesStore — import", () => {
+  beforeEach(() => {
+    useGuidesStore.setState({ guides: [], activeGuideId: "default", hydrated: true });
+  });
+
+  it("importGuide validates and adds a guide with a fresh id", () => {
+    const src = {
+      id: "will-be-replaced",
+      name: "Imported",
+      createdAt: "2026-01-01T00:00:00Z",
+      updatedAt: "2026-01-01T00:00:00Z",
+      acts: [{ entries: [{ type: "page", lines: ["hello"] }] }],
+      activeConditions: {},
+    };
+    const newId = useGuidesStore.getState().importGuide(JSON.stringify(src));
+    expect(newId).toBeTruthy();
+    expect(newId).not.toBe("will-be-replaced");
+    const g = useGuidesStore.getState().guides.find((x) => x.id === newId)!;
+    expect(g.name).toBe("Imported");
+  });
+
+  it("importGuide returns null for invalid JSON", () => {
+    const result = useGuidesStore.getState().importGuide("not json");
+    expect(result).toBeNull();
+  });
+});

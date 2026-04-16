@@ -145,6 +145,22 @@ export function GuideTree({ selection, onSelect }: Props) {
       >
         + New Guide (from Default)
       </button>
+
+      <button
+        className={styles.newGuideBtn}
+        onClick={() => {
+          const raw = prompt("Paste guide JSON:");
+          if (!raw) return;
+          const id = useGuidesStore.getState().importGuide(raw);
+          if (id) {
+            onSelect({ guideId: id, act: null, entryIdx: null });
+          } else {
+            alert("Invalid guide JSON.");
+          }
+        }}
+      >
+        Import Guide
+      </button>
     </div>
   );
 }

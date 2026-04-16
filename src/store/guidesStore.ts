@@ -43,6 +43,7 @@ interface GuidesStoreState {
   toggleStepOptional: (guideId: string, act: number, entryIdx: number, stepIdx: number) => void;
   load: () => Promise<void>;
   save: () => Promise<void>;
+  importGuide: (raw: string) => string | null;
 }
 
 function nowIso(): string {
@@ -378,6 +379,27 @@ export const useGuidesStore = create<GuidesStoreState>((set, get) => ({
       });
     } catch (e) {
       console.error("Failed to save guides.json:", e);
+    }
+  },
+
+  importGuide: (raw) => {
+    try {
+      const parsed = JSON.parse(raw) as Partial<StoredGuide>;
+      if (!parsed.name || !Array.isArray(parsed.acts)) return null;
+      const id = crypto.randomUUID();
+      const guide: StoredGuide = {
+        id,
+        name: parsed.name,
+        createdAt: nowIso(),
+        updatedAt: nowIso(),
+        acts: parsed.acts,
+        activeConditions: parsed.activeConditions ?? {},
+      };
+      set((s) => ({ guides: [...s.guides, guide] }));
+      get().save();
+      return id;
+    } catch {
+      return null;
     }
   },
 }));
