@@ -66,3 +66,58 @@ describe("parseBuildXml", () => {
     expect(() => parseBuildXml("not xml at all")).toThrow();
   });
 });
+
+describe("parseBuildXml — PoB PoE2 (PathOfBuilding2) format", () => {
+  const pob2 = readFileSync(
+    join(__dirname, "__fixtures__", "sample-build-pob2.xml"),
+    "utf-8",
+  );
+  const build = parseBuildXml(pob2);
+
+  it("accepts <PathOfBuilding2> as the root element", () => {
+    expect(build.items).toHaveLength(1);
+  });
+
+  it("parses the PoB-internal item format (no dividers, Prefix/Suffix metadata)", () => {
+    const item = build.items[0];
+    expect(item.rarity).toBe("RARE");
+    expect(item.name).toBe("New Item");
+    expect(item.baseType).toBe("Varnished Crossbow");
+    expect(item.quality).toBe(20);
+    expect(item.implicits).toEqual([]);
+    expect(item.explicits).toEqual([
+      "58% increased Physical Damage",
+      "Adds 9 to 17 Physical Damage",
+      "+2 to Level of all Projectile Skills",
+    ]);
+  });
+
+  it("ignores <ModRange> child elements when extracting item text", () => {
+    // ModRange elements are siblings of the text content. Their attributes
+    // ("id", "range") must not leak into the parsed explicit mod list.
+    const explicits = build.items[0].explicits;
+    expect(explicits.every((l) => !/^\s*0?\.\d+\s*$/.test(l))).toBe(true);
+    expect(explicits.some((l) => /range/i.test(l))).toBe(false);
+  });
+
+  it("captures PoB-PoE2 gem attributes (gemId, skillId, nameSpec)", () => {
+    const gems = build.skillSets[0].skills[0].gems;
+    expect(gems).toHaveLength(2);
+    expect(gems[0].gemId).toBe("Metadata/Items/Gem/SkillGemExplosiveGrenade");
+    expect(gems[0].skillId).toBe("ExplosiveGrenadePlayer");
+    expect(gems[0].nameSpec).toBe("Explosive Grenade");
+  });
+
+  it("skips slots whose itemId is 0 (empty) — they remain in the map but as 0", () => {
+    // Current parser keeps only slots with itemId > 0; verify.
+    const slots = build.itemSets[0].slots;
+    expect(slots["Weapon 1"]).toBe(1);
+    expect(slots["Body Armour"]).toBeUndefined();
+  });
+
+  it("extracts explicitRolls from Prefix/Suffix {range:X} annotations", () => {
+    const item = build.items[0];
+    // fixture has 2 prefixes + 1 suffix with rolls 0.549, 0.345, 0.634
+    expect(item.explicitRolls).toEqual([0.549, 0.345, 0.634]);
+  });
+});

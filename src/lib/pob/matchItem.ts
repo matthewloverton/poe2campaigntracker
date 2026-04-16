@@ -86,12 +86,18 @@ export function matchItem(item: PoBItem, slot: GearSlotKey): MatchItemResult {
   // Mod match — pair normalized patterns against the DB.
   const desiredMods: string[] = [];
   const desiredModIds: string[] = [];
-  for (const line of item.explicits) {
+  const modRolls: Record<string, number> = {};
+  item.explicits.forEach((line, i) => {
     const normalized = normalizeModText(line);
     const match = normalizedModIndex.find((n) => n.normalized === normalized);
     if (match) {
       desiredModIds.push(match.modId);
       desiredMods.push(cleanModText(line.replace(/\s*\((crafted|fractured)\)\s*/gi, "")));
+      // Import roll fraction (0.0-1.0) → app percentile (0-100).
+      const fraction = item.explicitRolls[i];
+      if (fraction != null) {
+        modRolls[match.modId] = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
+      }
     } else {
       desiredMods.push(line);
       warnings.push({
@@ -99,7 +105,7 @@ export function matchItem(item: PoBItem, slot: GearSlotKey): MatchItemResult {
         message: `Mod fell back to free text: "${line}"`,
       });
     }
-  }
+  });
 
   const entry: BuildGearEntry = {
     id: crypto.randomUUID(),
@@ -109,6 +115,7 @@ export function matchItem(item: PoBItem, slot: GearSlotKey): MatchItemResult {
     uniqueId,
     desiredMods,
     desiredModIds: desiredModIds.length > 0 ? desiredModIds : undefined,
+    modRolls: Object.keys(modRolls).length > 0 ? modRolls : undefined,
     notes: "",
     iconPath: base?.iconPath,
     quality: item.quality,

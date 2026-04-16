@@ -10,6 +10,12 @@ export interface PoBItem {
   quality?: number;
   implicits: string[];       // lines ending " (implicit)"
   explicits: string[];       // everything else in the mod section
+  /**
+   * Roll fraction (0.0-1.0) for each explicit mod, aligned by position with
+   * `explicits`. Parsed from PoB's `Prefix: {range:X}...` / `Suffix: {range:X}`
+   * lines. `undefined` entry means no roll data for that mod.
+   */
+  explicitRolls: (number | undefined)[];
   raw: string;               // full text for debugging
 }
 
@@ -29,7 +35,9 @@ export interface PoBSkill {
 }
 
 export interface PoBGem {
-  skillId: string;           // e.g. "LightningArrow", "SupportMartialTempo"
+  skillId: string;           // e.g. "ExplosiveGrenadePlayer" (often *Player suffix in PoB2)
+  gemId: string;             // e.g. "Metadata/Items/Gem/SkillGemExplosiveGrenade" — matches our DB id
+  nameSpec: string;          // human name, e.g. "Explosive Grenade" — fallback matcher
   enabled: boolean;
   level: number;
   quality: number;

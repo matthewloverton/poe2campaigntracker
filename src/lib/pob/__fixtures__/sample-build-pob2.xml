@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathOfBuilding2>
+  <Build className="Ranger" ascendClassName="None" level="16" />
+  <Items activeItemSet="1">
+    <Item id="1">
+Rarity: RARE
+New Item
+Varnished Crossbow
+Crafted: true
+Prefix: {range:0.549}LocalIncreasedPhysicalDamagePercent2
+Prefix: {range:0.345}LocalAddedPhysicalDamageTwoHand3
+Prefix: None
+Suffix: {range:0.634}GlobalProjectileSkillGemLevelTwoHandWeapon1
+Suffix: None
+Suffix: None
+Quality: 20
+Sockets: S S S S
+Rune: None
+Rune: None
+Rune: None
+Rune: None
+LevelReq: 16
+Implicits: 0
+58% increased Physical Damage
+Adds 9 to 17 Physical Damage
++2 to Level of all Projectile Skills
+      <ModRange id="1" range="0.5"/>
+      <ModRange id="2" range="0.5"/>
+      <ModRange id="3" range="0.5"/>
+    </Item>
+    <ItemSet id="1">
+      <Slot name="Weapon 1" itemId="1" />
+      <Slot name="Body Armour" itemId="0" />
+    </ItemSet>
+  </Items>
+  <Skills activeSkillSet="1">
+    <SkillSet id="1">
+      <Skill enabled="true" mainActiveSkill="1" label="">
+        <Gem nameSpec="Explosive Grenade" enabled="true" gemId="Metadata/Items/Gem/SkillGemExplosiveGrenade" skillId="ExplosiveGrenadePlayer" quality="0" level="20"/>
+        <Gem nameSpec="Multishot I" enabled="true" gemId="Metadata/Items/Gems/SupportGemScattershot" skillId="SupportMultishotPlayer" quality="0" level="1"/>
+      </Skill>
+    </SkillSet>
+  </Skills>
+</PathOfBuilding2>

@@ -33,8 +33,8 @@ describe("matchSkillGroup", () => {
     const r = matchSkillGroup(
       makeSkill({
         gems: [
-          { skillId: active.id, enabled: true, level: 20, quality: 0 },
-          { skillId: support.id, enabled: true, level: 20, quality: 0 },
+          { skillId: active.id, gemId: active.id, nameSpec: active.name, enabled: true, level: 20, quality: 0 },
+          { skillId: support.id, gemId: support.id, nameSpec: support.name, enabled: true, level: 20, quality: 0 },
         ],
       }),
     );
@@ -51,14 +51,52 @@ describe("matchSkillGroup", () => {
     const r = matchSkillGroup(
       makeSkill({
         gems: [
-          { skillId: active.id, enabled: true, level: 1, quality: 0 },
-          { skillId: "UnknownXyzzySupport", enabled: true, level: 1, quality: 0 },
+          { skillId: active.id, gemId: active.id, nameSpec: active.name, enabled: true, level: 1, quality: 0 },
+          { skillId: "UnknownXyzzySupport", gemId: "", nameSpec: "", enabled: true, level: 1, quality: 0 },
         ],
       }),
     );
     expect(r.group!.supports).toHaveLength(1);
     expect(r.group!.supports[0]!.name).toBe("UnknownXyzzySupport");
     expect(r.warnings.some((w) => /UnknownXyzzySupport/.test(w.message))).toBe(true);
+  });
+
+  it("prefers gemId over skillId (PoB2 uses *Player suffix on skillId)", () => {
+    const active = allGems.find((g) => g.gemType === "active");
+    if (!active) return;
+    const r = matchSkillGroup(
+      makeSkill({
+        gems: [
+          {
+            skillId: "SomePlayerSuffixWeWontMatch",
+            gemId: active.id,                 // Metadata/... → matches DB
+            nameSpec: active.name,
+            enabled: true, level: 20, quality: 0,
+          },
+        ],
+      }),
+    );
+    expect(r.group!.skill.gemId).toBe(active.id);
+    expect(r.warnings).toEqual([]);
+  });
+
+  it("falls back to nameSpec when skillId and gemId both miss", () => {
+    const active = allGems.find((g) => g.gemType === "active");
+    if (!active) return;
+    const r = matchSkillGroup(
+      makeSkill({
+        gems: [
+          {
+            skillId: "NoMatch",
+            gemId: "NoMatch",
+            nameSpec: active.name,            // matched by display name
+            enabled: true, level: 20, quality: 0,
+          },
+        ],
+      }),
+    );
+    expect(r.group!.skill.gemId).toBe(active.id);
+    expect(r.warnings).toEqual([]);
   });
 
   it("honours mainActiveSkill index (1-based) when != 1", () => {
@@ -69,8 +107,8 @@ describe("matchSkillGroup", () => {
       makeSkill({
         mainActiveSkill: 2,
         gems: [
-          { skillId: a.id, enabled: true, level: 20, quality: 0 },
-          { skillId: b.id, enabled: true, level: 20, quality: 0 },
+          { skillId: a.id, gemId: a.id, nameSpec: a.name, enabled: true, level: 20, quality: 0 },
+          { skillId: b.id, gemId: b.id, nameSpec: b.name, enabled: true, level: 20, quality: 0 },
         ],
       }),
     );

@@ -13,6 +13,7 @@ function fakeItem(overrides: Partial<PoBItem> = {}): PoBItem {
     baseType: "Zealot Bow",
     implicits: [],
     explicits: [],
+    explicitRolls: [],
     raw: "",
     ...overrides,
   };
@@ -91,6 +92,35 @@ describe("matchItem", () => {
     const pobItem = fakeItem({ rarity: "UNIQUE", name: u.name, baseType: u.itemClass });
     const { entry } = matchItem(pobItem, "amulet");
     expect(entry!.uniqueId).toBe(u.id);
+  });
+
+  it("imports mod rolls from PoB's range fractions (0-1 → 0-100)", () => {
+    if (!baseBow) return;
+    const existingMod = allMods.find((m) => m.text.includes("increased Attack Speed"));
+    if (!existingMod) return;
+    const modText = existingMod.text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, "15");
+    const pobItem = fakeItem({
+      baseType: baseBow.name,
+      explicits: [modText],
+      explicitRolls: [0.549],  // from PoB's {range:0.549}
+    });
+    const { entry } = matchItem(pobItem, "weapon");
+    expect(entry!.modRolls).toBeDefined();
+    expect(entry!.modRolls![existingMod.id]).toBe(55);  // 0.549 → 55 (rounded)
+  });
+
+  it("leaves modRolls undefined when explicitRolls is all undefined", () => {
+    if (!baseBow) return;
+    const existingMod = allMods.find((m) => m.text.includes("increased Attack Speed"));
+    if (!existingMod) return;
+    const modText = existingMod.text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, "15");
+    const pobItem = fakeItem({
+      baseType: baseBow.name,
+      explicits: [modText],
+      explicitRolls: [undefined],
+    });
+    const { entry } = matchItem(pobItem, "weapon");
+    expect(entry!.modRolls).toBeUndefined();
   });
 
   it("strips (crafted) suffix before matching mods", () => {

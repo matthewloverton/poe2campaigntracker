@@ -1,14 +1,40 @@
-import { gemById } from "../../data/gems";
+import { gemById, allGems } from "../../data/gems";
 import type {
   BuildGemEntry,
   SkillGroup,
 } from "../../types/buildPlan";
 import type { GemEntry } from "../../types/itemDatabase";
-import type { ImportWarning, PoBSkill } from "./types";
+import type { ImportWarning, PoBGem, PoBSkill } from "./types";
 
 export interface MatchSkillGroupResult {
   group: SkillGroup | null;
   warnings: ImportWarning[];
+}
+
+/**
+ * Resolve a PoB gem against the DB. Try in order:
+ *   1. gemId (full Metadata/... path — matches our DB id directly)
+ *   2. skillId (less reliable: PoB2 adds a "Player" suffix on many actives)
+ *   3. nameSpec (human-readable display name fallback)
+ */
+function findGem(g: PoBGem): GemEntry | undefined {
+  if (g.gemId) {
+    const byGemId = gemById.get(g.gemId);
+    if (byGemId) return byGemId;
+  }
+  if (g.skillId) {
+    const bySkillId = gemById.get(g.skillId);
+    if (bySkillId) return bySkillId;
+  }
+  if (g.nameSpec) {
+    const target = g.nameSpec.toLowerCase();
+    return allGems.find((e) => e.name.toLowerCase() === target);
+  }
+  return undefined;
+}
+
+function gemLabel(g: PoBGem): string {
+  return g.nameSpec || g.skillId || g.gemId || "(unknown gem)";
 }
 
 function toEntry(
@@ -58,19 +84,21 @@ export function matchSkillGroup(pobSkill: PoBSkill, priority = 0): MatchSkillGro
   const mainGem = pobSkill.gems[mainIdx];
   const otherGems = pobSkill.gems.filter((_, i) => i !== mainIdx);
 
-  const dbMain = gemById.get(mainGem.skillId);
+  const dbMain = findGem(mainGem);
+  const mainLabel = gemLabel(mainGem);
   if (!dbMain) {
-    warnings.push({ scope: "gem", message: `Gem not in database: ${mainGem.skillId}` });
+    warnings.push({ scope: "gem", message: `Gem not in database: ${mainLabel}` });
   }
-  const skill = toEntry(dbMain, mainGem.skillId, "skill", priority);
+  const skill = toEntry(dbMain, mainLabel, "skill", priority);
 
   const supports: (BuildGemEntry | null)[] = [];
   for (const g of otherGems) {
-    const db = gemById.get(g.skillId);
+    const db = findGem(g);
+    const label = gemLabel(g);
     if (!db) {
-      warnings.push({ scope: "gem", message: `Gem not in database: ${g.skillId}` });
+      warnings.push({ scope: "gem", message: `Gem not in database: ${label}` });
     }
-    supports.push(toEntry(db, g.skillId, "support", 0));
+    supports.push(toEntry(db, label, "support", 0));
   }
 
   const group: SkillGroup = {
