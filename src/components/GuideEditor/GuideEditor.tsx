@@ -3,6 +3,7 @@ import styles from "./GuideEditor.module.css";
 import { GuideTree } from "./GuideTree";
 import { GuidePane } from "./GuidePane";
 import { ActPane } from "./ActPane";
+import { PageEditor } from "./PageEditor";
 
 export interface GuideEditorSelection {
   guideId: string | null;
@@ -50,6 +51,13 @@ export function GuideEditor({ onClose }: GuideEditorProps) {
               guideId={selection.guideId}
               act={selection.act}
               onSelectPage={(entryIdx) => setSelection({ ...selection, entryIdx })}
+            />
+          )}
+          {selection.guideId && selection.act != null && selection.entryIdx != null && (
+            <PageEditor
+              guideId={selection.guideId}
+              act={selection.act}
+              entryIdx={selection.entryIdx}
             />
           )}
         </div>

@@ -1,0 +1,56 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+}
+
+.toolbar { display: flex; gap: 4px; align-items: center; }
+
+.toggle {
+  padding: 2px 8px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+.toggleActive {
+  color: var(--accent-teal);
+  border-color: var(--accent-teal);
+}
+
+.rawInput {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.72rem;
+  box-sizing: border-box;
+}
+
+.preview {
+  padding: 4px 8px;
+  background: var(--bg-panel);
+  border: 1px dashed var(--border-color);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  min-height: 18px;
+}
+
+.deleteBtn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--color-red, #d9534f);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 6px;
+}
