@@ -89,8 +89,7 @@ export function PageEditor({ guideId, act, entryIdx }: Props) {
         <DragList
           items={lines.map((_, i) => ({ id: String(i) }))}
           onReorder={(ids) => reorderSteps(guideId, act, entryIdx, ids.map(Number))}
-          withHandle
-          renderItem={(item, _i, handleProps) => {
+          renderItem={(item) => {
             const i = Number(item.id);
             return (
               <StepRow
@@ -99,7 +98,6 @@ export function PageEditor({ guideId, act, entryIdx }: Props) {
                 entryIdx={entryIdx}
                 stepIdx={i}
                 raw={lines[i]}
-                dragHandleProps={handleProps}
               />
             );
           }}

@@ -10,20 +10,6 @@
 
 .toolbar { display: flex; gap: 4px; align-items: center; }
 
-.dragHandle {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 4px;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  cursor: grab;
-  user-select: none;
-  letter-spacing: -2px;
-  line-height: 1;
-}
-.dragHandle:active { cursor: grabbing; }
-.dragHandle:hover { color: var(--text-primary); }
-
 .toggle {
   padding: 2px 8px;
   background: none;
