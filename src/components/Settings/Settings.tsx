@@ -24,6 +24,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
   const resetGuide = useGuideStore((s) => s.reset);
   const setGuide = useGuideStore((s) => s.setGuide);
   const activeGuide = useGuideStore((s) => s.activeGuide);
+  const guides = useGuidesStore((s) => s.guides);
 
   if (!isOpen) return null;
 
@@ -184,7 +185,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
             }}
           >
             <option value="default">Default</option>
-            {useGuidesStore((s) => s.guides).map((g) => (
+            {guides.map((g) => (
               <option key={g.id} value={g.id}>{g.name}</option>
             ))}
           </select>
