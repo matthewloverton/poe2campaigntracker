@@ -100,6 +100,33 @@ export interface CompletedRun {
   >;
 }
 
+/** Page entry as persisted: either a plain page or a conditional page. */
+export type StoredEntry =
+  | { type: "page"; lines: string[] }
+  | { type: "conditional"; condition: [string, string]; lines: string[] };
+
+/** One act in a stored guide. `entries` preserves page order. */
+export interface StoredAct {
+  entries: StoredEntry[];
+}
+
+/** A user-editable guide persisted in guides.json. */
+export interface StoredGuide {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  acts: StoredAct[];
+  activeConditions: Record<string, string>;
+}
+
+/** On-disk shape of guides.json */
+export interface GuidesFile {
+  version: 1;
+  activeGuideId: string;   // "default" or a StoredGuide.id
+  guides: StoredGuide[];   // user-created only; default is bundled
+}
+
 export interface ZoneChangeEvent {
   areaId: string;
   level: number;
