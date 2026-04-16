@@ -1,6 +1,7 @@
 import { tokenize } from "../lib/tokenizer";
 import type { GuidePage, GuideStep, GuideCondition } from "../types";
 import rawGuideData from "./raw/guide.json";
+import rawCustomGuide from "./raw/guide-custom.json";
 
 type RawStep = string;
 type RawPage = RawStep[];
@@ -103,3 +104,11 @@ export function transformGuideData(raw: RawGuide): GuidePage[] {
 export const guidePages: GuidePage[] = transformGuideData(
   rawGuideData as RawGuide
 );
+
+export const customGuidePages: GuidePage[] = transformGuideData(
+  rawCustomGuide as RawGuide
+);
+
+export function getGuidePages(guide: "default" | "custom"): GuidePage[] {
+  return guide === "custom" ? customGuidePages : guidePages;
+}

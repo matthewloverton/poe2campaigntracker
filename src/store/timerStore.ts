@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { invoke } from "@tauri-apps/api/core";
-import type { Progress } from "../types";
+import type { Progress, CompletedRun } from "../types";
 import { DEFAULT_PROGRESS } from "../types";
 
 interface ActSplit {
-  startedAt: number;
-  completedAt: number | null;
-  elapsed: number | null;
+  startedAt: number;          // wall-clock epoch when act began (for persistence/date)
+  completedAt: number | null; // wall-clock epoch when act ended
+  startedAtTotal: number;     // active-play ms (total elapsed) when act began
+  elapsed: number | null;     // active-play ms in this act (excludes pause)
 }
 
 interface TimerState {
@@ -15,13 +16,17 @@ interface TimerState {
   pausedElapsed: number;
   currentAct: number;
   actSplits: Record<number, ActSplit>;
+  runHistory: CompletedRun[];
   start: () => void;
   pause: () => void;
   resume: () => void;
-  reset: () => void;
+  reset: (characterName?: string | null, characterClass?: string | null, level?: number) => void;
   splitAct: (newAct: number) => void;
+  deleteRun: (runId: string) => void;
   load: () => Promise<void>;
   save: () => Promise<void>;
+  loadHistory: () => Promise<void>;
+  saveHistory: () => Promise<void>;
 }
 
 export const useTimerStore = create<TimerState>((set, get) => ({
@@ -30,6 +35,7 @@ export const useTimerStore = create<TimerState>((set, get) => ({
   pausedElapsed: 0,
   currentAct: 1,
   actSplits: {},
+  runHistory: [],
 
   start: () => {
     const now = Date.now();
@@ -39,7 +45,7 @@ export const useTimerStore = create<TimerState>((set, get) => ({
       pausedElapsed: 0,
       currentAct: 1,
       actSplits: {
-        1: { startedAt: now, completedAt: null, elapsed: null },
+        1: { startedAt: now, completedAt: null, startedAtTotal: 0, elapsed: null },
       },
     });
     get().save();
@@ -58,7 +64,51 @@ export const useTimerStore = create<TimerState>((set, get) => ({
     get().save();
   },
 
-  reset: () => {
+  reset: (characterName, characterClass, level) => {
+    const { actSplits, startedAt, pausedElapsed, state: timerState } = get();
+
+    // Save the current run if there are any splits
+    const hasAnySplit = Object.keys(actSplits).length > 0;
+    if (hasAnySplit && timerState !== "stopped") {
+      const now = Date.now();
+      const totalElapsed = startedAt != null ? pausedElapsed + (now - startedAt) : pausedElapsed;
+
+      // Finalize the current (in-progress) act so splits sum to totalElapsed
+      const { currentAct } = get();
+      const finalized: Record<number, ActSplit> = { ...actSplits };
+      const currentSplit = finalized[currentAct];
+      if (currentSplit && currentSplit.elapsed == null) {
+        finalized[currentAct] = {
+          ...currentSplit,
+          completedAt: now,
+          elapsed: totalElapsed - (currentSplit.startedAtTotal ?? 0),
+        };
+      }
+
+      const serializedSplits: CompletedRun["actSplits"] = {};
+      for (const [actKey, split] of Object.entries(finalized)) {
+        serializedSplits[actKey] = {
+          startedAt: new Date(split.startedAt).toISOString(),
+          completedAt: split.completedAt != null ? new Date(split.completedAt).toISOString() : null,
+          elapsed: split.elapsed,
+          startedAtTotal: split.startedAtTotal,
+        };
+      }
+
+      const run: CompletedRun = {
+        id: crypto.randomUUID(),
+        date: new Date(now).toISOString(),
+        totalElapsed,
+        characterName: characterName ?? null,
+        characterClass: characterClass ?? null,
+        finalLevel: level ?? 0,
+        actSplits: serializedSplits,
+      };
+
+      set((s) => ({ runHistory: [run, ...s.runHistory] }));
+      get().saveHistory();
+    }
+
     set({
       state: "stopped",
       startedAt: null,
@@ -75,9 +125,13 @@ export const useTimerStore = create<TimerState>((set, get) => ({
     if (state !== "running") return;
 
     const now = Date.now();
-    const totalElapsed = startedAt != null ? pausedElapsed + (now - startedAt) : pausedElapsed;
+    const totalElapsed =
+      startedAt != null ? pausedElapsed + (now - startedAt) : pausedElapsed;
     const currentSplit = actSplits[currentAct];
-    const actElapsed = currentSplit ? now - currentSplit.startedAt : null;
+    // Act elapsed = active-play time since this act started. Uses totalElapsed
+    // deltas so mid-act pauses are excluded (matches the top-level timer).
+    const actStartTotal = currentSplit?.startedAtTotal ?? 0;
+    const actElapsed = currentSplit ? totalElapsed - actStartTotal : null;
 
     const updatedSplits: Record<number, ActSplit> = {
       ...actSplits,
@@ -86,12 +140,15 @@ export const useTimerStore = create<TimerState>((set, get) => ({
         completedAt: now,
         elapsed: actElapsed,
       },
-      [newAct]: { startedAt: now, completedAt: null, elapsed: null },
+      [newAct]: {
+        startedAt: now,
+        completedAt: null,
+        startedAtTotal: totalElapsed,
+        elapsed: null,
+      },
     };
 
     set({ currentAct: newAct, actSplits: updatedSplits });
-    // Suppress unused variable warning
-    void totalElapsed;
     get().save();
   },
 
@@ -108,6 +165,7 @@ export const useTimerStore = create<TimerState>((set, get) => ({
           startedAt: new Date(split.startedAt).toISOString(),
           completedAt: split.completedAt != null ? new Date(split.completedAt).toISOString() : null,
           elapsed: split.elapsed,
+          startedAtTotal: split.startedAtTotal,
         };
       }
 
@@ -145,8 +203,26 @@ export const useTimerStore = create<TimerState>((set, get) => ({
           startedAt: new Date(split.startedAt).getTime(),
           completedAt: split.completedAt != null ? new Date(split.completedAt).getTime() : null,
           elapsed: split.elapsed,
+          startedAtTotal: split.startedAtTotal ?? 0,
         };
         if (act > maxAct) maxAct = act;
+      }
+
+      // Back-compat: for data saved before startedAtTotal existed, rebuild it
+      // by walking acts in order and summing prior elapsed. Best-effort only —
+      // pre-fix elapsed values themselves may include pause time.
+      const hasNewField = Object.values(progress.actSplits ?? {}).some(
+        (s) => s.startedAtTotal != null,
+      );
+      if (!hasNewField) {
+        const sortedActs = Object.keys(actSplits)
+          .map(Number)
+          .sort((a, b) => a - b);
+        let running = 0;
+        for (const act of sortedActs) {
+          actSplits[act].startedAtTotal = running;
+          running += actSplits[act].elapsed ?? 0;
+        }
       }
 
       // Find current act: highest act with no completedAt
@@ -179,6 +255,33 @@ export const useTimerStore = create<TimerState>((set, get) => ({
       }
     } catch (e) {
       console.error("Failed to load timer:", e);
+    }
+  },
+
+  deleteRun: (runId: string) => {
+    set((s) => ({ runHistory: s.runHistory.filter((r) => r.id !== runId) }));
+    get().saveHistory();
+  },
+
+  loadHistory: async () => {
+    try {
+      const raw = await invoke<string>("read_user_data", { filename: "run_history.json" });
+      if (!raw) return;
+      const runs = JSON.parse(raw) as CompletedRun[];
+      set({ runHistory: runs });
+    } catch {
+      // No history yet — that's fine
+    }
+  },
+
+  saveHistory: async () => {
+    try {
+      await invoke("write_user_data", {
+        filename: "run_history.json",
+        data: JSON.stringify(get().runHistory, null, 2),
+      });
+    } catch (e) {
+      console.error("Failed to save run history:", e);
     }
   },
 }));

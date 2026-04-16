@@ -1,0 +1,255 @@
+/* RunHistory — full-panel modal (matches ItemBrowser sizing) */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 14px;
+  border-right: 1px solid var(--border-color);
+  flex-shrink: 0;
+  width: 150px;
+  box-sizing: border-box;
+}
+
+.sortBar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+}
+
+.sortBtn {
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.sortBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.sortBtnActive {
+  color: var(--accent-teal);
+  border-color: var(--accent-teal);
+  background: rgba(78, 205, 196, 0.08);
+}
+
+.count {
+  margin-left: auto;
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  padding: 0 12px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+.body {
+  flex: 1;
+  overflow: auto;
+}
+
+.empty {
+  padding: 60px 14px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+.table {
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
+}
+
+.headerRow,
+.row {
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-color);
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.72rem;
+  position: relative;
+}
+
+.headerRow {
+  position: sticky;
+  top: 0;
+  background: var(--bg-panel);
+  z-index: 2;
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.cellHead {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  font-family: system-ui, sans-serif;
+}
+
+.cellCenter {
+  text-align: center;
+}
+
+.row {
+  cursor: default;
+  transition: background 0.12s;
+}
+
+.row:hover {
+  background: var(--bg-hover);
+}
+
+.row:hover .deleteBtn {
+  opacity: 0.5;
+}
+
+/* Best overall row */
+.rowBest {
+  background: rgba(80, 200, 120, 0.06);
+  box-shadow: inset 3px 0 0 var(--color-green, #50c878);
+}
+
+.rowBest:hover {
+  background: rgba(80, 200, 120, 0.12);
+}
+
+/* ── Cells ────────────────────────────────────────────────── */
+.cellTotal {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.bestStar {
+  color: var(--color-green, #50c878);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.timeValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.cellDate {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+}
+
+.cellChar {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.charName {
+  color: var(--accent-gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.charClass {
+  color: var(--text-secondary);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cellLevel {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.cellSplit {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem;
+  padding: 3px 4px;
+  border-radius: 3px;
+}
+
+.splitBest {
+  color: var(--color-green, #50c878);
+  background: rgba(80, 200, 120, 0.1);
+  font-weight: 700;
+}
+
+.splitWorst {
+  color: var(--color-red, #d9534f);
+  background: rgba(217, 83, 79, 0.08);
+}
+
+/* ── Delete button ───────────────────────────────────────── */
+.deleteBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s;
+  line-height: 1;
+  border-radius: 3px;
+}
+
+.deleteBtn:hover {
+  opacity: 1 !important;
+  color: var(--color-red, #d9534f);
+}

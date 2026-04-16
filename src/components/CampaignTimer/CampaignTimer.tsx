@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { useTimerStore } from "../../store/timerStore";
+import { useLevelStore } from "../../store/levelStore";
 import { useTimerTick, formatTime } from "../../hooks/useTimer";
 import styles from "./CampaignTimer.module.css";
 
-export function CampaignTimer() {
+interface CampaignTimerProps {
+  onShowHistory?: () => void;
+}
+
+export function CampaignTimer({ onShowHistory }: CampaignTimerProps) {
   const timerState = useTimerStore((s) => s.state);
   const currentAct = useTimerStore((s) => s.currentAct);
   const start = useTimerStore((s) => s.start);
@@ -11,13 +16,25 @@ export function CampaignTimer() {
   const resume = useTimerStore((s) => s.resume);
   const reset = useTimerStore((s) => s.reset);
   const actSplits = useTimerStore((s) => s.actSplits);
+  const runCount = useTimerStore((s) => s.runHistory.length);
+  const characterName = useLevelStore((s) => s.characterName);
+  const characterClass = useLevelStore((s) => s.characterClass);
+  const level = useLevelStore((s) => s.level);
   const elapsed = useTimerTick();
   const [showSplits, setShowSplits] = useState(false);
 
   const currentActSplit = actSplits[currentAct];
+  // Derive act-elapsed from total-elapsed so pauses are excluded consistently.
+  // Floor both sides to whole seconds so the act display ticks on the same
+  // second boundaries as the total display (prevents phase-offset flicker).
   const actElapsed =
-    currentActSplit && timerState === "running"
-      ? Date.now() - currentActSplit.startedAt
+    currentActSplit && timerState !== "stopped"
+      ? Math.max(
+          0,
+          (Math.floor(elapsed / 1000) -
+            Math.floor((currentActSplit.startedAtTotal ?? 0) / 1000)) *
+            1000,
+        )
       : 0;
 
   const completedSplits = Object.entries(actSplits)
@@ -60,18 +77,32 @@ export function CampaignTimer() {
             <button
               className={styles.btn}
               onClick={() => {
-                if (confirm("Reset timer?")) reset();
+                if (confirm("Reset timer and save run?")) {
+                  reset(characterName, characterClass, level);
+                }
               }}
-              title="Reset"
+              title="Reset & save run"
             >
               ↺
+            </button>
+          )}
+          {(runCount > 0 || timerState === "stopped") && onShowHistory && (
+            <button
+              className={styles.btn}
+              onClick={onShowHistory}
+              title="Run history"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
             </button>
           )}
         </div>
       </div>
 
       {showSplits && completedSplits.length > 0 && (
-        <div className={styles.splits}>
+        <div className={styles.splitsDropdown}>
           {completedSplits.map((s) => (
             <div key={s.act} className={styles.splitRow}>
               <span className={styles.splitAct}>Act {s.act}</span>

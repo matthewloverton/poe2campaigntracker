@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { guidePages } from "../data/guide";
+import { guidePages, getGuidePages } from "../data/guide";
 import type { GuidePage } from "../types";
 
 interface GuideState {
@@ -8,6 +8,7 @@ interface GuideState {
   currentPageIndex: number;
   conditions: Record<string, string>;
   currentZoneId: string | null;
+  activeGuide: "default" | "custom";
   currentPage: GuidePage | null;
   currentAct: number;
   totalPages: number;
@@ -18,6 +19,7 @@ interface GuideState {
   setCondition: (key: string, value: string) => void;
   advanceToZone: (areaId: string) => void;
   setCurrentZone: (areaId: string) => void;
+  setGuide: (guide: "default" | "custom") => void;
   reset: () => void;
 }
 
@@ -42,6 +44,7 @@ export const useGuideStore = create<GuideState>((set, get) => {
     currentPageIndex: 0,
     conditions: defaultConditions,
     currentZoneId: null,
+    activeGuide: "default" as "default" | "custom",
 
     get currentPage() { return get().pages[get().currentPageIndex] ?? null; },
     get currentAct() { return get().currentPage?.act ?? 1; },
@@ -74,6 +77,11 @@ export const useGuideStore = create<GuideState>((set, get) => {
       return { ...s, currentZoneId: normalizedId };
     }),
     setCurrentZone: (areaId) => set({ currentZoneId: areaId.toLowerCase() }),
+    setGuide: (guide) => set((s) => {
+      const newPages = getGuidePages(guide);
+      const filtered = filterPages(newPages, s.conditions);
+      return { allPages: newPages, pages: filtered, currentPageIndex: 0, activeGuide: guide };
+    }),
     reset: () => set((s) => ({ currentPageIndex: 0, currentZoneId: null, pages: filterPages(s.allPages, s.conditions) })),
   };
 });

@@ -55,22 +55,36 @@
   background: var(--bg-hover);
 }
 
-/* ── Splits panel ──────────────────────────────────────── */
-.splits {
-  display: flex;
-  gap: 12px;
-  padding: 4px 0 0;
+/* ── Splits dropdown ───────────────────────────────────── */
+.wrapper {
+  position: relative;
+}
+
+.splitsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  margin-top: 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   font-family: "Consolas", "Courier New", monospace;
+  min-width: 140px;
 }
 
 .splitRow {
   display: flex;
   align-items: baseline;
-  gap: 4px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 10px;
 }
 
 .splitAct {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   color: var(--text-secondary);
   font-weight: 600;
 }

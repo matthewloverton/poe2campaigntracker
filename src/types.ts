@@ -54,6 +54,7 @@ export interface Settings {
   clientTxtPath: string | null;
   fontSize: number;
   displayMode: "companion" | "overlay";
+  guide: "default" | "custom";
   notifications: {
     autoAdvance: boolean;
     gemAlerts: boolean;
@@ -73,6 +74,28 @@ export interface Progress {
       startedAt: string;
       completedAt: string | null;
       elapsed: number | null;
+      // Total active-play ms when this act started. Used for split math so
+      // pause time is excluded (matches top-level totalElapsed accounting).
+      // Optional for back-compat with runs saved before this field existed.
+      startedAtTotal?: number;
+    }
+  >;
+}
+
+export interface CompletedRun {
+  id: string;
+  date: string; // ISO string
+  totalElapsed: number; // ms
+  characterName: string | null;
+  characterClass: string | null;
+  finalLevel: number;
+  actSplits: Record<
+    string,
+    {
+      startedAt: string;
+      completedAt: string | null;
+      elapsed: number | null;
+      startedAtTotal?: number;
     }
   >;
 }
@@ -96,6 +119,7 @@ export const DEFAULT_SETTINGS: Settings = {
   clientTxtPath: null,
   fontSize: 14,
   displayMode: "companion",
+  guide: "default",
   notifications: {
     autoAdvance: true,
     gemAlerts: true,

@@ -21,6 +21,8 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
 
   const resetTimer = useTimerStore((s) => s.reset);
   const resetGuide = useGuideStore((s) => s.reset);
+  const setGuide = useGuideStore((s) => s.setGuide);
+  const activeGuide = useGuideStore((s) => s.activeGuide);
 
   if (!isOpen) return null;
 
@@ -167,6 +169,38 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
             />
             <span>Vendor reminders</span>
           </label>
+        </section>
+
+        {/* Campaign guide */}
+        <section className={styles.section}>
+          <h3 className={styles.sectionTitle}>Campaign Guide</h3>
+          <label className={styles.checkboxRow}>
+            <input
+              type="radio"
+              name="guide"
+              checked={activeGuide === "default"}
+              onChange={() => {
+                setGuide("default");
+                updateSettings({ guide: "default" });
+              }}
+            />
+            <span>Default</span>
+          </label>
+          <label className={styles.checkboxRow}>
+            <input
+              type="radio"
+              name="guide"
+              checked={activeGuide === "custom"}
+              onChange={() => {
+                setGuide("custom");
+                updateSettings({ guide: "custom" });
+              }}
+            />
+            <span>Custom</span>
+          </label>
+          <p className={styles.dangerNote} style={{ margin: "6px 0 0", opacity: 0.5 }}>
+            Edit src/data/raw/guide-custom.json to customize
+          </p>
         </section>
 
         {/* Data management */}

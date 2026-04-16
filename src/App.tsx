@@ -10,6 +10,7 @@ import { ToastContainer } from "./components/Toast/Toast";
 import { UnlockOverlay } from "./components/UnlockOverlay/UnlockOverlay";
 import { BuildPlan } from "./components/BuildPlan/BuildPlan";
 import { Settings } from "./components/Settings/Settings";
+import { RunHistory } from "./components/RunHistory/RunHistory";
 import { useSettingsStore } from "./store/settingsStore";
 import { useTimerStore } from "./store/timerStore";
 import { useCustomizationsStore } from "./store/customizationsStore";
@@ -43,11 +44,14 @@ const dbBtnStyle: React.CSSProperties = {
 export default function App() {
   const loadSettings = useSettingsStore((s) => s.load);
   const loadTimer = useTimerStore((s) => s.load);
+  const loadHistory = useTimerStore((s) => s.loadHistory);
   const loadCustomizations = useCustomizationsStore((s) => s.load);
   const clientTxtPath = useSettingsStore((s) => s.settings.clientTxtPath);
+  const guideSetting = useSettingsStore((s) => s.settings.guide);
   const updateSettings = useSettingsStore((s) => s.update);
   const timerState = useTimerStore((s) => s.state);
   const splitAct = useTimerStore((s) => s.splitAct);
+  const setGuide = useGuideStore((s) => s.setGuide);
   const { toasts, dismissToast, unlocks, dismissUnlock } = useAutoAdvance();
   usePersistence();
 
@@ -56,6 +60,14 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showItemBrowser, setShowItemBrowser] = useState(false);
   const [showGemBrowser, setShowGemBrowser] = useState(false);
+  const [showRunHistory, setShowRunHistory] = useState(false);
+
+  // Apply saved guide preference
+  useEffect(() => {
+    if (guideSetting && guideSetting !== "default") {
+      setGuide(guideSetting);
+    }
+  }, [guideSetting, setGuide]);
 
   useEffect(() => {
     if (clientTxtPath) return;
@@ -73,8 +85,9 @@ export default function App() {
   useEffect(() => {
     loadSettings();
     loadTimer();
+    loadHistory();
     loadCustomizations();
-  }, [loadSettings, loadTimer, loadCustomizations]);
+  }, [loadSettings, loadTimer, loadHistory, loadCustomizations]);
 
   return (
     <>
@@ -93,6 +106,9 @@ export default function App() {
                 <button style={dbBtnStyle} onClick={() => setShowGemBrowser(true)}>
                   Gems
                 </button>
+                <button style={dbBtnStyle} onClick={() => setShowRunHistory(true)}>
+                  History
+                </button>
               </div>
             </div>
             <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
@@ -110,7 +126,7 @@ export default function App() {
           <>
             {/* Campaign header */}
             <div style={headerStyle}>
-              <CampaignTimer />
+              <CampaignTimer onShowHistory={() => setShowRunHistory(true)} />
               <LevelIndicator />
               <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ color: clientTxtPath ? "var(--color-green)" : "var(--color-yellow)", fontSize: "0.7rem" }}>
@@ -153,6 +169,15 @@ export default function App() {
       {/* Gem browser modal */}
       {showGemBrowser && (
         <GemBrowser onClose={() => setShowGemBrowser(false)} />
+      )}
+
+      {/* Run history modal */}
+      {showRunHistory && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.65)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={(e) => { if (e.target === e.currentTarget) setShowRunHistory(false); }}>
+          <div style={{ width: "95vw", maxWidth: "1400px", height: "85vh", borderRadius: "6px", overflow: "hidden" }}>
+            <RunHistory onClose={() => setShowRunHistory(false)} />
+          </div>
+        </div>
       )}
 
       <ToastContainer messages={toasts} onDismiss={dismissToast} />
