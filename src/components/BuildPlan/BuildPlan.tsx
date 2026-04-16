@@ -13,6 +13,7 @@ import type { GearSlotKey, PhaseTrigger, BuildGearEntry, BuildGemEntry } from ".
 import { SLOT_ITEM_CLASSES } from "../../types/buildPlan";
 import type { GemEntry, BaseItem, ItemMod, UniqueItem } from "../../types/itemDatabase";
 import type { CraftState } from "../ItemBrowser/ItemDetail";
+import { PoBImportModal } from "../PoBImport/PoBImportModal";
 import styles from "./BuildPlan.module.css";
 
 function getSlotClassKey(slot: GearSlotKey): string {
@@ -39,6 +40,8 @@ export function BuildPlan() {
   const removeFromWatchlist = useCustomizationsStore((s) => s.removeFromWatchlist);
 
   const activePhase = buildPhases.find((p) => p.id === activePhaseId) ?? null;
+
+  const [pobImportOpen, setPobImportOpen] = useState(false);
 
   // Item browser state (for gear slots)
   const [browserSlot, setBrowserSlot] = useState<GearSlotKey | null>(null);
@@ -155,15 +158,31 @@ export function BuildPlan() {
     return (
       <div className={styles.emptyState}>
         <p className={styles.emptyText}>No build phases yet.</p>
-        <button className={styles.createBtn} onClick={() => addPhase("League Start")}>
-          Create Build Plan
-        </button>
+        <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+          <button className={styles.createBtn} onClick={() => addPhase("League Start")}>
+            Create Build Plan
+          </button>
+          <button className={styles.createBtn} onClick={() => setPobImportOpen(true)}>
+            Import from PoB
+          </button>
+        </div>
+        {pobImportOpen && <PoBImportModal onClose={() => setPobImportOpen(false)} />}
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
+      <div style={{ display: "flex", justifyContent: "flex-end", padding: "4px 8px" }}>
+        <button
+          className={styles.createBtn}
+          style={{ fontSize: "0.7rem", padding: "4px 10px" }}
+          onClick={() => setPobImportOpen(true)}
+        >
+          Import from PoB
+        </button>
+      </div>
+
       <PhaseBar
         phases={buildPhases}
         activePhaseId={activePhaseId}
@@ -298,6 +317,8 @@ export function BuildPlan() {
           selectLabel={supportTarget && activePhase?.gems.find(g => g.id === supportTarget.groupId)?.supports[supportTarget.index] ? "Replace Support" : undefined}
         />
       )}
+
+      {pobImportOpen && <PoBImportModal onClose={() => setPobImportOpen(false)} />}
     </div>
   );
 }
