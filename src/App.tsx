@@ -11,6 +11,7 @@ import { UnlockOverlay } from "./components/UnlockOverlay/UnlockOverlay";
 import { BuildPlan } from "./components/BuildPlan/BuildPlan";
 import { Settings } from "./components/Settings/Settings";
 import { RunHistory } from "./components/RunHistory/RunHistory";
+import { GuideEditor } from "./components/GuideEditor/GuideEditor";
 import { useSettingsStore } from "./store/settingsStore";
 import { useTimerStore } from "./store/timerStore";
 import { useCustomizationsStore } from "./store/customizationsStore";
@@ -63,6 +64,7 @@ export default function App() {
   const [showItemBrowser, setShowItemBrowser] = useState(false);
   const [showGemBrowser, setShowGemBrowser] = useState(false);
   const [showRunHistory, setShowRunHistory] = useState(false);
+  const [showGuideEditor, setShowGuideEditor] = useState(false);
 
   // Apply saved guide preference
   useEffect(() => {
@@ -112,6 +114,9 @@ export default function App() {
                 </button>
                 <button style={dbBtnStyle} onClick={() => setShowRunHistory(true)}>
                   History
+                </button>
+                <button style={dbBtnStyle} onClick={() => setShowGuideEditor(true)}>
+                  Guides
                 </button>
               </div>
             </div>
@@ -180,6 +185,15 @@ export default function App() {
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.65)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={(e) => { if (e.target === e.currentTarget) setShowRunHistory(false); }}>
           <div style={{ width: "95vw", maxWidth: "1400px", height: "85vh", borderRadius: "6px", overflow: "hidden" }}>
             <RunHistory onClose={() => setShowRunHistory(false)} />
+          </div>
+        </div>
+      )}
+
+      {/* Guide editor modal */}
+      {showGuideEditor && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.65)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={(e) => { if (e.target === e.currentTarget) setShowGuideEditor(false); }}>
+          <div style={{ width: "95vw", maxWidth: "1400px", height: "85vh", borderRadius: "6px", overflow: "hidden" }}>
+            <GuideEditor onClose={() => setShowGuideEditor(false)} />
           </div>
         </div>
       )}
