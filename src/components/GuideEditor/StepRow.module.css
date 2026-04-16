@@ -48,6 +48,7 @@
   font-family: "Consolas", "Courier New", monospace;
   font-size: 0.72rem;
   box-sizing: border-box;
+  user-select: text;
 }
 
 .preview {
@@ -57,6 +58,7 @@
   border-radius: 3px;
   font-size: 0.72rem;
   min-height: 18px;
+  user-select: text;
 }
 
 .deleteBtn {

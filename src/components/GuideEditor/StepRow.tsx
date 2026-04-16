@@ -93,6 +93,8 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw, dragHandleProps 
         type="text"
         value={raw}
         onChange={(e) => setStepLine(guideId, act, entryIdx, stepIdx, e.currentTarget.value)}
+        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
         placeholder="Type step syntax…"
       />
       <div className={styles.preview}>
