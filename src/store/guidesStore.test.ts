@@ -1,5 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
+import { invoke } from "@tauri-apps/api/core";
 import { useGuidesStore } from "./guidesStore";
+
+const mockedInvoke = vi.mocked(invoke);
 
 vi.mock("@tauri-apps/api/core", () => ({
   invoke: vi.fn().mockResolvedValue(""),
@@ -132,6 +135,7 @@ describe("guidesStore — step mutations", () => {
     gid = useGuidesStore.getState().createGuideFromDefault("Test");
   });
 
+
   it("addStep appends an empty line", () => {
     const before = (useGuidesStore.getState().guides.find((g) => g.id === gid)!
       .acts[0].entries[0] as { type: "page"; lines: string[] }).lines.length;
@@ -168,5 +172,88 @@ describe("guidesStore — step mutations", () => {
     const newFirst = (useGuidesStore.getState().guides.find((g) => g.id === gid)!
       .acts[0].entries[0] as { type: "page"; lines: string[] }).lines[0];
     expect(newFirst).toBe("B");
+  });
+});
+
+describe("guidesStore — persistence & migration", () => {
+  beforeEach(() => {
+    mockedInvoke.mockReset();
+    useGuidesStore.setState({ guides: [], activeGuideId: "default", hydrated: false });
+  });
+
+  it("load() populates guides from guides.json if present", async () => {
+    const file = {
+      version: 1 as const,
+      activeGuideId: "g1",
+      guides: [
+        {
+          id: "g1",
+          name: "Saved",
+          createdAt: "2026-01-01T00:00:00Z",
+          updatedAt: "2026-01-01T00:00:00Z",
+          acts: [{ entries: [] }],
+          activeConditions: { "league-start": "no" },
+        },
+      ],
+    };
+    mockedInvoke.mockImplementation(async (cmd, args) => {
+      if (cmd === "read_user_data" && (args as { filename: string }).filename === "guides.json") {
+        return JSON.stringify(file);
+      }
+      return "";
+    });
+
+    await useGuidesStore.getState().load();
+
+    expect(useGuidesStore.getState().hydrated).toBe(true);
+    expect(useGuidesStore.getState().guides).toHaveLength(1);
+    expect(useGuidesStore.getState().activeGuideId).toBe("g1");
+  });
+
+  it("load() migrates bundled guide-custom.json on first run", async () => {
+    mockedInvoke.mockImplementation(async (cmd) => {
+      if (cmd === "read_user_data") return "";
+      return "";
+    });
+
+    await useGuidesStore.getState().load();
+
+    const guides = useGuidesStore.getState().guides;
+    expect(guides).toHaveLength(1);
+    expect(guides[0].name).toBe("Custom");
+    expect(guides[0].acts.length).toBeGreaterThan(0);
+
+    // save was called with a write_user_data invocation
+    const writeCall = mockedInvoke.mock.calls.find(
+      ([cmd]) => cmd === "write_user_data",
+    );
+    expect(writeCall).toBeDefined();
+  });
+
+  it("save() writes the current state to guides.json", async () => {
+    mockedInvoke.mockResolvedValue("");
+    useGuidesStore.setState({
+      hydrated: true,
+      guides: [
+        {
+          id: "g1",
+          name: "X",
+          createdAt: "x",
+          updatedAt: "x",
+          acts: [],
+          activeConditions: {},
+        },
+      ],
+      activeGuideId: "g1",
+    });
+    await useGuidesStore.getState().save();
+    const writeCall = mockedInvoke.mock.calls.find(
+      ([cmd]) => cmd === "write_user_data",
+    );
+    expect(writeCall).toBeDefined();
+    const payload = JSON.parse((writeCall![1] as { data: string }).data);
+    expect(payload.version).toBe(1);
+    expect(payload.activeGuideId).toBe("g1");
+    expect(payload.guides).toHaveLength(1);
   });
 });

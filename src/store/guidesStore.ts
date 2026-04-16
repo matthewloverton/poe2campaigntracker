@@ -1,6 +1,8 @@
 import { create } from "zustand";
-import type { StoredAct, StoredGuide, StoredEntry } from "../types";
+import { invoke } from "@tauri-apps/api/core";
+import type { GuidesFile, StoredAct, StoredGuide, StoredEntry } from "../types";
 import rawGuideData from "../data/raw/guide.json";
+import rawCustomGuide from "../data/raw/guide-custom.json";
 
 type RawStep = string;
 type RawPage = RawStep[];
@@ -334,11 +336,48 @@ export const useGuidesStore = create<GuidesStoreState>((set, get) => ({
     get().save();
   },
 
-  // Persistence filled in Task 4.
   load: async () => {
-    set({ hydrated: true });
+    try {
+      const raw = await invoke<string>("read_user_data", { filename: "guides.json" });
+      if (raw) {
+        const parsed = JSON.parse(raw) as GuidesFile;
+        if (parsed?.version === 1 && Array.isArray(parsed.guides)) {
+          set({
+            guides: parsed.guides,
+            activeGuideId: parsed.activeGuideId ?? "default",
+            hydrated: true,
+          });
+          return;
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load guides.json:", e);
+    }
+
+    // Migrate bundled guide-custom.json on first run
+    const migrated: StoredGuide = {
+      id: crypto.randomUUID(),
+      name: "Custom",
+      createdAt: nowIso(),
+      updatedAt: nowIso(),
+      acts: rawToActs(rawCustomGuide),
+      activeConditions: { "league-start": "yes" },
+    };
+    set({ guides: [migrated], activeGuideId: "default", hydrated: true });
+    await get().save();
   },
+
   save: async () => {
-    /* no-op until Task 4 */
+    const { guides, activeGuideId, hydrated } = get();
+    if (!hydrated) return; // don't overwrite on pre-hydration writes
+    const payload: GuidesFile = { version: 1, activeGuideId, guides };
+    try {
+      await invoke("write_user_data", {
+        filename: "guides.json",
+        data: JSON.stringify(payload, null, 2),
+      });
+    } catch (e) {
+      console.error("Failed to save guides.json:", e);
+    }
   },
 }));
