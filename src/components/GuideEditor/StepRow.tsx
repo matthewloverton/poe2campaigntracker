@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { tokenize } from "../../lib/tokenizer";
 import { StepRenderer } from "../StepRenderer";
 import { useGuidesStore } from "../../store/guidesStore";
@@ -27,6 +27,11 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
   const isOptional = raw.startsWith("optional:");
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [openPicker, setOpenPicker] = useState<string | null>(null);
+  const pickerOpen = (id: string) => ({
+    open: openPicker === id,
+    onOpenChange: (next: boolean) => setOpenPicker(next ? id : null),
+  });
 
   function insertAtCursor(snippet: string) {
     const el = inputRef.current;
@@ -58,16 +63,27 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
         >
           Optional
         </button>
-        <IconPicker onInsert={insertAtCursor} />
-        <ZonePicker onInsert={insertAtCursor} />
-        <ColorPicker onInsert={insertAtCursor} />
-        <SimplePicker label="Quest" format={(v) => `(quest:${v})`} onInsert={insertAtCursor} />
-        <SimplePicker label="Arena" format={(v) => `arena:${v}`} onInsert={insertAtCursor} />
+        <IconPicker onInsert={insertAtCursor} {...pickerOpen("icon")} />
+        <ZonePicker onInsert={insertAtCursor} {...pickerOpen("zone")} />
+        <ColorPicker onInsert={insertAtCursor} {...pickerOpen("color")} />
+        <SimplePicker
+          label="Quest"
+          format={(v) => `(quest:${v})`}
+          onInsert={insertAtCursor}
+          {...pickerOpen("quest")}
+        />
+        <SimplePicker
+          label="Arena"
+          format={(v) => `arena:${v}`}
+          onInsert={insertAtCursor}
+          {...pickerOpen("arena")}
+        />
         <SimplePicker
           label="Class"
           format={(v) => `<${v}>`}
           onInsert={insertAtCursor}
           suggestions={["witch", "warrior", "ranger", "monk", "mercenary", "sorceress", "druid"]}
+          {...pickerOpen("class")}
         />
         <button
           className={styles.deleteBtn}

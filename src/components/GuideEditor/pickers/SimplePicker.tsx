@@ -6,14 +6,15 @@ interface Props {
   format: (value: string) => string;
   onInsert: (raw: string) => void;
   suggestions?: string[];
+  open: boolean;
+  onOpenChange: (next: boolean) => void;
 }
 
-export function SimplePicker({ label, format, onInsert, suggestions = [] }: Props) {
-  const [open, setOpen] = useState(false);
+export function SimplePicker({ label, format, onInsert, suggestions = [], open, onOpenChange }: Props) {
   const [v, setV] = useState("");
   return (
     <div className={styles.wrap}>
-      <button className={styles.btn} onClick={() => setOpen(!open)}>{label} ▾</button>
+      <button className={styles.btn} onClick={() => onOpenChange(!open)}>{label} ▾</button>
       {open && (
         <div className={styles.popover} style={{ minWidth: 180 }}>
           <input
@@ -27,7 +28,7 @@ export function SimplePicker({ label, format, onInsert, suggestions = [] }: Prop
             <div
               key={s}
               className={styles.row}
-              onClick={() => { onInsert(format(s)); setOpen(false); setV(""); }}
+              onClick={() => { onInsert(format(s)); onOpenChange(false); setV(""); }}
             >
               {s}
             </div>
@@ -35,7 +36,7 @@ export function SimplePicker({ label, format, onInsert, suggestions = [] }: Prop
           <button
             className={styles.gridItem}
             style={{ width: "100%", marginTop: 4 }}
-            onClick={() => { if (v) { onInsert(format(v)); setOpen(false); setV(""); } }}
+            onClick={() => { if (v) { onInsert(format(v)); onOpenChange(false); setV(""); } }}
           >
             Insert
           </button>

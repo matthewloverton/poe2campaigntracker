@@ -4,10 +4,11 @@ import styles from "./Pickers.module.css";
 
 interface Props {
   onInsert: (raw: string) => void;
+  open: boolean;
+  onOpenChange: (next: boolean) => void;
 }
 
-export function ZonePicker({ onInsert }: Props) {
-  const [open, setOpen] = useState(false);
+export function ZonePicker({ onInsert, open, onOpenChange }: Props) {
   const [q, setQ] = useState("");
 
   const entries = useMemo(() => Array.from(areaById.entries()), []);
@@ -21,7 +22,7 @@ export function ZonePicker({ onInsert }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <button className={styles.btn} onClick={() => setOpen(!open)}>Zone ▾</button>
+      <button className={styles.btn} onClick={() => onOpenChange(!open)}>Zone ▾</button>
       {open && (
         <div className={styles.popover}>
           <input
@@ -37,7 +38,7 @@ export function ZonePicker({ onInsert }: Props) {
               className={styles.row}
               onClick={() => {
                 onInsert(`areaid${id} ;; ${area.name.toLowerCase()}`);
-                setOpen(false);
+                onOpenChange(false);
               }}
             >
               {area.name}

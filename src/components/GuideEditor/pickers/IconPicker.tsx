@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Pickers.module.css";
 
 const ICONS = [
@@ -10,13 +9,14 @@ const ICONS = [
 
 interface Props {
   onInsert: (raw: string) => void;
+  open: boolean;
+  onOpenChange: (next: boolean) => void;
 }
 
-export function IconPicker({ onInsert }: Props) {
-  const [open, setOpen] = useState(false);
+export function IconPicker({ onInsert, open, onOpenChange }: Props) {
   return (
     <div className={styles.wrap}>
-      <button className={styles.btn} onClick={() => setOpen(!open)}>Icon ▾</button>
+      <button className={styles.btn} onClick={() => onOpenChange(!open)}>Icon ▾</button>
       {open && (
         <div className={styles.popover}>
           <div className={styles.grid}>
@@ -24,7 +24,7 @@ export function IconPicker({ onInsert }: Props) {
               <button
                 key={name}
                 className={styles.gridItem}
-                onClick={() => { onInsert(`(img:${name})`); setOpen(false); }}
+                onClick={() => { onInsert(`(img:${name})`); onOpenChange(false); }}
                 title={name}
               >
                 {name}

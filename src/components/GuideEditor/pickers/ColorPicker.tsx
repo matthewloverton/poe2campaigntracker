@@ -12,15 +12,16 @@ const SWATCHES = [
 
 interface Props {
   onInsert: (raw: string) => void;
+  open: boolean;
+  onOpenChange: (next: boolean) => void;
 }
 
-export function ColorPicker({ onInsert }: Props) {
-  const [open, setOpen] = useState(false);
+export function ColorPicker({ onInsert, open, onOpenChange }: Props) {
   const [hex, setHex] = useState("");
 
   return (
     <div className={styles.wrap}>
-      <button className={styles.btn} onClick={() => setOpen(!open)}>Color ▾</button>
+      <button className={styles.btn} onClick={() => onOpenChange(!open)}>Color ▾</button>
       {open && (
         <div className={styles.popover} style={{ minWidth: 180 }}>
           <div className={styles.grid}>
@@ -28,7 +29,7 @@ export function ColorPicker({ onInsert }: Props) {
               <button
                 key={s.value}
                 className={styles.gridItem}
-                onClick={() => { onInsert(`(color:${s.value})`); setOpen(false); }}
+                onClick={() => { onInsert(`(color:${s.value})`); onOpenChange(false); }}
               >
                 {s.label}
               </button>
@@ -44,7 +45,7 @@ export function ColorPicker({ onInsert }: Props) {
           <button
             className={styles.gridItem}
             style={{ width: "100%", marginTop: 4 }}
-            onClick={() => { if (hex) { onInsert(`(color:${hex})`); setOpen(false); } }}
+            onClick={() => { if (hex) { onInsert(`(color:${hex})`); onOpenChange(false); } }}
           >
             Insert custom
           </button>
