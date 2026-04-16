@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { inflate, deflate } from "pako";
+import { deflate } from "pako";
 import { decodeBuildCode } from "./codec";
 
 function toBase64UrlSafe(bytes: Uint8Array): string {
