@@ -52,6 +52,9 @@ interface CustomizationsState extends Customizations {
   // Phase trigger
   updatePhaseTrigger: (phaseId: string, trigger: PhaseTrigger) => void;
 
+  // PoB import
+  createPhasesFromPoB: (phases: import("../lib/pob/types").ImportPhase[]) => void;
+
   // Step reminder actions
   addReminder: (reminder: StepReminder) => void;
   removeReminder: (id: string) => void;
@@ -244,6 +247,42 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
       .filter((p): p is BuildPhase => p !== null);
     set({ buildPhases: reordered });
     debouncedSave(get().save);
+  },
+
+  createPhasesFromPoB: (importPhases) => {
+    const { buildPhases, save } = get();
+
+    const existingNames = new Set(buildPhases.map((p) => p.name));
+    const newPhases = importPhases.map((ip, i) => {
+      // auto-suffix on collision
+      let candidate = ip.name;
+      let counter = 2;
+      while (existingNames.has(candidate)) {
+        candidate = `${ip.name} (${counter++})`;
+      }
+      existingNames.add(candidate);
+
+      const gear = { ...EMPTY_GEAR_LAYOUT };
+      for (const [slot, entry] of Object.entries(ip.gear)) {
+        if (entry) (gear as Record<string, typeof entry>)[slot] = entry;
+      }
+
+      return {
+        id: crypto.randomUUID(),
+        name: candidate,
+        order: buildPhases.length + i,
+        trigger: { type: "manual" as const },
+        gear,
+        gems: ip.gems,
+        regexes: [],
+      };
+    });
+
+    set((state) => ({
+      buildPhases: [...state.buildPhases, ...newPhases],
+      activePhaseId: newPhases[0]?.id ?? state.activePhaseId,
+    }));
+    save();
   },
 
   setActivePhase: (id: string) => {
