@@ -10,6 +10,7 @@ import {
   itemClassToAugmentCategory,
 } from "../../data/augments";
 import type { ItemMod } from "../../types/itemDatabase";
+import { encodeItem } from "../../lib/pob/encodeItem";
 import styles from "./GearSlot.module.css";
 
 interface GearSlotProps {
@@ -47,9 +48,24 @@ function parseAugmentInc(texts: string[]) {
 
 export function GearSlot({ slotKey, entry, onClick, onRemove }: GearSlotProps) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleMouseEnter = useCallback(() => setShowTooltip(true), []);
   const handleMouseLeave = useCallback(() => setShowTooltip(false), []);
+
+  const handleCopy = useCallback(async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!entry) return;
+    const text = encodeItem(entry);
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Fallback for environments without clipboard permission
+      window.prompt("Copy this into PoB:", text);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 600);
+  }, [entry]);
 
   const label = GEAR_SLOT_LABELS[slotKey] ?? slotKey;
   const isUnique = !!entry?.uniqueId;
@@ -281,6 +297,15 @@ export function GearSlot({ slotKey, entry, onClick, onRemove }: GearSlotProps) {
       {entry.priority != null && entry.priority > 0 && (
         <span className={styles.priorityBadge}>{entry.priority}</span>
       )}
+
+      <button
+        className={styles.copyBtn}
+        onClick={handleCopy}
+        title="Copy item for Path of Building"
+        aria-label="Copy item for Path of Building"
+      >
+        {copied ? "✓" : "⧉"}
+      </button>
 
       {showTooltip && (
         <div
