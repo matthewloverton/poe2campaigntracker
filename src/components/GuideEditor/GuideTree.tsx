@@ -96,6 +96,19 @@ export function GuideTree({ selection, onSelect }: Props) {
     );
   };
 
+  /** Page is labelled by the zone you START in (= prior page's destination). */
+  function startZoneLabel(
+    flatPages: { act: number; pageIndex: number; targetZoneName: string }[],
+    act: number,
+    pageIndex: number,
+  ): string {
+    const idx = flatPages.findIndex(
+      (p) => p.act === act && p.pageIndex === pageIndex,
+    );
+    if (idx <= 0) return "the riverbank";
+    return flatPages[idx - 1].targetZoneName ?? "";
+  }
+
   return (
     <div className={styles.tree}>
       {/* Default guide */}
@@ -106,9 +119,9 @@ export function GuideTree({ selection, onSelect }: Props) {
           act,
           pages: guidePages
             .filter((p) => p.act === act)
-            .map((p, i) => ({
+            .map((_p, i) => ({
               entryIdx: i,
-              label: p.targetZoneName ?? "",
+              label: startZoneLabel(guidePages, act, i),
             })),
         })),
         true,
@@ -123,13 +136,10 @@ export function GuideTree({ selection, onSelect }: Props) {
           g.name,
           actNumbers.map((act) => ({
             act,
-            pages: g.acts[act - 1]?.entries.map((_, i) => {
-              const derivedPage = derived.find((p) => p.act === act && p.pageIndex === i);
-              return {
-                entryIdx: i,
-                label: derivedPage?.targetZoneName ?? "",
-              };
-            }) ?? [],
+            pages: g.acts[act - 1]?.entries.map((_, i) => ({
+              entryIdx: i,
+              label: startZoneLabel(derived, act, i),
+            })) ?? [],
           })),
           false,
         );
