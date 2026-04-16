@@ -36,11 +36,11 @@ interface SortableItemProps {
 }
 
 function SortableItem({ id, withHandle, children }: SortableItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({ id });
   const yOnly = transform ? { ...transform, x: 0 } : null;
   const style = {
     transform: CSS.Transform.toString(yOnly),
-    transition: isDragging ? "none" : transition,
+    transition: "none",
     opacity: isDragging ? 0.5 : 1,
     cursor: withHandle ? "default" : "grab",
   };
