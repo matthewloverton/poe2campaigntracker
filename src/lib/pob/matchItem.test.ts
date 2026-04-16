@@ -94,29 +94,37 @@ describe("matchItem", () => {
     expect(entry!.uniqueId).toBe(u.id);
   });
 
-  it("imports mod rolls from PoB's range fractions (0-1 → 0-100)", () => {
+  it("picks the tier whose stat range contains the actual value, and derives the roll", () => {
     if (!baseBow) return;
-    const existingMod = allMods.find((m) => m.text.includes("increased Attack Speed"));
-    if (!existingMod) return;
-    const modText = existingMod.text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, "15");
+    // Use a concrete mod we can control. Build fake DB-like data is hard; instead
+    // use a real mod: find one with a known range we can hit.
+    const tiers = allMods.filter((m) =>
+      /^\(\d+-\d+\)%\s+increased\s+Physical Damage$/i.test(m.text.replace(/\[[^\]]*\]/g, "")) &&
+      m.generationType === "prefix"
+    );
+    if (tiers.length < 2) return;
+    // Pick tier-A (smaller numbers). Pick a value that falls in tier-A but NOT tier-B.
+    const tierA = tiers.find((t) => t.stats[0] && t.stats[0].max < tiers.sort((a, b) => b.stats[0].min - a.stats[0].min)[0].stats[0].min);
+    if (!tierA) return;
+    const midValue = Math.round((tierA.stats[0].min + tierA.stats[0].max) / 2);
     const pobItem = fakeItem({
       baseType: baseBow.name,
-      explicits: [modText],
-      explicitRolls: [0.549],  // from PoB's {range:0.549}
+      explicits: [`${midValue}% increased Physical Damage`],
+      explicitRolls: [0.0],  // wrong fraction — should be ignored in favour of value-fitting
     });
     const { entry } = matchItem(pobItem, "weapon");
-    expect(entry!.modRolls).toBeDefined();
-    expect(entry!.modRolls![existingMod.id]).toBe(55);  // 0.549 → 55 (rounded)
+    expect(entry!.desiredModIds![0]).toBe(tierA.id);
+    // Mid-value → ~50% roll
+    expect(entry!.modRolls![tierA.id]).toBeGreaterThan(40);
+    expect(entry!.modRolls![tierA.id]).toBeLessThan(60);
   });
 
-  it("leaves modRolls undefined when explicitRolls is all undefined", () => {
+  it("leaves modRolls undefined when no value can be extracted and no fraction is given", () => {
     if (!baseBow) return;
-    const existingMod = allMods.find((m) => m.text.includes("increased Attack Speed"));
-    if (!existingMod) return;
-    const modText = existingMod.text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, "15");
+    // A mod whose text has no numbers (rare but possible) — synthetic case.
     const pobItem = fakeItem({
       baseType: baseBow.name,
-      explicits: [modText],
+      explicits: ["Totally free text mod without numbers"],
       explicitRolls: [undefined],
     });
     const { entry } = matchItem(pobItem, "weapon");

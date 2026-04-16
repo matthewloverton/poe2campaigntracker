@@ -41,12 +41,47 @@ export function normalizeModText(text: string): string {
   return s.replace(/\s+/g, " ").trim();
 }
 
-// Precompute normalized text per mod once. RePoE mods have (min-max) ranges that
-// normalize to "#"; PoB rolled values are bare numbers that also normalize to "#".
-const normalizedModIndex: Array<{ normalized: string; modId: string }> = allMods.map((m) => ({
-  modId: m.id,
-  normalized: normalizeModText(m.text),
-}));
+// Precompute normalized text per mod → list of mods sharing that text shape.
+// RePoE mods have (min-max) ranges that normalize to "#"; PoB rolled values are
+// bare numbers that also normalize to "#". Multiple tiers can share the same shape.
+const modsByNormalized = new Map<string, typeof allMods>();
+for (const mod of allMods) {
+  const n = normalizeModText(mod.text);
+  const list = modsByNormalized.get(n) ?? [];
+  list.push(mod);
+  modsByNormalized.set(n, list);
+}
+
+function extractNumbers(line: string): number[] {
+  const matches = line.match(/[+-]?\d+(\.\d+)?/g) ?? [];
+  return matches.map(Number);
+}
+
+function pickTierAndRoll(
+  candidates: typeof allMods,
+  values: number[],
+): { modId: string; rollPct: number | undefined } | null {
+  if (candidates.length === 0) return null;
+
+  // Prefer the tier whose stat ranges all contain the extracted values.
+  const fits = candidates.find((mod) =>
+    mod.stats.every((s, i) => {
+      const v = values[i];
+      return v != null && v >= s.min && v <= s.max;
+    }),
+  );
+  const chosen = fits ?? candidates[0];
+
+  // Compute percentile from the first stat's position in its range.
+  const s0 = chosen.stats[0];
+  const v0 = values[0];
+  let rollPct: number | undefined;
+  if (s0 && v0 != null && s0.max > s0.min) {
+    const clamped = Math.max(s0.min, Math.min(s0.max, v0));
+    rollPct = Math.round(((clamped - s0.min) / (s0.max - s0.min)) * 100);
+  }
+  return { modId: chosen.id, rollPct };
+}
 
 export interface MatchItemResult {
   entry: BuildGearEntry | null;
@@ -83,20 +118,27 @@ export function matchItem(item: PoBItem, slot: GearSlotKey): MatchItemResult {
     }
   }
 
-  // Mod match — pair normalized patterns against the DB.
+  // Mod match — pair normalized patterns against the DB, then select the tier
+  // whose stat range(s) contain the actual numeric values from the item line.
   const desiredMods: string[] = [];
   const desiredModIds: string[] = [];
   const modRolls: Record<string, number> = {};
   item.explicits.forEach((line, i) => {
     const normalized = normalizeModText(line);
-    const match = normalizedModIndex.find((n) => n.normalized === normalized);
-    if (match) {
-      desiredModIds.push(match.modId);
+    const candidates = modsByNormalized.get(normalized);
+    if (candidates && candidates.length > 0) {
+      const values = extractNumbers(line);
+      const picked = pickTierAndRoll(candidates, values)!;
+      desiredModIds.push(picked.modId);
       desiredMods.push(cleanModText(line.replace(/\s*\((crafted|fractured)\)\s*/gi, "")));
-      // Import roll fraction (0.0-1.0) → app percentile (0-100).
-      const fraction = item.explicitRolls[i];
-      if (fraction != null) {
-        modRolls[match.modId] = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
+      if (picked.rollPct != null) {
+        modRolls[picked.modId] = picked.rollPct;
+      } else {
+        // Fall back to PoB's {range:X} fraction if we couldn't derive from values.
+        const fraction = item.explicitRolls[i];
+        if (fraction != null) {
+          modRolls[picked.modId] = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
+        }
       }
     } else {
       desiredMods.push(line);
