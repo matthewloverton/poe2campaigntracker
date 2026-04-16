@@ -34,7 +34,11 @@ export function PageEditor({ guideId, act, entryIdx }: Props) {
   }
 
   const lines = entry.lines;
-  const derived = storedGuideToPages(guide).find((p) => p.act === act && p.pageIndex === entryIdx);
+  const allDerived = storedGuideToPages(guide);
+  const derived = allDerived.find((p) => p.act === act && p.pageIndex === entryIdx);
+  const derivedIdx = derived ? allDerived.indexOf(derived) : -1;
+  const startZone =
+    derivedIdx > 0 ? allDerived[derivedIdx - 1].targetZoneName : "the riverbank";
   const isConditional = entry.type === "conditional";
 
   return (
@@ -84,7 +88,7 @@ export function PageEditor({ guideId, act, entryIdx }: Props) {
 
       <div>
         <div style={{ fontSize: "0.6rem", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 6 }}>
-          Steps
+          Steps from <span style={{ color: "var(--accent-gold)" }}>{startZone || "?"}</span>
         </div>
         <DragList
           items={lines.map((_, i) => ({ id: String(i) }))}
