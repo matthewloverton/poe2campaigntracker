@@ -1,0 +1,72 @@
+.tree {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.guideNode { display: flex; flex-direction: column; }
+.actNode { display: flex; flex-direction: column; padding-left: 14px; }
+
+.guideHeader, .actHeader, .pageNode {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  border-left: 2px solid transparent;
+}
+
+.pageNode { padding-left: 30px; color: var(--text-secondary); }
+
+.guideHeader:hover, .actHeader:hover, .pageNode:hover {
+  background: var(--bg-hover);
+}
+
+.selected {
+  background: rgba(201, 168, 76, 0.1);
+  border-left-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.expandBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 0 2px;
+  width: 14px;
+}
+
+.guideName { font-weight: 600; }
+.lockIcon { font-size: 0.6rem; opacity: 0.5; }
+.activeBadge {
+  font-size: 0.55rem;
+  color: var(--color-green, #50c878);
+  margin-left: auto;
+}
+
+.actName { font-size: 0.68rem; }
+
+.pageLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.newGuideBtn {
+  margin: 8px 10px;
+  padding: 6px 10px;
+  background: none;
+  border: 1px dashed var(--border-gold);
+  border-radius: 4px;
+  color: var(--accent-gold);
+  font-size: 0.68rem;
+  cursor: pointer;
+}
+
+.newGuideBtn:hover {
+  background: rgba(201, 168, 76, 0.08);
+}

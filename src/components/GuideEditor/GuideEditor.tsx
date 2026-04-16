@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./GuideEditor.module.css";
+import { GuideTree } from "./GuideTree";
 
 export interface GuideEditorSelection {
   guideId: string | null;
@@ -12,7 +13,7 @@ interface GuideEditorProps {
 }
 
 export function GuideEditor({ onClose }: GuideEditorProps) {
-  const [selection, _setSelection] = useState<GuideEditorSelection>({
+  const [selection, setSelection] = useState<GuideEditorSelection>({
     guideId: null,
     act: null,
     entryIdx: null,
@@ -28,10 +29,7 @@ export function GuideEditor({ onClose }: GuideEditorProps) {
       </div>
       <div className={styles.body}>
         <div className={styles.leftPane}>
-          {/* GuideTree in Task 8 */}
-          <div style={{ padding: 12, color: "var(--text-secondary)" }}>
-            Guide tree (coming)
-          </div>
+          <GuideTree selection={selection} onSelect={setSelection} />
         </div>
         <div className={styles.rightPane}>
           {/* Selection-driven panes in Tasks 9-11 */}
