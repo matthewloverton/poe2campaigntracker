@@ -1,0 +1,51 @@
+<PathOfBuilding>
+  <Build className="Mercenary" ascendClassName="Witchhunter" level="92" />
+  <Items activeItemSet="1">
+    <Item id="1">
+Rarity: RARE
+Doom Song
+Expert Zealot Bow
+--------
+Quality: +20% (augmented)
+--------
+Item Level: 82
+--------
+20% increased Physical Damage (implicit)
+--------
++83 to maximum Life
+Adds 30 to 60 Fire Damage
+15% increased Attack Speed
+    </Item>
+    <Item id="2">
+Rarity: UNIQUE
+Pillar of the Caged God
+Long Staff
+--------
+Requires: Level 41
+--------
+Adds 2 to 6 Physical Damage per 10 Strength
+    </Item>
+    <ItemSet id="1" title="Leveling">
+      <Slot name="Weapon 1" itemId="1" />
+    </ItemSet>
+    <ItemSet id="2" title="">
+      <Slot name="Weapon 1" itemId="2" />
+    </ItemSet>
+  </Items>
+  <Skills activeSkillSet="2">
+    <SkillSet id="1" title="Leveling">
+      <Skill mainActiveSkill="1" enabled="true" label="Bow Shot">
+        <Gem skillId="LightningArrow" level="1" quality="0" enabled="true" />
+      </Skill>
+    </SkillSet>
+    <SkillSet id="2" title="Endgame">
+      <Skill mainActiveSkill="1" enabled="true" label="Main">
+        <Gem skillId="LightningArrowOfTheStorm" level="20" quality="0" enabled="true" />
+        <Gem skillId="SupportMartialTempo" level="20" quality="0" enabled="true" />
+      </Skill>
+      <Skill mainActiveSkill="1" enabled="false" label="Disabled">
+        <Gem skillId="IceShot" level="1" quality="0" enabled="true" />
+      </Skill>
+    </SkillSet>
+  </Skills>
+</PathOfBuilding>
