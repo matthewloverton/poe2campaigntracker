@@ -3,6 +3,8 @@ import rawMods from "./raw/item_mods.json";
 
 export const allMods: ItemMod[] = rawMods as ItemMod[];
 
+export const modById = new Map(allMods.map((m) => [m.id, m]));
+
 /** Strip RePoE stat markup like [InternalName|Display Text] → Display Text */
 export function cleanModText(text: string): string {
   return text.replace(/\[([^|\]]*)\|([^\]]*)\]/g, "$2").replace(/\[([^\]]*)\]/g, "$1");

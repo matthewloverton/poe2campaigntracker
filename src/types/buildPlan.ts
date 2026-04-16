@@ -28,6 +28,9 @@ export interface BuildGearEntry {
   notes: string;
   iconPath?: string;
   priority?: number;
+  quality?: number;
+  modRolls?: Record<string, number>; // modId → 0-100 percentile
+  augmentIds?: string[]; // augment IDs for each socket (null entries = empty)
 }
 
 export interface GearLayout {

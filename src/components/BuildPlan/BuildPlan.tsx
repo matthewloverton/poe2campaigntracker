@@ -12,6 +12,7 @@ import { itemById } from "../../data/items";
 import type { GearSlotKey, PhaseTrigger, BuildGearEntry, BuildGemEntry } from "../../types";
 import { SLOT_ITEM_CLASSES } from "../../types/buildPlan";
 import type { GemEntry, BaseItem, ItemMod, UniqueItem } from "../../types/itemDatabase";
+import type { CraftState } from "../ItemBrowser/ItemDetail";
 import styles from "./BuildPlan.module.css";
 
 function getSlotClassKey(slot: GearSlotKey): string {
@@ -255,7 +256,7 @@ export function BuildPlan() {
               onSelectUnique={handleUniqueSelected}
               allowedClasses={SLOT_ITEM_CLASSES[getSlotClassKey(browserSlot)]}
               initialItemClass={activePhase?.gear[browserSlot]?.baseItemId ? itemById.get(activePhase.gear[browserSlot]!.baseItemId!)?.itemClass : undefined}
-              onSaveCraft={(item: BaseItem, mods: ItemMod[]) => {
+              onSaveCraftFull={(item: BaseItem, mods: ItemMod[], craftState: CraftState) => {
                 if (!activePhaseId || !browserSlot) return;
                 const entry: BuildGearEntry = {
                   id: crypto.randomUUID(),
@@ -266,6 +267,9 @@ export function BuildPlan() {
                   desiredMods: mods.map((m) => cleanModText(m.text)),
                   notes: "",
                   iconPath: item.iconPath,
+                  quality: craftState.quality,
+                  modRolls: Object.keys(craftState.modRolls).length > 0 ? craftState.modRolls : undefined,
+                  augmentIds: craftState.augmentIds.some((id) => id) ? craftState.augmentIds : undefined,
                 };
                 setGearSlot(activePhaseId, browserSlot, entry);
                 setBrowserSlot(null);

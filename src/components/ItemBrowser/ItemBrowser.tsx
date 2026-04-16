@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import type { BaseItem, ItemMod, UniqueItem } from "../../types/itemDatabase";
 import {
   ITEM_CLASS_GROUPS,
@@ -8,7 +8,7 @@ import { itemsByClass, searchItems, itemById } from "../../data/items";
 import { getUniquesByClass } from "../../data/uniques";
 import { useCustomizationsStore } from "../../store/customizationsStore";
 import { ItemGrid } from "./ItemGrid";
-import { ItemDetail } from "./ItemDetail";
+import { ItemDetail, type CraftState } from "./ItemDetail";
 import styles from "./ItemBrowser.module.css";
 
 /* ── Constants ────────────────────────────────────────────── */
@@ -56,6 +56,7 @@ interface ItemBrowserProps {
   onSelectItem?: (item: BaseItem) => void;
   onSelectUnique?: (unique: UniqueItem) => void;
   onSaveCraft?: (item: BaseItem, selectedMods: ItemMod[]) => void;
+  onSaveCraftFull?: (item: BaseItem, mods: ItemMod[], craftState: CraftState) => void;
   initialItemClass?: string;
   allowedClasses?: string[];
 }
@@ -67,6 +68,7 @@ export function ItemBrowser({
   onSelectItem,
   onSelectUnique,
   onSaveCraft,
+  onSaveCraftFull,
   initialItemClass,
   allowedClasses,
 }: ItemBrowserProps) {
@@ -88,6 +90,7 @@ export function ItemBrowser({
   const [selectedUnique, setSelectedUnique] = useState<UniqueItem | null>(null);
   const [search, setSearch] = useState("");
   const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
+  const craftStateRef = useRef<CraftState>({ quality: 20, modRolls: {}, augmentIds: [] });
   const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
   const trackedItemIds = new Set(watchlist.filter((w) => w.type === "item").map((w) => w.id));
 
@@ -318,7 +321,9 @@ export function ItemBrowser({
                     <button
                       className={styles.selectBtn}
                       onClick={() => {
-                        if (onSaveCraft && craftMods.length > 0) {
+                        if (onSaveCraftFull) {
+                          onSaveCraftFull(selectedItem, craftMods, craftStateRef.current);
+                        } else if (onSaveCraft && craftMods.length > 0) {
                           onSaveCraft(selectedItem, craftMods);
                         } else {
                           onSelectItem(selectedItem);
@@ -333,6 +338,7 @@ export function ItemBrowser({
                   item={selectedItem}
                   onSaveCraft={onSelectItem ? undefined : onSaveCraft}
                   onModsChange={setCraftMods}
+                  onCraftStateChange={(s) => { craftStateRef.current = s; }}
                 />
               </div>
             ) : selectedUnique ? (

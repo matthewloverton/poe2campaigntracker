@@ -138,109 +138,155 @@
 }
 
 
-/* ── Augment sockets ────────────────────────────────────── */
-.socketSection {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px solid var(--border-color);
-}
-
-.socketLabel {
-  font-size: 0.58rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  margin-bottom: 4px;
-}
-
-.socketSlots {
+/* ── Augment sockets — circular column ──────────────────── */
+.socketColumn {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border-color);
+  min-width: 56px;
+}
+
+.socketCircles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 .socketSlot {
   position: relative;
 }
 
-.socketEmpty {
-  width: 100%;
-  padding: 4px 8px;
-  background: none;
-  border: 1px dashed var(--border-color);
-  border-radius: 3px;
+.socketCircleEmpty {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed var(--border-color);
   color: var(--text-secondary);
-  font-size: 0.62rem;
+  font-size: 1rem;
   cursor: pointer;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s;
 }
 
-.socketEmpty:hover {
+.socketCircleEmpty:hover {
   border-color: var(--accent-teal);
   color: var(--accent-teal);
 }
 
-.socketFilled {
-  padding: 4px 6px;
-  background: rgba(78, 205, 196, 0.06);
-  border: 1px solid rgba(78, 205, 196, 0.3);
-  border-radius: 3px;
-}
-
-.socketFilledTop {
+.socketCircleFilled {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(78, 205, 196, 0.08);
+  border: 2px solid rgba(78, 205, 196, 0.4);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 0.15s;
 }
 
-.socketName {
-  font-size: 0.62rem;
-  font-weight: 600;
+.socketCircleFilled:hover {
+  border-color: var(--accent-teal);
+}
+
+.socketIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.socketIconFallback {
+  font-size: 0.7rem;
+  font-weight: 700;
   color: var(--accent-teal);
 }
 
+.socketRemoveX {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.55rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s;
+}
+
+.socketCircleFilled:hover .socketRemoveX {
+  opacity: 1;
+}
+
+.socketRemoveX:hover {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+
+/* Effects text below the circles */
+.socketEffects {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.socketEffectBlock {
+  text-align: center;
+}
+
+.socketEffectName {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  display: block;
+  margin-bottom: 1px;
+}
+
 .socketEffectLine {
-  font-size: 0.58rem;
+  font-size: 0.52rem;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
 .socketBondedLine {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: var(--accent-gold);
   font-style: italic;
   line-height: 1.3;
   opacity: 0.7;
 }
 
-.socketRemove {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 0.7rem;
-  cursor: pointer;
-  padding: 0 2px;
-  line-height: 1;
-  opacity: 0.4;
-  flex-shrink: 0;
-}
-
-.socketRemove:hover {
-  opacity: 1;
-  color: var(--color-red);
-}
-
 .socketDropdown {
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
+  top: 0;
+  right: calc(100% + 6px);
   z-index: 20;
   background: var(--bg-panel);
   border: 1px solid var(--border-color);
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  width: 320px;
 }
 
 .socketSearchInput {
@@ -256,8 +302,16 @@
 }
 
 .socketResults {
-  max-height: 160px;
+  max-height: 240px;
   overflow-y: auto;
+}
+
+.socketResultIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
 }
 
 .socketFamilyRow {

@@ -1,4 +1,5 @@
 import rawAugments from "./raw/augments.json";
+import augmentImages from "./raw/augment-images.json";
 
 export interface AugmentEffect {
   target: string | string[];
@@ -13,10 +14,16 @@ export interface Augment {
   typeName: string;
   requiredLevel: number;
   limit: string | null;
+  iconPath: string | null;
   effects: Record<string, AugmentEffect>;
 }
 
-export const allAugments: Augment[] = rawAugments as unknown as Augment[];
+const imageMap = augmentImages as Record<string, string>;
+
+export const allAugments: Augment[] = (rawAugments as unknown as Omit<Augment, "iconPath">[]).map((a) => ({
+  ...a,
+  iconPath: imageMap[a.name] ?? null,
+}));
 
 export const augmentById = new Map(allAugments.map((a) => [a.id, a]));
 

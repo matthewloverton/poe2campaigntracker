@@ -13,10 +13,17 @@ import {
 import { ModTable } from "./ModTable";
 import styles from "./ItemDetail.module.css";
 
+export interface CraftState {
+  quality: number;
+  modRolls: Record<string, number>;
+  augmentIds: string[];
+}
+
 interface ItemDetailProps {
   item: BaseItem;
   onSaveCraft?: (item: BaseItem, selectedMods: ItemMod[]) => void;
   onModsChange?: (mods: ItemMod[]) => void;
+  onCraftStateChange?: (state: CraftState) => void;
 }
 
 function formatAps(attackTime: number): string {
@@ -56,7 +63,7 @@ function findTierLabel(mod: ItemMod, allMods: ItemMod[]): string {
   return `T${sametype.length - idx}`;
 }
 
-export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps) {
+export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange }: ItemDetailProps) {
   const [iconError, setIconError] = useState(false);
 
   // Craft planner state — lifted from ModTable so we can render it in the top area
@@ -97,6 +104,15 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     return () => document.removeEventListener("mousedown", handleClick);
   }, [editingSocket]);
 
+  // Notify parent of craft state changes
+  useEffect(() => {
+    onCraftStateChange?.({
+      quality,
+      modRolls,
+      augmentIds: sockets.map((s) => s?.id ?? ""),
+    });
+  }, [quality, modRolls, sockets, onCraftStateChange]);
+
   const augFamilyResults = useMemo(() => {
     if (editingSocket == null || !augCategory) return [];
     return searchAugmentFamilies(socketSearch, augCategory);
@@ -106,9 +122,34 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
   const isWeapon = props.physicalDamageMin != null && props.physicalDamageMax != null;
   const hasDefences = props.armour != null || props.evasion != null || props.energyShield != null;
 
-  // Calculate modified stats from quality + selected mods
+  // Parse augment effect text for numeric bonuses
+  function parseAugmentBonuses(socketList: (Augment | null)[], category: string) {
+    let incPhysDmg = 0;
+    let incArmour = 0;
+    let incEvasion = 0;
+    let incES = 0;
+
+    for (const aug of socketList) {
+      if (!aug) continue;
+      const texts = getAugmentEffect(aug, category);
+      for (const t of texts) {
+        const pctMatch = t.match(/(\d+)%\s+increased\s+(.+)/i);
+        if (!pctMatch) continue;
+        const val = Number(pctMatch[1]);
+        const what = pctMatch[2].toLowerCase();
+        if (what.includes("physical damage")) incPhysDmg += val;
+        if (what.includes("armour") || what.includes("armor")) incArmour += val;
+        if (what.includes("evasion")) incEvasion += val;
+        if (what.includes("energy shield")) incES += val;
+      }
+    }
+    return { incPhysDmg, incArmour, incEvasion, incES };
+  }
+
+  // Calculate modified stats from quality + selected mods + augment sockets
   const modifiedStats = useMemo(() => {
     const mods = [...selectedMods.values()];
+    const augBonuses = augCategory ? parseAugmentBonuses(sockets, augCategory) : { incPhysDmg: 0, incArmour: 0, incEvasion: 0, incES: 0 };
 
     // Extract local stat values from selected mods
     function rollValue(mod: ItemMod, s: { min: number; max: number }): number {
@@ -136,7 +177,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     if (isWeapon && props.physicalDamageMin != null && props.physicalDamageMax != null) {
       const flatMin = sumStat("local_minimum_added_physical_damage");
       const flatMax = sumStat("local_maximum_added_physical_damage");
-      const incPhys = sumStat("local_physical_damage_+%");
+      const incPhys = sumStat("local_physical_damage_+%") + augBonuses.incPhysDmg;
       const modMult = 1 + incPhys / 100;
       const qualMult = 1 + quality / 100;
       result.physMin = Math.round((props.physicalDamageMin + flatMin) * modMult * qualMult);
@@ -153,15 +194,18 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
       const incAr = sumStat("local_physical_damage_reduction_rating_+%")
         + sumStat("local_armour_and_evasion_+%")
         + sumStat("local_armour_and_energy_shield_+%")
-        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%")
+        + augBonuses.incArmour;
       const incEv = sumStat("local_evasion_rating_+%")
         + sumStat("local_armour_and_evasion_+%")
         + sumStat("local_evasion_and_energy_shield_+%")
-        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%")
+        + augBonuses.incEvasion;
       const incEs = sumStat("local_energy_shield_+%")
         + sumStat("local_armour_and_energy_shield_+%")
         + sumStat("local_evasion_and_energy_shield_+%")
-        + sumStat("local_armour_and_evasion_and_energy_shield_+%");
+        + sumStat("local_armour_and_evasion_and_energy_shield_+%")
+        + augBonuses.incES;
       const flatAr = sumStat("local_base_physical_damage_reduction_rating");
       const flatEv = sumStat("local_base_evasion_rating");
       const flatEs = sumStat("local_energy_shield");
@@ -183,7 +227,7 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
     }
 
     return result;
-  }, [selectedMods, quality, modRolls, item, isWeapon, hasDefences, props]);
+  }, [selectedMods, quality, modRolls, item, isWeapon, hasDefences, props, sockets, augCategory]);
 
   const reqs: string[] = [];
   if (item.requirements.level > 0) reqs.push(`Level ${item.requirements.level}`);
@@ -321,110 +365,140 @@ export function ItemDetail({ item, onSaveCraft, onModsChange }: ItemDetailProps)
                   ))}
                 </div>
               )}
+            </div>
 
-              {/* Augment sockets */}
-              {augCategory && (
-                <div className={styles.socketSection}>
-                  <div className={styles.socketLabel}>Sockets ({sockets.filter(Boolean).length}/{socketCount})</div>
-                  <div className={styles.socketSlots}>
-                    {sockets.map((aug, i) => (
-                      <div key={i} className={styles.socketSlot}>
-                        {aug ? (
-                          <div className={styles.socketFilled}>
-                            <div className={styles.socketFilledTop}>
-                              <span className={styles.socketName}>{aug.name}</span>
-                              <button
-                                className={styles.socketRemove}
-                                onClick={() => setSockets((prev) => { const next = [...prev]; next[i] = null; return next; })}
-                              >
-                                ×
-                              </button>
-                            </div>
-                            {getAugmentEffect(aug, augCategory).map((t, j) => (
-                              <div key={j} className={styles.socketEffectLine}>{t}</div>
-                            ))}
-                            {getAugmentBonded(aug, augCategory).map((t, j) => (
-                              <div key={`b${j}`} className={styles.socketBondedLine}>{t}</div>
-                            ))}
-                          </div>
-                        ) : (
-                          <button
-                            className={styles.socketEmpty}
-                            onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
-                          >
-                            + Socket {i + 1}
-                          </button>
-                        )}
-                        {editingSocket === i && (
-                          <div className={styles.socketDropdown} ref={socketDropdownRef}>
-                            <input
-                              className={styles.socketSearchInput}
-                              type="text"
-                              placeholder="Search augments..."
-                              value={socketSearch}
-                              onChange={(e) => setSocketSearch(e.target.value)}
-                              onKeyDown={(e) => { if (e.key === "Escape") setEditingSocket(null); }}
-                              autoFocus
+            {/* Augment sockets — circular column to the right */}
+            {augCategory && (
+              <div className={styles.socketColumn}>
+                <div className={styles.socketCircles}>
+                  {sockets.map((aug, i) => (
+                    <div key={i} className={styles.socketSlot}>
+                      {aug ? (
+                        <button
+                          className={styles.socketCircleFilled}
+                          onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
+                          title={aug.name}
+                        >
+                          {aug.iconPath ? (
+                            <img
+                              className={styles.socketIcon}
+                              src={`/assets/${aug.iconPath}`}
+                              alt={aug.name}
                             />
-                            <div className={styles.socketResults}>
-                              {augFamilyResults.map((fam) => {
-                                const display = fam.regular ?? fam.lesser ?? fam.greater;
-                                if (!display) return null;
-                                return (
-                                  <div key={fam.baseName} className={styles.socketFamilyRow}>
-                                    <div className={styles.socketFamilyInfo}>
-                                      <span className={styles.socketResultName}>{fam.baseName}</span>
-                                      <span className={styles.socketResultEffect}>
-                                        {getAugmentEffect(display, augCategory!).join(", ")}
-                                      </span>
-                                    </div>
-                                    <div className={styles.socketTierBtns}>
-                                      {fam.lesser && (
-                                        <button
-                                          className={styles.socketTierBtn}
-                                          onClick={() => {
-                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.lesser!; return next; });
-                                            setEditingSocket(null);
-                                          }}
-                                        >
-                                          L
-                                        </button>
-                                      )}
-                                      {fam.regular && (
-                                        <button
-                                          className={`${styles.socketTierBtn} ${styles.socketTierBtnActive}`}
-                                          onClick={() => {
-                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.regular!; return next; });
-                                            setEditingSocket(null);
-                                          }}
-                                        >
-                                          R
-                                        </button>
-                                      )}
-                                      {fam.greater && (
-                                        <button
-                                          className={styles.socketTierBtn}
-                                          onClick={() => {
-                                            setSockets((prev) => { const next = [...prev]; next[i] = fam.greater!; return next; });
-                                            setEditingSocket(null);
-                                          }}
-                                        >
-                                          G
-                                        </button>
-                                      )}
-                                    </div>
+                          ) : (
+                            <span className={styles.socketIconFallback}>
+                              {aug.typeId === "Rune" ? "R" : aug.typeId === "SoulCore" ? "S" : aug.typeId === "Idol" ? "I" : "A"}
+                            </span>
+                          )}
+                          <button
+                            className={styles.socketRemoveX}
+                            onClick={(e) => { e.stopPropagation(); setSockets((prev) => { const next = [...prev]; next[i] = null; return next; }); }}
+                            title="Remove"
+                          >
+                            ×
+                          </button>
+                        </button>
+                      ) : (
+                        <button
+                          className={styles.socketCircleEmpty}
+                          onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
+                          title={`Socket ${i + 1}`}
+                        >
+                          +
+                        </button>
+                      )}
+                      {editingSocket === i && (
+                        <div className={styles.socketDropdown} ref={socketDropdownRef}>
+                          <input
+                            className={styles.socketSearchInput}
+                            type="text"
+                            placeholder="Search augments..."
+                            value={socketSearch}
+                            onChange={(e) => setSocketSearch(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === "Escape") setEditingSocket(null); }}
+                            autoFocus
+                          />
+                          <div className={styles.socketResults}>
+                            {augFamilyResults.map((fam) => {
+                              const display = fam.regular ?? fam.lesser ?? fam.greater;
+                              if (!display) return null;
+                              return (
+                                <div key={fam.baseName} className={styles.socketFamilyRow}>
+                                  {display.iconPath && (
+                                    <img
+                                      className={styles.socketResultIcon}
+                                      src={`/assets/${display.iconPath}`}
+                                      alt=""
+                                    />
+                                  )}
+                                  <div className={styles.socketFamilyInfo}>
+                                    <span className={styles.socketResultName}>{fam.baseName}</span>
+                                    <span className={styles.socketResultEffect}>
+                                      {getAugmentEffect(display, augCategory!).join(", ")}
+                                    </span>
                                   </div>
-                                );
-                              })}
-                            </div>
+                                  <div className={styles.socketTierBtns}>
+                                    {fam.lesser && (
+                                      <button
+                                        className={styles.socketTierBtn}
+                                        onClick={() => {
+                                          setSockets((prev) => { const next = [...prev]; next[i] = fam.lesser!; return next; });
+                                          setEditingSocket(null);
+                                        }}
+                                      >
+                                        L
+                                      </button>
+                                    )}
+                                    {fam.regular && (
+                                      <button
+                                        className={`${styles.socketTierBtn} ${styles.socketTierBtnActive}`}
+                                        onClick={() => {
+                                          setSockets((prev) => { const next = [...prev]; next[i] = fam.regular!; return next; });
+                                          setEditingSocket(null);
+                                        }}
+                                      >
+                                        R
+                                      </button>
+                                    )}
+                                    {fam.greater && (
+                                      <button
+                                        className={styles.socketTierBtn}
+                                        onClick={() => {
+                                          setSockets((prev) => { const next = [...prev]; next[i] = fam.greater!; return next; });
+                                          setEditingSocket(null);
+                                        }}
+                                      >
+                                        G
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
                           </div>
-                        )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {/* Effects for filled sockets */}
+                {sockets.some(Boolean) && (
+                  <div className={styles.socketEffects}>
+                    {sockets.map((aug, i) => aug && (
+                      <div key={i} className={styles.socketEffectBlock}>
+                        <span className={styles.socketEffectName}>{aug.name}</span>
+                        {getAugmentEffect(aug, augCategory).map((t, j) => (
+                          <div key={j} className={styles.socketEffectLine}>{t}</div>
+                        ))}
+                        {getAugmentBonded(aug, augCategory).map((t, j) => (
+                          <div key={`b${j}`} className={styles.socketBondedLine}>{t}</div>
+                        ))}
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
