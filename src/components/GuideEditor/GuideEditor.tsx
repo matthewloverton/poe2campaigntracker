@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./GuideEditor.module.css";
 import { GuideTree } from "./GuideTree";
+import { GuidePane } from "./GuidePane";
+import { ActPane } from "./ActPane";
 
 export interface GuideEditorSelection {
   guideId: string | null;
@@ -32,12 +34,24 @@ export function GuideEditor({ onClose }: GuideEditorProps) {
           <GuideTree selection={selection} onSelect={setSelection} />
         </div>
         <div className={styles.rightPane}>
-          {/* Selection-driven panes in Tasks 9-11 */}
-          <div style={{ padding: 12, color: "var(--text-secondary)" }}>
-            {selection.guideId === null
-              ? "Select a guide, act, or page."
-              : `Guide: ${selection.guideId}`}
-          </div>
+          {selection.guideId == null && (
+            <div style={{ padding: 16, color: "var(--text-secondary)" }}>
+              Select a guide, act, or page.
+            </div>
+          )}
+          {selection.guideId && selection.act == null && (
+            <GuidePane
+              guideId={selection.guideId}
+              onSelectGuide={(id) => setSelection({ guideId: id, act: null, entryIdx: null })}
+            />
+          )}
+          {selection.guideId && selection.act != null && selection.entryIdx == null && (
+            <ActPane
+              guideId={selection.guideId}
+              act={selection.act}
+              onSelectPage={(entryIdx) => setSelection({ ...selection, entryIdx })}
+            />
+          )}
         </div>
       </div>
     </div>
