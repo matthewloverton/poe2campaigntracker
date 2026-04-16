@@ -2,6 +2,7 @@ import { useSettingsStore } from "../../store/settingsStore";
 import { useCustomizationsStore } from "../../store/customizationsStore";
 import { useTimerStore } from "../../store/timerStore";
 import { useGuideStore } from "../../store/guideStore";
+import { useGuidesStore } from "../../store/guidesStore";
 import styles from "./Settings.module.css";
 
 interface SettingsProps {
@@ -174,32 +175,21 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
         {/* Campaign guide */}
         <section className={styles.section}>
           <h3 className={styles.sectionTitle}>Campaign Guide</h3>
-          <label className={styles.checkboxRow}>
-            <input
-              type="radio"
-              name="guide"
-              checked={activeGuide === "default"}
-              onChange={() => {
-                setGuide("default");
-                updateSettings({ guide: "default" });
-              }}
-            />
-            <span>Default</span>
-          </label>
-          <label className={styles.checkboxRow}>
-            <input
-              type="radio"
-              name="guide"
-              checked={activeGuide === "custom"}
-              onChange={() => {
-                setGuide("custom");
-                updateSettings({ guide: "custom" });
-              }}
-            />
-            <span>Custom</span>
-          </label>
+          <select
+            className={styles.pathInput}
+            value={activeGuide}
+            onChange={(e) => {
+              setGuide(e.target.value);
+              updateSettings({ guide: e.target.value });
+            }}
+          >
+            <option value="default">Default</option>
+            {useGuidesStore((s) => s.guides).map((g) => (
+              <option key={g.id} value={g.id}>{g.name}</option>
+            ))}
+          </select>
           <p className={styles.dangerNote} style={{ margin: "6px 0 0", opacity: 0.5 }}>
-            Edit src/data/raw/guide-custom.json to customize
+            Manage guides via the "Guides" button in the build plan header.
           </p>
         </section>
 
