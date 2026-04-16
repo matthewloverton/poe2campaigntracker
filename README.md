@@ -52,6 +52,17 @@ On first launch, open **Settings → Client.txt Path** and paste the full path t
 
 Base items, mods, uniques, and skill gems are derived from [RePoE](https://github.com/lvlvllvlvllvlvl/RePoE) and [poe2db](https://poe2db.tw). The default campaign guide is based on Mobalytics campaign route.
 
+## Cutting a release
+
+Push a `v*` tag and GitHub Actions builds a Windows installer and publishes it as a draft release:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Then open the Releases page, fill in notes on the draft, and publish. Or trigger manually via **Actions → Release → Run workflow**.
+
 ## License
 
 Personal project — no license specified. Reach out before re-using substantial portions.
