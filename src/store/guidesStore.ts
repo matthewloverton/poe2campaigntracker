@@ -18,6 +18,27 @@ interface GuidesStoreState {
   deleteGuide: (id: string) => void;
   setActiveGuide: (id: string) => void;
   setActiveConditions: (id: string, conditions: Record<string, string>) => void;
+  addPage: (guideId: string, act: number) => void;
+  deletePage: (guideId: string, act: number, entryIdx: number) => void;
+  reorderPages: (guideId: string, act: number, order: number[]) => void;
+  setPageCondition: (
+    guideId: string,
+    act: number,
+    entryIdx: number,
+    condition: [string, string] | null,
+  ) => void;
+  addStep: (guideId: string, act: number, entryIdx: number) => void;
+  deleteStep: (guideId: string, act: number, entryIdx: number, stepIdx: number) => void;
+  reorderSteps: (guideId: string, act: number, entryIdx: number, order: number[]) => void;
+  setStepLine: (
+    guideId: string,
+    act: number,
+    entryIdx: number,
+    stepIdx: number,
+    raw: string,
+  ) => void;
+  toggleStepHint: (guideId: string, act: number, entryIdx: number, stepIdx: number) => void;
+  toggleStepOptional: (guideId: string, act: number, entryIdx: number, stepIdx: number) => void;
   load: () => Promise<void>;
   save: () => Promise<void>;
 }
@@ -70,6 +91,43 @@ function updateGuide(
   fn: (g: StoredGuide) => StoredGuide,
 ): StoredGuide[] {
   return guides.map((g) => (g.id === id ? { ...fn(g), updatedAt: nowIso() } : g));
+}
+
+function mutateActs(
+  guides: StoredGuide[],
+  guideId: string,
+  fn: (acts: StoredAct[]) => StoredAct[],
+): StoredGuide[] {
+  return guides.map((g) =>
+    g.id === guideId ? { ...g, acts: fn(g.acts), updatedAt: nowIso() } : g,
+  );
+}
+
+function mutateAct(
+  acts: StoredAct[],
+  actNum: number,
+  fn: (act: StoredAct) => StoredAct,
+): StoredAct[] {
+  const idx = actNum - 1;
+  return acts.map((a, i) => (i === idx ? fn(a) : a));
+}
+
+function mutateEntry(
+  act: StoredAct,
+  entryIdx: number,
+  fn: (entry: StoredEntry) => StoredEntry,
+): StoredAct {
+  return {
+    entries: act.entries.map((e, i) => (i === entryIdx ? fn(e) : e)),
+  };
+}
+
+function mutateLines(
+  entry: StoredEntry,
+  fn: (lines: string[]) => string[],
+): StoredEntry {
+  if (entry.type === "page") return { type: "page", lines: fn(entry.lines) };
+  return { ...entry, lines: fn(entry.lines) };
 }
 
 export const useGuidesStore = create<GuidesStoreState>((set, get) => ({
@@ -133,6 +191,145 @@ export const useGuidesStore = create<GuidesStoreState>((set, get) => ({
         ...g,
         activeConditions: { ...g.activeConditions, ...conditions },
       })),
+    }));
+    get().save();
+  },
+
+  addPage: (guideId, act) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) => ({
+          entries: [...a.entries, { type: "page", lines: [] }],
+        })),
+      ),
+    }));
+    get().save();
+  },
+
+  deletePage: (guideId, act, entryIdx) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) => ({
+          entries: a.entries.filter((_, i) => i !== entryIdx),
+        })),
+      ),
+    }));
+    get().save();
+  },
+
+  reorderPages: (guideId, act, order) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) => ({
+          entries: order.map((i) => a.entries[i]).filter(Boolean),
+        })),
+      ),
+    }));
+    get().save();
+  },
+
+  setPageCondition: (guideId, act, entryIdx, condition) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) => {
+            if (condition == null) {
+              return { type: "page", lines: [...e.lines] };
+            }
+            return { type: "conditional", condition, lines: [...e.lines] };
+          }),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  addStep: (guideId, act, entryIdx) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) => mutateLines(e, (l) => [...l, ""])),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  deleteStep: (guideId, act, entryIdx, stepIdx) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) =>
+            mutateLines(e, (l) => l.filter((_, i) => i !== stepIdx)),
+          ),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  reorderSteps: (guideId, act, entryIdx, order) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) =>
+            mutateLines(e, (l) => order.map((i) => l[i]).filter((x) => x != null)),
+          ),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  setStepLine: (guideId, act, entryIdx, stepIdx, raw) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) =>
+            mutateLines(e, (l) => l.map((line, i) => (i === stepIdx ? raw : line))),
+          ),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  toggleStepHint: (guideId, act, entryIdx, stepIdx) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) =>
+            mutateLines(e, (l) =>
+              l.map((line, i) => {
+                if (i !== stepIdx) return line;
+                return line.startsWith("(hint)")
+                  ? line.replace(/^\(hint\)_*\s*/, "")
+                  : `(hint)_ ${line}`;
+              }),
+            ),
+          ),
+        ),
+      ),
+    }));
+    get().save();
+  },
+
+  toggleStepOptional: (guideId, act, entryIdx, stepIdx) => {
+    set((s) => ({
+      guides: mutateActs(s.guides, guideId, (acts) =>
+        mutateAct(acts, act, (a) =>
+          mutateEntry(a, entryIdx, (e) =>
+            mutateLines(e, (l) =>
+              l.map((line, i) => {
+                if (i !== stepIdx) return line;
+                return line.startsWith("optional:")
+                  ? line.replace(/^optional:\s*/, "")
+                  : `optional: ${line}`;
+              }),
+            ),
+          ),
+        ),
+      ),
     }));
     get().save();
   },
