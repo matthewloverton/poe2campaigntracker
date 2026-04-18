@@ -179,21 +179,28 @@ const ESSENCE_TIER_ORDER: Record<EssenceTier, number> = {
   perfect: 4,
 };
 
+const TIER_NAME: Record<EssenceTier, string> = {
+  lesser: "Lesser",
+  normal: "Normal",
+  greater: "Greater",
+  perfect: "Perfect",
+};
+
 /** Build a synthetic ItemMod for one (essence, tier, category) entry. */
 function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): ItemMod {
   const ess = allEssences[slug];
-  // Grouping: a mod's `type` spans all tiers of the same essence + category
-  // so ModTable's groupModsByType puts Lesser/Normal/Greater side-by-side.
-  // requiredLevel mirrors the tier order so modTierLabel can compute a
-  // meaningful position within the group.
+  // Grouping: `type` is keyed by essence family only (no category), so
+  // essences that change their category bucket across tiers (e.g. Battle,
+  // where Greater widens to "Martial Weapon, Gloves or Quiver") still
+  // collapse into a single group in the planner.
   return {
     id: `essence:${slug}:${tier}:${categorySlug(entry.category)}`,
-    name: ess.name,
+    name: `${TIER_NAME[tier]} ${ess.name}`,
     text: entry.text,
-    type: `Essence_${slug}_${categorySlug(entry.category)}`,
+    type: `Essence_${slug}`,
     generationType: essenceGenType(entry.text),
     source: "essence",
-    group: `Essence_${slug}_${categorySlug(entry.category)}`,
+    group: `Essence_${slug}`,
     requiredLevel: ESSENCE_TIER_ORDER[tier],
     stats: parseEssenceStats(entry.text),
     spawnWeights: [{ tag: "default", weight: 1 }],
