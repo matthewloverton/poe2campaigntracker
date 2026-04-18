@@ -844,7 +844,7 @@ export function CraftEmulator({ base, onClose }: Props) {
               {corruptedMod?.mod && (
                 <div className={`${styles.modRow} ${styles.modCorrupted}`}>
                   <span className={styles.modBadge}>IMP</span>
-                  <span className={styles.modTier}>{modTierLabel(corruptedMod.mod, base)}</span>
+                  <span className={styles.modTier}>{corruptedMod.mod.source === "essence" ? "ESS" : modTierLabel(corruptedMod.mod, base)}</span>
                   <span className={styles.modText}>{renderRolledText(formatRolledWithRange(corruptedMod.mod, corruptedMod.em.roll))}</span>
                 </div>
               )}
@@ -854,7 +854,7 @@ export function CraftEmulator({ base, onClose }: Props) {
               {prefixMods.map((p, i) => p.mod && (
                 <div key={`p${i}`} className={`${styles.modRow} ${styles.modPrefix}`}>
                   <span className={styles.modBadge}>P</span>
-                  <span className={styles.modTier}>{modTierLabel(p.mod, base)}</span>
+                  <span className={styles.modTier}>{p.mod.source === "essence" ? "ESS" : modTierLabel(p.mod, base)}</span>
                   <span className={styles.modName}>{p.mod.name}</span>
                   <span className={styles.modText}>{renderRolledText(formatRolledWithRange(p.mod, p.em.roll))}</span>
                 </div>
@@ -862,7 +862,7 @@ export function CraftEmulator({ base, onClose }: Props) {
               {suffixMods.map((s, i) => s.mod && (
                 <div key={`s${i}`} className={`${styles.modRow} ${styles.modSuffix}`}>
                   <span className={styles.modBadge}>S</span>
-                  <span className={styles.modTier}>{modTierLabel(s.mod, base)}</span>
+                  <span className={styles.modTier}>{s.mod.source === "essence" ? "ESS" : modTierLabel(s.mod, base)}</span>
                   <span className={styles.modName}>{s.mod.name}</span>
                   <span className={styles.modText}>{renderRolledText(formatRolledWithRange(s.mod, s.em.roll))}</span>
                 </div>
