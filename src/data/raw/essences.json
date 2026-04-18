@@ -1,0 +1,908 @@
+{
+  "abrasion": {
+    "slug": "abrasion",
+    "name": "Abrasion",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Abrasion",
+        "name": "Lesser Essence of Abrasion",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (4-6) to (7-11) Physical Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (5-8) to (10-15) Physical Damage"
+          }
+        ],
+        "iconPath": "essences/abrasion-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Abrasion",
+        "name": "Essence of Abrasion",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (10-15) to (18-26) Physical Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (14-21) to (25-37) Physical Damage"
+          }
+        ],
+        "iconPath": "essences/abrasion-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Abrasion",
+        "name": "Greater Essence of Abrasion",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (16-24) to (28-42) Physical Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (23-35) to (39-59) Physical Damage"
+          }
+        ],
+        "iconPath": "essences/abrasion-greater.png"
+      }
+    }
+  },
+  "alacrity": {
+    "slug": "alacrity",
+    "name": "Alacrity",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Alacrity",
+        "name": "Lesser Essence of Alacrity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(13-16)% increased Cast Speed"
+          },
+          {
+            "category": "Staff",
+            "text": "(20-25)% increased Cast Speed"
+          }
+        ],
+        "iconPath": "essences/alacrity-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Alacrity",
+        "name": "Essence of Alacrity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(17-20)% increased Cast Speed"
+          },
+          {
+            "category": "Staff",
+            "text": "(26-31)% increased Cast Speed"
+          }
+        ],
+        "iconPath": "essences/alacrity-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Alacrity",
+        "name": "Greater Essence of Alacrity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(25-28)% increased Cast Speed"
+          },
+          {
+            "category": "Staff",
+            "text": "(38-43)% increased Cast Speed"
+          }
+        ],
+        "iconPath": "essences/alacrity-greater.png"
+      }
+    }
+  },
+  "battle": {
+    "slug": "battle",
+    "name": "Battle",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Battle",
+        "name": "Lesser Essence of Battle",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "+(61-84) to Accuracy Rating"
+          }
+        ],
+        "iconPath": "essences/battle-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Battle",
+        "name": "Essence of Battle",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "+(124-167) to Accuracy Rating"
+          }
+        ],
+        "iconPath": "essences/battle-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Battle",
+        "name": "Greater Essence of Battle",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon , Gloves or Quiver",
+            "text": "+(237-346) to Accuracy Rating"
+          }
+        ],
+        "iconPath": "essences/battle-greater.png"
+      }
+    }
+  },
+  "command": {
+    "slug": "command",
+    "name": "Command",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Command",
+        "name": "Lesser Essence of Command",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Sceptre",
+            "text": "Allies in your Presence deal (35-44)% increased Damage"
+          }
+        ],
+        "iconPath": "essences/command-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Command",
+        "name": "Essence of Command",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Sceptre",
+            "text": "Allies in your Presence deal (55-64)% increased Damage"
+          }
+        ],
+        "iconPath": "essences/command-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Command",
+        "name": "Greater Essence of Command",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Sceptre",
+            "text": "Allies in your Presence deal (75-89)% increased Damage"
+          }
+        ],
+        "iconPath": "essences/command-greater.png"
+      }
+    }
+  },
+  "electricity": {
+    "slug": "electricity",
+    "name": "Electricity",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Electricity",
+        "name": "Lesser Essence of Electricity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds 1 to (13-19) Lightning Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (1-2) to (19-27) Lightning Damage"
+          }
+        ],
+        "iconPath": "essences/electricity-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Electricity",
+        "name": "Essence of Electricity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (1-3) to (55-60) Lightning Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (1-4) to (80-88) Lightning Damage"
+          }
+        ],
+        "iconPath": "essences/electricity-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Electricity",
+        "name": "Greater Essence of Electricity",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (1-6) to (85-107) Lightning Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (1-8) to (128-162) Lightning Damage"
+          }
+        ],
+        "iconPath": "essences/electricity-greater.png"
+      }
+    }
+  },
+  "enhancement": {
+    "slug": "enhancement",
+    "name": "Enhancement",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Enhancement",
+        "name": "Lesser Essence of Enhancement",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour",
+            "text": "(27-42)% increased Armour, Evasion or Energy Shield"
+          }
+        ],
+        "iconPath": "essences/enhancement-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Enhancement",
+        "name": "Essence of Enhancement",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour",
+            "text": "(56-67)% increased Armour, Evasion or Energy Shield"
+          }
+        ],
+        "iconPath": "essences/enhancement-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Enhancement",
+        "name": "Greater Essence of Enhancement",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour",
+            "text": "(68-79)% increased Armour, Evasion or Energy Shield"
+          }
+        ],
+        "iconPath": "essences/enhancement-greater.png"
+      }
+    }
+  },
+  "flames": {
+    "slug": "flames",
+    "name": "Flames",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Flames",
+        "name": "Lesser Essence of Flames",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (4-6) to (7-10) Fire Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (6-9) to (10-16) Fire Damage"
+          }
+        ],
+        "iconPath": "essences/flames-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Flames",
+        "name": "Essence of Flames",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (20-24) to (32-37) Fire Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (30-37) to (45-56) Fire Damage"
+          }
+        ],
+        "iconPath": "essences/flames-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Flames",
+        "name": "Greater Essence of Flames",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (35-44) to (56-71) Fire Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (56-70) to (84-107) Fire Damage"
+          }
+        ],
+        "iconPath": "essences/flames-greater.png"
+      }
+    }
+  },
+  "grounding": {
+    "slug": "grounding",
+    "name": "Grounding",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Grounding",
+        "name": "Lesser Essence of Grounding",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(11-15)% to Lightning Resistance"
+          }
+        ],
+        "iconPath": "essences/grounding-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Grounding",
+        "name": "Essence of Grounding",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(21-25)% to Lightning Resistance"
+          }
+        ],
+        "iconPath": "essences/grounding-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Grounding",
+        "name": "Greater Essence of Grounding",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(31-35)% to Lightning Resistance"
+          }
+        ],
+        "iconPath": "essences/grounding-greater.png"
+      }
+    }
+  },
+  "haste": {
+    "slug": "haste",
+    "name": "Haste",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Haste",
+        "name": "Lesser Essence of Haste",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Melee Weapon",
+            "text": "(11-13)% increased Attack Speed"
+          },
+          {
+            "category": "Bow or Crossbow",
+            "text": "(8-10)% increased Attack Speed"
+          }
+        ],
+        "iconPath": "essences/haste-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Haste",
+        "name": "Essence of Haste",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Melee Weapon",
+            "text": "(17-19)% increased Attack Speed"
+          },
+          {
+            "category": "Bow or Crossbow",
+            "text": "(11-13)% increased Attack Speed"
+          }
+        ],
+        "iconPath": "essences/haste-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Haste",
+        "name": "Greater Essence of Haste",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Melee Weapon",
+            "text": "(23-25)% increased Attack Speed"
+          },
+          {
+            "category": "Bow or Crossbow",
+            "text": "(14-16)% increased Attack Speed"
+          }
+        ],
+        "iconPath": "essences/haste-greater.png"
+      }
+    }
+  },
+  "ice": {
+    "slug": "ice",
+    "name": "Ice",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Ice",
+        "name": "Lesser Essence of Ice",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (3-5) to (6-9) Cold Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (5-8) to (9-14) Cold Damage"
+          }
+        ],
+        "iconPath": "essences/ice-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Ice",
+        "name": "Essence of Ice",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (17-20) to (26-32) Cold Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (25-30) to (38-46) Cold Damage"
+          }
+        ],
+        "iconPath": "essences/ice-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Ice",
+        "name": "Greater Essence of Ice",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Adds (31-38) to (47-59) Cold Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Adds (46-57) to (70-88) Cold Damage"
+          }
+        ],
+        "iconPath": "essences/ice-greater.png"
+      }
+    }
+  },
+  "insulation": {
+    "slug": "insulation",
+    "name": "Insulation",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Insulation",
+        "name": "Lesser Essence of Insulation",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(11-15)% to Fire Resistance"
+          }
+        ],
+        "iconPath": "essences/insulation-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Insulation",
+        "name": "Essence of Insulation",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(21-25)% to Fire Resistance"
+          }
+        ],
+        "iconPath": "essences/insulation-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Insulation",
+        "name": "Greater Essence of Insulation",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(31-35)% to Fire Resistance"
+          }
+        ],
+        "iconPath": "essences/insulation-greater.png"
+      }
+    }
+  },
+  "opulence": {
+    "slug": "opulence",
+    "name": "Opulence",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Opulence",
+        "name": "Lesser Essence of Opulence",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Boots, Gloves, Helmet or Jewellery",
+            "text": "(6-10)% increased Rarity of Items found"
+          }
+        ],
+        "iconPath": "essences/opulence-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Opulence",
+        "name": "Essence of Opulence",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Boots, Gloves, Helmet or Jewellery",
+            "text": "(11-14)% increased Rarity of Items found"
+          }
+        ],
+        "iconPath": "essences/opulence-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Opulence",
+        "name": "Greater Essence of Opulence",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Boots, Gloves, Helmet or Jewellery",
+            "text": "(15-18)% increased Rarity of Items found"
+          }
+        ],
+        "iconPath": "essences/opulence-greater.png"
+      }
+    }
+  },
+  "ruin": {
+    "slug": "ruin",
+    "name": "Ruin",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Ruin",
+        "name": "Lesser Essence of Ruin",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(4-7)% to Chaos Resistance"
+          }
+        ],
+        "iconPath": "essences/ruin-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Ruin",
+        "name": "Essence of Ruin",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(8-11)% to Chaos Resistance"
+          }
+        ],
+        "iconPath": "essences/ruin-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Ruin",
+        "name": "Greater Essence of Ruin",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(16-19)% to Chaos Resistance"
+          }
+        ],
+        "iconPath": "essences/ruin-greater.png"
+      }
+    }
+  },
+  "seeking": {
+    "slug": "seeking",
+    "name": "Seeking",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Seeking",
+        "name": "Lesser Essence of Seeking",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "+(1.51-2.1)% to Critical Hit Chance"
+          },
+          {
+            "category": "Focus or Wand",
+            "text": "(34-39)% increased Critical Hit Chance for Spells"
+          },
+          {
+            "category": "Staff",
+            "text": "(50-59)% increased Critical Hit Chance for Spells"
+          }
+        ],
+        "iconPath": "essences/seeking-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Seeking",
+        "name": "Essence of Seeking",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "+(2.11-2.7)% to Critical Hit Chance"
+          },
+          {
+            "category": "Focus or Wand",
+            "text": "(40-46)% increased Critical Hit Chance for Spells"
+          },
+          {
+            "category": "Staff",
+            "text": "(60-69)% increased Critical Hit Chance for Spells"
+          }
+        ],
+        "iconPath": "essences/seeking-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Seeking",
+        "name": "Greater Essence of Seeking",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "+(3.11-3.8)% to Critical Hit Chance"
+          },
+          {
+            "category": "Focus or Wand",
+            "text": "(47-53)% increased Critical Hit Chance for Spells"
+          },
+          {
+            "category": "Staff",
+            "text": "(70-79)% increased Critical Hit Chance for Spells"
+          }
+        ],
+        "iconPath": "essences/seeking-greater.png"
+      }
+    }
+  },
+  "sorcery": {
+    "slug": "sorcery",
+    "name": "Sorcery",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Sorcery",
+        "name": "Lesser Essence of Sorcery",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(35-44)% increased Spell Damage"
+          },
+          {
+            "category": "Staff",
+            "text": "(69-88)% increased Spell Damage"
+          }
+        ],
+        "iconPath": "essences/sorcery-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Sorcery",
+        "name": "Essence of Sorcery",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(55-64)% increased Spell Damage"
+          },
+          {
+            "category": "Staff",
+            "text": "(109-128)% increased Spell Damage"
+          }
+        ],
+        "iconPath": "essences/sorcery-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Sorcery",
+        "name": "Greater Essence of Sorcery",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(75-89)% increased Spell Damage"
+          },
+          {
+            "category": "Staff",
+            "text": "(149-188)% increased Spell Damage"
+          }
+        ],
+        "iconPath": "essences/sorcery-greater.png"
+      }
+    }
+  },
+  "thawing": {
+    "slug": "thawing",
+    "name": "Thawing",
+    "tiers": {
+      "lesser": {
+        "page": "Lesser_Essence_of_Thawing",
+        "name": "Lesser Essence of Thawing",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(11-15)% to Cold Resistance"
+          }
+        ],
+        "iconPath": "essences/thawing-lesser.png"
+      },
+      "normal": {
+        "page": "Essence_of_Thawing",
+        "name": "Essence of Thawing",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(21-25)% to Cold Resistance"
+          }
+        ],
+        "iconPath": "essences/thawing-normal.png"
+      },
+      "greater": {
+        "page": "Greater_Essence_of_Thawing",
+        "name": "Greater Essence of Thawing",
+        "description": "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+        "entries": [
+          {
+            "category": "Armour , Belt or Jewellery",
+            "text": "+(31-35)% to Cold Resistance"
+          }
+        ],
+        "iconPath": "essences/thawing-greater.png"
+      }
+    }
+  },
+  "delirium": {
+    "slug": "delirium",
+    "name": "Delirium",
+    "tiers": {
+      "perfect": {
+        "page": "Essence_of_Delirium",
+        "name": "Essence of Delirium",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Body Armour",
+            "text": "Allocates a random Notable Passive Skill"
+          }
+        ],
+        "iconPath": "essences/delirium-corrupted.png"
+      }
+    }
+  },
+  "horror": {
+    "slug": "horror",
+    "name": "Horror",
+    "tiers": {
+      "perfect": {
+        "page": "Essence_of_Horror",
+        "name": "Essence of Horror",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Gloves or Boots",
+            "text": "60% increased effect of Socketed Items"
+          }
+        ],
+        "iconPath": "essences/horror-corrupted.png"
+      }
+    }
+  },
+  "hysteria": {
+    "slug": "hysteria",
+    "name": "Hysteria",
+    "tiers": {
+      "perfect": {
+        "page": "Essence_of_Hysteria",
+        "name": "Essence of Hysteria",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Helmet",
+            "text": "+1 to Level of all Minion Skills"
+          },
+          {
+            "category": "Body Armour",
+            "text": "(64-97) to (97-145) Physical Thorns damage"
+          },
+          {
+            "category": "Gloves",
+            "text": "(25-29)% increased Critical Damage Bonus"
+          },
+          {
+            "category": "Boots",
+            "text": "30% increased Movement Speed"
+          },
+          {
+            "category": "Ring",
+            "text": "(50-59)% increased Mana Regeneration Rate"
+          },
+          {
+            "category": "Amulet",
+            "text": "(19-21)% of Damage taken Recouped as Life"
+          },
+          {
+            "category": "Belt",
+            "text": "+(254-304) to Stun Threshold"
+          },
+          {
+            "category": "Shield",
+            "text": "(20-24)% increased Block chance"
+          },
+          {
+            "category": "Quiver",
+            "text": "(43-50)% increased Damage with Bow Skills"
+          },
+          {
+            "category": "Focus",
+            "text": "(41-45)% increased Energy Shield Recharge Rate"
+          }
+        ],
+        "iconPath": "essences/hysteria-corrupted.png"
+      }
+    }
+  },
+  "insanity": {
+    "slug": "insanity",
+    "name": "Insanity",
+    "tiers": {
+      "perfect": {
+        "page": "Essence_of_Insanity",
+        "name": "Essence of Insanity",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Belt",
+            "text": "On Corruption, Item gains two Enchantments"
+          }
+        ],
+        "iconPath": "essences/insanity-corrupted.png"
+      }
+    }
+  },
+  "abyss": {
+    "slug": "abyss",
+    "name": "Abyss",
+    "tiers": {
+      "perfect": {
+        "page": "Essence_of_the_Abyss",
+        "name": "Essence of the Abyss",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Equipment",
+            "text": "Mark of the Abyssal Lord"
+          }
+        ],
+        "iconPath": "essences/abyss-corrupted.png"
+      }
+    }
+  }
+}
