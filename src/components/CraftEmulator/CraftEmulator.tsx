@@ -50,6 +50,10 @@ interface CurrencyDef {
   key: CurrencyKey;
   label: string;
   shortHint: string;
+  /** Full mechanic description for rich tooltips. */
+  description: string;
+  /** Applicability requirement (one short line, e.g. "Normal item"). */
+  requirement: string;
   className: string;
   icon: string;
   /** Whether Greater/Perfect variants have meaning for this currency. */
@@ -65,6 +69,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "transmute",
     label: "Orb of Transmutation",
     shortHint: "Normal → Magic (1 mod)",
+    description: "Upgrades a Normal item to Magic with one random modifier.",
+    requirement: "Normal item",
     className: "transmute",
     icon: "/assets/currency/transmute.webp",
     hasTierVariants: true,
@@ -76,6 +82,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "augment",
     label: "Orb of Augmentation",
     shortHint: "Magic +1 mod",
+    description: "Adds a new random modifier to a Magic item.",
+    requirement: "Magic item with an open affix slot",
     className: "augment",
     icon: "/assets/currency/augment.webp",
     hasTierVariants: true,
@@ -88,6 +96,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "regal",
     label: "Regal Orb",
     shortHint: "Magic → Rare (+1 mod)",
+    description: "Upgrades a Magic item to Rare, keeping its existing affixes and adding one new random modifier.",
+    requirement: "Magic item",
     className: "regal",
     icon: "/assets/currency/regal.webp",
     hasTierVariants: true,
@@ -99,6 +109,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "alchemy",
     label: "Orb of Alchemy",
     shortHint: "Normal → Rare (4 mods)",
+    description: "Upgrades a Normal item to Rare with four random modifiers.",
+    requirement: "Normal item",
     className: "alchemy",
     icon: "/assets/currency/alchemy.webp",
     hasTierVariants: false, // no Greater/Perfect variant exists
@@ -109,6 +121,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "exalt",
     label: "Exalted Orb",
     shortHint: "Rare +1 mod",
+    description: "Adds a new random modifier to a Rare item (up to 3 prefixes and 3 suffixes).",
+    requirement: "Rare item with an open affix slot",
     className: "exalt",
     icon: "/assets/currency/exalt.webp",
     hasTierVariants: true,
@@ -121,6 +135,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "chaos",
     label: "Chaos Orb",
     shortHint: "Rare: remove 1 + add 1",
+    description: "Removes one random modifier from a Rare item and adds a new random modifier in its place.",
+    requirement: "Rare item with at least one modifier",
     className: "chaos",
     icon: "/assets/currency/chaos.webp",
     hasTierVariants: true,
@@ -132,6 +148,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "annul",
     label: "Orb of Annulment",
     shortHint: "Remove random mod",
+    description: "Removes one random modifier from a Magic or Rare item.",
+    requirement: "Magic or Rare item with at least one modifier",
     className: "annul",
     icon: "/assets/currency/annul.webp",
     hasTierVariants: false,
@@ -142,6 +160,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "divine",
     label: "Divine Orb",
     shortHint: "Reroll values",
+    description: "Rerolls the numeric values of every modifier on the item.",
+    requirement: "Item with at least one modifier (not corrupted)",
     className: "divine",
     icon: "/assets/currency/divine.webp",
     hasTierVariants: false,
@@ -153,6 +173,8 @@ const CURRENCIES: CurrencyDef[] = [
     key: "vaal",
     label: "Vaal Orb",
     shortHint: "Corrupt the item",
+    description: "Corrupts the item with one of five outcomes, each 25% (reforge split 50/50 prefix-lock / suffix-lock):\n• Add a corrupted implicit\n• Add a rune socket (weapons/armour)\n• No change\n• Reforge prefix-lock (keep prefixes, replace suffixes)\n• Reforge suffix-lock (mirror)",
+    requirement: "Non-corrupted item",
     className: "vaal",
     icon: "/assets/currency/vaal.webp",
     hasTierVariants: false,
@@ -527,9 +549,9 @@ export function CraftEmulator({ base, onClose }: Props) {
             const disabled = !c.canApply(item);
             const active = selectedCurrency === c.key;
             return (
-              <button
+              <CurrencyTooltipBtn
                 key={c.key}
-                className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""}`}
+                active={active}
                 disabled={disabled}
                 onClick={() => {
                   if (active) {
@@ -541,11 +563,26 @@ export function CraftEmulator({ base, onClose }: Props) {
                     if (!c.hasTierVariants) setTierType("normal");
                   }
                 }}
-                title={`${c.label} — ${c.shortHint}`}
+                tooltip={(
+                  <>
+                    <div className={styles.tipTitle}>{c.label}</div>
+                    <div className={styles.tipHint}>{c.shortHint}</div>
+                    <div className={styles.tipDesc}>{c.description}</div>
+                    <div className={styles.tipReq}>
+                      <span className={styles.tipReqLabel}>Requires:</span> {c.requirement}
+                    </div>
+                    {c.hasTierVariants && c.minLevels && (
+                      <div className={styles.tipTiers}>
+                        <div><span className={styles.tipTiersLabel}>Greater</span> min mod level {c.minLevels.greater}</div>
+                        <div><span className={styles.tipTiersLabel}>Perfect</span> min mod level {c.minLevels.perfect}</div>
+                      </div>
+                    )}
+                  </>
+                )}
               >
                 <img className={styles.stripIcon} src={c.icon} alt="" />
                 {spend[c.key] > 0 && <span className={styles.stripCount}>{spend[c.key]}</span>}
-              </button>
+              </CurrencyTooltipBtn>
             );
           })}
           <button
@@ -576,30 +613,60 @@ export function CraftEmulator({ base, onClose }: Props) {
             {[...REGULAR_ESSENCE_SLUGS, ...CORRUPTED_ESSENCE_SLUGS].map((slug) => {
               const ess = allEssences[slug];
               if (!ess) return null;
-              // First available tier icon
               const anyTier = ess.tiers.normal ?? ess.tiers.lesser ?? ess.tiers.greater ?? ess.tiers.perfect;
               const icon = anyTier?.iconPath ? `/assets/${anyTier.iconPath}` : undefined;
               const active = selectedEssence === slug;
               const isCorrupted = CORRUPTED_ESSENCE_SLUGS.includes(slug as typeof CORRUPTED_ESSENCE_SLUGS[number]);
+
+              // Find which tiers have an entry matching this base.
+              const applicableTiers: { tier: EssenceTier; label: string; entry: { category: string; text: string } }[] = [];
+              for (const tierKey of ["lesser", "normal", "greater", "perfect"] as EssenceTier[]) {
+                if (!ess.tiers[tierKey]) continue;
+                const entry = resolveEssenceEntryForItem(slug, tierKey, base);
+                if (entry) applicableTiers.push({ tier: tierKey, label: ESSENCE_TIER_LABEL[tierKey], entry });
+              }
+              const applies = applicableTiers.length > 0;
+
               return (
-                <button
-                  key={slug}
-                  className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""} ${isCorrupted ? styles.essenceCorrupted : ""}`}
-                  onClick={() => {
-                    if (active) {
-                      setSelectedEssence(null);
-                    } else {
-                      setSelectedEssence(slug);
-                      setSelectedCurrency(null);
-                      // Auto-pick a valid tier when switching between regular/corrupted essences.
-                      if (isCorrupted) setTierType("perfect");
-                      else if (tierType === "perfect") setTierType("normal");
-                    }
-                  }}
-                  title={`Essence of ${ess.name}`}
-                >
-                  {icon && <img className={styles.stripIcon} src={icon} alt="" />}
-                </button>
+                <div key={slug} className={styles.stripBtnWrap}>
+                  <button
+                    className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""} ${isCorrupted ? styles.essenceCorrupted : ""}`}
+                    disabled={!applies}
+                    onClick={() => {
+                      if (!applies) return;
+                      if (active) {
+                        setSelectedEssence(null);
+                      } else {
+                        setSelectedEssence(slug);
+                        setSelectedCurrency(null);
+                        if (isCorrupted) setTierType("perfect");
+                        else if (tierType === "perfect" && !ess.tiers.perfect) setTierType("normal");
+                      }
+                    }}
+                  >
+                    {icon && <img className={styles.stripIcon} src={icon} alt="" />}
+                  </button>
+                  <div className={styles.stripTooltip}>
+                    <div className={styles.tipTitle}>Essence of {ess.name}</div>
+                    <div className={styles.tipHint}>
+                      {isCorrupted
+                        ? "Corrupted — removes a random modifier on a Rare item, adds a guaranteed one"
+                        : "Upgrades Magic → Rare with a guaranteed modifier (Perfect tier removes+adds on Rare)"}
+                    </div>
+                    {applies ? (
+                      <div className={styles.tipDesc}>
+                        {applicableTiers.map((t) => (
+                          <div key={t.tier} className={styles.tipTierRow}>
+                            <span className={styles.tipTiersLabel}>{t.label}</span>
+                            {t.entry.text}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className={styles.tipReq}>Does not apply to this base</div>
+                    )}
+                  </div>
+                </div>
               );
             })}
           </div>
@@ -813,6 +880,30 @@ export function CraftEmulator({ base, onClose }: Props) {
 /** Compact: collapse the roll+range into single line text without newlines. */
 function cleanLineText(text: string): string {
   return cleanModText(text).replace(/\n/g, " · ");
+}
+
+/** Button with a rich tooltip that appears above on hover. */
+function CurrencyTooltipBtn({
+  active, disabled, onClick, tooltip, children,
+}: {
+  active: boolean;
+  disabled: boolean;
+  onClick: () => void;
+  tooltip: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={styles.stripBtnWrap}>
+      <button
+        className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""}`}
+        disabled={disabled}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+      <div className={styles.stripTooltip}>{tooltip}</div>
+    </div>
+  );
 }
 
 /** Split rolled mod text into React nodes so `(min-max)` ranges render dimmer. */

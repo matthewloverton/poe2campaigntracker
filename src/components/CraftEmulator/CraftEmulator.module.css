@@ -86,6 +86,90 @@
   flex-shrink: 0;
 }
 
+.stripBtnWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.stripTooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 240px;
+  max-width: 320px;
+  padding: 8px 10px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  z-index: 20;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.08s ease, visibility 0s linear 0.08s;
+}
+
+.stripBtnWrap:hover .stripTooltip {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.12s ease;
+}
+
+.tipTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.tipHint {
+  font-size: 0.65rem;
+  color: var(--accent-teal);
+  margin-top: 1px;
+}
+
+.tipDesc {
+  font-size: 0.72rem;
+  color: var(--text-primary);
+  margin-top: 6px;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.tipReq {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tipReqLabel {
+  color: var(--accent-gold);
+  font-weight: 700;
+  margin-right: 3px;
+}
+
+.tipTiers {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.tipTiersLabel {
+  color: var(--accent-gold);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.tipTierRow {
+  padding: 2px 0;
+  font-size: 0.68rem;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
 .stripBtn {
   position: relative;
   width: 46px;
