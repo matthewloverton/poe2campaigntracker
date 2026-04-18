@@ -1,9 +1,10 @@
 import { useGuidesStore } from "../../store/guidesStore";
+import { confirmDialog, alertDialog } from "../Dialog/Dialog";
 import styles from "./GuideEditor.module.css";
 
 interface Props {
   guideId: string;
-  onSelectGuide: (id: string) => void;
+  onSelectGuide: (id: string | null) => void;
 }
 
 const KNOWN_CONDITIONS: { key: string; label: string; values: string[] }[] = [
@@ -18,10 +19,28 @@ export function GuidePane({ guideId, onSelectGuide }: Props) {
   const del = useGuidesStore((s) => s.deleteGuide);
   const setConditions = useGuidesStore((s) => s.setActiveConditions);
 
-  function handleExport() {
+  async function handleExport() {
     if (isDefault || !guide) return;
     const data = JSON.stringify(guide, null, 2);
-    navigator.clipboard.writeText(data).catch(() => prompt("Copy guide JSON:", data));
+    try {
+      await navigator.clipboard.writeText(data);
+      await alertDialog(`Copied "${guide.name}" to clipboard (${data.length.toLocaleString()} chars).`, { title: "Guide Exported" });
+    } catch {
+      // Fallback: download as file
+      try {
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${guide.name.replace(/[^a-z0-9-_]+/gi, "_")}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch {
+        await alertDialog("Could not copy to clipboard or save file.", { title: "Export Failed" });
+      }
+    }
   }
 
   function handleDuplicate() {
@@ -36,10 +55,11 @@ export function GuidePane({ guideId, onSelectGuide }: Props) {
     }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (isDefault || !guide) return;
-    if (confirm(`Delete "${guide.name}"? This cannot be undone.`)) {
+    if (await confirmDialog(`Delete "${guide.name}"? This cannot be undone.`, { title: "Delete Guide", confirmLabel: "Delete", danger: true })) {
       del(guideId);
+      onSelectGuide(null);
     }
   }
 
@@ -50,6 +70,7 @@ export function GuidePane({ guideId, onSelectGuide }: Props) {
           Name
         </label>
         <input
+          key={guideId}
           type="text"
           defaultValue={isDefault ? "Default" : (guide?.name ?? "")}
           disabled={isDefault}
