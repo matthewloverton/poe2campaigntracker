@@ -12,6 +12,7 @@ import type { FavouriteCraft } from "../../types";
 import { ItemGrid } from "./ItemGrid";
 import { ItemDetail, type CraftState, type InitialCraftState } from "./ItemDetail";
 import { confirmDialog } from "../Dialog/Dialog";
+import { CraftEmulator } from "../CraftEmulator/CraftEmulator";
 import styles from "./ItemBrowser.module.css";
 
 /* ── Constants ────────────────────────────────────────────── */
@@ -94,6 +95,7 @@ export function ItemBrowser({
   const [selectedUnique, setSelectedUnique] = useState<UniqueItem | null>(null);
   const [restoreState, setRestoreState] = useState<{ favId: string; init: InitialCraftState } | null>(null);
   const [currentFavId, setCurrentFavId] = useState<string | null>(null);
+  const [emulateBase, setEmulateBase] = useState<BaseItem | null>(null);
   const [search, setSearch] = useState("");
   const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
   const craftStateRef = useRef<CraftState>({ quality: 20, modRolls: {}, augmentIds: [] });
@@ -277,6 +279,10 @@ export function ItemBrowser({
         </button>
       </div>
 
+      {emulateBase && (
+        <CraftEmulator base={emulateBase} onClose={() => setEmulateBase(null)} />
+      )}
+
       {/* Top tabs (hidden when filtering to specific classes) */}
       {!allowedClasses && (
         <div className={styles.tabBar}>
@@ -395,6 +401,13 @@ export function ItemBrowser({
                       : displayName(activeSubCategory)}
                   </button>
                   <div className={styles.detailTopBarActions}>
+                    <button
+                      className={styles.emulateBtn}
+                      onClick={() => setEmulateBase(selectedItem)}
+                      title="Open craft emulator for this base"
+                    >
+                      ⚒ Emulate
+                    </button>
                     <button
                       className={`${styles.starBtn} ${currentFavId ? styles.starBtnActive : ""}`}
                       disabled={!currentFavId && craftMods.length === 0}

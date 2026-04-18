@@ -367,6 +367,22 @@
   cursor: not-allowed;
 }
 
+.emulateBtn {
+  padding: 4px 12px;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid var(--accent-teal);
+  border-radius: 4px;
+  color: var(--accent-teal);
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.emulateBtn:hover {
+  background: rgba(78, 205, 196, 0.22);
+}
+
 /* ── Uniques grid ───────────────────────────────────────── */
 .uniquesGrid {
   display: grid;

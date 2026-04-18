@@ -21,9 +21,9 @@ const HIDDEN_TAGS = new Set(["unveiled_mod", "poison", "bleed"]);
 
 /** Display groupings for tag filter pills (in order). Tags outside these groups fall into "other". */
 const TAG_GROUPS: { key: string; tags: string[] }[] = [
-  { key: "damage",   tags: ["physical", "fire", "cold", "lightning", "elemental", "chaos", "damage", "caster_damage"] },
+  { key: "damage",   tags: ["physical", "fire", "cold", "lightning", "elemental", "chaos", "damage", "caster"] },
   { key: "defences", tags: ["life", "mana", "energy_shield", "armour", "evasion", "resistance", "defences", "block"] },
-  { key: "offence",  tags: ["attack", "caster", "critical", "speed", "minion"] },
+  { key: "offence",  tags: ["attack", "critical", "speed", "minion"] },
   { key: "charges",  tags: ["endurance_charge", "frenzy_charge", "power_charge"] },
   { key: "misc",     tags: ["resource", "attribute", "gem", "flask", "life_flask", "charm", "ailment", "aura", "curse"] },
   { key: "abyss",    tags: ["ulaman", "kurgal", "amanamu", "kulemak", "watcher"] },
@@ -42,7 +42,7 @@ function canonTag(tag: string): string {
     .replace(/_mod$/i, "")
     .replace(/_abyss_special_prefix$/i, "")
     .replace(/_abyss_suffix$/i, "");
-  const m = clean.match(/^(elemental|physical|chaos)_damage$/i);
+  const m = clean.match(/^(elemental|physical|chaos|caster)_damage$/i);
   if (m) clean = m[1].toLowerCase();
   if (clean === "flat_life_regen") clean = "life";
   return clean;
@@ -89,7 +89,6 @@ function tagColor(tag: string): { fg: string; bg: string; border: string } | nul
     endurance_charge: { fg: "#ffb86b", bg: "rgba(255,184,107,0.10)", border: "rgba(255,184,107,0.40)" },
     frenzy_charge:    { fg: "#6be098", bg: "rgba(107,224,152,0.10)", border: "rgba(107,224,152,0.40)" },
     power_charge:     { fg: "#6aa3ff", bg: "rgba(106,163,255,0.10)", border: "rgba(106,163,255,0.40)" },
-    caster_damage:  { fg: "#b48aff", bg: "rgba(180,138,255,0.12)", border: "rgba(180,138,255,0.45)" },
     // Abyss lords — desecrated-mod source signifiers
     ulaman:   { fg: "#8fe7a3", bg: "rgba(143,231,163,0.10)", border: "rgba(143,231,163,0.45)" },
     kurgal:   { fg: "#9fd87a", bg: "rgba(159,216,122,0.10)", border: "rgba(159,216,122,0.45)" },
