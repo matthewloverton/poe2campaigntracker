@@ -8,6 +8,59 @@
 
 
 
+/* ── Source tabs ─────────────────────────────────────────── */
+.sourceTabBar {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.sourceTab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+
+.sourceTab:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.sourceTab:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sourceTabActive {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+}
+
+.sourceTabCount {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.sourceTabActive .sourceTabCount {
+  color: var(--accent-gold);
+  opacity: 0.8;
+}
+
 /* ── iLvl filter ─────────────────────────────────────────── */
 .ilvlRow {
   display: flex;

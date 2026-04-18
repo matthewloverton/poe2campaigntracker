@@ -1,8 +1,14 @@
 import { useState, useMemo } from "react";
-import type { BaseItem, ItemMod } from "../../types/itemDatabase";
+import type { BaseItem, ItemMod, ModSource } from "../../types/itemDatabase";
 import { getModsForItem, groupModsByType, cleanModText } from "../../data/mods";
 import type { ModGroup } from "../../data/mods";
 import styles from "./ModTable.module.css";
+
+const SOURCE_TABS: { key: ModSource; label: string }[] = [
+  { key: "normal", label: "Normal" },
+  { key: "desecrated", label: "Desecrated" },
+  { key: "corrupted", label: "Corrupted" },
+];
 
 interface ModTableProps {
   item: BaseItem;
@@ -43,25 +49,39 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
   const [ilvl, setIlvl] = useState(item.dropLevel);
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set());
   const [narrowTab, setNarrowTab] = useState<"prefixes" | "suffixes">("prefixes");
+  const [sourceTab, setSourceTab] = useState<ModSource>("normal");
 
   // Tag filter
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
 
-  const { prefixes, suffixes } = useMemo(() => getModsForItem(item), [item]);
+  const { prefixes, suffixes, corrupted } = useMemo(
+    () => getModsForItem(item, sourceTab),
+    [item, sourceTab],
+  );
+
+  // Counts per source for tab badges (all sources, cached)
+  const sourceCounts = useMemo(() => {
+    const counts: Record<ModSource, number> = { normal: 0, desecrated: 0, corrupted: 0 };
+    for (const s of SOURCE_TABS) {
+      const mods = getModsForItem(item, s.key);
+      counts[s.key] = mods.prefixes.length + mods.suffixes.length + mods.corrupted.length;
+    }
+    return counts;
+  }, [item]);
 
   // Report all mods to parent for tier label computation
   useMemo(() => {
-    onAllModsLoaded?.([...prefixes, ...suffixes]);
-  }, [prefixes, suffixes, onAllModsLoaded]);
+    onAllModsLoaded?.([...prefixes, ...suffixes, ...corrupted]);
+  }, [prefixes, suffixes, corrupted, onAllModsLoaded]);
 
   // Collect all available tags for this item's mods
   const availableTags = useMemo(() => {
     const tags = new Set<string>();
-    for (const m of [...prefixes, ...suffixes]) {
+    for (const m of [...prefixes, ...suffixes, ...corrupted]) {
       for (const t of m.tags) tags.add(t);
     }
     return [...tags].sort();
-  }, [prefixes, suffixes]);
+  }, [prefixes, suffixes, corrupted]);
 
   // Filter by active tags before grouping
   const filteredPrefixes = useMemo(() => {
@@ -74,11 +94,18 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
     return suffixes.filter((m) => m.tags.some((t) => activeTags.has(t)));
   }, [suffixes, activeTags]);
 
+  const filteredCorrupted = useMemo(() => {
+    if (activeTags.size === 0) return corrupted;
+    return corrupted.filter((m) => m.tags.some((t) => activeTags.has(t)));
+  }, [corrupted, activeTags]);
+
   const prefixGroups = useMemo(() => groupModsByType(filteredPrefixes), [filteredPrefixes]);
   const suffixGroups = useMemo(() => groupModsByType(filteredSuffixes), [filteredSuffixes]);
+  const corruptedGroups = useMemo(() => groupModsByType(filteredCorrupted), [filteredCorrupted]);
 
   const prefixGroupNums = useMemo(() => buildGroupNumbers(prefixGroups), [prefixGroups]);
   const suffixGroupNums = useMemo(() => buildGroupNumbers(suffixGroups), [suffixGroups]);
+  const corruptedGroupNums = useMemo(() => buildGroupNumbers(corruptedGroups), [corruptedGroups]);
 
   // Which mod types have a selected tier
   const selectedTypes = useMemo(() => {
@@ -233,6 +260,21 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
 
   return (
     <div className={styles.modTable}>
+      {/* Source tabs */}
+      <div className={styles.sourceTabBar}>
+        {SOURCE_TABS.map((t) => (
+          <button
+            key={t.key}
+            className={`${styles.sourceTab} ${sourceTab === t.key ? styles.sourceTabActive : ""}`}
+            onClick={() => setSourceTab(t.key)}
+            disabled={sourceCounts[t.key] === 0}
+          >
+            {t.label}
+            <span className={styles.sourceTabCount}>{sourceCounts[t.key]}</span>
+          </button>
+        ))}
+      </div>
+
       {/* iLvl filter */}
       <div className={styles.ilvlRow}>
         <input
@@ -317,37 +359,50 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
         </div>
       )}
 
-      {/* Narrow-only tab bar */}
-      <div className={styles.narrowTabBar}>
-        <button
-          className={`${styles.narrowTab} ${narrowTab === "prefixes" ? styles.narrowTabActive : ""}`}
-          onClick={() => setNarrowTab("prefixes")}
-        >
-          Prefixes ({prefixGroups.length})
-        </button>
-        <button
-          className={`${styles.narrowTab} ${narrowTab === "suffixes" ? styles.narrowTabActive : ""}`}
-          onClick={() => setNarrowTab("suffixes")}
-        >
-          Suffixes ({suffixGroups.length})
-        </button>
-      </div>
-
-      <div className={styles.columns}>
-        <div className={`${styles.column} ${narrowTab !== "prefixes" ? styles.columnHiddenNarrow : ""}`}>
-          <div className={styles.columnHeader}>Prefixes ({prefixGroups.length})</div>
-          <div className={styles.modList}>
-            {renderGroups(prefixGroups, prefixGroupNums)}
+      {sourceTab === "corrupted" ? (
+        <div className={styles.columns}>
+          <div className={styles.column}>
+            <div className={styles.columnHeader}>Corrupted ({corruptedGroups.length})</div>
+            <div className={styles.modList}>
+              {renderGroups(corruptedGroups, corruptedGroupNums)}
+            </div>
           </div>
         </div>
-
-        <div className={`${styles.column} ${narrowTab !== "suffixes" ? styles.columnHiddenNarrow : ""}`}>
-          <div className={styles.columnHeader}>Suffixes ({suffixGroups.length})</div>
-          <div className={styles.modList}>
-            {renderGroups(suffixGroups, suffixGroupNums)}
+      ) : (
+        <>
+          {/* Narrow-only tab bar */}
+          <div className={styles.narrowTabBar}>
+            <button
+              className={`${styles.narrowTab} ${narrowTab === "prefixes" ? styles.narrowTabActive : ""}`}
+              onClick={() => setNarrowTab("prefixes")}
+            >
+              Prefixes ({prefixGroups.length})
+            </button>
+            <button
+              className={`${styles.narrowTab} ${narrowTab === "suffixes" ? styles.narrowTabActive : ""}`}
+              onClick={() => setNarrowTab("suffixes")}
+            >
+              Suffixes ({suffixGroups.length})
+            </button>
           </div>
-        </div>
-      </div>
+
+          <div className={styles.columns}>
+            <div className={`${styles.column} ${narrowTab !== "prefixes" ? styles.columnHiddenNarrow : ""}`}>
+              <div className={styles.columnHeader}>Prefixes ({prefixGroups.length})</div>
+              <div className={styles.modList}>
+                {renderGroups(prefixGroups, prefixGroupNums)}
+              </div>
+            </div>
+
+            <div className={`${styles.column} ${narrowTab !== "suffixes" ? styles.columnHiddenNarrow : ""}`}>
+              <div className={styles.columnHeader}>Suffixes ({suffixGroups.length})</div>
+              <div className={styles.modList}>
+                {renderGroups(suffixGroups, suffixGroupNums)}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

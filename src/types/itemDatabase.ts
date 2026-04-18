@@ -24,12 +24,15 @@ export interface BaseItem {
   iconPath: string;
 }
 
+export type ModSource = "normal" | "corrupted" | "desecrated";
+
 export interface ItemMod {
   id: string;
   name: string;
   text: string;
   type: string;
-  generationType: "prefix" | "suffix";
+  generationType: "prefix" | "suffix" | "corrupted";
+  source: ModSource;
   group: string;
   requiredLevel: number;
   stats: Array<{ id: string; min: number; max: number }>;

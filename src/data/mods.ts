@@ -1,4 +1,4 @@
-import type { ItemMod, BaseItem } from "../types/itemDatabase";
+import type { ItemMod, BaseItem, ModSource } from "../types/itemDatabase";
 import rawMods from "./raw/item_mods.json";
 
 export const allMods: ItemMod[] = rawMods as ItemMod[];
@@ -33,25 +33,31 @@ function modsMatchItem(item: BaseItem): (mod: ItemMod) => boolean {
   return (mod) => resolveSpawnWeight(mod, itemTags) > 0;
 }
 
-export function getModsForItem(item: BaseItem): { prefixes: ItemMod[]; suffixes: ItemMod[] } {
+export function getModsForItem(
+  item: BaseItem,
+  source: ModSource = "normal",
+): { prefixes: ItemMod[]; suffixes: ItemMod[]; corrupted: ItemMod[] } {
   const matches = modsMatchItem(item);
+  const scoped = allMods.filter((m) => m.source === source && matches(m));
   return {
-    prefixes: allMods.filter((m) => m.generationType === "prefix" && matches(m)),
-    suffixes: allMods.filter((m) => m.generationType === "suffix" && matches(m)),
+    prefixes: scoped.filter((m) => m.generationType === "prefix"),
+    suffixes: scoped.filter((m) => m.generationType === "suffix"),
+    corrupted: scoped.filter((m) => m.generationType === "corrupted"),
   };
 }
 
 export function getModsForItemAtLevel(
   item: BaseItem,
-  ilvl: number
+  ilvl: number,
+  source: ModSource = "normal",
 ): { prefixes: ItemMod[]; suffixes: ItemMod[] } {
   const matches = modsMatchItem(item);
   return {
     prefixes: allMods.filter(
-      (m) => m.generationType === "prefix" && m.requiredLevel <= ilvl && matches(m)
+      (m) => m.source === source && m.generationType === "prefix" && m.requiredLevel <= ilvl && matches(m)
     ),
     suffixes: allMods.filter(
-      (m) => m.generationType === "suffix" && m.requiredLevel <= ilvl && matches(m)
+      (m) => m.source === source && m.generationType === "suffix" && m.requiredLevel <= ilvl && matches(m)
     ),
   };
 }
@@ -73,7 +79,7 @@ export function groupModsByType(mods: ItemMod[]): ModGroup[] {
   return groups.sort((a, b) => a.type.localeCompare(b.type));
 }
 
-export function searchMods(query: string, generationType?: "prefix" | "suffix"): ItemMod[] {
+export function searchMods(query: string, generationType?: "prefix" | "suffix" | "corrupted"): ItemMod[] {
   const q = query.toLowerCase();
   return allMods.filter((m) => {
     if (generationType && m.generationType !== generationType) return false;

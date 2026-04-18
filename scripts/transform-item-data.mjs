@@ -209,9 +209,25 @@ function transformMods(raw) {
   const results = [];
 
   for (const [key, mod] of Object.entries(raw)) {
-    if (mod.domain !== "item") continue;
-    if (mod.generation_type !== "prefix" && mod.generation_type !== "suffix") continue;
     if (!mod.text) continue;
+
+    // Classify mod source
+    let source = null;
+    let genType = mod.generation_type;
+
+    if (mod.domain === "item") {
+      if (genType === "prefix" || genType === "suffix") {
+        source = "normal";
+      } else if (genType === "corrupted") {
+        source = "corrupted";
+      }
+    } else if (mod.domain === "desecrated") {
+      if (genType === "prefix" || genType === "suffix") {
+        source = "desecrated";
+      }
+    }
+
+    if (!source) continue;
 
     const spawnWeights = (mod.spawn_weights || [])
       .map((w) => ({ tag: w.tag, weight: w.weight }));
@@ -226,7 +242,8 @@ function transformMods(raw) {
       name: mod.name || "",
       text: mod.text,
       type: mod.type || "",
-      generationType: mod.generation_type,
+      generationType: genType,
+      source,
       group: groups[0] || mod.type || "",
       requiredLevel: mod.required_level ?? 0,
       stats: (mod.stats || []).map((s) => ({
