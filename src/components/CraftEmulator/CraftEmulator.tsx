@@ -537,6 +537,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                   } else {
                     setSelectedCurrency(c.key);
                     setSelectedEssence(null);
+                    setEssencesOpen(false);
                     if (!c.hasTierVariants) setTierType("normal");
                   }
                 }}
