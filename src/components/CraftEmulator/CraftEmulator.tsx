@@ -463,7 +463,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     setNextEventId((n) => n + 1);
     // Auto-unarm if the armed currency can't apply to the resulting state.
     if (!activeDef.canApply(next)) setSelectedCurrency(null);
-  }, [activeDef, item, base, nextEventId, tierType, spend]);
+  }, [activeDef, activeEssence, handleApplyEssence, item, base, nextEventId, tierType, spend]);
 
   const handleRestart = useCallback(() => {
     setItem(emptyItem(base, item.itemLevel));
@@ -786,21 +786,9 @@ export function CraftEmulator({ base, onClose }: Props) {
               }
               return undefined;
             })()}
-            title={
-              !activeDef && !activeEssence
-                ? undefined
-                : canArmedApply
-                  ? `Click to apply ${
-                      activeEssence
-                        ? `${ESSENCE_TIER_LABEL[tierType]} Essence of ${activeEssence.name}`
-                        : `${activeDef!.hasTierVariants && tierType !== "normal" ? TIER_PREFIX[tierType] : ""}${activeDef!.label}`
-                    }`
-                  : `${
-                      activeEssence
-                        ? `${ESSENCE_TIER_LABEL[tierType]} Essence of ${activeEssence.name}`
-                        : activeDef!.label
-                    } can't be applied in the item's current state`
-            }
+            // Title intentionally omitted: once armed the cursor already
+            // signals the action, and a native tooltip here flickers over
+            // the craft zone.
           >
             <div className={styles.itemCard}>
               {base.iconPath ? (
