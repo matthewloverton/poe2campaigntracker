@@ -146,11 +146,26 @@ export function groupModsByType(mods: ItemMod[]): ModGroup[] {
 
 /**
  * Label a mod's tier within its type (T1 = highest tier by required level).
- * Matches how ItemDetail's planner labels tiers.
+ * When an item is provided, only mods that can actually roll on that item
+ * (same source, same gen-type, passes the item's spawn-weight filter) count
+ * toward the tier count — this keeps shared types like LocalColdDamage, which
+ * covers both one-hand and two-hand variants, from inflating the tier count.
  */
-export function modTierLabel(mod: ItemMod): string {
+export function modTierLabel(mod: ItemMod, item?: BaseItem): string {
+  const itemTags = item ? new Set(item.tags) : null;
+  const baseKey = item ? sheetBaseKey(item) : null;
+  const eligible = (m: ItemMod) => {
+    if (m.type !== mod.type) return false;
+    if (m.source !== mod.source) return false;
+    if (m.generationType !== mod.generationType) return false;
+    if (!item) return true;
+    if (baseKey && m.baseWeights && m.baseWeights[baseKey] != null) {
+      return m.baseWeights[baseKey] > 0;
+    }
+    return resolveSpawnWeight(m, itemTags!) > 0;
+  };
   const sametype = allMods
-    .filter((m) => m.type === mod.type)
+    .filter(eligible)
     .sort((a, b) => a.requiredLevel - b.requiredLevel);
   const idx = sametype.findIndex((m) => m.id === mod.id);
   if (idx < 0) return "";

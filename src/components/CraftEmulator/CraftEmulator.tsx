@@ -149,17 +149,17 @@ interface HistoryEvent {
   removed: HistoryLineMod[];
 }
 
-function modToLine(mod: ItemMod, em: EmulatedMod, kind: SlotKind): HistoryLineMod {
+function modToLineWithBase(base: BaseItem, mod: ItemMod, em: EmulatedMod, kind: SlotKind): HistoryLineMod {
   return {
     kind,
     name: mod.name || "",
     text: formatRolledWithRange(mod, em.roll),
-    tier: modTierLabel(mod),
+    tier: modTierLabel(mod, base),
   };
 }
 
 /** Diff two item states into +/- lines. */
-function diffItems(prev: EmulatedItem, next: EmulatedItem): { added: HistoryLineMod[]; removed: HistoryLineMod[] } {
+function diffItems(base: BaseItem, prev: EmulatedItem, next: EmulatedItem): { added: HistoryLineMod[]; removed: HistoryLineMod[] } {
   const keyOf = (em: EmulatedMod, kind: SlotKind) => `${kind}:${em.modId}:${em.roll}`;
   const prevMap = new Map<string, { mod: ItemMod; em: EmulatedMod; kind: SlotKind }>();
   const push = (em: EmulatedMod, kind: SlotKind) => {
@@ -184,10 +184,10 @@ function diffItems(prev: EmulatedItem, next: EmulatedItem): { added: HistoryLine
   const added: HistoryLineMod[] = [];
   const removed: HistoryLineMod[] = [];
   for (const [k, v] of nextMap.entries()) {
-    if (!prevMap.has(k)) added.push(modToLine(v.mod, v.em, v.kind));
+    if (!prevMap.has(k)) added.push(modToLineWithBase(base, v.mod, v.em, v.kind));
   }
   for (const [k, v] of prevMap.entries()) {
-    if (!nextMap.has(k)) removed.push(modToLine(v.mod, v.em, v.kind));
+    if (!nextMap.has(k)) removed.push(modToLineWithBase(base, v.mod, v.em, v.kind));
   }
   return { added, removed };
 }
@@ -213,7 +213,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     if (!activeDef.canApply(item)) return;
     const next = activeDef.apply(item, base);
     if (next === item) return;
-    const diff = diffItems(item, next);
+    const diff = diffItems(base, item, next);
     setItem(next);
     setSpend((s) => ({ ...s, [activeDef.key]: s[activeDef.key] + 1 }));
     setHistory((h) => [{ id: nextEventId, currencyKey: activeDef.key, ...diff }, ...h].slice(0, 80));
@@ -232,7 +232,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     const prev = item;
     const next = scour(item);
     if (next === prev) return;
-    const diff = diffItems(prev, next);
+    const diff = diffItems(base, prev, next);
     const ev: HistoryEvent = {
       id: nextEventId,
       currencyKey: "annul",
