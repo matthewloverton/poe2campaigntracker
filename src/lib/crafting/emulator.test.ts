@@ -113,7 +113,7 @@ describe("craft emulator", () => {
     const rng = seededRng(8);
     let item = emptyItem(base, 82);
     item = alchemy(item, base, rng);
-    item = vaal(item, base, rng);
+    item = vaal(item, base, rng).item;
     expect(item.corrupted).toBe(true);
     // Exalt should be a no-op on corrupted
     const beforeCount = item.prefixes.length + item.suffixes.length;

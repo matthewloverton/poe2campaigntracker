@@ -6,6 +6,7 @@ import {
   type EmulatedMod,
   type GenType,
   type TierType,
+  type VaalOutcome,
   emptyItem,
   transmute,
   augment,
@@ -147,7 +148,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "vaal",
     icon: "/assets/currency/vaal.webp",
     hasTierVariants: false,
-    apply: (i, b) => vaal(i, b),
+    apply: (i, b) => vaal(i, b).item,
     canApply: (i) => !i.corrupted,
   },
 ];
@@ -181,12 +182,22 @@ interface HistoryEvent {
   id: number;
   currencyKey: CurrencyKey;
   tierType?: TierType;
+  /** Optional outcome label, e.g. Vaal's "Reforged (prefix lock)" / "No change". */
+  message?: string;
   added: HistoryLineMod[];
   removed: HistoryLineMod[];
   /** Snapshots of state AFTER this action so clicking can restore it. */
   itemAfter: EmulatedItem;
   spendAfter: Record<CurrencyKey, number>;
 }
+
+const VAAL_OUTCOME_LABEL: Record<VaalOutcome, string> = {
+  implicit: "Added corrupted implicit",
+  socket: "Added a rune socket",
+  no_change: "No change (corrupted)",
+  reforge_prefix_lock: "Reforged — prefix lock",
+  reforge_suffix_lock: "Reforged — suffix lock",
+};
 
 function modToLineWithBase(base: BaseItem, mod: ItemMod, em: EmulatedMod, kind: SlotKind): HistoryLineMod {
   const stats = computeRollStats(mod, em.roll);
@@ -257,7 +268,16 @@ export function CraftEmulator({ base, onClose }: Props) {
     if (!activeDef.canApply(item)) return;
     const appliedTier: TierType = activeDef.hasTierVariants ? tierType : "normal";
     const minLvl = minLevelFor(activeDef, appliedTier);
-    const next = activeDef.apply(item, base, minLvl);
+    // Vaal is special-cased so we can surface its random outcome in history.
+    let vaalOutcome: VaalOutcome | undefined;
+    let next: EmulatedItem;
+    if (activeDef.key === "vaal") {
+      const result = vaal(item, base, Math.random);
+      next = result.item;
+      vaalOutcome = result.outcome;
+    } else {
+      next = activeDef.apply(item, base, minLvl);
+    }
     if (next === item) return;
     const diff = diffItems(base, item, next);
 
@@ -342,6 +362,7 @@ export function CraftEmulator({ base, onClose }: Props) {
       id: nextEventId,
       currencyKey: activeDef.key,
       tierType: appliedTier,
+      message: vaalOutcome ? VAAL_OUTCOME_LABEL[vaalOutcome] : undefined,
       added: finalAdded,
       removed: finalRemoved,
       itemAfter: next,
@@ -528,7 +549,9 @@ export function CraftEmulator({ base, onClose }: Props) {
                     className={styles.ilvlInput}
                   />
                   <span className={styles.affixCounter}>
-                    P{item.prefixes.length} · S{item.suffixes.length}{item.corruptedImplicit ? " · C1" : ""}
+                    P{item.prefixes.length} · S{item.suffixes.length}
+                    {item.corruptedImplicit ? " · C1" : ""}
+                    {item.extraRuneSockets > 0 ? ` · +${item.extraRuneSockets}⬛` : ""}
                   </span>
                 </div>
               </div>
@@ -600,6 +623,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                         {ev.tierType && ev.tierType !== "normal" ? TIER_PREFIX[ev.tierType] : ""}
                         {def?.label ?? ev.currencyKey}
                       </span>
+                      {ev.message && <span className={styles.historyEventMessage}>— {ev.message}</span>}
                     </div>
                     {ev.currencyKey !== "divine" && ev.removed.map((line, i) => (
                       <HistoryLine key={`r${i}`} line={line} kind="removed" showRollQuality={false} />

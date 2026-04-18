@@ -56,7 +56,12 @@ export interface EmulatedItem {
   corruptedImplicit: EmulatedMod | null;
   corrupted: boolean;
   itemLevel: number;
+  /** Extra rune sockets added by Vaal (the base already has its own sockets). */
+  extraRuneSockets: number;
 }
+
+/** Vaal Orb outcomes. Each rolls at 25%. */
+export type VaalOutcome = "implicit" | "socket" | "no_change" | "reforge_prefix_lock" | "reforge_suffix_lock";
 
 export type GenType = "prefix" | "suffix";
 
@@ -75,7 +80,13 @@ export function emptyItem(base: BaseItem, itemLevel: number): EmulatedItem {
     corruptedImplicit: null,
     corrupted: false,
     itemLevel,
+    extraRuneSockets: 0,
   };
+}
+
+/** Whether the item class can gain a rune socket from a Vaal Orb outcome. */
+export function canGainSocket(base: BaseItem): boolean {
+  return base.tags.includes("weapon") || base.tags.includes("armour");
 }
 
 function collectExistingGroups(item: EmulatedItem): Set<string> {
@@ -253,12 +264,82 @@ export function divine(item: EmulatedItem, rng: () => number = Math.random): Emu
   };
 }
 
-/** Vaal: corrupt the item. MVP behaviour: add a corrupted implicit, mark corrupted. */
-export function vaal(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
-  if (item.corrupted) return item;
-  const mod = pickRollableMod(base, item.itemLevel, "corrupted", new Set(), rng);
-  const implicit: EmulatedMod | null = mod ? { modId: mod.id, roll: randomRoll(rng) } : null;
-  return { ...item, corrupted: true, corruptedImplicit: implicit };
+/** Pick a Vaal outcome — 4 × 25% buckets, with reforge split 50/50 prefix-lock vs suffix-lock. */
+export function rollVaalOutcome(rng: () => number = Math.random): VaalOutcome {
+  const r = rng();
+  if (r < 0.25) return "implicit";
+  if (r < 0.5) return "socket";
+  if (r < 0.75) return "no_change";
+  return rng() < 0.5 ? "reforge_prefix_lock" : "reforge_suffix_lock";
+}
+
+/** Vaal: corrupt the item. Outcome is one of 5 buckets (4 × 25% per wiki). */
+export function vaal(
+  item: EmulatedItem,
+  base: BaseItem,
+  rng: () => number = Math.random,
+  forceOutcome?: VaalOutcome,
+): { item: EmulatedItem; outcome: VaalOutcome } {
+  if (item.corrupted) return { item, outcome: "no_change" };
+  let outcome = forceOutcome ?? rollVaalOutcome(rng);
+
+  // Socket outcome can't apply to items that don't have rune sockets
+  // (jewellery, quivers, etc.) — degrades to "no_change".
+  if (outcome === "socket" && !canGainSocket(base)) outcome = "no_change";
+
+  switch (outcome) {
+    case "implicit": {
+      const mod = pickRollableMod(base, item.itemLevel, "corrupted", new Set(), rng);
+      const implicit: EmulatedMod | null = mod ? { modId: mod.id, roll: randomRoll(rng) } : null;
+      return { item: { ...item, corrupted: true, corruptedImplicit: implicit }, outcome };
+    }
+    case "socket":
+      return { item: { ...item, corrupted: true, extraRuneSockets: item.extraRuneSockets + 1 }, outcome };
+    case "no_change":
+      return { item: { ...item, corrupted: true }, outcome };
+    case "reforge_prefix_lock": {
+      // Keep prefixes; remove all suffixes; add back the same count as suffixes.
+      const keptPrefixCount = item.prefixes.length;
+      const removedSuffixCount = item.suffixes.length;
+      let next: EmulatedItem = { ...item, corrupted: true, suffixes: [] };
+      for (let i = 0; i < keptPrefixCount + removedSuffixCount - item.prefixes.length; i++) {
+        const before = next;
+        next = addModForce(next, base, "prefix", rng);
+        if (next === before) break;
+      }
+      return { item: next, outcome };
+    }
+    case "reforge_suffix_lock": {
+      const keptSuffixCount = item.suffixes.length;
+      const removedPrefixCount = item.prefixes.length;
+      let next: EmulatedItem = { ...item, corrupted: true, prefixes: [] };
+      for (let i = 0; i < keptSuffixCount + removedPrefixCount - item.suffixes.length; i++) {
+        const before = next;
+        next = addModForce(next, base, "suffix", rng);
+        if (next === before) break;
+      }
+      return { item: next, outcome };
+    }
+  }
+}
+
+/**
+ * Add a mod of the given gen type ignoring the normal rarity/slot cap —
+ * used by Vaal's reforge outcomes which can exceed the 3+3 limit.
+ */
+function addModForce(
+  item: EmulatedItem,
+  base: BaseItem,
+  gen: GenType,
+  rng: () => number,
+): EmulatedItem {
+  const existingGroups = collectExistingGroups(item);
+  const mod = pickRollableMod(base, item.itemLevel, gen, existingGroups, rng);
+  if (!mod) return item;
+  const em: EmulatedMod = { modId: mod.id, roll: randomRoll(rng) };
+  return gen === "prefix"
+    ? { ...item, prefixes: [...item.prefixes, em] }
+    : { ...item, suffixes: [...item.suffixes, em] };
 }
 
 /**

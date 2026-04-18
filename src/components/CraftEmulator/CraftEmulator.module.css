@@ -424,6 +424,7 @@
 .modSuffix .modBadge { background: rgba(201, 168, 76, 0.15); color: var(--accent-gold); }
 .modCorrupted .modBadge { background: rgba(204, 58, 58, 0.18); color: #ff6464; }
 .modCorrupted .modText { color: #ff8080; }
+.modCorrupted .rollRange { color: #b84040; opacity: 0.95; }
 
 .itemActions {
   display: flex;
@@ -518,6 +519,13 @@
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.historyEventMessage {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-left: auto;
 }
 
 .historyLine {
