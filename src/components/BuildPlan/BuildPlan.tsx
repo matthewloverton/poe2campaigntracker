@@ -173,16 +173,6 @@ export function BuildPlan() {
 
   return (
     <div className={styles.container}>
-      <div style={{ display: "flex", justifyContent: "flex-end", padding: "4px 8px" }}>
-        <button
-          className={styles.createBtn}
-          style={{ fontSize: "0.7rem", padding: "4px 10px" }}
-          onClick={() => setPobImportOpen(true)}
-        >
-          Import from PoB
-        </button>
-      </div>
-
       <PhaseBar
         phases={buildPhases}
         activePhaseId={activePhaseId}
@@ -192,6 +182,7 @@ export function BuildPlan() {
         onRenamePhase={(id, name) => updatePhase(id, { name })}
         onReorderPhases={(ids) => reorderPhases(ids)}
         onUpdateTrigger={updatePhaseTrigger}
+        onImportPoB={() => setPobImportOpen(true)}
       />
 
       {activePhase && (

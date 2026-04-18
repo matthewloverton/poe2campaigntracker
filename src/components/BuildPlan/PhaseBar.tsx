@@ -21,6 +21,7 @@ interface PhaseBarProps {
   onRenamePhase: (id: string, name: string) => void;
   onReorderPhases: (ids: string[]) => void;
   onUpdateTrigger: (id: string, trigger: PhaseTrigger) => void;
+  onImportPoB?: () => void;
 }
 
 function SortablePhaseTab({
@@ -80,6 +81,7 @@ export function PhaseBar({
   onRenamePhase,
   onReorderPhases,
   onUpdateTrigger,
+  onImportPoB,
 }: PhaseBarProps) {
   const [showAdd, setShowAdd] = useState(false);
   const [name, setName] = useState("");
@@ -332,6 +334,15 @@ export function PhaseBar({
           title="Add phase"
         >
           +
+        </button>
+      )}
+      {onImportPoB && (
+        <button
+          className={styles.importBtn}
+          onClick={onImportPoB}
+          title="Import from Path of Building"
+        >
+          Import PoB
         </button>
       )}
     </div>

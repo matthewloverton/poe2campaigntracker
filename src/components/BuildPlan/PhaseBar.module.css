@@ -106,6 +106,27 @@
   color: var(--accent-gold);
 }
 
+.importBtn {
+  flex-shrink: 0;
+  align-self: center;
+  margin-right: 8px;
+  padding: 4px 10px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.importBtn:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background: rgba(201, 168, 76, 0.15);
+}
+
 /* ── Inline add form ─────────────────────────────────────── */
 .addForm {
   display: flex;
