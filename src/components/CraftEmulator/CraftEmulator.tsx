@@ -550,7 +550,20 @@ export function CraftEmulator({ base, onClose }: Props) {
           })}
           <button
             className={`${styles.stripBtn} ${styles.essenceToggleBtn} ${essencesOpen ? styles.stripBtnActive : ""}`}
-            onClick={() => setEssencesOpen((v) => !v)}
+            onClick={() => {
+              if (essencesOpen) {
+                setEssencesOpen(false);
+                setSelectedEssence(null);
+              } else {
+                setEssencesOpen(true);
+                setSelectedCurrency(null);
+                // Auto-arm the first regular essence and default to Normal tier.
+                if (!selectedEssence) {
+                  setSelectedEssence(REGULAR_ESSENCE_SLUGS[0]);
+                  if (tierType === "perfect") setTierType("normal");
+                }
+              }
+            }}
             title="Essences"
           >
             <img className={styles.stripIcon} src="/assets/essences/essence_infinite.png" alt="" />
