@@ -57,7 +57,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "transmute",
     icon: "/assets/currency/transmute.webp",
     hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
+    minLevels: { greater: 55, perfect: 70 }, // per poe2wiki
     apply: (i, b, m) => transmute(i, b, Math.random, m),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
@@ -68,7 +68,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "augment",
     icon: "/assets/currency/augment.webp",
     hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
+    minLevels: { greater: 55, perfect: 70 }, // per poe2wiki
     apply: (i, b, m) => augment(i, b, Math.random, m),
     canApply: (i) =>
       i.rarity === "magic" && !i.corrupted && (i.prefixes.length < 1 || i.suffixes.length < 1),
@@ -80,7 +80,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "regal",
     icon: "/assets/currency/regal.webp",
     hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
+    minLevels: { greater: 35, perfect: 50 }, // per poe2wiki
     apply: (i, b, m) => regal(i, b, Math.random, m),
     canApply: (i) => i.rarity === "magic" && !i.corrupted,
   },
@@ -90,9 +90,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Normal → Rare (4 mods)",
     className: "alchemy",
     icon: "/assets/currency/alchemy.webp",
-    hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
-    apply: (i, b, m) => alchemy(i, b, Math.random, m),
+    hasTierVariants: false, // no Greater/Perfect variant exists
+    apply: (i, b) => alchemy(i, b),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
   {
@@ -102,7 +101,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "exalt",
     icon: "/assets/currency/exalt.webp",
     hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
+    minLevels: { greater: 35, perfect: 50 }, // per poe2wiki
     apply: (i, b, m) => exalt(i, b, Math.random, m),
     canApply: (i) =>
       i.rarity === "rare" && !i.corrupted && (i.prefixes.length < 3 || i.suffixes.length < 3),
@@ -114,7 +113,7 @@ const CURRENCIES: CurrencyDef[] = [
     className: "chaos",
     icon: "/assets/currency/chaos.webp",
     hasTierVariants: true,
-    minLevels: { greater: 55, perfect: 70 },
+    minLevels: { greater: 35, perfect: 50 }, // per poe2wiki
     apply: (i, b, m) => chaos(i, b, Math.random, m),
     canApply: (i) => i.rarity === "rare" && !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
