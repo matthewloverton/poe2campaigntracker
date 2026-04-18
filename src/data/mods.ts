@@ -144,6 +144,33 @@ export function groupModsByType(mods: ItemMod[]): ModGroup[] {
   return groups.sort((a, b) => a.type.localeCompare(b.type));
 }
 
+/**
+ * Label a mod's tier within its type (T1 = highest tier by required level).
+ * Matches how ItemDetail's planner labels tiers.
+ */
+export function modTierLabel(mod: ItemMod): string {
+  const sametype = allMods
+    .filter((m) => m.type === mod.type)
+    .sort((a, b) => a.requiredLevel - b.requiredLevel);
+  const idx = sametype.findIndex((m) => m.id === mod.id);
+  if (idx < 0) return "";
+  return `T${sametype.length - idx}`;
+}
+
+/**
+ * Replace each `(min-max)` range in a mod's text with
+ * `rolled(min-max)` so callers can show the rolled value alongside the
+ * full possible range, e.g. `104(101-110)% increased …`.
+ */
+export function formatRolledWithRange(mod: ItemMod, roll: number): string {
+  return cleanModText(mod.text).replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
+    const min = Number(a);
+    const max = Number(b);
+    const rolled = Math.round(min + (max - min) * roll / 100);
+    return `${rolled}(${min}-${max})`;
+  });
+}
+
 export function searchMods(query: string, generationType?: "prefix" | "suffix" | "corrupted"): ItemMod[] {
   const q = query.toLowerCase();
   return allMods.filter((m) => {

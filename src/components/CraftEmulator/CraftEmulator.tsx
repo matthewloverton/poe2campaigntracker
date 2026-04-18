@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
-import type { BaseItem, ItemMod } from "../../types/itemDatabase";
-import { modById, cleanModText } from "../../data/mods";
+import type { BaseItem } from "../../types/itemDatabase";
+import { modById, modTierLabel, formatRolledWithRange } from "../../data/mods";
 import {
   type EmulatedItem,
   emptyItem,
@@ -38,6 +38,7 @@ interface CurrencyDef {
   label: string;
   shortHint: string;
   className: string;
+  icon: string;
   apply: (item: EmulatedItem, base: BaseItem) => EmulatedItem;
   canApply: (item: EmulatedItem) => boolean;
 }
@@ -48,6 +49,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Orb of Transmutation",
     shortHint: "Normal → Magic (1 mod)",
     className: "transmute",
+    icon: "/assets/currency/transmute.webp",
     apply: (i, b) => transmute(i, b),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
@@ -56,6 +58,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Orb of Augmentation",
     shortHint: "Magic +1 mod",
     className: "augment",
+    icon: "/assets/currency/augment.webp",
     apply: (i, b) => augment(i, b),
     canApply: (i) =>
       i.rarity === "magic" && !i.corrupted && (i.prefixes.length < 1 || i.suffixes.length < 1),
@@ -65,6 +68,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Regal Orb",
     shortHint: "Magic → Rare (+1 mod)",
     className: "regal",
+    icon: "/assets/currency/regal.webp",
     apply: (i, b) => regal(i, b),
     canApply: (i) => i.rarity === "magic" && !i.corrupted,
   },
@@ -73,6 +77,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Orb of Alchemy",
     shortHint: "Normal → Rare (4 mods)",
     className: "alchemy",
+    icon: "/assets/currency/alchemy.webp",
     apply: (i, b) => alchemy(i, b),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
@@ -81,6 +86,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Exalted Orb",
     shortHint: "Rare +1 mod",
     className: "exalt",
+    icon: "/assets/currency/exalt.webp",
     apply: (i, b) => exalt(i, b),
     canApply: (i) =>
       i.rarity === "rare" && !i.corrupted && (i.prefixes.length < 3 || i.suffixes.length < 3),
@@ -90,6 +96,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Chaos Orb",
     shortHint: "Rare: remove 1 + add 1",
     className: "chaos",
+    icon: "/assets/currency/chaos.webp",
     apply: (i, b) => chaos(i, b),
     canApply: (i) => i.rarity === "rare" && !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
@@ -98,6 +105,7 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Orb of Annulment",
     shortHint: "Remove random mod",
     className: "annul",
+    icon: "/assets/currency/annul.webp",
     apply: (i) => annul(i),
     canApply: (i) => !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
@@ -106,26 +114,21 @@ const CURRENCIES: CurrencyDef[] = [
     label: "Divine Orb",
     shortHint: "Reroll values",
     className: "divine",
+    icon: "/assets/currency/divine.webp",
     apply: (i) => divine(i),
-    canApply: (i) => i.prefixes.length + i.suffixes.length + (i.corruptedImplicit ? 1 : 0) > 0,
+    canApply: (i) =>
+      !i.corrupted && i.prefixes.length + i.suffixes.length + (i.corruptedImplicit ? 1 : 0) > 0,
   },
   {
     key: "vaal",
     label: "Vaal Orb",
     shortHint: "Corrupt the item",
     className: "vaal",
+    icon: "/assets/currency/vaal.webp",
     apply: (i, b) => vaal(i, b),
     canApply: (i) => !i.corrupted,
   },
 ];
-
-function formatRolledText(mod: ItemMod, roll: number): string {
-  const text = cleanModText(mod.text);
-  return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
-    const min = Number(a), max = Number(b);
-    return String(Math.round(min + (max - min) * roll / 100));
-  });
-}
 
 export function CraftEmulator({ base, onClose }: Props) {
   const [item, setItem] = useState<EmulatedItem>(() => emptyItem(base, 82));
@@ -221,7 +224,8 @@ export function CraftEmulator({ base, onClose }: Props) {
               {corruptedMod?.mod && (
                 <div className={`${styles.modRow} ${styles.modCorrupted}`}>
                   <span className={styles.modBadge}>IMP</span>
-                  <span className={styles.modText}>{formatRolledText(corruptedMod.mod, corruptedMod.em.roll)}</span>
+                  <span className={styles.modTier}>{modTierLabel(corruptedMod.mod)}</span>
+                  <span className={styles.modText}>{formatRolledWithRange(corruptedMod.mod, corruptedMod.em.roll)}</span>
                 </div>
               )}
               {prefixMods.length === 0 && suffixMods.length === 0 && !corruptedMod && (
@@ -230,15 +234,17 @@ export function CraftEmulator({ base, onClose }: Props) {
               {prefixMods.map((p, i) => p.mod && (
                 <div key={`p${i}`} className={`${styles.modRow} ${styles.modPrefix}`}>
                   <span className={styles.modBadge}>P</span>
+                  <span className={styles.modTier}>{modTierLabel(p.mod)}</span>
                   <span className={styles.modName}>{p.mod.name}</span>
-                  <span className={styles.modText}>{formatRolledText(p.mod, p.em.roll)}</span>
+                  <span className={styles.modText}>{formatRolledWithRange(p.mod, p.em.roll)}</span>
                 </div>
               ))}
               {suffixMods.map((s, i) => s.mod && (
                 <div key={`s${i}`} className={`${styles.modRow} ${styles.modSuffix}`}>
                   <span className={styles.modBadge}>S</span>
+                  <span className={styles.modTier}>{modTierLabel(s.mod)}</span>
                   <span className={styles.modName}>{s.mod.name}</span>
-                  <span className={styles.modText}>{formatRolledText(s.mod, s.em.roll)}</span>
+                  <span className={styles.modText}>{formatRolledWithRange(s.mod, s.em.roll)}</span>
                 </div>
               ))}
             </div>
@@ -256,10 +262,13 @@ export function CraftEmulator({ base, onClose }: Props) {
                     className={`${styles.currencyBtn} ${styles[`cur_${c.className}`]}`}
                     disabled={disabled}
                     onClick={() => handleApply(c)}
-                    title={c.label}
+                    title={`${c.label} — ${c.shortHint}`}
                   >
-                    <span className={styles.curLabel}>{c.label}</span>
-                    <span className={styles.curHint}>{c.shortHint}</span>
+                    <img className={styles.curIcon} src={c.icon} alt="" />
+                    <div className={styles.curTextCol}>
+                      <span className={styles.curLabel}>{c.label}</span>
+                      <span className={styles.curHint}>{c.shortHint}</span>
+                    </div>
                     {spend[c.key] > 0 && <span className={styles.curCount}>×{spend[c.key]}</span>}
                   </button>
                 );

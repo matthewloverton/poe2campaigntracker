@@ -200,8 +200,9 @@ export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Ma
   return addMod(afterRemove, base, gen, rng);
 }
 
-/** Divine: reroll values on every mod (both affix + corrupted implicit). */
+/** Divine: reroll values on every mod. Blocked once the item is corrupted. */
 export function divine(item: EmulatedItem, rng: () => number = Math.random): EmulatedItem {
+  if (item.corrupted) return item;
   const reroll = (m: EmulatedMod): EmulatedMod => ({ ...m, roll: randomRoll(rng) });
   return {
     ...item,
