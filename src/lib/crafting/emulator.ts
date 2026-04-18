@@ -4,12 +4,42 @@ import { allMods, modWeightOnItem, modById } from "../../data/mods";
 export type Rarity = "normal" | "magic" | "rare";
 
 /**
- * Currency tier variant:
- *   normal  — any mod in the item's pool
- *   greater — top half of tiers per mod family (min T-(ceil(n/2)))
- *   perfect — only T1 (the single highest-tier entry per family)
+ * Currency tier variant. Greater/Perfect apply a minimum-modifier-level
+ * filter (see applyMinLevelFilter); the concrete levels are passed per
+ * currency by callers (different currencies may use different floors).
  */
 export type TierType = "normal" | "greater" | "perfect";
+
+/**
+ * Greater/Perfect orbs restrict the pool to mods whose required level is at
+ * least `minLevel`. Exception: if applying the cutoff would remove every
+ * tier of a mod family, keep its highest-tier entry — the game's rule is
+ * "a specific modifier type is never excluded entirely just by the floor".
+ */
+export function applyMinLevelFilter<T extends { mod: ItemMod; weight: number }>(
+  pool: T[],
+  minLevel: number,
+): T[] {
+  if (minLevel <= 0) return pool;
+  const byType = new Map<string, T[]>();
+  for (const p of pool) {
+    const arr = byType.get(p.mod.type) ?? [];
+    arr.push(p);
+    byType.set(p.mod.type, arr);
+  }
+  const kept: T[] = [];
+  for (const arr of byType.values()) {
+    const qualifying = arr.filter((p) => p.mod.requiredLevel >= minLevel);
+    if (qualifying.length > 0) {
+      kept.push(...qualifying);
+    } else {
+      // All tiers below threshold → retain the single highest-tier entry.
+      arr.sort((a, b) => b.mod.requiredLevel - a.mod.requiredLevel);
+      kept.push(arr[0]);
+    }
+  }
+  return kept;
+}
 
 export interface EmulatedMod {
   modId: string;
@@ -72,33 +102,9 @@ function weightedPick(
 }
 
 /**
- * For Greater/Perfect currency variants, restrict the pool to the higher
- * tiers per mod family (same type + gen + source). Perfect keeps only the
- * single top-tier entry; Greater keeps the top ceil(n/2).
- */
-function applyTierVariant(
-  pool: Array<{ mod: ItemMod; weight: number }>,
-  tierType: TierType,
-): Array<{ mod: ItemMod; weight: number }> {
-  if (tierType === "normal") return pool;
-  const byType = new Map<string, Array<{ mod: ItemMod; weight: number }>>();
-  for (const p of pool) {
-    const arr = byType.get(p.mod.type) ?? [];
-    arr.push(p);
-    byType.set(p.mod.type, arr);
-  }
-  const kept: Array<{ mod: ItemMod; weight: number }> = [];
-  for (const arr of byType.values()) {
-    arr.sort((a, b) => b.mod.requiredLevel - a.mod.requiredLevel);
-    const keep = tierType === "perfect" ? 1 : Math.max(1, Math.ceil(arr.length / 2));
-    for (let i = 0; i < Math.min(keep, arr.length); i++) kept.push(arr[i]);
-  }
-  return kept;
-}
-
-/**
  * Pick one weighted-random mod that can roll on this item at its item level,
- * respecting mutual-exclusion groups already present.
+ * respecting mutual-exclusion groups already present. `minModLevel` is the
+ * Greater/Perfect minimum-modifier-level floor (0 = no floor).
  */
 export function pickRollableMod(
   base: BaseItem,
@@ -106,7 +112,7 @@ export function pickRollableMod(
   generationType: GenType | "corrupted",
   existingGroups: Set<string>,
   rng: () => number = Math.random,
-  tierType: TierType = "normal",
+  minModLevel: number = 0,
 ): ItemMod | null {
   const pool: Array<{ mod: ItemMod; weight: number }> = [];
   const source = generationType === "corrupted" ? "corrupted" : "normal";
@@ -119,17 +125,12 @@ export function pickRollableMod(
     if (w <= 0) continue;
     pool.push({ mod, weight: w });
   }
-  const scoped = applyTierVariant(pool, tierType);
+  const scoped = applyMinLevelFilter(pool, minModLevel);
   const total = scoped.reduce((acc, p) => acc + p.weight, 0);
   return weightedPick(scoped, total, rng);
 }
 
-/**
- * Random roll percentile. Perfect currency biases to the top of the range
- * (last 20% of the percentile band) so rolled values land near the max.
- */
-function randomRoll(rng: () => number, tierType: TierType = "normal"): number {
-  if (tierType === "perfect") return 80 + Math.floor(rng() * 21); // 80–100
+function randomRoll(rng: () => number): number {
   return Math.floor(rng() * 101);
 }
 
@@ -138,14 +139,14 @@ function addMod(
   base: BaseItem,
   gen: GenType,
   rng: () => number,
-  tierType: TierType = "normal",
+  minModLevel: number = 0,
 ): EmulatedItem {
   const caps = capsFor(item.rarity);
   const list = gen === "prefix" ? item.prefixes : item.suffixes;
   if (list.length >= caps[gen]) return item;
-  const mod = pickRollableMod(base, item.itemLevel, gen, collectExistingGroups(item), rng, tierType);
+  const mod = pickRollableMod(base, item.itemLevel, gen, collectExistingGroups(item), rng, minModLevel);
   if (!mod) return item;
-  const em: EmulatedMod = { modId: mod.id, roll: randomRoll(rng, tierType) };
+  const em: EmulatedMod = { modId: mod.id, roll: randomRoll(rng) };
   return gen === "prefix"
     ? { ...item, prefixes: [...item.prefixes, em] }
     : { ...item, suffixes: [...item.suffixes, em] };
@@ -162,32 +163,32 @@ function pickOpenGen(item: EmulatedItem, rng: () => number): GenType | null {
 }
 
 /** Normal → Magic with 1 random mod (prefix or suffix, 50/50). */
-export function transmute(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function transmute(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "normal" || item.corrupted) return item;
   const withRarity: EmulatedItem = { ...item, rarity: "magic" };
   const gen: GenType = rng() < 0.5 ? "prefix" : "suffix";
-  return addMod(withRarity, base, gen, rng, tierType);
+  return addMod(withRarity, base, gen, rng, minModLevel);
 }
 
 /** Magic with 1 mod → Magic with 2 mods (add opposite-type mod). */
-export function augment(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function augment(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "magic" || item.corrupted) return item;
   const gen = pickOpenGen(item, rng);
   if (!gen) return item;
-  return addMod(item, base, gen, rng, tierType);
+  return addMod(item, base, gen, rng, minModLevel);
 }
 
 /** Magic → Rare, keeping existing mods and adding 1 more. */
-export function regal(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function regal(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "magic" || item.corrupted) return item;
   const asRare: EmulatedItem = { ...item, rarity: "rare" };
   const gen = pickOpenGen(asRare, rng);
   if (!gen) return asRare;
-  return addMod(asRare, base, gen, rng, tierType);
+  return addMod(asRare, base, gen, rng, minModLevel);
 }
 
 /** Normal → Rare with 4 mods. */
-export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "normal" || item.corrupted) return item;
   let next: EmulatedItem = {
     ...item,
@@ -195,17 +196,14 @@ export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = 
     prefixes: [],
     suffixes: [],
   };
-  // 4 mods on alchemy. Pick each slot independently among whichever type
-  // still has capacity, weighted 50/50 when both are open.
   for (let i = 0; i < 4; i++) {
     const gen = pickOpenGen(next, rng);
     if (!gen) break;
     const before = next;
-    next = addMod(next, base, gen, rng, tierType);
-    // If the pool for this gen was exhausted, force the other side.
+    next = addMod(next, base, gen, rng, minModLevel);
     if (next === before) {
       const other: GenType = gen === "prefix" ? "suffix" : "prefix";
-      next = addMod(next, base, other, rng, tierType);
+      next = addMod(next, base, other, rng, minModLevel);
       if (next === before) break;
     }
   }
@@ -213,11 +211,11 @@ export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = 
 }
 
 /** Exalt: add a random mod to a rare (filling any open prefix/suffix slot). */
-export function exalt(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function exalt(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "rare" || item.corrupted) return item;
   const gen = pickOpenGen(item, rng);
   if (!gen) return item;
-  return addMod(item, base, gen, rng, tierType);
+  return addMod(item, base, gen, rng, minModLevel);
 }
 
 /** Annul: remove a random mod. */
@@ -234,15 +232,13 @@ export function annul(item: EmulatedItem, rng: () => number = Math.random): Emul
 }
 
 /** Chaos: remove one random mod and add one new random mod (PoE2 behaviour). */
-export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
+export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, minModLevel: number = 0): EmulatedItem {
   if (item.rarity !== "rare" || item.corrupted) return item;
-  // Remove one
   const afterRemove = annul(item, rng);
-  if (afterRemove === item) return item; // no mods to remove
-  // Add one — prefer the gen that just freed up; but any open gen works.
+  if (afterRemove === item) return item;
   const gen = pickOpenGen(afterRemove, rng);
   if (!gen) return afterRemove;
-  return addMod(afterRemove, base, gen, rng, tierType);
+  return addMod(afterRemove, base, gen, rng, minModLevel);
 }
 
 /** Divine: reroll values on every mod. Blocked once the item is corrupted. */

@@ -43,7 +43,9 @@ interface CurrencyDef {
   icon: string;
   /** Whether Greater/Perfect variants have meaning for this currency. */
   hasTierVariants: boolean;
-  apply: (item: EmulatedItem, base: BaseItem, tierType: TierType) => EmulatedItem;
+  /** Per-tier minimum-modifier-level floor for Greater/Perfect variants. */
+  minLevels?: { greater: number; perfect: number };
+  apply: (item: EmulatedItem, base: BaseItem, minModLevel: number) => EmulatedItem;
   canApply: (item: EmulatedItem) => boolean;
 }
 
@@ -55,7 +57,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "transmute",
     icon: "/assets/currency/transmute.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => transmute(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => transmute(i, b, Math.random, m),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
   {
@@ -65,7 +68,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "augment",
     icon: "/assets/currency/augment.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => augment(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => augment(i, b, Math.random, m),
     canApply: (i) =>
       i.rarity === "magic" && !i.corrupted && (i.prefixes.length < 1 || i.suffixes.length < 1),
   },
@@ -76,7 +80,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "regal",
     icon: "/assets/currency/regal.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => regal(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => regal(i, b, Math.random, m),
     canApply: (i) => i.rarity === "magic" && !i.corrupted,
   },
   {
@@ -86,7 +91,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "alchemy",
     icon: "/assets/currency/alchemy.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => alchemy(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => alchemy(i, b, Math.random, m),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
   {
@@ -96,7 +102,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "exalt",
     icon: "/assets/currency/exalt.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => exalt(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => exalt(i, b, Math.random, m),
     canApply: (i) =>
       i.rarity === "rare" && !i.corrupted && (i.prefixes.length < 3 || i.suffixes.length < 3),
   },
@@ -107,7 +114,8 @@ const CURRENCIES: CurrencyDef[] = [
     className: "chaos",
     icon: "/assets/currency/chaos.webp",
     hasTierVariants: true,
-    apply: (i, b, t) => chaos(i, b, Math.random, t),
+    minLevels: { greater: 55, perfect: 70 },
+    apply: (i, b, m) => chaos(i, b, Math.random, m),
     canApply: (i) => i.rarity === "rare" && !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
   {
@@ -142,6 +150,11 @@ const CURRENCIES: CurrencyDef[] = [
     canApply: (i) => !i.corrupted,
   },
 ];
+
+function minLevelFor(def: CurrencyDef, tier: TierType): number {
+  if (!def.hasTierVariants || tier === "normal" || !def.minLevels) return 0;
+  return tier === "greater" ? def.minLevels.greater : def.minLevels.perfect;
+}
 
 const TIER_PREFIX: Record<TierType, string> = { normal: "", greater: "Greater ", perfect: "Perfect " };
 
@@ -225,7 +238,8 @@ export function CraftEmulator({ base, onClose }: Props) {
     if (!activeDef) return;
     if (!activeDef.canApply(item)) return;
     const appliedTier: TierType = activeDef.hasTierVariants ? tierType : "normal";
-    const next = activeDef.apply(item, base, appliedTier);
+    const minLvl = minLevelFor(activeDef, appliedTier);
+    const next = activeDef.apply(item, base, minLvl);
     if (next === item) return;
     const diff = diffItems(base, item, next);
     setItem(next);
