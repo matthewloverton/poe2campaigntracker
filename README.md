@@ -48,9 +48,18 @@ npm test
 
 On first launch, open **Settings → Client.txt Path** and paste the full path to your PoE2 `Client.txt` log file (used to detect zone changes and auto-advance the guide).
 
-## Data sources
+## Acknowledgements
 
-Base items, mods, uniques, and skill gems are derived from [RePoE](https://github.com/lvlvllvlvllvlvl/RePoE) and [poe2db](https://poe2db.tw). The default campaign guide is based on Mobalytics campaign route.
+This project stands on the shoulders of the wider PoE community. Huge thanks to:
+
+- **[RePoE](https://github.com/lvlvllvlvllvlvl/RePoE)** — PoE2 fork that provides the base-item, mod, unique, and skill-gem JSON this app ingests.
+- **[poe2db](https://poe2db.tw)** — authoritative game data reference used to cross-check mod weights, essences, and item stats.
+- **[Path of Building Community](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2)** — the PoB2 fork whose build-code format (Base64 + zlib) this app imports and exports.
+- **[PoE2 Wiki](https://www.poe2wiki.net)** — essence tables and currency mechanics.
+- **[poe2.mobalytics.gg](https://poe2.mobalytics.gg)** — the default campaign guide is based on their campaign route and zone layouts.
+- **[Craft of Exile](https://www.craftofexile.com)** — essence toggle icon.
+
+None of these projects are affiliated with this tracker; all game assets and data remain property of Grinding Gear Games.
 
 ## Cutting a release
 
@@ -65,4 +74,4 @@ Then open the Releases page, fill in notes on the draft, and publish. Or trigger
 
 ## License
 
-Personal project — no license specified. Reach out before re-using substantial portions.
+[MIT](./LICENSE) — same as Path of Building Community.
