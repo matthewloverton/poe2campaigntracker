@@ -378,7 +378,9 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
                   onClick={() => canSelect && !atCap && selectTier(mod)}
                   disabled={!canSelect || (atCap && !isSelected)}
                 >
-                  <span className={styles.tierNum}>T{group.tiers.length - i}</span>
+                  <span className={styles.tierNum}>
+                    {mod.source === "essence" ? "ESS" : `T${group.tiers.length - i}`}
+                  </span>
                   <span className={styles.tierName}>{mod.name}</span>
                   <span className={styles.tierText}>{cleanModText(mod.text)}</span>
                   <span className={styles.tierLevel}>

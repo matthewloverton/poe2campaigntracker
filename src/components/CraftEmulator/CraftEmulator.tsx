@@ -5,6 +5,7 @@ import { resolveMod, modTierLabel, formatRolledWithRange, cleanModText, computeR
 import {
   allEssences,
   resolveEssenceEntryForItem,
+  resolveEssenceModForItem,
   REGULAR_ESSENCE_SLUGS,
   CORRUPTED_ESSENCE_SLUGS,
   type EssenceTier,
@@ -304,6 +305,15 @@ export function CraftEmulator({ base, onClose }: Props) {
 
   const activeEssence = selectedEssence ? allEssences[selectedEssence] ?? null : null;
 
+  /** True if the item already has a mod in `group`. */
+  function itemHasGroup(it: EmulatedItem, group: string): boolean {
+    for (const em of [...it.prefixes, ...it.suffixes]) {
+      const mod = resolveMod(em.modId);
+      if (mod && mod.group === group) return true;
+    }
+    return false;
+  }
+
   /** Checks whether the currently-armed essence + tier can be applied to `item`. */
   function canApplyEssence(it: EmulatedItem, slug: string, tier: TierType): boolean {
     if (it.corrupted) return false;
@@ -311,8 +321,10 @@ export function CraftEmulator({ base, onClose }: Props) {
     if (!ess) return false;
     const t = ess.tiers[tier as EssenceTier];
     if (!t) return false;
-    // Must match at least one category on this base
-    if (!resolveEssenceEntryForItem(slug, tier as EssenceTier, base)) return false;
+    const forced = resolveEssenceModForItem(slug, tier as EssenceTier, base);
+    if (!forced) return false;
+    // Forced mod's group must not already be on the item.
+    if (itemHasGroup(it, forced.group)) return false;
     if (tier === "perfect") return it.rarity === "rare" && it.prefixes.length + it.suffixes.length > 0;
     return it.rarity === "magic";
   }
@@ -632,9 +644,13 @@ export function CraftEmulator({ base, onClose }: Props) {
                 if (!ess.tiers[tierKey]) continue;
                 const entry = resolveEssenceEntryForItem(slug, tierKey, base);
                 if (!entry) continue;
-                const requirement = tierKey === "perfect"
-                  ? "Rare item with at least one modifier"
-                  : "Magic item";
+                const forced = resolveEssenceModForItem(slug, tierKey, base);
+                const groupConflict = forced ? itemHasGroup(item, forced.group) : false;
+                const requirement = groupConflict
+                  ? `Item already has a mod in the essence's group`
+                  : tierKey === "perfect"
+                    ? "Rare item with at least one modifier"
+                    : "Magic item";
                 applicableTiers.push({
                   tier: tierKey,
                   label: ESSENCE_TIER_LABEL[tierKey],

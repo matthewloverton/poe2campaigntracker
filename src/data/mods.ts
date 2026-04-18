@@ -27,6 +27,10 @@ export function resolveMod(id: string): ItemMod | undefined {
   return undefined;
 }
 
+// Expose on globalThis so crafting/emulator.ts can call resolveMod without
+// re-introducing a circular import through data/essences.
+(globalThis as unknown as { __resolveMod?: typeof resolveMod }).__resolveMod = resolveMod;
+
 const ARMOUR_ATTR_SUFFIX: Array<[string, string]> = [
   ["str_dex_int_armour", "STR/DEX/INT"],
   ["str_dex_armour", "STR/DEX"],

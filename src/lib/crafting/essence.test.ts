@@ -45,7 +45,9 @@ describe("applyEssence", () => {
     item = pre!.item;
     const before = item.prefixes.length + item.suffixes.length;
 
-    const post = applyEssence(item, bow!, "flames", "perfect", rng);
+    // Use a different essence family for the Perfect — reusing Flames would
+    // group-clash with the forced mod from the previous Normal apply.
+    const post = applyEssence(item, bow!, "abrasion", "perfect", rng);
     expect(post).not.toBeNull();
     const after = post!.item.prefixes.length + post!.item.suffixes.length;
     expect(after).toBe(before);

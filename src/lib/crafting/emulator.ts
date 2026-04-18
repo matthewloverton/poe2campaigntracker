@@ -100,6 +100,23 @@ function collectExistingGroups(item: EmulatedItem): Set<string> {
   return groups;
 }
 
+/**
+ * Variant that also resolves synthetic essence IDs via resolveMod, so the
+ * essence group-clash check in applyEssence sees forced mods already added
+ * by prior essence applies.
+ */
+function collectExistingGroupsFull(item: EmulatedItem): Set<string> {
+  const groups = new Set<string>();
+  for (const m of [...item.prefixes, ...item.suffixes]) {
+    // Lazy require to avoid a cyclic top-level import on data/mods resolver.
+    // resolveMod falls through to registered essence resolver at runtime.
+    const mod = (globalThis as unknown as { __resolveMod?: (id: string) => ItemMod | undefined }).__resolveMod?.(m.modId)
+      ?? modById.get(m.modId);
+    if (mod) groups.add(mod.group);
+  }
+  return groups;
+}
+
 function weightedPick(
   pool: Array<{ mod: ItemMod; weight: number }>,
   total: number,
@@ -392,6 +409,8 @@ export function applyEssence(
   const forced = resolveEssenceModForItem(slug, tier, base);
   if (!forced) return null;
   if (item.corrupted) return null;
+  // Refuse if the forced mod's group is already on the item.
+  if (collectExistingGroupsFull(item).has(forced.group)) return null;
 
   const forcedGen: GenType = forced.generationType === "suffix" ? "suffix" : "prefix";
   const forcedEm: EmulatedMod = { modId: forced.id, roll: randomRoll(rng) };
