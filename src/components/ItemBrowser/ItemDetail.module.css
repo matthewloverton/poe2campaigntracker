@@ -69,6 +69,17 @@
   margin-bottom: 2px;
 }
 
+/* PoE rarity colours */
+.rarity_normal { color: #d8d5c5; }
+.rarity_magic  { color: #8888ff; }
+.rarity_rare   { color: #ffff77; }
+.rarityCorrupted { color: #d23030 !important; }
+
+.rarityTag {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
 .itemClass {
   font-size: 0.7rem;
   color: var(--text-secondary);
@@ -470,6 +481,22 @@
   margin-bottom: 6px;
 }
 
+.plannerSectionCorrupted {
+  padding: 4px 6px;
+  margin: 6px -6px;
+  background: rgba(204, 58, 58, 0.06);
+  border-left: 2px solid #cc3a3a;
+  border-radius: 2px;
+}
+
+.plannerSectionCorrupted .plannerSectionLabel {
+  color: #ff6464;
+}
+
+.plannerSectionCorrupted .plannerModText {
+  color: #ff8080;
+}
+
 .plannerSectionLabel {
   font-size: 0.58rem;
   font-weight: 600;
@@ -556,7 +583,7 @@
 }
 
 .saveCraftBtn {
-  width: 100%;
+  flex: 1;
   margin-top: 8px;
   padding: 6px 12px;
   background: var(--accent-teal);
@@ -569,6 +596,29 @@
 }
 .saveCraftBtn:hover {
   opacity: 0.9;
+}
+
+.planerActions {
+  display: flex;
+  gap: 6px;
+}
+
+.starBtn {
+  flex: 1;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  color: var(--accent-gold);
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.starBtn:hover {
+  background: rgba(201, 168, 76, 0.3);
+  color: var(--color-gold);
 }
 
 /* ── Mod table area ──────────────────────────────────────── */

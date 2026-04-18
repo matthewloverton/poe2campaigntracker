@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
-import { cleanModText } from "../../data/mods";
+import { cleanModText, modById } from "../../data/mods";
+import { augmentById } from "../../data/augments";
 import {
   type Augment,
   searchAugmentFamilies,
@@ -19,11 +20,18 @@ export interface CraftState {
   augmentIds: string[];
 }
 
+export interface InitialCraftState {
+  selectedModIds?: string[];
+  quality?: number;
+  modRolls?: Record<string, number>;
+  augmentIds?: string[];
+}
+
 interface ItemDetailProps {
   item: BaseItem;
-  onSaveCraft?: (item: BaseItem, selectedMods: ItemMod[]) => void;
   onModsChange?: (mods: ItemMod[]) => void;
   onCraftStateChange?: (state: CraftState) => void;
+  initialState?: InitialCraftState;
 }
 
 function formatAps(attackTime: number): string {
@@ -63,11 +71,20 @@ function findTierLabel(mod: ItemMod, allMods: ItemMod[]): string {
   return `T${sametype.length - idx}`;
 }
 
-export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange }: ItemDetailProps) {
+export function ItemDetail({ item, onModsChange, onCraftStateChange, initialState }: ItemDetailProps) {
   const [iconError, setIconError] = useState(false);
 
   // Craft planner state — lifted from ModTable so we can render it in the top area
-  const [selectedMods, setSelectedMods] = useState<Map<string, ItemMod>>(new Map());
+  const [selectedMods, setSelectedMods] = useState<Map<string, ItemMod>>(() => {
+    const map = new Map<string, ItemMod>();
+    if (initialState?.selectedModIds) {
+      for (const id of initialState.selectedModIds) {
+        const mod = modById.get(id);
+        if (mod) map.set(id, mod);
+      }
+    }
+    return map;
+  });
 
   // Notify parent when selected mods change
   const updateMods = (mods: Map<string, ItemMod>) => {
@@ -82,15 +99,29 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
   // Keep a ref to all mods for tier label computation
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
-  const [quality, setQuality] = useState(20);
-  const [modRolls, setModRolls] = useState<Record<string, number>>({}); // modId → 0-100 percentile
+  const [quality, setQuality] = useState(initialState?.quality ?? 20);
+  const [modRolls, setModRolls] = useState<Record<string, number>>(initialState?.modRolls ?? {}); // modId → 0-100 percentile
 
   // Augment socket state
   const augCategory = itemClassToAugmentCategory(item.itemClass);
   const socketCount = defaultSocketCount(item.itemClass);
-  const [sockets, setSockets] = useState<(Augment | null)[]>(Array(socketCount).fill(null));
+  const [sockets, setSockets] = useState<(Augment | null)[]>(() => {
+    const base: (Augment | null)[] = Array(socketCount).fill(null);
+    if (initialState?.augmentIds) {
+      initialState.augmentIds.forEach((id, i) => {
+        if (i < base.length && id) base[i] = augmentById.get(id) ?? null;
+      });
+    }
+    return base;
+  });
   const [socketSearch, setSocketSearch] = useState("");
   const [editingSocket, setEditingSocket] = useState<number | null>(null);
+
+  // Sync initial selectedMods up to parent on mount so action buttons enable correctly
+  useEffect(() => {
+    onModsChange?.([...selectedMods.values()]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const socketDropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -243,7 +274,33 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
     () => [...selectedMods.values()].filter((m) => m.generationType === "suffix"),
     [selectedMods]
   );
+  const selectedCorrupted = useMemo(
+    () => [...selectedMods.values()].filter((m) => m.generationType === "corrupted"),
+    [selectedMods]
+  );
   const hasSelections = selectedMods.size > 0;
+
+  // Compute PoE-style display name and rarity from the selection
+  const rarity: "normal" | "magic" | "rare" = useMemo(() => {
+    const p = selectedPrefixes.length;
+    const s = selectedSuffixes.length;
+    if (p === 0 && s === 0) return "normal";
+    if (p <= 1 && s <= 1) return "magic";
+    return "rare";
+  }, [selectedPrefixes.length, selectedSuffixes.length]);
+
+  const displayName = useMemo(() => {
+    if (rarity === "normal") return item.name;
+    if (rarity === "magic") {
+      const prefix = selectedPrefixes[0]?.name?.trim();
+      const suffix = selectedSuffixes[0]?.name?.trim();
+      return [prefix, item.name, suffix].filter(Boolean).join(" ");
+    }
+    // Rare names are randomly generated in-game; we keep the base name.
+    return item.name;
+  }, [rarity, selectedPrefixes, selectedSuffixes, item.name]);
+
+  const isCorrupted = selectedCorrupted.length > 0;
 
   return (
     <div className={styles.detail}>
@@ -263,8 +320,16 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
               <div className={styles.iconFallback}>?</div>
             )}
             <div className={styles.cardInfo}>
-              <div className={styles.itemName}>{item.name}</div>
-              <div className={styles.itemClass}>{displayClassName(item.itemClass)}</div>
+              <div
+                className={`${styles.itemName} ${styles[`rarity_${rarity}`]} ${isCorrupted ? styles.rarityCorrupted : ""}`}
+              >
+                {displayName}
+              </div>
+              <div className={styles.itemClass}>
+                {displayClassName(item.itemClass)}
+                {rarity !== "normal" && <span className={styles.rarityTag}> · {rarity[0].toUpperCase() + rarity.slice(1)}{isCorrupted ? " · Corrupted" : ""}</span>}
+                {rarity === "normal" && isCorrupted && <span className={styles.rarityTag}> · Corrupted</span>}
+              </div>
 
               <div className={styles.statsLine}>
                 {isWeapon && (
@@ -581,13 +646,39 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
                   ))}
                 </div>
               )}
-              {hasSelections && onSaveCraft && (
-                <button
-                  className={styles.saveCraftBtn}
-                  onClick={() => onSaveCraft(item, [...selectedMods.values()])}
-                >
-                  Save to Build Plan
-                </button>
+              {selectedCorrupted.length > 0 && (
+                <div className={`${styles.plannerSection} ${styles.plannerSectionCorrupted}`}>
+                  <div className={styles.plannerSectionLabel}>
+                    Corrupted ({selectedCorrupted.length})
+                  </div>
+                  {selectedCorrupted.map((mod) => (
+                    <div key={mod.id} className={styles.plannerMod}>
+                      <div className={styles.plannerModTop}>
+                        <span className={styles.plannerModText}>
+                          {resolveModRoll(mod, modRolls[mod.id])}
+                        </span>
+                        <button
+                          className={styles.plannerRemove}
+                          onClick={() => removeMod(mod.id)}
+                        >
+                          ×
+                        </button>
+                      </div>
+                      {mod.stats.some((s) => s.min !== s.max) && (
+                        <div className={styles.plannerModRoll}>
+                          <input
+                            type="range"
+                            className={styles.modRollSlider}
+                            min={0}
+                            max={100}
+                            value={modRolls[mod.id] ?? 50}
+                            onChange={(e) => setModRolls((prev) => ({ ...prev, [mod.id]: Number(e.target.value) }))}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           ) : (

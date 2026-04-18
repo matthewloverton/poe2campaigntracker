@@ -28,6 +28,11 @@ function resolveSpawnWeight(mod: ItemMod, itemTags: Set<string>): number {
   return 0;
 }
 
+/** Effective spawn weight of a mod on a specific item (0 if it can't roll). */
+export function modWeightOnItem(mod: ItemMod, item: BaseItem): number {
+  return resolveSpawnWeight(mod, new Set(item.tags));
+}
+
 function modsMatchItem(item: BaseItem): (mod: ItemMod) => boolean {
   const itemTags = new Set(item.tags);
   return (mod) => resolveSpawnWeight(mod, itemTags) > 0;
