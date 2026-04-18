@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from "react";
+import { useState, useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { resolveMod, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
@@ -35,6 +35,10 @@ import styles from "./CraftEmulator.module.css";
 interface Props {
   base: BaseItem;
   onClose: () => void;
+  /** Seed the emulator with these mods (from the craft planner). */
+  initialMods?: ItemMod[];
+  /** Per-mod roll percentiles (0-100), keyed by modId. Missing mods default to 50. */
+  initialModRolls?: Record<string, number>;
 }
 
 type CurrencyKey =
@@ -286,8 +290,27 @@ function diffItems(base: BaseItem, prev: EmulatedItem, next: EmulatedItem): { ad
   return { added, removed };
 }
 
-export function CraftEmulator({ base, onClose }: Props) {
-  const [item, setItem] = useState<EmulatedItem>(() => emptyItem(base, 82));
+function seedFromPlanner(
+  base: BaseItem,
+  mods: ItemMod[] | undefined,
+  rolls: Record<string, number> | undefined,
+): EmulatedItem {
+  const seed = emptyItem(base, 82);
+  if (!mods || mods.length === 0) return seed;
+  const prefixes = mods
+    .filter((m) => m.generationType === "prefix")
+    .map((m) => ({ modId: m.id, roll: rolls?.[m.id] ?? 50 }));
+  const suffixes = mods
+    .filter((m) => m.generationType === "suffix")
+    .map((m) => ({ modId: m.id, roll: rolls?.[m.id] ?? 50 }));
+  const total = prefixes.length + suffixes.length;
+  const rarity: EmulatedItem["rarity"] =
+    total === 0 ? "normal" : total <= 2 && prefixes.length <= 1 && suffixes.length <= 1 ? "magic" : "rare";
+  return { ...seed, rarity, prefixes, suffixes };
+}
+
+export function CraftEmulator({ base, onClose, initialMods, initialModRolls }: Props) {
+  const [item, setItem] = useState<EmulatedItem>(() => seedFromPlanner(base, initialMods, initialModRolls));
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyKey | null>(null);
   const [selectedEssence, setSelectedEssence] = useState<string | null>(null);
   const [essencesOpen, setEssencesOpen] = useState(false);
@@ -298,6 +321,21 @@ export function CraftEmulator({ base, onClose }: Props) {
   const [essenceSpend, setEssenceSpend] = useState<Record<string, number>>({});
   const [history, setHistory] = useState<HistoryEvent[]>([]);
   const [nextEventId, setNextEventId] = useState(1);
+  const [flash, setFlash] = useState<{ id: number; color: "magic" | "rare" } | null>(null);
+  const [modFlash, setModFlash] = useState<{ id: number; ids: Set<string> }>({ id: 0, ids: new Set() });
+
+  const triggerFlash = useCallback((rarity: EmulatedItem["rarity"]) => {
+    if (rarity === "magic") setFlash({ id: Date.now(), color: "magic" });
+    else if (rarity === "rare") setFlash({ id: Date.now(), color: "rare" });
+  }, []);
+
+  const triggerModFlash = useCallback((added: HistoryLineMod[], removed: HistoryLineMod[]) => {
+    const ids = new Set<string>();
+    for (const line of added) if (line.modId) ids.add(line.modId);
+    for (const line of removed) if (line.modId) ids.add(line.modId);
+    if (ids.size === 0) return;
+    setModFlash({ id: Date.now(), ids });
+  }, []);
 
   const activeDef = selectedCurrency != null
     ? CURRENCIES.find((c) => c.key === selectedCurrency) ?? null
@@ -350,6 +388,8 @@ export function CraftEmulator({ base, onClose }: Props) {
     const essTier = activeEssence.tiers[tierType as EssenceTier];
     const essIcon = essTier?.iconPath ? `/assets/${essTier.iconPath}` : undefined;
     setItem(next);
+    triggerFlash(next.rarity);
+    triggerModFlash(diff.added, diff.removed);
     setEssenceSpend(nextEssenceSpend);
     setHistory((h) => [{
       id: nextEventId,
@@ -364,7 +404,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     }, ...h].slice(0, 80));
     setNextEventId((n) => n + 1);
     if (!canApplyEssence(next, selectedEssence, tierType)) setSelectedEssence(null);
-  }, [activeEssence, selectedEssence, tierType, item, base, essenceSpend, nextEventId, spend]);
+  }, [activeEssence, selectedEssence, tierType, item, base, essenceSpend, nextEventId, spend, triggerFlash, triggerModFlash]);
 
   const handleApply = useCallback(() => {
     if (activeEssence) { handleApplyEssence(); return; }
@@ -461,6 +501,8 @@ export function CraftEmulator({ base, onClose }: Props) {
     }
 
     setItem(next);
+    triggerFlash(next.rarity);
+    triggerModFlash(finalAdded, finalRemoved);
     setSpend(nextSpend);
     setHistory((h) => [{
       id: nextEventId,
@@ -475,7 +517,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     setNextEventId((n) => n + 1);
     // Auto-unarm if the armed currency can't apply to the resulting state.
     if (!activeDef.canApply(next)) setSelectedCurrency(null);
-  }, [activeDef, activeEssence, handleApplyEssence, item, base, nextEventId, tierType, spend]);
+  }, [activeDef, activeEssence, handleApplyEssence, item, base, nextEventId, tierType, spend, triggerFlash, triggerModFlash]);
 
   const handleRestart = useCallback(() => {
     setItem(emptyItem(base, item.itemLevel));
@@ -517,8 +559,18 @@ export function CraftEmulator({ base, onClose }: Props) {
   }, [history, activeDef]);
 
   const setItemLevel = useCallback((lvl: number) => {
-    setItem((i) => ({ ...i, itemLevel: Math.max(1, Math.min(100, lvl)) }));
-  }, []);
+    const clamped = Math.max(1, Math.min(100, lvl));
+    setItem((i) => ({ ...i, itemLevel: clamped }));
+    // If the armed currency's current tier needs a higher ilvl than the new
+    // value, step it down so the user doesn't get stuck on a disabled tier.
+    if (activeDef?.minLevels) {
+      if (tierType === "perfect" && clamped < activeDef.minLevels.perfect) {
+        setTierType(clamped >= activeDef.minLevels.greater ? "greater" : "normal");
+      } else if (tierType === "greater" && clamped < activeDef.minLevels.greater) {
+        setTierType("normal");
+      }
+    }
+  }, [activeDef, tierType]);
 
   const totalSpend = useMemo(
     () => Object.values(spend).reduce((acc, n) => acc + n, 0),
@@ -552,6 +604,17 @@ export function CraftEmulator({ base, onClose }: Props) {
         <div className={styles.header}>
           <span className={styles.title}>Craft Emulator</span>
           <span className={styles.subtle}>{base.name}</span>
+          <div className={styles.ilvlHeaderControl}>
+            <label className={styles.ilvlLabel}>ILVL</label>
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={item.itemLevel}
+              onChange={(e) => setItemLevel(Number(e.target.value))}
+              className={styles.ilvlInput}
+            />
+          </div>
           <button className={styles.restartBtn} onClick={handleRestart}>RESTART</button>
           <button className={styles.closeBtn} onClick={onClose}>&times;</button>
         </div>
@@ -573,7 +636,13 @@ export function CraftEmulator({ base, onClose }: Props) {
                     setSelectedCurrency(c.key);
                     setSelectedEssence(null);
                     setEssencesOpen(false);
-                    if (!c.hasTierVariants) setTierType("normal");
+                    // If the preserved tier can't apply on this currency, reset.
+                    const tierStillWorks =
+                      (tierType === "normal") ||
+                      (c.hasTierVariants &&
+                        (tierType === "greater" || tierType === "perfect") &&
+                        (!c.minLevels || item.itemLevel >= c.minLevels[tierType]));
+                    if (!tierStillWorks) setTierType("normal");
                   }
                 }}
                 tooltip={(
@@ -607,10 +676,9 @@ export function CraftEmulator({ base, onClose }: Props) {
               } else {
                 setEssencesOpen(true);
                 setSelectedCurrency(null);
-                // Auto-arm the first regular essence and default to Normal tier.
+                setTierType("normal");
                 if (!selectedEssence) {
                   setSelectedEssence(REGULAR_ESSENCE_SLUGS[0]);
-                  if (tierType === "perfect") setTierType("normal");
                 }
               }
             }}
@@ -723,12 +791,10 @@ export function CraftEmulator({ base, onClose }: Props) {
                       } else {
                         setSelectedEssence(slug);
                         setSelectedCurrency(null);
-                        // Snap to a tier that can actually fire if the current one can't.
-                        const currentTierEntry = applicableTiers.find((t) => t.tier === tierType);
-                        if (!currentTierEntry || !currentTierEntry.canApplyNow) {
-                          const pick = applicableTiers.find((t) => t.canApplyNow) ?? applicableTiers[0];
-                          if (pick) setTierType(pick.tier);
-                        }
+                        // Prefer Normal tier; fall back to first applicable if Normal isn't supported.
+                        const normalEntry = applicableTiers.find((t) => t.tier === "normal" && t.canApplyNow);
+                        const pick = normalEntry ?? applicableTiers.find((t) => t.canApplyNow) ?? applicableTiers[0];
+                        if (pick) setTierType(pick.tier);
                       }
                     }}
                   >
@@ -753,26 +819,38 @@ export function CraftEmulator({ base, onClose }: Props) {
                 ? t !== "lesser"
                 : t === "lesser"
                   ? false
-                  : activeDef.hasTierVariants || t === "normal";
+                  : activeDef.hasTierVariants;
+
+            // Item-level gate: PoE2 refuses Greater/Perfect orbs when ilvl <
+            // floor. Essences have no such gate.
+            const ilvlFloor = !activeEssence && activeDef?.minLevels && (t === "greater" || t === "perfect")
+              ? activeDef.minLevels[t]
+              : 0;
+            const ilvlBlocked = supportsThisTier && ilvlFloor > 0 && item.itemLevel < ilvlFloor;
+            const enabled = supportsThisTier && !ilvlBlocked;
+
+            let tooltip: string | undefined;
+            if (!supportsThisTier) {
+              tooltip = activeEssence
+                ? `No ${ESSENCE_TIER_LABEL[t]} variant for this essence`
+                : `${activeDef?.label ?? "this currency"} has no ${t} variant`;
+            } else if (ilvlBlocked) {
+              tooltip = `Requires item level ${ilvlFloor} (item is ${item.itemLevel})`;
+            } else if (activeEssence) {
+              tooltip = `${ESSENCE_TIER_LABEL[t]} Essence of ${activeEssence.name}`;
+            } else if (t === "greater") {
+              tooltip = "Min modifier level floor (Greater)";
+            } else if (t === "perfect") {
+              tooltip = "Min modifier level floor (Perfect)";
+            }
+
             return (
               <button
                 key={t}
                 className={`${styles.typeBtn} ${isActive ? styles.typeBtnActive : ""}`}
-                disabled={!supportsThisTier}
+                disabled={!enabled}
                 onClick={() => setTierType(t)}
-                title={
-                  supportsThisTier
-                    ? activeEssence
-                      ? `${ESSENCE_TIER_LABEL[t]} Essence of ${activeEssence.name}`
-                      : t === "greater"
-                        ? "Min modifier level floor (Greater)"
-                        : t === "perfect"
-                          ? "Min modifier level floor (Perfect)"
-                          : undefined
-                    : activeEssence
-                      ? `No ${ESSENCE_TIER_LABEL[t]} variant for this essence`
-                      : `${activeDef?.label ?? "this currency"} has no ${t} variant`
-                }
+                title={tooltip}
               >
                 {t[0].toUpperCase() + t.slice(1)}
               </button>
@@ -785,11 +863,12 @@ export function CraftEmulator({ base, onClose }: Props) {
         </div>
 
         <div className={styles.body}>
-          {/* Item panel — clickable as a craft zone when any currency/essence is armed. */}
-          <div
-            className={`${styles.itemPanel} ${(activeDef || activeEssence) && canArmedApply ? styles.itemPanelArmed : ""} ${(activeDef || activeEssence) && !canArmedApply ? styles.itemPanelBlocked : ""}`}
-            onClick={(activeDef || activeEssence) && canArmedApply ? handleApply : undefined}
-            style={(() => {
+          {/* Item panel: left = clickable craft zone (image), right = details (non-clickable). */}
+          <div className={styles.itemPanel}>
+            <div
+              className={`${styles.craftZone} ${(activeDef || activeEssence) && canArmedApply ? styles.craftZoneArmed : ""} ${(activeDef || activeEssence) && !canArmedApply ? styles.craftZoneBlocked : ""}`}
+              onClick={(activeDef || activeEssence) && canArmedApply ? handleApply : undefined}
+              style={(() => {
               if (canArmedApply) {
                 const icon = activeDef
                   ? activeDef.icon
@@ -806,41 +885,41 @@ export function CraftEmulator({ base, onClose }: Props) {
             // signals the action, and a native tooltip here flickers over
             // the craft zone.
           >
-            <div className={styles.itemCard}>
               {base.iconPath ? (
-                <img className={styles.itemIcon} src={`/assets/${base.iconPath}`} alt={base.name} />
+                <img
+                  key={flash?.id ?? "icon"}
+                  className={`${styles.itemIconLarge} ${flash ? styles.iconPulse : ""}`}
+                  src={`/assets/${base.iconPath}`}
+                  alt={base.name}
+                />
               ) : (
-                <div className={styles.itemIconFallback}>?</div>
+                <div className={styles.itemIconFallbackLarge}>?</div>
               )}
-              <div className={styles.itemInfo}>
-                <div className={`${styles.itemName} ${rarityClass}`}>{base.name}</div>
-                <div className={styles.itemClass}>
-                  {base.itemClass}
-                  <span className={styles.rarityTag}>
-                    {" · "}{item.corrupted ? "Corrupted " : ""}{item.rarity[0].toUpperCase() + item.rarity.slice(1)}
-                  </span>
-                </div>
-                <div className={styles.ilvlRow} onClick={(e) => e.stopPropagation()}>
-                  <label className={styles.ilvlLabel}>Item Level</label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={100}
-                    value={item.itemLevel}
-                    onChange={(e) => setItemLevel(Number(e.target.value))}
-                    className={styles.ilvlInput}
-                  />
-                  <span className={styles.affixCounter}>
-                    P{item.prefixes.length} · S{item.suffixes.length}
-                    {item.corruptedImplicit ? " · C1" : ""}
-                    {item.extraRuneSockets > 0 ? ` · +${item.extraRuneSockets}⬛` : ""}
-                  </span>
-                </div>
-              </div>
+              {flash && (
+                <div
+                  key={`flash-${flash.id}`}
+                  className={`${styles.craftFlash} ${flash.color === "rare" ? styles.craftFlashRare : styles.craftFlashMagic}`}
+                  onAnimationEnd={() => setFlash(null)}
+                />
+              )}
             </div>
 
-            {/* Mod list */}
-            <div className={styles.modList}>
+            <div className={styles.itemDetails}>
+              <div className={`${styles.itemName} ${rarityClass}`}>{base.name}</div>
+              <div className={styles.itemClass}>
+                {base.itemClass}
+                <span className={styles.rarityTag}>
+                  {" · "}{item.corrupted ? "Corrupted " : ""}{item.rarity[0].toUpperCase() + item.rarity.slice(1)}
+                </span>
+                <span className={styles.affixCounter}>
+                  P{item.prefixes.length} · S{item.suffixes.length}
+                  {item.corruptedImplicit ? " · C1" : ""}
+                  {item.extraRuneSockets > 0 ? ` · +${item.extraRuneSockets}⬛` : ""}
+                </span>
+              </div>
+
+              {/* Mod list */}
+              <div className={styles.modList}>
               {corruptedMod?.mod && (
                 <div className={`${styles.modRow} ${styles.modCorrupted}`}>
                   <span className={styles.modBadge}>IMP</span>
@@ -851,32 +930,47 @@ export function CraftEmulator({ base, onClose }: Props) {
               {prefixMods.length === 0 && suffixMods.length === 0 && !corruptedMod && (
                 <div className={styles.empty}>Pick a currency from above, then click the item to craft.</div>
               )}
-              {prefixMods.map((p, i) => p.mod && (
-                <div key={`p${i}`} className={`${styles.modRow} ${styles.modPrefix}`}>
-                  <span className={styles.modBadge}>P</span>
-                  <span className={styles.modTier}>{p.mod.source === "essence" ? "ESS" : modTierLabel(p.mod, base)}</span>
-                  <span className={styles.modName}>{p.mod.name}</span>
-                  <span className={styles.modText}>{renderRolledText(formatRolledWithRange(p.mod, p.em.roll))}</span>
-                </div>
-              ))}
-              {suffixMods.map((s, i) => s.mod && (
-                <div key={`s${i}`} className={`${styles.modRow} ${styles.modSuffix}`}>
-                  <span className={styles.modBadge}>S</span>
-                  <span className={styles.modTier}>{s.mod.source === "essence" ? "ESS" : modTierLabel(s.mod, base)}</span>
-                  <span className={styles.modName}>{s.mod.name}</span>
-                  <span className={styles.modText}>{renderRolledText(formatRolledWithRange(s.mod, s.em.roll))}</span>
-                </div>
-              ))}
+              {prefixMods.length > 0 && (
+                <>
+                  <div className={styles.modGroupHeader}>Prefixes ({prefixMods.length}/{item.rarity === "magic" ? 1 : 3})</div>
+                  {prefixMods.map((p, i) => p.mod && (
+                    <div
+                      key={modFlash.ids.has(p.em.modId) ? `p${i}-${modFlash.id}` : `p${i}`}
+                      className={`${styles.modRow} ${styles.modPrefix} ${modFlash.ids.has(p.em.modId) ? styles.modRowFlash : ""}`}
+                    >
+                      <span className={styles.modTier}>{p.mod.source === "essence" ? "ESS" : modTierLabel(p.mod, base)}</span>
+                      <span className={styles.modName}>{p.mod.name}</span>
+                      <span className={styles.modText}>{renderRolledText(formatRolledWithRange(p.mod, p.em.roll))}</span>
+                    </div>
+                  ))}
+                </>
+              )}
+              {suffixMods.length > 0 && (
+                <>
+                  <div className={styles.modGroupHeader}>Suffixes ({suffixMods.length}/{item.rarity === "magic" ? 1 : 3})</div>
+                  {suffixMods.map((s, i) => s.mod && (
+                    <div
+                      key={modFlash.ids.has(s.em.modId) ? `s${i}-${modFlash.id}` : `s${i}`}
+                      className={`${styles.modRow} ${styles.modSuffix} ${modFlash.ids.has(s.em.modId) ? styles.modRowFlash : ""}`}
+                    >
+                      <span className={styles.modTier}>{s.mod.source === "essence" ? "ESS" : modTierLabel(s.mod, base)}</span>
+                      <span className={styles.modName}>{s.mod.name}</span>
+                      <span className={styles.modText}>{renderRolledText(formatRolledWithRange(s.mod, s.em.roll))}</span>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
 
-            <div className={styles.itemActions}>
-              <button
-                className={styles.secondaryBtn}
-                onClick={handleScour}
-                disabled={item.corrupted || (item.prefixes.length + item.suffixes.length === 0)}
-              >
-                Scour
-              </button>
+              <div className={styles.itemActions}>
+                <button
+                  className={styles.secondaryBtn}
+                  onClick={handleScour}
+                  disabled={item.corrupted || (item.prefixes.length + item.suffixes.length === 0)}
+                >
+                  Scour
+                </button>
+              </div>
             </div>
           </div>
 
@@ -892,6 +986,14 @@ export function CraftEmulator({ base, onClose }: Props) {
               )}
               {history.map((ev) => {
                 const def = currencyByKey.get(ev.currencyKey as CurrencyKey);
+                let divineDelta: number | null = null;
+                if (ev.currencyKey === "divine") {
+                  let net = 0;
+                  for (const line of ev.added) {
+                    if (line.oldRollPercent != null) net += line.rollPercent - line.oldRollPercent;
+                  }
+                  divineDelta = net;
+                }
                 return (
                   <div
                     key={ev.id}
@@ -907,6 +1009,20 @@ export function CraftEmulator({ base, onClose }: Props) {
                         {!ev.iconSrc && ev.tierType && ev.tierType !== "normal" ? TIER_PREFIX[ev.tierType] : ""}
                         {ev.iconSrc ? (ev.message ?? "") : (def?.label ?? ev.currencyKey)}
                       </span>
+                      {divineDelta != null && (
+                        <span
+                          className={`${styles.divineRating} ${
+                            divineDelta > 1 ? styles.divineRatingGood
+                              : divineDelta < -1 ? styles.divineRatingBad
+                                : styles.divineRatingNeutral
+                          }`}
+                          title={`Net roll-% change across all mods: ${divineDelta > 0 ? "+" : ""}${divineDelta.toFixed(0)}%`}
+                        >
+                          {divineDelta > 1 ? "▲ Better"
+                            : divineDelta < -1 ? "▼ Worse"
+                              : "= Same"}
+                        </span>
+                      )}
                       {!ev.iconSrc && ev.message && (
                         <span className={styles.historyEventMessage}>— {ev.message}</span>
                       )}
@@ -951,6 +1067,7 @@ function HoverPortalTooltip({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const tipRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
 
   function show() {
@@ -959,6 +1076,25 @@ function HoverPortalTooltip({
     setPos({ top: rect.bottom + 8, left: rect.left + rect.width / 2 });
   }
   function hide() { setPos(null); }
+
+  // Clamp the tooltip inside the viewport once it renders. The trigger
+  // position is an initial guess — we correct after measuring.
+  useLayoutEffect(() => {
+    if (!pos || !tipRef.current) return;
+    const margin = 8;
+    const tip = tipRef.current.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let { top, left } = pos;
+    const halfW = tip.width / 2;
+    if (left - halfW < margin) left = halfW + margin;
+    else if (left + halfW > vw - margin) left = vw - halfW - margin;
+    if (top + tip.height > vh - margin) {
+      const triggerRect = ref.current?.getBoundingClientRect();
+      if (triggerRect) top = triggerRect.top - tip.height - 8;
+    }
+    if (top !== pos.top || left !== pos.left) setPos({ top, left });
+  }, [pos]);
 
   return (
     <div
@@ -969,7 +1105,7 @@ function HoverPortalTooltip({
     >
       {children}
       {pos && createPortal(
-        <div className={styles.floatingTooltip} style={{ top: pos.top, left: pos.left }}>
+        <div ref={tipRef} className={styles.floatingTooltip} style={{ top: pos.top, left: pos.left }}>
           {tooltip}
         </div>,
         document.body,

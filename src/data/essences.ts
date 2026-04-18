@@ -192,6 +192,7 @@ const ESSENCE_TIER_ORDER: Record<EssenceTier, number> = {
   perfect: 4,
 };
 
+
 const TIER_NAME: Record<EssenceTier, string> = {
   lesser: "Lesser",
   normal: "",

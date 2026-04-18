@@ -282,7 +282,12 @@ export function ItemBrowser({
       </div>
 
       {emulateBase && (
-        <CraftEmulator base={emulateBase} onClose={() => setEmulateBase(null)} />
+        <CraftEmulator
+          base={emulateBase}
+          onClose={() => setEmulateBase(null)}
+          initialMods={craftMods}
+          initialModRolls={craftStateRef.current.modRolls}
+        />
       )}
 
       {/* Top tabs (hidden when filtering to specific classes) */}

@@ -323,53 +323,122 @@
   min-width: 0;
   padding: 14px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   overflow: hidden;
   border-right: 1px solid var(--border-color);
-  transition: background 0.12s, box-shadow 0.12s;
 }
 
-.itemPanelArmed {
-  background: rgba(201, 168, 76, 0.05);
-  box-shadow: inset 0 0 0 2px rgba(201, 168, 76, 0.35);
-}
-
-.itemPanelBlocked {
-  background: rgba(255, 68, 68, 0.05);
-  box-shadow: inset 0 0 0 2px rgba(255, 68, 68, 0.35);
-}
-
-.itemCard {
+.craftZone {
+  position: relative;
+  flex: 0 0 260px;
   display: flex;
-  gap: 14px;
-  padding: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
   background: var(--bg-stone);
-  border-left: 3px solid var(--border-gold);
-  border-radius: 3px;
+  border: 2px dashed var(--border-color);
+  border-radius: 6px;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  overflow: hidden;
 }
 
-.itemIcon,
-.itemIconFallback {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
+@media (max-width: 1100px) {
+  .craftZone { flex: 0 0 180px; padding: 14px; }
+  .itemIconLarge, .itemIconFallbackLarge { max-width: 150px; }
+}
+
+@media (max-width: 900px) {
+  .craftZone { flex: 0 0 130px; padding: 10px; }
+  .itemIconLarge, .itemIconFallbackLarge { max-width: 110px; }
+}
+
+@keyframes craftFlashAnim {
+  0%   { opacity: 0; }
+  25%  { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+@keyframes iconPulseAnim {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.craftFlash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  animation: craftFlashAnim 520ms ease-out forwards;
+}
+
+.craftFlashMagic {
+  border-color: rgba(136, 136, 255, 0.9);
+  box-shadow: inset 0 0 14px 4px rgba(136, 136, 255, 0.55), 0 0 8px rgba(136, 136, 255, 0.4);
+}
+
+.craftFlashRare {
+  border-color: rgba(255, 220, 90, 0.9);
+  box-shadow: inset 0 0 14px 4px rgba(255, 220, 90, 0.55), 0 0 8px rgba(255, 220, 90, 0.4);
+}
+
+.iconPulse {
+  animation: iconPulseAnim 520ms cubic-bezier(.2, .8, .3, 1) forwards;
+}
+
+@keyframes modRowFlashAnim {
+  0%   { background: rgba(201, 168, 76, 0); }
+  25%  { background: rgba(201, 168, 76, 0.28); }
+  100% { background: rgba(201, 168, 76, 0); }
+}
+
+.modRowFlash {
+  animation: modRowFlashAnim 700ms ease-out forwards;
+}
+
+.craftZoneArmed {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.55);
+  border-style: solid;
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 76, 0.35), 0 0 18px rgba(201, 168, 76, 0.12);
+}
+
+.craftZoneBlocked {
+  background: rgba(255, 68, 68, 0.06);
+  border-color: rgba(255, 68, 68, 0.45);
+  border-style: solid;
+}
+
+.itemIconLarge,
+.itemIconFallbackLarge {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+  pointer-events: none;
 }
 
-.itemIconFallback {
+.itemIconFallbackLarge {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  font-size: 2rem;
+  font-size: 3rem;
   opacity: 0.3;
 }
 
-.itemInfo { flex: 1; min-width: 0; }
+.itemDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
 
 .itemName {
   font-size: 1.1rem;
@@ -385,7 +454,9 @@
 .itemClass {
   font-size: 0.72rem;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .rarityTag {
@@ -393,7 +464,12 @@
   opacity: 0.7;
 }
 
-.ilvlRow { display: flex; align-items: center; gap: 10px; }
+.ilvlHeaderControl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+}
 
 .ilvlLabel {
   font-size: 0.62rem;
@@ -538,6 +614,31 @@
 .modCorrupted .modText { color: #ff8080; }
 .modCorrupted .rollRange { color: #b84040; opacity: 0.95; }
 
+.modGroupHeader {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--accent-gold);
+  padding: 6px 6px 2px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+  margin-top: 2px;
+}
+.modGroupHeader:first-child { margin-top: 0; }
+
+.divineRating {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 4px;
+}
+.divineRatingGood    { color: #7fd98a; background: rgba(127, 217, 138, 0.15); }
+.divineRatingBad     { color: #ff7a7a; background: rgba(255, 122, 122, 0.15); }
+.divineRatingNeutral { color: var(--text-secondary); background: rgba(180, 180, 180, 0.1); }
+
 .itemActions {
   display: flex;
   gap: 6px;
@@ -574,6 +675,9 @@
   flex-direction: column;
   overflow: hidden;
 }
+
+@media (max-width: 1100px) { .historyPanel { width: 280px; } }
+@media (max-width: 900px)  { .historyPanel { width: 220px; } }
 
 .historyHeader {
   display: flex;
