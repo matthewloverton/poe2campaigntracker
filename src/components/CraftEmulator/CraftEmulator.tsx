@@ -552,7 +552,7 @@ export function CraftEmulator({ base, onClose }: Props) {
             onClick={() => setEssencesOpen((v) => !v)}
             title="Essences"
           >
-            <span className={styles.essenceToggleLabel}>ESS</span>
+            <img className={styles.stripIcon} src="/assets/essences/essence_infinite.png" alt="" />
           </button>
         </div>
 

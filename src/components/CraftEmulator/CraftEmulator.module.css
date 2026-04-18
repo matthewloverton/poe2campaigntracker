@@ -143,26 +143,17 @@
 }
 
 .essenceToggleBtn {
-  margin-left: auto;
-  background: rgba(144, 96, 208, 0.15) !important;
-  border-color: rgba(144, 96, 208, 0.6) !important;
-  color: #c090ff;
+  background: rgba(144, 96, 208, 0.10);
+  border-color: rgba(144, 96, 208, 0.45);
 }
 
 .essenceToggleBtn:hover:not(:disabled) {
-  background: rgba(144, 96, 208, 0.3) !important;
-  border-color: #c090ff !important;
+  background: rgba(144, 96, 208, 0.25);
+  border-color: #c090ff;
 }
 
 .essenceToggleBtn.stripBtnActive {
   box-shadow: 0 0 0 2px rgba(192, 144, 255, 0.45);
-}
-
-.essenceToggleLabel {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #c090ff;
-  letter-spacing: 0.6px;
 }
 
 .essenceStrip {
