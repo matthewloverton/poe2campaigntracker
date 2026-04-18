@@ -1,16 +1,9 @@
 import type { ItemMod, BaseItem, ModSource } from "../types/itemDatabase";
 import rawMods from "./raw/item_mods.json";
-import rawModWeights from "./raw/mod_weights.json";
 
 export const allMods: ItemMod[] = rawMods as ItemMod[];
 
 export const modById = new Map(allMods.map((m) => [m.id, m]));
-
-/**
- * Sheet-sourced per-base weights: { [modId]: { [sheetBaseLabel]: weight } }.
- * Sheet labels look like "HELMET (INT)", "BOOTS (DEX/INT)", "WAND", "AMULET".
- */
-const modWeightOverrides = rawModWeights as Record<string, Record<string, number>>;
 
 const ARMOUR_ATTR_SUFFIX: Array<[string, string]> = [
   ["str_dex_int_armour", "STR/DEX/INT"],
@@ -89,14 +82,13 @@ function resolveSpawnWeight(mod: ItemMod, itemTags: Set<string>): number {
 
 /**
  * Effective spawn weight of a mod on a specific item (0 if it can't roll).
- * Sheet-sourced weights take precedence for the exact base label; otherwise
- * we fall back to RePoE's tag walk.
+ * Per-base sheet weights (mod.baseWeights) take precedence for the exact
+ * base label; otherwise we fall back to RePoE's tag walk.
  */
 export function modWeightOnItem(mod: ItemMod, item: BaseItem): number {
   const baseKey = sheetBaseKey(item);
-  if (baseKey) {
-    const overrides = modWeightOverrides[mod.id];
-    if (overrides && overrides[baseKey] != null) return overrides[baseKey];
+  if (baseKey && mod.baseWeights && mod.baseWeights[baseKey] != null) {
+    return mod.baseWeights[baseKey];
   }
   return resolveSpawnWeight(mod, new Set(item.tags));
 }

@@ -113,6 +113,7 @@ async function main() {
   const uniqueMods = Object.keys(weights).length;
   console.log(`\n  Wrote weights for ${uniqueMods} mods → ${OUT}`);
   console.log(`  matched tier cells: ${matched}, skipped (no weight row): ${skippedNoWeights}`);
+  console.log(`\n  Next: run scripts/transform-item-data.mjs to fold baseWeights into item_mods.json.`);
 }
 
 main().catch((err) => {

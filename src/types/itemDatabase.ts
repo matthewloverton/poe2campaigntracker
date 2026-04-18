@@ -37,6 +37,8 @@ export interface ItemMod {
   requiredLevel: number;
   stats: Array<{ id: string; min: number; max: number }>;
   spawnWeights: Array<{ tag: string; weight: number }>;
+  /** Per-base-label spawn weights from the PoE2 mods sheet, e.g. "HELMET (INT)". */
+  baseWeights?: Record<string, number>;
   tags: string[];
 }
 

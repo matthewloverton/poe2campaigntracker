@@ -10,7 +10,7 @@
  *   node scripts/transform-item-data.mjs --skip-art  # skip art asset downloads
  */
 
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { mkdir, writeFile, access, readFile } from "node:fs/promises";
 import { join, basename, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -205,7 +205,20 @@ function transformBaseItems(raw, rawMods) {
 // Transform: Mods
 // ---------------------------------------------------------------------------
 
-function transformMods(raw) {
+async function loadBaseWeights() {
+  const path = join(RAW_DIR, "mod_weights.json");
+  try {
+    const text = await readFile(path, "utf-8");
+    const data = JSON.parse(text);
+    console.log(`   Loaded sheet weights for ${Object.keys(data).length} mods from ${path}`);
+    return data;
+  } catch {
+    console.log(`   No mod_weights.json yet (run scripts/fetch-mod-weights.mjs first) — mods will have no baseWeights`);
+    return {};
+  }
+}
+
+function transformMods(raw, baseWeightsByMod) {
   const results = [];
 
   for (const [key, mod] of Object.entries(raw)) {
@@ -236,8 +249,9 @@ function transformMods(raw) {
     if (!spawnWeights.some((w) => w.weight > 0)) continue;
 
     const groups = mod.groups || [];
+    const baseWeights = baseWeightsByMod[key];
 
-    results.push({
+    const entry = {
       id: key,
       name: mod.name || "",
       text: mod.text,
@@ -253,7 +267,9 @@ function transformMods(raw) {
       })),
       spawnWeights,
       tags: mod.implicit_tags || [],
-    });
+    };
+    if (baseWeights) entry.baseWeights = baseWeights;
+    results.push(entry);
   }
 
   results.sort((a, b) => a.name.localeCompare(b.name));
@@ -767,8 +783,9 @@ async function main() {
   console.log("2. Transforming data...");
   const uniqueModsMap = parseUniqueMods(poe2dbHtml);
   console.log(`   Unique mods scraped: ${uniqueModsMap.size} items with mods`);
+  const baseWeights = await loadBaseWeights();
   const baseItems = transformBaseItems(rawBaseItems, rawMods);
-  const mods = transformMods(rawMods);
+  const mods = transformMods(rawMods, baseWeights);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
   const augEffects = parseAugmentEffects(poe2dbAugHtml);
