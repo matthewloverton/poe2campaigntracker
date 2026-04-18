@@ -24,7 +24,7 @@ export interface BaseItem {
   iconPath: string;
 }
 
-export type ModSource = "normal" | "corrupted" | "desecrated";
+export type ModSource = "normal" | "corrupted" | "desecrated" | "essence";
 
 export interface ItemMod {
   id: string;

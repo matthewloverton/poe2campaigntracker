@@ -2,12 +2,14 @@ import { useState, useMemo } from "react";
 import type { BaseItem, ItemMod, ModSource } from "../../types/itemDatabase";
 import { getModsForItem, groupModsByType, cleanModText, modWeightOnItem } from "../../data/mods";
 import type { ModGroup } from "../../data/mods";
+import { essenceModsForItem } from "../../data/essences";
 import styles from "./ModTable.module.css";
 
 const SOURCE_TABS: { key: ModSource; label: string }[] = [
   { key: "normal", label: "Normal" },
   { key: "desecrated", label: "Desecrated" },
   { key: "corrupted", label: "Corrupted" },
+  { key: "essence", label: "Essence" },
 ];
 
 interface ModTableProps {
@@ -135,16 +137,26 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
   // Tag filter
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
 
-  const { prefixes, suffixes, corrupted } = useMemo(
-    () => getModsForItem(item, sourceTab),
-    [item, sourceTab],
-  );
+  const { prefixes, suffixes, corrupted } = useMemo(() => {
+    if (sourceTab === "essence") {
+      // Essence "mods" are synthesised per-item; render them as suffixes so
+      // they land in a single column without the prefix/suffix split.
+      return { prefixes: [] as ItemMod[], suffixes: essenceModsForItem(item), corrupted: [] as ItemMod[] };
+    }
+    return getModsForItem(item, sourceTab);
+  }, [item, sourceTab]);
 
   // All mods across all sources — used for tab counts AND tier-label computation.
   const allSourceMods = useMemo(() => {
-    const counts: Record<ModSource, number> = { normal: 0, desecrated: 0, corrupted: 0 };
+    const counts: Record<ModSource, number> = { normal: 0, desecrated: 0, corrupted: 0, essence: 0 };
     const combined: ItemMod[] = [];
     for (const s of SOURCE_TABS) {
+      if (s.key === "essence") {
+        const mods = essenceModsForItem(item);
+        counts.essence = mods.length;
+        combined.push(...mods);
+        continue;
+      }
       const mods = getModsForItem(item, s.key);
       counts[s.key] = mods.prefixes.length + mods.suffixes.length + mods.corrupted.length;
       combined.push(...mods.prefixes, ...mods.suffixes, ...mods.corrupted);
@@ -390,7 +402,9 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
             ? styles.sourceTabDesecrated
             : t.key === "corrupted"
               ? styles.sourceTabCorrupted
-              : "";
+              : t.key === "essence"
+                ? styles.sourceTabEssence
+                : "";
           return (
             <button
               key={t.key}
