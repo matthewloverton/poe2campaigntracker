@@ -180,6 +180,7 @@ export type {
   VendorRegexEntry,
   InlineNote,
   WatchlistEntry,
+  FavouriteCraft,
   Customizations,
   GemData,
 } from "./types/customizations";

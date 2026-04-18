@@ -8,6 +8,7 @@ import type {
   StepReminder,
   VendorRegexEntry,
   WatchlistEntry,
+  FavouriteCraft,
   GearLayout,
   GearSlotKey,
   SkillGroup,
@@ -74,6 +75,11 @@ interface CustomizationsState extends Customizations {
   addToWatchlist: (entry: WatchlistEntry) => void;
   removeFromWatchlist: (id: string) => void;
   isWatched: (id: string) => boolean;
+
+  // Favourite craft actions
+  addFavouriteCraft: (entry: FavouriteCraft) => void;
+  removeFavouriteCraft: (id: string) => void;
+  updateFavouriteCraft: (id: string, updates: Partial<FavouriteCraft>) => void;
 }
 
 /**
@@ -175,6 +181,7 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
           vendorRegexes: saved.vendorRegexes ?? DEFAULT_CUSTOMIZATIONS.vendorRegexes,
           inlineNotes: saved.inlineNotes ?? DEFAULT_CUSTOMIZATIONS.inlineNotes,
           watchlist: (saved as Record<string, unknown>).watchlist as WatchlistEntry[] ?? [],
+          favouriteCrafts: (saved as Record<string, unknown>).favouriteCrafts as FavouriteCraft[] ?? [],
           activePhaseId: saved.activePhaseId ?? DEFAULT_CUSTOMIZATIONS.activePhaseId,
           loaded: true,
         });
@@ -187,12 +194,12 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
   },
 
   save: async () => {
-    const { buildPhases, stepReminders, vendorRegexes, inlineNotes, activePhaseId } = get();
+    const { buildPhases, stepReminders, vendorRegexes, inlineNotes, activePhaseId, watchlist, favouriteCrafts } = get();
     try {
       await invoke("write_user_data", {
         filename: "customizations.json",
         data: JSON.stringify(
-          { buildPhases, stepReminders, vendorRegexes, inlineNotes, activePhaseId },
+          { buildPhases, stepReminders, vendorRegexes, inlineNotes, activePhaseId, watchlist, favouriteCrafts },
           null,
           2
         ),
@@ -502,5 +509,28 @@ export const useCustomizationsStore = create<CustomizationsState>((set, get) => 
 
   isWatched: (id: string): boolean => {
     return (get().watchlist ?? []).some((w) => w.id === id);
+  },
+
+  addFavouriteCraft: (entry: FavouriteCraft) => {
+    set((state) => ({
+      favouriteCrafts: [...(state.favouriteCrafts ?? []), entry],
+    }));
+    debouncedSave(get().save);
+  },
+
+  removeFavouriteCraft: (id: string) => {
+    set((state) => ({
+      favouriteCrafts: (state.favouriteCrafts ?? []).filter((c) => c.id !== id),
+    }));
+    debouncedSave(get().save);
+  },
+
+  updateFavouriteCraft: (id: string, updates: Partial<FavouriteCraft>) => {
+    set((state) => ({
+      favouriteCrafts: (state.favouriteCrafts ?? []).map((c) =>
+        c.id === id ? { ...c, ...updates } : c,
+      ),
+    }));
+    debouncedSave(get().save);
   },
 }));

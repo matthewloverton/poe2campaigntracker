@@ -24,6 +24,17 @@ export interface WatchlistEntry {
   unlockLevel: number;
 }
 
+export interface FavouriteCraft {
+  id: string;
+  baseItemId: string;
+  selectedModIds: string[];
+  quality: number;
+  modRolls: Record<string, number>;
+  augmentIds: string[];
+  label?: string;
+  createdAt: string;
+}
+
 export interface Customizations {
   buildPhases: BuildPhase[];
   stepReminders: StepReminder[];
@@ -31,6 +42,7 @@ export interface Customizations {
   inlineNotes: InlineNote[];
   activePhaseId: string | null;
   watchlist: WatchlistEntry[];
+  favouriteCrafts: FavouriteCraft[];
 }
 
 export const DEFAULT_CUSTOMIZATIONS: Customizations = {
@@ -40,6 +52,7 @@ export const DEFAULT_CUSTOMIZATIONS: Customizations = {
   inlineNotes: [],
   activePhaseId: null,
   watchlist: [],
+  favouriteCrafts: [],
 };
 
 export type { GemEntry as GemData } from "./itemDatabase";

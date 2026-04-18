@@ -5,10 +5,13 @@ import {
   ITEM_CLASS_DISPLAY_NAMES,
 } from "../../types/itemDatabase";
 import { itemsByClass, searchItems, itemById } from "../../data/items";
+import { modById, cleanModText } from "../../data/mods";
 import { getUniquesByClass } from "../../data/uniques";
 import { useCustomizationsStore } from "../../store/customizationsStore";
+import type { FavouriteCraft } from "../../types";
 import { ItemGrid } from "./ItemGrid";
-import { ItemDetail, type CraftState } from "./ItemDetail";
+import { ItemDetail, type CraftState, type InitialCraftState } from "./ItemDetail";
+import { confirmDialog } from "../Dialog/Dialog";
 import styles from "./ItemBrowser.module.css";
 
 /* ── Constants ────────────────────────────────────────────── */
@@ -86,12 +89,18 @@ export function ItemBrowser({
   const [defenceFilter, setDefenceFilter] = useState<string | null>(null);
   const [showUniques, setShowUniques] = useState(false);
   const [showTracked, setShowTracked] = useState(false);
+  const [showFavourites, setShowFavourites] = useState(false);
   const [selectedItem, setSelectedItem] = useState<BaseItem | null>(null);
   const [selectedUnique, setSelectedUnique] = useState<UniqueItem | null>(null);
+  const [restoreState, setRestoreState] = useState<{ favId: string; init: InitialCraftState } | null>(null);
+  const [currentFavId, setCurrentFavId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
   const craftStateRef = useRef<CraftState>({ quality: 20, modRolls: {}, augmentIds: [] });
   const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
+  const favouriteCrafts = useCustomizationsStore((s) => s.favouriteCrafts ?? []);
+  const addFavouriteCraft = useCustomizationsStore((s) => s.addFavouriteCraft);
+  const removeFavouriteCraft = useCustomizationsStore((s) => s.removeFavouriteCraft);
   const trackedItemIds = new Set(watchlist.filter((w) => w.type === "item").map((w) => w.id));
 
   // Sub-categories: if allowedClasses provided, only show those; otherwise use tab groups
@@ -155,13 +164,63 @@ export function ItemBrowser({
   // Item click
   const handleItemClick = useCallback((item: BaseItem) => {
     setSelectedItem(item);
+    setRestoreState(null);
+    setCurrentFavId(null);
   }, []);
 
   // Back from detail
   const handleBack = useCallback(() => {
     setSelectedItem(null);
     setSelectedUnique(null);
+    setRestoreState(null);
+    setCurrentFavId(null);
   }, []);
+
+  // Favourite click → restore craft
+  const handleFavouriteClick = useCallback((fav: FavouriteCraft) => {
+    const item = itemById.get(fav.baseItemId);
+    if (!item) return;
+    setRestoreState({
+      favId: fav.id,
+      init: {
+        selectedModIds: fav.selectedModIds,
+        quality: fav.quality,
+        modRolls: fav.modRolls,
+        augmentIds: fav.augmentIds,
+      },
+    });
+    setSelectedItem(item);
+    setCurrentFavId(fav.id);
+  }, []);
+
+  // Toggle favourite on current craft
+  const handleStarCraft = useCallback((baseItem: BaseItem, mods: ItemMod[], state: CraftState) => {
+    if (currentFavId) {
+      // Already favourited → remove
+      removeFavouriteCraft(currentFavId);
+      setCurrentFavId(null);
+      return;
+    }
+    const entry: FavouriteCraft = {
+      id: crypto.randomUUID(),
+      baseItemId: baseItem.id,
+      selectedModIds: mods.map((m) => m.id),
+      quality: state.quality,
+      modRolls: state.modRolls,
+      augmentIds: state.augmentIds,
+      createdAt: new Date().toISOString(),
+    };
+    addFavouriteCraft(entry);
+    setCurrentFavId(entry.id);
+  }, [addFavouriteCraft, removeFavouriteCraft, currentFavId]);
+
+  const handleRemoveFavourite = useCallback(async (fav: FavouriteCraft) => {
+    const item = itemById.get(fav.baseItemId);
+    const name = item?.name ?? "this craft";
+    if (await confirmDialog(`Remove "${name}" from favourites?`, { title: "Remove Favourite", confirmLabel: "Remove", danger: true })) {
+      removeFavouriteCraft(fav.id);
+    }
+  }, [removeFavouriteCraft]);
 
   // Unique click
   const handleUniqueClick = useCallback((unique: UniqueItem) => {
@@ -197,6 +256,22 @@ export function ItemBrowser({
             }}
           />
         </div>
+        {favouriteCrafts.length > 0 && (
+          <button
+            className={`${styles.headerFavBtn} ${showFavourites ? styles.headerFavBtnActive : ""}`}
+            onClick={() => {
+              setShowFavourites(!showFavourites);
+              setShowUniques(false);
+              setShowTracked(false);
+              setDefenceFilter(null);
+              setSelectedItem(null);
+              setSelectedUnique(null);
+            }}
+            title="Favourite crafts"
+          >
+            ★ {favouriteCrafts.length}
+          </button>
+        )}
         <button className={styles.closeBtn} onClick={onClose}>
           &times;
         </button>
@@ -297,12 +372,14 @@ export function ItemBrowser({
                   onClick={() => {
                     setShowTracked(!showTracked);
                     setShowUniques(false);
+                    setShowFavourites(false);
                     setDefenceFilter(null);
                   }}
                 >
                   Tracked ({trackedItemIds.size})
                 </button>
               )}
+
             </div>
           )}
 
@@ -317,28 +394,54 @@ export function ItemBrowser({
                       ? "Results"
                       : displayName(activeSubCategory)}
                   </button>
-                  {onSelectItem && (
+                  <div className={styles.detailTopBarActions}>
                     <button
-                      className={styles.selectBtn}
-                      onClick={() => {
-                        if (onSaveCraftFull) {
-                          onSaveCraftFull(selectedItem, craftMods, craftStateRef.current);
-                        } else if (onSaveCraft && craftMods.length > 0) {
-                          onSaveCraft(selectedItem, craftMods);
-                        } else {
-                          onSelectItem(selectedItem);
-                        }
-                      }}
+                      className={`${styles.starBtn} ${currentFavId ? styles.starBtnActive : ""}`}
+                      disabled={!currentFavId && craftMods.length === 0}
+                      title={
+                        currentFavId
+                          ? "Remove from Favourites"
+                          : craftMods.length === 0
+                            ? "Select at least one mod to favourite"
+                            : "Save to Favourites"
+                      }
+                      onClick={() => handleStarCraft(selectedItem, craftMods, craftStateRef.current)}
                     >
-                      Select
+                      {currentFavId ? "★ Favourited" : "☆ Favourite"}
                     </button>
-                  )}
+                    {!onSelectItem && onSaveCraft && (
+                      <button
+                        className={styles.saveBuildBtn}
+                        disabled={craftMods.length === 0}
+                        onClick={() => onSaveCraft(selectedItem, craftMods)}
+                      >
+                        Save to Build Plan
+                      </button>
+                    )}
+                    {onSelectItem && (
+                      <button
+                        className={styles.selectBtn}
+                        onClick={() => {
+                          if (onSaveCraftFull) {
+                            onSaveCraftFull(selectedItem, craftMods, craftStateRef.current);
+                          } else if (onSaveCraft && craftMods.length > 0) {
+                            onSaveCraft(selectedItem, craftMods);
+                          } else {
+                            onSelectItem(selectedItem);
+                          }
+                        }}
+                      >
+                        Select
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <ItemDetail
+                  key={restoreState?.favId ?? selectedItem.id}
                   item={selectedItem}
-                  onSaveCraft={onSelectItem ? undefined : onSaveCraft}
                   onModsChange={setCraftMods}
                   onCraftStateChange={(s) => { craftStateRef.current = s; }}
+                  initialState={restoreState?.init}
                 />
               </div>
             ) : selectedUnique ? (
@@ -386,6 +489,52 @@ export function ItemBrowser({
                     </div>
                   </div>
                 </div>
+              </div>
+            ) : showFavourites ? (
+              <div className={styles.uniquesGrid}>
+                {favouriteCrafts.map((fav) => {
+                  const base = itemById.get(fav.baseItemId);
+                  if (!base) return null;
+                  const genOrder = { prefix: 0, suffix: 1, corrupted: 2 } as const;
+                  const modLines = fav.selectedModIds
+                    .map((id) => modById.get(id))
+                    .filter(Boolean)
+                    .sort((a, b) => genOrder[a!.generationType] - genOrder[b!.generationType])
+                    .map((m) => m!.text);
+                  return (
+                    <div
+                      key={fav.id}
+                      className={styles.uniqueCard}
+                      onClick={() => handleFavouriteClick(fav)}
+                      onContextMenu={(e) => { e.preventDefault(); handleRemoveFavourite(fav); }}
+                      title="Click to open · Right-click to remove"
+                    >
+                      <div className={styles.uniqueIconWrap}>
+                        {base.iconPath ? (
+                          <img
+                            className={styles.uniqueIcon}
+                            src={`/assets/${base.iconPath}`}
+                            alt={base.name}
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className={styles.uniqueIconFallback}>?</div>
+                        )}
+                      </div>
+                      <div className={styles.uniqueName}>{base.name}</div>
+                      {modLines.length > 0 && (
+                        <div className={styles.uniqueMods}>
+                          {modLines.slice(0, 4).map((t, i) => (
+                            <div key={i} className={styles.uniqueMod}>{cleanModText(t)}</div>
+                          ))}
+                          {modLines.length > 4 && (
+                            <div className={styles.uniqueMod} style={{ opacity: 0.5 }}>+{modLines.length - 4} more</div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             ) : showUniques ? (
               <div className={styles.uniquesGrid}>
