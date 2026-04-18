@@ -8,11 +8,14 @@ Tracks your act-by-act progression with a guide panel, per-act run splits, a cra
 
 - **Campaign guide** — Act-by-act walkthrough synced to your character's zone (via `Client.txt`). Includes a full in-app editor so you can fork the default guide and build your own.
 - **Run history + timer** — Per-act splits with best/worst coloring, sortable by recency or fastest, auto-advances on zone change.
-- **Build plan** — Multi-phase gear layout (weapons, armour, jewelry, augments/runes) and skill-gem groups. Includes an item/mod database and a craft UI that computes roll values.
+- **Build plan** — Multi-phase gear layout (weapons, armour, jewelry, augments/runes) and skill-gem groups, backed by a searchable item/mod database.
+- **Craft emulator** — Arm-then-click currency simulator covering Transmute, Augment, Regal, Exalt, Chaos, Alchemy, Vaal, Divine, plus Greater/Perfect variants and the full essence strip (Lesser/Normal/Greater/Perfect + corrupted). Rolls use real per-base spawn weights; history is clickable to restore earlier states; favourite crafts survive restarts.
+- **Item/mod database** — Browse every base + mod with tier labels, rolled(min-max) values, colour-coded tags, and source tabs for Normal / Essence / Desecrated / Corrupted mods.
 - **Path of Building import/export**
   - Paste a PoB PoE2 build code → creates one build phase per PoB item set with matched gear + skill groups + mod rolls.
   - Copy any crafted gear slot as a PoB-compatible item text block for round-tripping back into PoB.
 - **Vendor regex + watchlist** — Generate regex strings for vendor searches, track items you're hunting.
+- **Auto-updater** — Signed updates delivered via GitHub releases; prompts on launch when a new version is available.
 
 ## Stack
 
@@ -58,19 +61,9 @@ This project stands on the shoulders of the wider PoE community. Huge thanks to:
 - **[PoE2 Wiki](https://www.poe2wiki.net)** — essence tables and currency mechanics.
 - **[poe2.mobalytics.gg](https://poe2.mobalytics.gg)** — the default campaign guide is based on their campaign route and zone layouts.
 - **[Craft of Exile](https://www.craftofexile.com)** — essence toggle icon.
+- **[Exile-UI](https://exile-ui.com)** — UI and interaction inspiration.
 
 None of these projects are affiliated with this tracker; all game assets and data remain property of Grinding Gear Games.
-
-## Cutting a release
-
-Push a `v*` tag and GitHub Actions builds a Windows installer and publishes it as a draft release:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-Then open the Releases page, fill in notes on the draft, and publish. Or trigger manually via **Actions → Release → Run workflow**.
 
 ## License
 
