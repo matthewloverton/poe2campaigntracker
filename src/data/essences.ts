@@ -181,7 +181,7 @@ const ESSENCE_TIER_ORDER: Record<EssenceTier, number> = {
 
 const TIER_NAME: Record<EssenceTier, string> = {
   lesser: "Lesser",
-  normal: "Normal",
+  normal: "",
   greater: "Greater",
   perfect: "Perfect",
 };
@@ -195,7 +195,7 @@ function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): 
   // collapse into a single group in the planner.
   return {
     id: `essence:${slug}:${tier}:${categorySlug(entry.category)}`,
-    name: `${TIER_NAME[tier]} ${ess.name}`,
+    name: TIER_NAME[tier] ? `${TIER_NAME[tier]} ${ess.name}` : ess.name,
     text: entry.text,
     type: `Essence_${slug}`,
     generationType: essenceGenType(entry.text),
