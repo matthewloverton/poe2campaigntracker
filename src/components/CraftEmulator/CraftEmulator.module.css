@@ -486,8 +486,15 @@
 }
 
 .historyEvent {
-  padding: 6px 0;
+  padding: 6px 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.historyEvent:hover {
+  background: rgba(201, 168, 76, 0.06);
 }
 
 .historyEvent:last-child { border-bottom: none; }
@@ -549,5 +556,21 @@
 }
 
 .historyLineText { flex: 1; }
+
+.historyRoll {
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  opacity: 0.85;
+  margin-left: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.historyChance {
+  color: var(--accent-teal);
+  font-size: 0.6rem;
+  opacity: 0.85;
+  margin-left: 2px;
+  font-variant-numeric: tabular-nums;
+}
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

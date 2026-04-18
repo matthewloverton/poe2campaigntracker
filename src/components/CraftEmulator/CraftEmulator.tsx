@@ -1,9 +1,10 @@
 import { useState, useCallback, useMemo } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
-import { modById, modTierLabel, formatRolledWithRange, cleanModText } from "../../data/mods";
+import { modById, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
 import {
   type EmulatedItem,
   type EmulatedMod,
+  type GenType,
   type TierType,
   emptyItem,
   transmute,
@@ -16,6 +17,7 @@ import {
   divine,
   vaal,
   scour,
+  modPickChance,
 } from "../../lib/crafting/emulator";
 import styles from "./CraftEmulator.module.css";
 
@@ -164,6 +166,12 @@ interface HistoryLineMod {
   name: string;
   text: string;
   tier: string;
+  /** Aggregate roll percentile across the mod's stat ranges (0–100). */
+  rollPercent: number;
+  rollNumerator: number;
+  rollDenominator: number;
+  /** Chance the mod would be picked from its applicable pool at this moment (0–1). */
+  pickChance?: number;
 }
 
 interface HistoryEvent {
@@ -172,14 +180,21 @@ interface HistoryEvent {
   tierType?: TierType;
   added: HistoryLineMod[];
   removed: HistoryLineMod[];
+  /** Snapshots of state AFTER this action so clicking can restore it. */
+  itemAfter: EmulatedItem;
+  spendAfter: Record<CurrencyKey, number>;
 }
 
 function modToLineWithBase(base: BaseItem, mod: ItemMod, em: EmulatedMod, kind: SlotKind): HistoryLineMod {
+  const stats = computeRollStats(mod, em.roll);
   return {
     kind,
     name: mod.name || "",
     text: formatRolledWithRange(mod, em.roll),
     tier: modTierLabel(mod, base),
+    rollPercent: stats.percent,
+    rollNumerator: stats.numerator,
+    rollDenominator: stats.denominator,
   };
 }
 
@@ -241,20 +256,83 @@ export function CraftEmulator({ base, onClose }: Props) {
     const next = activeDef.apply(item, base, minLvl);
     if (next === item) return;
     const diff = diffItems(base, item, next);
+
+    // Compute per-mod pick chance for added mods. Each mod's "peers" excluded
+    // are the groups that were on the item BEFORE the craft plus groups of
+    // the other mods added by this same apply (approximates sequential
+    // picks within currencies like Alchemy).
+    const existingGroupsBefore = new Set<string>();
+    for (const m of [...item.prefixes, ...item.suffixes]) {
+      const mod = modById.get(m.modId);
+      if (mod) existingGroupsBefore.add(mod.group);
+    }
+    const addedGroupsByKind: Record<SlotKind, string[]> = { prefix: [], suffix: [], implicit: [] };
+    const resolveAddedModId = (line: HistoryLineMod): string | null => {
+      const prevIds = new Set<string>([
+        ...item.prefixes.map((m) => m.modId),
+        ...item.suffixes.map((m) => m.modId),
+        ...(item.corruptedImplicit ? [item.corruptedImplicit.modId] : []),
+      ]);
+      const candidates: EmulatedMod[] = line.kind === "prefix"
+        ? next.prefixes
+        : line.kind === "suffix"
+          ? next.suffixes
+          : (next.corruptedImplicit ? [next.corruptedImplicit] : []);
+      for (const em of candidates) {
+        if (prevIds.has(em.modId)) continue;
+        const mod = modById.get(em.modId);
+        if (!mod) continue;
+        // Match by stats fingerprint (tier, name, rolled text).
+        const stats = computeRollStats(mod, em.roll);
+        if (
+          stats.percent === line.rollPercent
+          && mod.name === line.name
+          && formatRolledWithRange(mod, em.roll) === line.text
+        ) return em.modId;
+      }
+      return null;
+    };
+
+    // First pass: collect all added mod groups so pick-chance excludes them
+    // when computing each other's probability.
+    const addedMods: Array<{ line: HistoryLineMod; modId: string; mod: ItemMod }> = [];
+    for (const line of diff.added) {
+      const modId = resolveAddedModId(line);
+      if (!modId) continue;
+      const mod = modById.get(modId);
+      if (!mod) continue;
+      addedGroupsByKind[line.kind].push(mod.group);
+      addedMods.push({ line, modId, mod });
+    }
+
+    const enrichedAdded: HistoryLineMod[] = diff.added.map((line) => {
+      const found = addedMods.find((a) => a.line === line);
+      if (!found) return line;
+      const mod = found.mod;
+      const gen = line.kind === "implicit" ? "corrupted" : (mod.generationType as GenType);
+      // Exclude pre-existing groups plus groups of sibling adds of the same gen.
+      const excluded = new Set<string>(existingGroupsBefore);
+      for (const g of addedGroupsByKind[line.kind]) if (g !== mod.group) excluded.add(g);
+      const chance = modPickChance(base, item.itemLevel, gen, excluded, minLvl, found.modId);
+      return { ...line, pickChance: chance };
+    });
+
+    const nextSpend = { ...spend, [activeDef.key]: spend[activeDef.key] + 1 };
     setItem(next);
-    setSpend((s) => ({ ...s, [activeDef.key]: s[activeDef.key] + 1 }));
+    setSpend(nextSpend);
     setHistory((h) => [{
       id: nextEventId,
       currencyKey: activeDef.key,
       tierType: appliedTier,
-      ...diff,
+      added: enrichedAdded,
+      removed: diff.removed,
+      itemAfter: next,
+      spendAfter: nextSpend,
     }, ...h].slice(0, 80));
     setNextEventId((n) => n + 1);
-    // Auto-unarm if the armed currency can't apply to the resulting state —
-    // e.g. Transmute after Normal→Magic, Alchemy after Normal→Rare. Leave it
-    // armed otherwise so the user can keep clicking to spam-roll.
+    // Auto-unarm if the armed currency can't apply to the resulting state.
     if (!activeDef.canApply(next)) setSelectedCurrency(null);
-  }, [activeDef, item, base, nextEventId, tierType]);
+  }, [activeDef, item, base, nextEventId, tierType, spend]);
 
   const handleRestart = useCallback(() => {
     setItem(emptyItem(base, item.itemLevel));
@@ -274,11 +352,26 @@ export function CraftEmulator({ base, onClose }: Props) {
       currencyKey: "annul",
       added: [],
       removed: diff.removed,
+      itemAfter: next,
+      spendAfter: spend,
     };
     setItem(next);
     setHistory((h) => [ev, ...h].slice(0, 80));
     setNextEventId((n) => n + 1);
-  }, [item, nextEventId]);
+  }, [item, nextEventId, spend, base]);
+
+  /** Revert state to after the given event and drop everything newer. */
+  const handleRestore = useCallback((eventId: number) => {
+    const idx = history.findIndex((e) => e.id === eventId);
+    if (idx < 0) return;
+    const ev = history[idx];
+    setItem(ev.itemAfter);
+    setSpend(ev.spendAfter);
+    // history is newest-first; dropping indexes 0..idx-1 removes newer events.
+    setHistory(history.slice(idx));
+    // Unarm if whatever is currently selected can no longer be used.
+    if (activeDef && !activeDef.canApply(ev.itemAfter)) setSelectedCurrency(null);
+  }, [history, activeDef]);
 
   const setItemLevel = useCallback((lvl: number) => {
     setItem((i) => ({ ...i, itemLevel: Math.max(1, Math.min(100, lvl)) }));
@@ -477,7 +570,12 @@ export function CraftEmulator({ base, onClose }: Props) {
               {history.map((ev) => {
                 const def = currencyByKey.get(ev.currencyKey);
                 return (
-                  <div key={ev.id} className={styles.historyEvent}>
+                  <div
+                    key={ev.id}
+                    className={styles.historyEvent}
+                    onClick={() => handleRestore(ev.id)}
+                    title="Click to restore state from this point (newer events will be removed)"
+                  >
                     <div className={styles.historyEventHeader}>
                       {def && <img className={styles.historyIcon} src={def.icon} alt="" />}
                       <span className={styles.historyEventName}>
@@ -486,22 +584,10 @@ export function CraftEmulator({ base, onClose }: Props) {
                       </span>
                     </div>
                     {ev.removed.map((line, i) => (
-                      <div key={`r${i}`} className={`${styles.historyLine} ${styles.historyLineRemoved}`}>
-                        <span className={styles.historyDelta}>−</span>
-                        <span className={styles.historyLineText}>
-                          {line.tier && <span className={styles.historyLineTier}>{line.tier}</span>}
-                          {cleanLineText(line.text)}
-                        </span>
-                      </div>
+                      <HistoryLine key={`r${i}`} line={line} kind="removed" />
                     ))}
                     {ev.added.map((line, i) => (
-                      <div key={`a${i}`} className={`${styles.historyLine} ${styles.historyLineAdded}`}>
-                        <span className={styles.historyDelta}>+</span>
-                        <span className={styles.historyLineText}>
-                          {line.tier && <span className={styles.historyLineTier}>{line.tier}</span>}
-                          {cleanLineText(line.text)}
-                        </span>
-                      </div>
+                      <HistoryLine key={`a${i}`} line={line} kind="added" />
                     ))}
                     {ev.added.length === 0 && ev.removed.length === 0 && (
                       <div className={styles.historyLine}>
@@ -522,4 +608,28 @@ export function CraftEmulator({ base, onClose }: Props) {
 /** Compact: collapse the roll+range into single line text without newlines. */
 function cleanLineText(text: string): string {
   return cleanModText(text).replace(/\n/g, " · ");
+}
+
+function HistoryLine({ line, kind }: { line: HistoryLineMod; kind: "added" | "removed" }) {
+  const cls = kind === "added" ? styles.historyLineAdded : styles.historyLineRemoved;
+  const hasRange = line.rollDenominator > 0;
+  const chanceTxt = line.pickChance != null
+    ? `(${(line.pickChance * 100).toFixed(line.pickChance < 0.01 ? 3 : 2)}%)`
+    : null;
+  return (
+    <div className={`${styles.historyLine} ${cls}`}>
+      <span className={styles.historyDelta}>{kind === "added" ? "+" : "−"}</span>
+      <span className={styles.historyLineText}>
+        {line.tier && <span className={styles.historyLineTier}>{line.tier}</span>}
+        {cleanLineText(line.text)}
+        {hasRange && (
+          <span className={styles.historyRoll}>
+            {" "}
+            {line.rollPercent}% ({line.rollNumerator}/{line.rollDenominator})
+          </span>
+        )}
+        {chanceTxt && <span className={styles.historyChance}> {chanceTxt}</span>}
+      </span>
+    </div>
+  );
 }

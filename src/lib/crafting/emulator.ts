@@ -261,6 +261,38 @@ export function vaal(item: EmulatedItem, base: BaseItem, rng: () => number = Mat
   return { ...item, corrupted: true, corruptedImplicit: implicit };
 }
 
+/**
+ * Probability that a specific mod would have been picked given the pool at
+ * a known point in time. Returns 0 if the mod isn't eligible. Excluded
+ * groups let the caller model the "same craft" scenario where sibling picks
+ * remove their families from the pool as well.
+ */
+export function modPickChance(
+  base: BaseItem,
+  itemLevel: number,
+  generationType: GenType | "corrupted",
+  existingGroups: Set<string>,
+  minModLevel: number,
+  targetModId: string,
+): number {
+  const pool: Array<{ mod: ItemMod; weight: number }> = [];
+  const source = generationType === "corrupted" ? "corrupted" : "normal";
+  for (const mod of allMods) {
+    if (mod.source !== source) continue;
+    if (mod.generationType !== generationType) continue;
+    if (existingGroups.has(mod.group)) continue;
+    if (mod.requiredLevel > itemLevel) continue;
+    const w = modWeightOnItem(mod, base);
+    if (w <= 0) continue;
+    pool.push({ mod, weight: w });
+  }
+  const scoped = applyMinLevelFilter(pool, minModLevel);
+  const total = scoped.reduce((acc, p) => acc + p.weight, 0);
+  if (total <= 0) return 0;
+  const entry = scoped.find((p) => p.mod.id === targetModId);
+  return entry ? entry.weight / total : 0;
+}
+
 /** Reset to a normal unmodified base. */
 export function scour(item: EmulatedItem): EmulatedItem {
   if (item.corrupted) return item;

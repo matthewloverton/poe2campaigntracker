@@ -173,6 +173,29 @@ export function modTierLabel(mod: ItemMod, item?: BaseItem): string {
 }
 
 /**
+ * Compute the aggregate roll quality of a mod at a given percentile: sum of
+ * (rolled - min) over all stats / sum of (max - min). Used to show things
+ * like "75% (3/4)" where 3 = total range-points achieved, 4 = total possible.
+ */
+export function computeRollStats(mod: ItemMod, roll: number): { percent: number; numerator: number; denominator: number } {
+  let num = 0;
+  let den = 0;
+  for (const s of mod.stats) {
+    const range = s.max - s.min;
+    if (range <= 0) continue;
+    const value = s.min + (range * roll) / 100;
+    num += value - s.min;
+    den += range;
+  }
+  if (den <= 0) return { percent: 0, numerator: 0, denominator: 0 };
+  return {
+    percent: Math.round((num / den) * 100),
+    numerator: Math.round(num),
+    denominator: Math.round(den),
+  };
+}
+
+/**
  * Replace each `(min-max)` range in a mod's text with
  * `rolled(min-max)` so callers can show the rolled value alongside the
  * full possible range, e.g. `104(101-110)% increased …`.
