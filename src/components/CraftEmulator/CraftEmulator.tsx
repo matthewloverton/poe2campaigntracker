@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { resolveMod, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
 import {
@@ -627,8 +628,30 @@ export function CraftEmulator({ base, onClose }: Props) {
               }
               const applies = applicableTiers.length > 0;
 
+              const tooltipNode = (
+                <>
+                  <div className={styles.tipTitle}>Essence of {ess.name}</div>
+                  <div className={styles.tipHint}>
+                    {isCorrupted
+                      ? "Corrupted — removes a random modifier on a Rare item, adds a guaranteed one"
+                      : "Upgrades Magic → Rare with a guaranteed modifier (Perfect tier removes+adds on Rare)"}
+                  </div>
+                  {applies ? (
+                    <div className={styles.tipDesc}>
+                      {applicableTiers.map((t) => (
+                        <div key={t.tier} className={styles.tipTierRow}>
+                          <span className={styles.tipTiersLabel}>{t.label}</span>
+                          {t.entry.text}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.tipReq}>Does not apply to this base</div>
+                  )}
+                </>
+              );
               return (
-                <div key={slug} className={styles.stripBtnWrap}>
+                <HoverPortalTooltip key={slug} className={styles.stripBtnWrap} tooltip={tooltipNode}>
                   <button
                     className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""} ${isCorrupted ? styles.essenceCorrupted : ""}`}
                     disabled={!applies}
@@ -646,27 +669,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                   >
                     {icon && <img className={styles.stripIcon} src={icon} alt="" />}
                   </button>
-                  <div className={styles.stripTooltip}>
-                    <div className={styles.tipTitle}>Essence of {ess.name}</div>
-                    <div className={styles.tipHint}>
-                      {isCorrupted
-                        ? "Corrupted — removes a random modifier on a Rare item, adds a guaranteed one"
-                        : "Upgrades Magic → Rare with a guaranteed modifier (Perfect tier removes+adds on Rare)"}
-                    </div>
-                    {applies ? (
-                      <div className={styles.tipDesc}>
-                        {applicableTiers.map((t) => (
-                          <div key={t.tier} className={styles.tipTierRow}>
-                            <span className={styles.tipTiersLabel}>{t.label}</span>
-                            {t.entry.text}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className={styles.tipReq}>Does not apply to this base</div>
-                    )}
-                  </div>
-                </div>
+                </HoverPortalTooltip>
               );
             })}
           </div>
@@ -882,7 +885,47 @@ function cleanLineText(text: string): string {
   return cleanModText(text).replace(/\n/g, " · ");
 }
 
-/** Button with a rich tooltip that appears above on hover. */
+/**
+ * Wrapper that reveals a portal-rendered tooltip on hover. Portalling
+ * escapes the currency strip's `overflow-x: auto` so the tooltip can
+ * float over the rest of the modal instead of triggering a scrollbar.
+ */
+function HoverPortalTooltip({
+  children, tooltip, className,
+}: {
+  children: React.ReactNode;
+  tooltip: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+
+  function show() {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    setPos({ top: rect.bottom + 8, left: rect.left + rect.width / 2 });
+  }
+  function hide() { setPos(null); }
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+    >
+      {children}
+      {pos && createPortal(
+        <div className={styles.floatingTooltip} style={{ top: pos.top, left: pos.left }}>
+          {tooltip}
+        </div>,
+        document.body,
+      )}
+    </div>
+  );
+}
+
+/** Button with a rich tooltip that appears below on hover. */
 function CurrencyTooltipBtn({
   active, disabled, onClick, tooltip, children,
 }: {
@@ -893,7 +936,7 @@ function CurrencyTooltipBtn({
   children: React.ReactNode;
 }) {
   return (
-    <div className={styles.stripBtnWrap}>
+    <HoverPortalTooltip className={styles.stripBtnWrap} tooltip={tooltip}>
       <button
         className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""}`}
         disabled={disabled}
@@ -901,8 +944,7 @@ function CurrencyTooltipBtn({
       >
         {children}
       </button>
-      <div className={styles.stripTooltip}>{tooltip}</div>
-    </div>
+    </HoverPortalTooltip>
   );
 }
 
