@@ -374,30 +374,36 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
                   {sockets.map((aug, i) => (
                     <div key={i} className={styles.socketSlot}>
                       {aug ? (
-                        <button
-                          className={styles.socketCircleFilled}
-                          onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
-                          title={aug.name}
-                        >
-                          {aug.iconPath ? (
-                            <img
-                              className={styles.socketIcon}
-                              src={`/assets/${aug.iconPath}`}
-                              alt={aug.name}
-                            />
-                          ) : (
-                            <span className={styles.socketIconFallback}>
-                              {aug.typeId === "Rune" ? "R" : aug.typeId === "SoulCore" ? "S" : aug.typeId === "Idol" ? "I" : "A"}
-                            </span>
-                          )}
+                        <div className={styles.socketFilledWrap}>
                           <button
-                            className={styles.socketRemoveX}
-                            onClick={(e) => { e.stopPropagation(); setSockets((prev) => { const next = [...prev]; next[i] = null; return next; }); }}
-                            title="Remove"
+                            className={styles.socketCircleFilled}
+                            onClick={() => { setEditingSocket(i); setSocketSearch(""); }}
+                            onContextMenu={(e) => { e.preventDefault(); setSockets((prev) => { const next = [...prev]; next[i] = null; return next; }); }}
+                            title="Click to change · Right-click to remove"
                           >
-                            ×
+                            {aug.iconPath ? (
+                              <img
+                                className={styles.socketIcon}
+                                src={`/assets/${aug.iconPath}`}
+                                alt={aug.name}
+                              />
+                            ) : (
+                              <span className={styles.socketIconFallback}>
+                                {aug.typeId === "Rune" ? "R" : aug.typeId === "SoulCore" ? "S" : aug.typeId === "Idol" ? "I" : "A"}
+                              </span>
+                            )}
                           </button>
-                        </button>
+                          <span className={styles.socketLabel}>{aug.name}</span>
+                          <span className={styles.socketHoverTip}>
+                            <span className={styles.socketEffectName}>{aug.name}</span>
+                            {augCategory && getAugmentEffect(aug, augCategory).map((t, j) => (
+                              <span key={j} className={styles.socketEffectLine}>{t}</span>
+                            ))}
+                            {augCategory && getAugmentBonded(aug, augCategory).map((t, j) => (
+                              <span key={`b${j}`} className={styles.socketBondedLine}>{t}</span>
+                            ))}
+                          </span>
+                        </div>
                       ) : (
                         <button
                           className={styles.socketCircleEmpty}
@@ -481,22 +487,6 @@ export function ItemDetail({ item, onSaveCraft, onModsChange, onCraftStateChange
                     </div>
                   ))}
                 </div>
-                {/* Effects for filled sockets */}
-                {sockets.some(Boolean) && (
-                  <div className={styles.socketEffects}>
-                    {sockets.map((aug, i) => aug && (
-                      <div key={i} className={styles.socketEffectBlock}>
-                        <span className={styles.socketEffectName}>{aug.name}</span>
-                        {getAugmentEffect(aug, augCategory).map((t, j) => (
-                          <div key={j} className={styles.socketEffectLine}>{t}</div>
-                        ))}
-                        {getAugmentBonded(aug, augCategory).map((t, j) => (
-                          <div key={`b${j}`} className={styles.socketBondedLine}>{t}</div>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             )}
           </div>
