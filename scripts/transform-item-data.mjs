@@ -10,7 +10,7 @@
  *   node scripts/transform-item-data.mjs --skip-art  # skip art asset downloads
  */
 
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { mkdir, writeFile, access, readFile } from "node:fs/promises";
 import { join, basename, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -205,7 +205,21 @@ function transformBaseItems(raw, rawMods) {
 // Transform: Mods
 // ---------------------------------------------------------------------------
 
-function transformMods(raw) {
+async function loadWeightOverrides() {
+  const path = join(RAW_DIR, "mod_weights.json");
+  try {
+    const text = await readFile(path, "utf-8");
+    const data = JSON.parse(text);
+    const count = Object.keys(data).length;
+    console.log(`   Loaded weight overrides for ${count} mods from ${path}`);
+    return data;
+  } catch {
+    console.log(`   No mod_weights.json found (run scripts/fetch-mod-weights.mjs first) — using RePoE defaults`);
+    return {};
+  }
+}
+
+function transformMods(raw, weightOverrides) {
   const results = [];
 
   for (const [key, mod] of Object.entries(raw)) {
@@ -229,8 +243,24 @@ function transformMods(raw) {
 
     if (!source) continue;
 
-    const spawnWeights = (mod.spawn_weights || [])
-      .map((w) => ({ tag: w.tag, weight: w.weight }));
+    const overrides = weightOverrides[key] || null;
+    const rawWeights = mod.spawn_weights || [];
+
+    // Build spawn weights: apply sheet weights per tag where present, else
+    // keep RePoE's binary value. Insert any tags that only exist in the
+    // overrides at the front so the walk resolves to the specific value.
+    const seen = new Set();
+    const spawnWeights = [];
+    if (overrides) {
+      for (const tag of Object.keys(overrides)) {
+        spawnWeights.push({ tag, weight: overrides[tag] });
+        seen.add(tag);
+      }
+    }
+    for (const w of rawWeights) {
+      if (seen.has(w.tag)) continue;
+      spawnWeights.push({ tag: w.tag, weight: w.weight });
+    }
 
     // Must have at least one positive weight to be rollable
     if (!spawnWeights.some((w) => w.weight > 0)) continue;
@@ -767,8 +797,9 @@ async function main() {
   console.log("2. Transforming data...");
   const uniqueModsMap = parseUniqueMods(poe2dbHtml);
   console.log(`   Unique mods scraped: ${uniqueModsMap.size} items with mods`);
+  const weightOverrides = await loadWeightOverrides();
   const baseItems = transformBaseItems(rawBaseItems, rawMods);
-  const mods = transformMods(rawMods);
+  const mods = transformMods(rawMods, weightOverrides);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
   const augEffects = parseAugmentEffects(poe2dbAugHtml);
