@@ -462,7 +462,14 @@ export function CraftEmulator({ base, onClose }: Props) {
                 key={c.key}
                 className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""}`}
                 disabled={disabled}
-                onClick={() => setSelectedCurrency(active ? null : c.key)}
+                onClick={() => {
+                  if (active) {
+                    setSelectedCurrency(null);
+                  } else {
+                    setSelectedCurrency(c.key);
+                    if (!c.hasTierVariants) setTierType("normal");
+                  }
+                }}
                 title={`${c.label} — ${c.shortHint}`}
               >
                 <img className={styles.stripIcon} src={c.icon} alt="" />
