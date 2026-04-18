@@ -4,6 +4,7 @@ import { modById, modTierLabel, formatRolledWithRange, cleanModText } from "../.
 import {
   type EmulatedItem,
   type EmulatedMod,
+  type TierType,
   emptyItem,
   transmute,
   augment,
@@ -34,15 +35,15 @@ type CurrencyKey =
   | "divine"
   | "vaal";
 
-type TierType = "normal" | "greater" | "perfect";
-
 interface CurrencyDef {
   key: CurrencyKey;
   label: string;
   shortHint: string;
   className: string;
   icon: string;
-  apply: (item: EmulatedItem, base: BaseItem) => EmulatedItem;
+  /** Whether Greater/Perfect variants have meaning for this currency. */
+  hasTierVariants: boolean;
+  apply: (item: EmulatedItem, base: BaseItem, tierType: TierType) => EmulatedItem;
   canApply: (item: EmulatedItem) => boolean;
 }
 
@@ -53,7 +54,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Normal → Magic (1 mod)",
     className: "transmute",
     icon: "/assets/currency/transmute.webp",
-    apply: (i, b) => transmute(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => transmute(i, b, Math.random, t),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
   {
@@ -62,7 +64,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Magic +1 mod",
     className: "augment",
     icon: "/assets/currency/augment.webp",
-    apply: (i, b) => augment(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => augment(i, b, Math.random, t),
     canApply: (i) =>
       i.rarity === "magic" && !i.corrupted && (i.prefixes.length < 1 || i.suffixes.length < 1),
   },
@@ -72,7 +75,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Magic → Rare (+1 mod)",
     className: "regal",
     icon: "/assets/currency/regal.webp",
-    apply: (i, b) => regal(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => regal(i, b, Math.random, t),
     canApply: (i) => i.rarity === "magic" && !i.corrupted,
   },
   {
@@ -81,7 +85,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Normal → Rare (4 mods)",
     className: "alchemy",
     icon: "/assets/currency/alchemy.webp",
-    apply: (i, b) => alchemy(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => alchemy(i, b, Math.random, t),
     canApply: (i) => i.rarity === "normal" && !i.corrupted,
   },
   {
@@ -90,7 +95,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Rare +1 mod",
     className: "exalt",
     icon: "/assets/currency/exalt.webp",
-    apply: (i, b) => exalt(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => exalt(i, b, Math.random, t),
     canApply: (i) =>
       i.rarity === "rare" && !i.corrupted && (i.prefixes.length < 3 || i.suffixes.length < 3),
   },
@@ -100,7 +106,8 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Rare: remove 1 + add 1",
     className: "chaos",
     icon: "/assets/currency/chaos.webp",
-    apply: (i, b) => chaos(i, b),
+    hasTierVariants: true,
+    apply: (i, b, t) => chaos(i, b, Math.random, t),
     canApply: (i) => i.rarity === "rare" && !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
   {
@@ -109,6 +116,7 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Remove random mod",
     className: "annul",
     icon: "/assets/currency/annul.webp",
+    hasTierVariants: false,
     apply: (i) => annul(i),
     canApply: (i) => !i.corrupted && i.prefixes.length + i.suffixes.length > 0,
   },
@@ -118,6 +126,7 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Reroll values",
     className: "divine",
     icon: "/assets/currency/divine.webp",
+    hasTierVariants: false,
     apply: (i) => divine(i),
     canApply: (i) =>
       !i.corrupted && i.prefixes.length + i.suffixes.length + (i.corruptedImplicit ? 1 : 0) > 0,
@@ -128,10 +137,13 @@ const CURRENCIES: CurrencyDef[] = [
     shortHint: "Corrupt the item",
     className: "vaal",
     icon: "/assets/currency/vaal.webp",
+    hasTierVariants: false,
     apply: (i, b) => vaal(i, b),
     canApply: (i) => !i.corrupted,
   },
 ];
+
+const TIER_PREFIX: Record<TierType, string> = { normal: "", greater: "Greater ", perfect: "Perfect " };
 
 type SlotKind = "prefix" | "suffix" | "implicit";
 
@@ -145,6 +157,7 @@ interface HistoryLineMod {
 interface HistoryEvent {
   id: number;
   currencyKey: CurrencyKey;
+  tierType?: TierType;
   added: HistoryLineMod[];
   removed: HistoryLineMod[];
 }
@@ -211,14 +224,24 @@ export function CraftEmulator({ base, onClose }: Props) {
   const handleApply = useCallback(() => {
     if (!activeDef) return;
     if (!activeDef.canApply(item)) return;
-    const next = activeDef.apply(item, base);
+    const appliedTier: TierType = activeDef.hasTierVariants ? tierType : "normal";
+    const next = activeDef.apply(item, base, appliedTier);
     if (next === item) return;
     const diff = diffItems(base, item, next);
     setItem(next);
     setSpend((s) => ({ ...s, [activeDef.key]: s[activeDef.key] + 1 }));
-    setHistory((h) => [{ id: nextEventId, currencyKey: activeDef.key, ...diff }, ...h].slice(0, 80));
+    setHistory((h) => [{
+      id: nextEventId,
+      currencyKey: activeDef.key,
+      tierType: appliedTier,
+      ...diff,
+    }, ...h].slice(0, 80));
     setNextEventId((n) => n + 1);
-  }, [activeDef, item, base, nextEventId]);
+    // Auto-unarm if the armed currency can't apply to the resulting state —
+    // e.g. Transmute after Normal→Magic, Alchemy after Normal→Rare. Leave it
+    // armed otherwise so the user can keep clicking to spam-roll.
+    if (!activeDef.canApply(next)) setSelectedCurrency(null);
+  }, [activeDef, item, base, nextEventId, tierType]);
 
   const handleRestart = useCallback(() => {
     setItem(emptyItem(base, item.itemLevel));
@@ -309,14 +332,22 @@ export function CraftEmulator({ base, onClose }: Props) {
           <span className={styles.typeLabel}>TYPE</span>
           {(["normal", "greater", "perfect"] as TierType[]).map((t) => {
             const isActive = tierType === t;
-            const isDisabled = t !== "normal";
+            const supportsThisTier = !activeDef || activeDef.hasTierVariants || t === "normal";
             return (
               <button
                 key={t}
                 className={`${styles.typeBtn} ${isActive ? styles.typeBtnActive : ""}`}
-                disabled={isDisabled}
+                disabled={!supportsThisTier}
                 onClick={() => setTierType(t)}
-                title={isDisabled ? "Greater / Perfect tiers coming in a later update" : undefined}
+                title={
+                  supportsThisTier
+                    ? t === "greater"
+                      ? "Top half of tiers per mod family"
+                      : t === "perfect"
+                        ? "Only T1 per family + rolls near max"
+                        : undefined
+                    : `${activeDef!.label} has no Greater/Perfect variant`
+                }
               >
                 {t[0].toUpperCase() + t.slice(1)}
               </button>
@@ -329,8 +360,25 @@ export function CraftEmulator({ base, onClose }: Props) {
         </div>
 
         <div className={styles.body}>
-          {/* Item panel */}
-          <div className={styles.itemPanel}>
+          {/* Item panel — clickable as a craft zone when a currency is armed */}
+          <div
+            className={`${styles.itemPanel} ${activeDef && canArmedApply ? styles.itemPanelArmed : ""} ${activeDef && !canArmedApply ? styles.itemPanelBlocked : ""}`}
+            onClick={activeDef && canArmedApply ? handleApply : undefined}
+            style={
+              activeDef && canArmedApply
+                ? { cursor: `url(${activeDef.icon}) 16 16, pointer` }
+                : activeDef
+                  ? { cursor: "not-allowed" }
+                  : undefined
+            }
+            title={
+              !activeDef
+                ? undefined
+                : canArmedApply
+                  ? `Click to apply ${activeDef.hasTierVariants && tierType !== "normal" ? TIER_PREFIX[tierType] : ""}${activeDef.label}`
+                  : `${activeDef.label} can't be applied in the item's current state`
+            }
+          >
             <div className={styles.itemCard}>
               {base.iconPath ? (
                 <img className={styles.itemIcon} src={`/assets/${base.iconPath}`} alt={base.name} />
@@ -345,7 +393,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                     {" · "}{item.corrupted ? "Corrupted " : ""}{item.rarity[0].toUpperCase() + item.rarity.slice(1)}
                   </span>
                 </div>
-                <div className={styles.ilvlRow}>
+                <div className={styles.ilvlRow} onClick={(e) => e.stopPropagation()}>
                   <label className={styles.ilvlLabel}>Item Level</label>
                   <input
                     type="number"
@@ -361,31 +409,6 @@ export function CraftEmulator({ base, onClose }: Props) {
                 </div>
               </div>
             </div>
-
-            {/* Craftable click-target */}
-            <button
-              className={`${styles.craftTarget} ${activeDef ? styles.craftTargetArmed : ""} ${activeDef && !canArmedApply ? styles.craftTargetBlocked : ""}`}
-              onClick={handleApply}
-              disabled={!canArmedApply}
-              title={
-                !activeDef
-                  ? "Select a currency from the strip above"
-                  : canArmedApply
-                    ? `Use ${activeDef.label} on this item`
-                    : `${activeDef.label} can't be applied in the item's current state`
-              }
-            >
-              {activeDef ? (
-                <>
-                  <img src={activeDef.icon} className={styles.craftTargetIcon} alt="" />
-                  <span className={styles.craftTargetLabel}>
-                    {canArmedApply ? `Use ${activeDef.label}` : "Not applicable"}
-                  </span>
-                </>
-              ) : (
-                <span className={styles.craftTargetLabel}>Select currency to craft</span>
-              )}
-            </button>
 
             {/* Mod list */}
             <div className={styles.modList}>
@@ -444,7 +467,10 @@ export function CraftEmulator({ base, onClose }: Props) {
                   <div key={ev.id} className={styles.historyEvent}>
                     <div className={styles.historyEventHeader}>
                       {def && <img className={styles.historyIcon} src={def.icon} alt="" />}
-                      <span className={styles.historyEventName}>{def?.label ?? ev.currencyKey}</span>
+                      <span className={styles.historyEventName}>
+                        {ev.tierType && ev.tierType !== "normal" ? TIER_PREFIX[ev.tierType] : ""}
+                        {def?.label ?? ev.currencyKey}
+                      </span>
                     </div>
                     {ev.removed.map((line, i) => (
                       <div key={`r${i}`} className={`${styles.historyLine} ${styles.historyLineRemoved}`}>

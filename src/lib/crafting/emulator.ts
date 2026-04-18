@@ -3,6 +3,14 @@ import { allMods, modWeightOnItem, modById } from "../../data/mods";
 
 export type Rarity = "normal" | "magic" | "rare";
 
+/**
+ * Currency tier variant:
+ *   normal  — any mod in the item's pool
+ *   greater — top half of tiers per mod family (min T-(ceil(n/2)))
+ *   perfect — only T1 (the single highest-tier entry per family)
+ */
+export type TierType = "normal" | "greater" | "perfect";
+
 export interface EmulatedMod {
   modId: string;
   /** 0–100 percentile controlling where in the range the stat lands. */
@@ -64,6 +72,31 @@ function weightedPick(
 }
 
 /**
+ * For Greater/Perfect currency variants, restrict the pool to the higher
+ * tiers per mod family (same type + gen + source). Perfect keeps only the
+ * single top-tier entry; Greater keeps the top ceil(n/2).
+ */
+function applyTierVariant(
+  pool: Array<{ mod: ItemMod; weight: number }>,
+  tierType: TierType,
+): Array<{ mod: ItemMod; weight: number }> {
+  if (tierType === "normal") return pool;
+  const byType = new Map<string, Array<{ mod: ItemMod; weight: number }>>();
+  for (const p of pool) {
+    const arr = byType.get(p.mod.type) ?? [];
+    arr.push(p);
+    byType.set(p.mod.type, arr);
+  }
+  const kept: Array<{ mod: ItemMod; weight: number }> = [];
+  for (const arr of byType.values()) {
+    arr.sort((a, b) => b.mod.requiredLevel - a.mod.requiredLevel);
+    const keep = tierType === "perfect" ? 1 : Math.max(1, Math.ceil(arr.length / 2));
+    for (let i = 0; i < Math.min(keep, arr.length); i++) kept.push(arr[i]);
+  }
+  return kept;
+}
+
+/**
  * Pick one weighted-random mod that can roll on this item at its item level,
  * respecting mutual-exclusion groups already present.
  */
@@ -73,9 +106,9 @@ export function pickRollableMod(
   generationType: GenType | "corrupted",
   existingGroups: Set<string>,
   rng: () => number = Math.random,
+  tierType: TierType = "normal",
 ): ItemMod | null {
   const pool: Array<{ mod: ItemMod; weight: number }> = [];
-  let totalWeight = 0;
   const source = generationType === "corrupted" ? "corrupted" : "normal";
   for (const mod of allMods) {
     if (mod.source !== source) continue;
@@ -85,22 +118,34 @@ export function pickRollableMod(
     const w = modWeightOnItem(mod, base);
     if (w <= 0) continue;
     pool.push({ mod, weight: w });
-    totalWeight += w;
   }
-  return weightedPick(pool, totalWeight, rng);
+  const scoped = applyTierVariant(pool, tierType);
+  const total = scoped.reduce((acc, p) => acc + p.weight, 0);
+  return weightedPick(scoped, total, rng);
 }
 
-function randomRoll(rng: () => number): number {
+/**
+ * Random roll percentile. Perfect currency biases to the top of the range
+ * (last 20% of the percentile band) so rolled values land near the max.
+ */
+function randomRoll(rng: () => number, tierType: TierType = "normal"): number {
+  if (tierType === "perfect") return 80 + Math.floor(rng() * 21); // 80–100
   return Math.floor(rng() * 101);
 }
 
-function addMod(item: EmulatedItem, base: BaseItem, gen: GenType, rng: () => number): EmulatedItem {
+function addMod(
+  item: EmulatedItem,
+  base: BaseItem,
+  gen: GenType,
+  rng: () => number,
+  tierType: TierType = "normal",
+): EmulatedItem {
   const caps = capsFor(item.rarity);
   const list = gen === "prefix" ? item.prefixes : item.suffixes;
   if (list.length >= caps[gen]) return item;
-  const mod = pickRollableMod(base, item.itemLevel, gen, collectExistingGroups(item), rng);
+  const mod = pickRollableMod(base, item.itemLevel, gen, collectExistingGroups(item), rng, tierType);
   if (!mod) return item;
-  const em: EmulatedMod = { modId: mod.id, roll: randomRoll(rng) };
+  const em: EmulatedMod = { modId: mod.id, roll: randomRoll(rng, tierType) };
   return gen === "prefix"
     ? { ...item, prefixes: [...item.prefixes, em] }
     : { ...item, suffixes: [...item.suffixes, em] };
@@ -117,32 +162,32 @@ function pickOpenGen(item: EmulatedItem, rng: () => number): GenType | null {
 }
 
 /** Normal → Magic with 1 random mod (prefix or suffix, 50/50). */
-export function transmute(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function transmute(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "normal" || item.corrupted) return item;
   const withRarity: EmulatedItem = { ...item, rarity: "magic" };
   const gen: GenType = rng() < 0.5 ? "prefix" : "suffix";
-  return addMod(withRarity, base, gen, rng);
+  return addMod(withRarity, base, gen, rng, tierType);
 }
 
 /** Magic with 1 mod → Magic with 2 mods (add opposite-type mod). */
-export function augment(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function augment(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "magic" || item.corrupted) return item;
   const gen = pickOpenGen(item, rng);
   if (!gen) return item;
-  return addMod(item, base, gen, rng);
+  return addMod(item, base, gen, rng, tierType);
 }
 
 /** Magic → Rare, keeping existing mods and adding 1 more. */
-export function regal(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function regal(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "magic" || item.corrupted) return item;
   const asRare: EmulatedItem = { ...item, rarity: "rare" };
   const gen = pickOpenGen(asRare, rng);
   if (!gen) return asRare;
-  return addMod(asRare, base, gen, rng);
+  return addMod(asRare, base, gen, rng, tierType);
 }
 
 /** Normal → Rare with 4 mods. */
-export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "normal" || item.corrupted) return item;
   let next: EmulatedItem = {
     ...item,
@@ -156,11 +201,11 @@ export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = 
     const gen = pickOpenGen(next, rng);
     if (!gen) break;
     const before = next;
-    next = addMod(next, base, gen, rng);
+    next = addMod(next, base, gen, rng, tierType);
     // If the pool for this gen was exhausted, force the other side.
     if (next === before) {
       const other: GenType = gen === "prefix" ? "suffix" : "prefix";
-      next = addMod(next, base, other, rng);
+      next = addMod(next, base, other, rng, tierType);
       if (next === before) break;
     }
   }
@@ -168,11 +213,11 @@ export function alchemy(item: EmulatedItem, base: BaseItem, rng: () => number = 
 }
 
 /** Exalt: add a random mod to a rare (filling any open prefix/suffix slot). */
-export function exalt(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function exalt(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "rare" || item.corrupted) return item;
   const gen = pickOpenGen(item, rng);
   if (!gen) return item;
-  return addMod(item, base, gen, rng);
+  return addMod(item, base, gen, rng, tierType);
 }
 
 /** Annul: remove a random mod. */
@@ -189,7 +234,7 @@ export function annul(item: EmulatedItem, rng: () => number = Math.random): Emul
 }
 
 /** Chaos: remove one random mod and add one new random mod (PoE2 behaviour). */
-export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random): EmulatedItem {
+export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Math.random, tierType: TierType = "normal"): EmulatedItem {
   if (item.rarity !== "rare" || item.corrupted) return item;
   // Remove one
   const afterRemove = annul(item, rng);
@@ -197,7 +242,7 @@ export function chaos(item: EmulatedItem, base: BaseItem, rng: () => number = Ma
   // Add one — prefer the gen that just freed up; but any open gen works.
   const gen = pickOpenGen(afterRemove, rng);
   if (!gen) return afterRemove;
-  return addMod(afterRemove, base, gen, rng);
+  return addMod(afterRemove, base, gen, rng, tierType);
 }
 
 /** Divine: reroll values on every mod. Blocked once the item is corrupted. */
