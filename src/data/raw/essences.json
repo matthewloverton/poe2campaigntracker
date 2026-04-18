@@ -50,6 +50,22 @@
           }
         ],
         "iconPath": "essences/abrasion-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Abrasion",
+        "name": "Perfect Essence of Abrasion",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Gain (15-20)% of Damage as Extra Physical Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Gain (25-33)% of Damage as Extra Physical Damage"
+          }
+        ],
+        "iconPath": "essences/abrasion-perfect.png"
       }
     }
   },
@@ -104,6 +120,22 @@
           }
         ],
         "iconPath": "essences/alacrity-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Alacrity",
+        "name": "Perfect Essence of Alacrity",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Focus or Wand",
+            "text": "(18-20)% increased Mana Cost Efficiency"
+          },
+          {
+            "category": "Staff",
+            "text": "(28-32)% increased Mana Cost Efficiency"
+          }
+        ],
+        "iconPath": "essences/alacrity-perfect.png"
       }
     }
   },
@@ -146,6 +178,22 @@
           }
         ],
         "iconPath": "essences/battle-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Battle",
+        "name": "Perfect Essence of Battle",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "+3 to Level of all Attack Skills"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "+5 to Level of all Attack Skills"
+          }
+        ],
+        "iconPath": "essences/battle-perfect.png"
       }
     }
   },
@@ -188,6 +236,18 @@
           }
         ],
         "iconPath": "essences/command-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Command",
+        "name": "Perfect Essence of Command",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Sceptre",
+            "text": "Aura Skills have (15-20)% increased Magnitudes"
+          }
+        ],
+        "iconPath": "essences/command-perfect.png"
       }
     }
   },
@@ -242,6 +302,22 @@
           }
         ],
         "iconPath": "essences/electricity-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Electricity",
+        "name": "Perfect Essence of Electricity",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Gain (15-20)% of Damage as Extra Lightning Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Gain (25-33)% of Damage as Extra Lightning Damage"
+          }
+        ],
+        "iconPath": "essences/electricity-perfect.png"
       }
     }
   },
@@ -284,6 +360,18 @@
           }
         ],
         "iconPath": "essences/enhancement-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Enhancement",
+        "name": "Perfect Essence of Enhancement",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Amulet",
+            "text": "(20-30)% increased Global Defences"
+          }
+        ],
+        "iconPath": "essences/enhancement-perfect.png"
       }
     }
   },
@@ -338,6 +426,22 @@
           }
         ],
         "iconPath": "essences/flames-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Flames",
+        "name": "Perfect Essence of Flames",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Gain (15-20)% of Damage as Extra Fire Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Gain (25-33)% of Damage as Extra Fire Damage"
+          }
+        ],
+        "iconPath": "essences/flames-perfect.png"
       }
     }
   },
@@ -380,6 +484,18 @@
           }
         ],
         "iconPath": "essences/grounding-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Grounding",
+        "name": "Perfect Essence of Grounding",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Gloves",
+            "text": "(26-30)% of Lightning Damage taken Recouped as Life"
+          }
+        ],
+        "iconPath": "essences/grounding-perfect.png"
       }
     }
   },
@@ -434,6 +550,18 @@
           }
         ],
         "iconPath": "essences/haste-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Haste",
+        "name": "Perfect Essence of Haste",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Martial Weapon",
+            "text": "(20-25)% chance to gain Onslaught on Killing Hits with this Weapon"
+          }
+        ],
+        "iconPath": "essences/haste-perfect.png"
       }
     }
   },
@@ -488,6 +616,22 @@
           }
         ],
         "iconPath": "essences/ice-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Ice",
+        "name": "Perfect Essence of Ice",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "One Handed Melee Weapon or Bow",
+            "text": "Gain (15-20)% of Damage as Extra Cold Damage"
+          },
+          {
+            "category": "Two Handed Melee Weapon or Crossbow",
+            "text": "Gain (25-33)% of Damage as Extra Cold Damage"
+          }
+        ],
+        "iconPath": "essences/ice-perfect.png"
       }
     }
   },
@@ -530,6 +674,18 @@
           }
         ],
         "iconPath": "essences/insulation-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Insulation",
+        "name": "Perfect Essence of Insulation",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Belt",
+            "text": "(26-30)% of Fire Damage taken Recouped as Life"
+          }
+        ],
+        "iconPath": "essences/insulation-perfect.png"
       }
     }
   },
@@ -572,6 +728,18 @@
           }
         ],
         "iconPath": "essences/opulence-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Opulence",
+        "name": "Perfect Essence of Opulence",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Gloves",
+            "text": "(10-15)% increased Quantity of Gold Dropped by Slain Enemies"
+          }
+        ],
+        "iconPath": "essences/opulence-perfect.png"
       }
     }
   },
@@ -614,6 +782,18 @@
           }
         ],
         "iconPath": "essences/ruin-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Ruin",
+        "name": "Perfect Essence of Ruin",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Body Armour",
+            "text": "(10-15)% of Physical Damage from Hits taken as Chaos Damage"
+          }
+        ],
+        "iconPath": "essences/ruin-perfect.png"
       }
     }
   },
@@ -680,6 +860,18 @@
           }
         ],
         "iconPath": "essences/seeking-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Seeking",
+        "name": "Perfect Essence of Seeking",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Body Armour",
+            "text": "Hits against you have (40-50)% reduced Critical Damage Bonus"
+          }
+        ],
+        "iconPath": "essences/seeking-perfect.png"
       }
     }
   },
@@ -734,6 +926,22 @@
           }
         ],
         "iconPath": "essences/sorcery-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Sorcery",
+        "name": "Perfect Essence of Sorcery",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Wand",
+            "text": "+3 to Level of all Spell Skills"
+          },
+          {
+            "category": "Staff",
+            "text": "+5 to Level of all Spell Skills"
+          }
+        ],
+        "iconPath": "essences/sorcery-perfect.png"
       }
     }
   },
@@ -776,6 +984,18 @@
           }
         ],
         "iconPath": "essences/thawing-greater.png"
+      },
+      "perfect": {
+        "page": "Perfect_Essence_of_Thawing",
+        "name": "Perfect Essence of Thawing",
+        "description": "Removes a random modifier and augments a Rare item with a new guaranteed modifier",
+        "entries": [
+          {
+            "category": "Helmet",
+            "text": "(26-30)% of Cold Damage taken Recouped as Life"
+          }
+        ],
+        "iconPath": "essences/thawing-perfect.png"
       }
     }
   },

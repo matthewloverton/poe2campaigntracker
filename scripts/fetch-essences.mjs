@@ -125,7 +125,7 @@ async function main() {
 
   const jobs = [];
   for (const name of REGULAR) {
-    for (const tier of ["lesser", "normal", "greater"]) {
+    for (const tier of ["lesser", "normal", "greater", "perfect"]) {
       jobs.push({ name, tier });
     }
   }
