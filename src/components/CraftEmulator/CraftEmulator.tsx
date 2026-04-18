@@ -650,23 +650,37 @@ export function CraftEmulator({ base, onClose }: Props) {
         </div>
 
         <div className={styles.body}>
-          {/* Item panel — clickable as a craft zone when a currency is armed */}
+          {/* Item panel — clickable as a craft zone when any currency/essence is armed. */}
           <div
-            className={`${styles.itemPanel} ${activeDef && canArmedApply ? styles.itemPanelArmed : ""} ${activeDef && !canArmedApply ? styles.itemPanelBlocked : ""}`}
-            onClick={activeDef && canArmedApply ? handleApply : undefined}
-            style={
-              activeDef && canArmedApply
-                ? { cursor: `url(${activeDef.icon}) 16 16, pointer` }
-                : activeDef
-                  ? { cursor: "not-allowed" }
-                  : undefined
-            }
+            className={`${styles.itemPanel} ${(activeDef || activeEssence) && canArmedApply ? styles.itemPanelArmed : ""} ${(activeDef || activeEssence) && !canArmedApply ? styles.itemPanelBlocked : ""}`}
+            onClick={(activeDef || activeEssence) && canArmedApply ? handleApply : undefined}
+            style={(() => {
+              if (canArmedApply) {
+                const icon = activeDef
+                  ? activeDef.icon
+                  : activeEssence?.tiers[tierType as EssenceTier]?.iconPath
+                    ? `/assets/${activeEssence!.tiers[tierType as EssenceTier]!.iconPath}`
+                    : null;
+                if (icon) return { cursor: `url(${icon}) 16 16, pointer` };
+              } else if (activeDef || activeEssence) {
+                return { cursor: "not-allowed" };
+              }
+              return undefined;
+            })()}
             title={
-              !activeDef
+              !activeDef && !activeEssence
                 ? undefined
                 : canArmedApply
-                  ? `Click to apply ${activeDef.hasTierVariants && tierType !== "normal" ? TIER_PREFIX[tierType] : ""}${activeDef.label}`
-                  : `${activeDef.label} can't be applied in the item's current state`
+                  ? `Click to apply ${
+                      activeEssence
+                        ? `${ESSENCE_TIER_LABEL[tierType]} Essence of ${activeEssence.name}`
+                        : `${activeDef!.hasTierVariants && tierType !== "normal" ? TIER_PREFIX[tierType] : ""}${activeDef!.label}`
+                    }`
+                  : `${
+                      activeEssence
+                        ? `${ESSENCE_TIER_LABEL[tierType]} Essence of ${activeEssence.name}`
+                        : activeDef!.label
+                    } can't be applied in the item's current state`
             }
           >
             <div className={styles.itemCard}>
