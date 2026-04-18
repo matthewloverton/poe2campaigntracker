@@ -20,6 +20,7 @@ import { useGuideStore } from "./store/guideStore";
 import { useGuidesStore } from "./store/guidesStore";
 import { usePersistence } from "./hooks/usePersistence";
 import { useAutoAdvance } from "./hooks/useAutoAdvance";
+import { useAutoUpdate } from "./hooks/useAutoUpdate";
 
 const headerStyle: React.CSSProperties = {
   display: "flex",
@@ -57,6 +58,7 @@ export default function App() {
   const splitAct = useTimerStore((s) => s.splitAct);
   const setGuide = useGuideStore((s) => s.setGuide);
   const { toasts, dismissToast, unlocks, dismissUnlock } = useAutoAdvance();
+  useAutoUpdate();
   usePersistence();
 
   const currentPage = useGuideStore((s) => s.pages[s.currentPageIndex]);
