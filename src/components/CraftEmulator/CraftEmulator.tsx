@@ -540,7 +540,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                 <div className={`${styles.modRow} ${styles.modCorrupted}`}>
                   <span className={styles.modBadge}>IMP</span>
                   <span className={styles.modTier}>{modTierLabel(corruptedMod.mod, base)}</span>
-                  <span className={styles.modText}>{formatRolledWithRange(corruptedMod.mod, corruptedMod.em.roll)}</span>
+                  <span className={styles.modText}>{renderRolledText(formatRolledWithRange(corruptedMod.mod, corruptedMod.em.roll))}</span>
                 </div>
               )}
               {prefixMods.length === 0 && suffixMods.length === 0 && !corruptedMod && (
@@ -551,7 +551,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                   <span className={styles.modBadge}>P</span>
                   <span className={styles.modTier}>{modTierLabel(p.mod, base)}</span>
                   <span className={styles.modName}>{p.mod.name}</span>
-                  <span className={styles.modText}>{formatRolledWithRange(p.mod, p.em.roll)}</span>
+                  <span className={styles.modText}>{renderRolledText(formatRolledWithRange(p.mod, p.em.roll))}</span>
                 </div>
               ))}
               {suffixMods.map((s, i) => s.mod && (
@@ -559,7 +559,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                   <span className={styles.modBadge}>S</span>
                   <span className={styles.modTier}>{modTierLabel(s.mod, base)}</span>
                   <span className={styles.modName}>{s.mod.name}</span>
-                  <span className={styles.modText}>{formatRolledWithRange(s.mod, s.em.roll)}</span>
+                  <span className={styles.modText}>{renderRolledText(formatRolledWithRange(s.mod, s.em.roll))}</span>
                 </div>
               ))}
             </div>
@@ -626,6 +626,16 @@ export function CraftEmulator({ base, onClose }: Props) {
 /** Compact: collapse the roll+range into single line text without newlines. */
 function cleanLineText(text: string): string {
   return cleanModText(text).replace(/\n/g, " · ");
+}
+
+/** Split rolled mod text into React nodes so `(min-max)` ranges render dimmer. */
+function renderRolledText(text: string) {
+  return cleanLineText(text).split(/(\(-?\d+(?:\.\d+)?-\d+(?:\.\d+)?\))/g).map((part, i) => {
+    if (/^\(-?\d+(?:\.\d+)?-\d+(?:\.\d+)?\)$/.test(part)) {
+      return <span key={i} className={styles.rollRange}>{part}</span>;
+    }
+    return <span key={i}>{part}</span>;
+  });
 }
 
 function HistoryLine({ line, kind, showRollQuality, isDivine }: { line: HistoryLineMod; kind: "added" | "removed"; showRollQuality: boolean; isDivine?: boolean }) {

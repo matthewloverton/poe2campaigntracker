@@ -196,16 +196,19 @@ export function computeRollStats(mod: ItemMod, roll: number): { percent: number;
 }
 
 /**
- * Replace each `(min-max)` range in a mod's text with
- * `rolled(min-max)` so callers can show the rolled value alongside the
- * full possible range, e.g. `104(101-110)% increased …`.
+ * Replace each `(min-max)` range in a mod's text with `rolled(min-max)`
+ * so callers can show the rolled value alongside the full possible range,
+ * e.g. `104(101-110)% increased …`. Handles both integer and decimal
+ * ranges (e.g. `+(3.11-3.8)% to Critical Hit Chance`).
  */
 export function formatRolledWithRange(mod: ItemMod, roll: number): string {
-  return cleanModText(mod.text).replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
+  return cleanModText(mod.text).replace(/\((-?\d+(?:\.\d+)?)[–—-](-?\d+(?:\.\d+)?)\)/g, (_m, a, b) => {
     const min = Number(a);
     const max = Number(b);
-    const rolled = Math.round(min + (max - min) * roll / 100);
-    return `${rolled}(${min}-${max})`;
+    const rolled = min + (max - min) * roll / 100;
+    const isFrac = !Number.isInteger(min) || !Number.isInteger(max);
+    const fmt = (n: number) => isFrac ? n.toFixed(2).replace(/\.?0+$/, "") : String(Math.round(n));
+    return `${fmt(rolled)}(${fmt(min)}-${fmt(max)})`;
   });
 }
 

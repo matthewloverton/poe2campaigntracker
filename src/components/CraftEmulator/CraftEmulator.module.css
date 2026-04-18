@@ -418,7 +418,7 @@
   min-width: 80px;
 }
 
-.modText { flex: 1; color: var(--text-primary); }
+.modText { flex: 1; color: #8ac7ff; }
 
 .modPrefix .modBadge { background: rgba(78, 205, 196, 0.15); color: var(--accent-teal); }
 .modSuffix .modBadge { background: rgba(201, 168, 76, 0.15); color: var(--accent-gold); }
@@ -563,6 +563,11 @@
 }
 
 .historyLineText { flex: 1; }
+
+.rollRange {
+  color: #5a8cc4;
+  opacity: 0.9;
+}
 
 .historyRoll {
   color: var(--text-secondary);

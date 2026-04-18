@@ -6,10 +6,12 @@ import type { ItemMod } from "../../types/itemDatabase";
 /** Resolve a single mod's text with rolled values substituted in. */
 function resolveModRoll(mod: ItemMod, pct: number | undefined): string {
   const text = cleanModText(mod.text);
-  return text.replace(/\((-?\d+)[–—-](-?\d+)\)/g, (_m, a, b) => {
+  return text.replace(/\((-?\d+(?:\.\d+)?)[–—-](-?\d+(?:\.\d+)?)\)/g, (_m, a, b) => {
     const min = Number(a), max = Number(b);
-    if (pct != null) return String(Math.round(min + ((max - min) * pct) / 100));
-    return String(Math.round((min + max) / 2));
+    const isFrac = !Number.isInteger(min) || !Number.isInteger(max);
+    const fmt = (n: number) => isFrac ? n.toFixed(2).replace(/\.?0+$/, "") : String(Math.round(n));
+    if (pct != null) return fmt(min + ((max - min) * pct) / 100);
+    return fmt((min + max) / 2);
   });
 }
 
