@@ -7,9 +7,9 @@ import styles from "./ModTable.module.css";
 
 const SOURCE_TABS: { key: ModSource; label: string }[] = [
   { key: "normal", label: "Normal" },
+  { key: "essence", label: "Essence" },
   { key: "desecrated", label: "Desecrated" },
   { key: "corrupted", label: "Corrupted" },
-  { key: "essence", label: "Essence" },
 ];
 
 interface ModTableProps {
@@ -139,9 +139,12 @@ export function ModTable({ item, selectedMods, onSelectedModsChange, onAllModsLo
 
   const { prefixes, suffixes, corrupted } = useMemo(() => {
     if (sourceTab === "essence") {
-      // Essence "mods" are synthesised per-item; render them as suffixes so
-      // they land in a single column without the prefix/suffix split.
-      return { prefixes: [] as ItemMod[], suffixes: essenceModsForItem(item), corrupted: [] as ItemMod[] };
+      const all = essenceModsForItem(item);
+      return {
+        prefixes: all.filter((m) => m.generationType === "prefix"),
+        suffixes: all.filter((m) => m.generationType === "suffix"),
+        corrupted: [] as ItemMod[],
+      };
     }
     return getModsForItem(item, sourceTab);
   }, [item, sourceTab]);

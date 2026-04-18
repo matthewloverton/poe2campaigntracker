@@ -1,5 +1,6 @@
 import type { BaseItem, ItemMod } from "../types/itemDatabase";
 import rawEssences from "./raw/essences.json";
+import { allMods, cleanModText } from "./mods";
 
 export type EssenceTier = "lesser" | "normal" | "greater" | "perfect";
 
@@ -118,6 +119,56 @@ export function resolveEssenceEntryForItem(
 }
 
 /**
+ * Template a mod's text down to a shape-only string by replacing every
+ * numeric token and range with `#`, so identical mod templates (one real,
+ * one essence-synthesised) compare equal.
+ */
+function templateText(text: string): string {
+  return cleanModText(text)
+    .replace(/\((?:-?\d+(?:\.\d+)?)[–—-](?:-?\d+(?:\.\d+)?)\)/g, "#")
+    .replace(/[+-]?\d+(?:\.\d+)?%?/g, "#")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+/** Lazy lookup: text template → first matching normal-source mod's generation type. */
+let templateToGenCache: Map<string, "prefix" | "suffix"> | null = null;
+function templateToGen(): Map<string, "prefix" | "suffix"> {
+  if (templateToGenCache) return templateToGenCache;
+  const map = new Map<string, "prefix" | "suffix">();
+  for (const m of allMods) {
+    if (m.source !== "normal") continue;
+    if (m.generationType !== "prefix" && m.generationType !== "suffix") continue;
+    const key = templateText(m.text);
+    if (!map.has(key)) map.set(key, m.generationType);
+  }
+  templateToGenCache = map;
+  return map;
+}
+
+/** Heuristic fallback for mods we can't pattern-match to the existing pool. */
+function heuristicGen(text: string): "prefix" | "suffix" {
+  // Suffixes are typically: resistances, accuracy, *% reduced ... found,
+  // attack/cast speed, life regen, thorns etc. Prefixes are everything else.
+  const s = text.toLowerCase();
+  if (/\bto .* resistance\b/.test(s)) return "suffix";
+  if (/\bincreased rarity\b/.test(s)) return "suffix";
+  if (/\battack speed\b/.test(s) || /\bcast speed\b/.test(s)) return "suffix";
+  if (/\bto accuracy rating\b/.test(s)) return "suffix";
+  if (/\blife regeneration per second\b/.test(s)) return "suffix";
+  if (/\bincreased critical\b/.test(s)) return "suffix";
+  if (/\bstun threshold\b/.test(s)) return "suffix";
+  return "prefix";
+}
+
+export function essenceGenType(text: string): "prefix" | "suffix" {
+  const hit = templateToGen().get(templateText(text));
+  if (hit) return hit;
+  return heuristicGen(text);
+}
+
+/**
  * Synthesize ItemMod entries for essence forced mods so they can be displayed
  * in the mod table alongside normal/desecrated/corrupted mods. IDs are
  * prefixed with `essence:` to avoid collision with real mod IDs.
@@ -131,16 +182,14 @@ export function essenceModsForItem(item: BaseItem): ItemMod[] {
       const entry = resolveEssenceEntryForItem(slug, tierKey, item);
       if (!entry) continue;
       const stats = parseEssenceStats(entry.text);
+      const gen = essenceGenType(entry.text);
       out.push({
         id: `essence:${slug}:${tierKey}`,
         name: tierLabel(tierKey) + " " + ess.name,
         text: entry.text,
         type: `Essence_${slug}`,
-        generationType: "prefix", // treat all essence mods as a nominal prefix for layout
-        // Use the "desecrated" source bucket for filtering/colour — we'll
-        // wire a dedicated "essence" source downstream; for now this keeps
-        // them out of the normal pool.
-        source: "desecrated",
+        generationType: gen,
+        source: "essence",
         group: `Essence_${slug}_${tierKey}`,
         requiredLevel: 0,
         stats,
