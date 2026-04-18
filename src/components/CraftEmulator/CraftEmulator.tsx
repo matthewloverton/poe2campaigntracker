@@ -661,21 +661,37 @@ export function CraftEmulator({ base, onClose }: Props) {
                           <div key={t.tier} className={styles.tipTierRow}>
                             <span className={styles.tipTiersLabel}>{t.label}</span>
                             {t.entry.text}
-                            {!t.canApplyNow && (
-                              <span className={styles.tipTierBlocked}> — needs {t.requirement}</span>
-                            )}
                           </div>
                         ))}
                       </div>
-                      {!anyTierCanFireNow && (
-                        <div className={styles.tipReq}>
-                          <span className={styles.tipReqLabel}>Blocked:</span>
-                          {` No tier applies to a ${item.corrupted ? "corrupted" : item.rarity} item`}
-                        </div>
-                      )}
+                      {(() => {
+                        // Collapse into one "Requires:" line listing each distinct requirement
+                        // and which tiers share it — mirrors the currency tooltip's single
+                        // "Requires:" footer.
+                        const groups = new Map<string, string[]>();
+                        for (const t of applicableTiers) {
+                          const list = groups.get(t.requirement) ?? [];
+                          list.push(t.label);
+                          groups.set(t.requirement, list);
+                        }
+                        return (
+                          <div className={styles.tipReq}>
+                            <span className={styles.tipReqLabel}>Requires:</span>
+                            {[...groups.entries()].map(([req, labels], i) => (
+                              <span key={req}>
+                                {i > 0 && "; "}
+                                {labels.join("/")} → {req}
+                              </span>
+                            ))}
+                          </div>
+                        );
+                      })()}
                     </>
                   ) : (
-                    <div className={styles.tipReq}>Does not apply to this base</div>
+                    <div className={styles.tipReq}>
+                      <span className={styles.tipReqLabel}>N/A:</span>
+                      Doesn't apply to this base
+                    </div>
                   )}
                 </>
               );

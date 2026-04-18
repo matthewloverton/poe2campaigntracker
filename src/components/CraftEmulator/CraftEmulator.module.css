@@ -165,12 +165,6 @@
   line-height: 1.35;
 }
 
-.tipTierBlocked {
-  color: #ff8080;
-  font-style: italic;
-  font-size: 0.62rem;
-}
-
 .stripBtn {
   position: relative;
   width: 46px;
