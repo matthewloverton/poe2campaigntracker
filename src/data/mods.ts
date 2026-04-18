@@ -168,6 +168,14 @@ export function groupModsByType(mods: ItemMod[]): ModGroup[] {
  * covers both one-hand and two-hand variants, from inflating the tier count.
  */
 export function modTierLabel(mod: ItemMod, item?: BaseItem): string {
+  // Essence mods carry their tier in the ID — show it as "Lesser" / "Normal"
+  // / "Greater" / "Perfect" instead of a synthetic T1/T2/T3.
+  if (mod.id.startsWith("essence:")) {
+    const parts = mod.id.split(":");
+    const tier = parts[2];
+    if (!tier) return "";
+    return tier[0].toUpperCase() + tier.slice(1);
+  }
   const itemTags = item ? new Set(item.tags) : null;
   const baseKey = item ? sheetBaseKey(item) : null;
   const eligible = (m: ItemMod) => {

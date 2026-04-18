@@ -172,22 +172,40 @@ function categorySlug(category: string): string {
   return category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+const ESSENCE_TIER_ORDER: Record<EssenceTier, number> = {
+  lesser: 1,
+  normal: 2,
+  greater: 3,
+  perfect: 4,
+};
+
 /** Build a synthetic ItemMod for one (essence, tier, category) entry. */
 function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): ItemMod {
   const ess = allEssences[slug];
+  // Grouping: a mod's `type` spans all tiers of the same essence + category
+  // so ModTable's groupModsByType puts Lesser/Normal/Greater side-by-side.
+  // requiredLevel mirrors the tier order so modTierLabel can compute a
+  // meaningful position within the group.
   return {
     id: `essence:${slug}:${tier}:${categorySlug(entry.category)}`,
-    name: tierLabel(tier) + " " + ess.name,
+    name: ess.name,
     text: entry.text,
-    type: `Essence_${slug}_${tier}`,
+    type: `Essence_${slug}_${categorySlug(entry.category)}`,
     generationType: essenceGenType(entry.text),
     source: "essence",
-    group: `Essence_${slug}_${tier}_${categorySlug(entry.category)}`,
-    requiredLevel: 0,
+    group: `Essence_${slug}_${categorySlug(entry.category)}`,
+    requiredLevel: ESSENCE_TIER_ORDER[tier],
     stats: parseEssenceStats(entry.text),
     spawnWeights: [{ tag: "default", weight: 1 }],
     tags: ["essence"],
   };
+}
+
+/** Parse an essence mod's ID back into its slug + tier + category. */
+export function parseEssenceModId(id: string): { slug: string; tier: EssenceTier; category: string } | null {
+  const parts = id.split(":");
+  if (parts.length !== 4 || parts[0] !== "essence") return null;
+  return { slug: parts[1], tier: parts[2] as EssenceTier, category: parts[3] };
 }
 
 /**
@@ -235,10 +253,6 @@ export function resolveEssenceModForItem(slug: string, tier: EssenceTier, item: 
   if (!entry) return null;
   const id = `essence:${slug}:${tier}:${categorySlug(entry.category)}`;
   return essenceModById.get(id) ?? null;
-}
-
-function tierLabel(tier: EssenceTier): string {
-  return tier[0].toUpperCase() + tier.slice(1);
 }
 
 /**
