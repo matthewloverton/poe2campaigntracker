@@ -7,6 +7,7 @@ import { GemBrowser } from "./components/GemBrowser/GemBrowser";
 import { CampaignTimer } from "./components/CampaignTimer/CampaignTimer";
 import { LevelIndicator } from "./components/LevelIndicator/LevelIndicator";
 import { ToastContainer } from "./components/Toast/Toast";
+import { DialogHost } from "./components/Dialog/Dialog";
 import { UnlockOverlay } from "./components/UnlockOverlay/UnlockOverlay";
 import { BuildPlan } from "./components/BuildPlan/BuildPlan";
 import { Settings } from "./components/Settings/Settings";
@@ -200,6 +201,7 @@ export default function App() {
 
       <ToastContainer messages={toasts} onDismiss={dismissToast} />
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <DialogHost />
     </>
   );
 }

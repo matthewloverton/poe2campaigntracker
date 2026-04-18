@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { tokenize } from "../../lib/tokenizer";
 import { StepRenderer } from "../StepRenderer";
 import { useGuidesStore } from "../../store/guidesStore";
+import { confirmDialog } from "../Dialog/Dialog";
 import styles from "./StepRow.module.css";
 import { IconPicker } from "./pickers/IconPicker";
 import { ZonePicker } from "./pickers/ZonePicker";
@@ -87,7 +88,7 @@ export function StepRow({ guideId, act, entryIdx, stepIdx, raw }: Props) {
         />
         <button
           className={styles.deleteBtn}
-          onClick={() => { if (confirm("Delete step?")) deleteStep(guideId, act, entryIdx, stepIdx); }}
+          onClick={async () => { if (await confirmDialog("Delete step?", { title: "Delete Step", confirmLabel: "Delete", danger: true })) deleteStep(guideId, act, entryIdx, stepIdx); }}
         >
           &times;
         </button>

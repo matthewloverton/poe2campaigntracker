@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTimerStore } from "../../store/timerStore";
 import { useLevelStore } from "../../store/levelStore";
 import { useTimerTick, formatTime } from "../../hooks/useTimer";
+import { confirmDialog } from "../Dialog/Dialog";
 import styles from "./CampaignTimer.module.css";
 
 interface CampaignTimerProps {
@@ -76,8 +77,8 @@ export function CampaignTimer({ onShowHistory }: CampaignTimerProps) {
           {timerState !== "stopped" && (
             <button
               className={styles.btn}
-              onClick={() => {
-                if (confirm("Reset timer and save run?")) {
+              onClick={async () => {
+                if (await confirmDialog("Reset timer and save run?", { title: "Reset Run", confirmLabel: "Reset & Save" })) {
                   reset(characterName, characterClass, level);
                 }
               }}

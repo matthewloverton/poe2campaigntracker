@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useTimerStore } from "../../store/timerStore";
 import { formatTime } from "../../hooks/useTimer";
 import type { CompletedRun } from "../../types";
+import { confirmDialog } from "../Dialog/Dialog";
 import styles from "./RunHistory.module.css";
 
 interface RunHistoryProps {
@@ -58,9 +59,11 @@ export function RunHistory({ onClose }: RunHistoryProps) {
     return { best, worst };
   }, [runs, allActs]);
 
-  function handleDelete(e: React.MouseEvent, runId: string) {
+  async function handleDelete(e: React.MouseEvent, runId: string) {
     e.stopPropagation();
-    if (confirm("Delete this run?")) deleteRun(runId);
+    if (await confirmDialog("Delete this run?", { title: "Delete Run", confirmLabel: "Delete", danger: true })) {
+      deleteRun(runId);
+    }
   }
 
   function formatDate(iso: string): string {

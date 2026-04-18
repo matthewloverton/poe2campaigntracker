@@ -1,6 +1,7 @@
 import { useGuidesStore } from "../../store/guidesStore";
 import { DragList } from "../DragList/DragList";
 import { storedGuideToPages } from "../../data/guide";
+import { confirmDialog } from "../Dialog/Dialog";
 
 interface Props {
   guideId: string;
@@ -65,8 +66,8 @@ export function ActPane({ guideId, act, onSelectPage }: Props) {
                 <span style={{ fontSize: "0.55rem", color: "var(--accent-teal)" }}>cond</span>
               )}
               <button
-                onClick={() => {
-                  if (confirm("Delete this page?")) deletePage(guideId, act, i);
+                onClick={async () => {
+                  if (await confirmDialog("Delete this page?", { title: "Delete Page", confirmLabel: "Delete", danger: true })) deletePage(guideId, act, i);
                 }}
                 style={{ background: "none", border: "none", color: "var(--color-red, #d9534f)", cursor: "pointer" }}
               >

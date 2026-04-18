@@ -3,6 +3,7 @@ import { useGuidesStore } from "../../store/guidesStore";
 import { useGuideStore } from "../../store/guideStore";
 import { guidePages, storedGuideToPages } from "../../data/guide";
 import type { GuideEditorSelection } from "./GuideEditor";
+import { alertDialog } from "../Dialog/Dialog";
 import styles from "./GuideTree.module.css";
 
 interface Props {
@@ -165,7 +166,7 @@ export function GuideTree({ selection, onSelect }: Props) {
           if (id) {
             onSelect({ guideId: id, act: null, entryIdx: null });
           } else {
-            alert("Invalid guide JSON.");
+            alertDialog("Invalid guide JSON.", { title: "Import Error" });
           }
         }}
       >

@@ -3,6 +3,7 @@ import { useCustomizationsStore } from "../../store/customizationsStore";
 import { useTimerStore } from "../../store/timerStore";
 import { useGuideStore } from "../../store/guideStore";
 import { useGuidesStore } from "../../store/guidesStore";
+import { confirmDialog, alertDialog } from "../Dialog/Dialog";
 import styles from "./Settings.module.css";
 
 interface SettingsProps {
@@ -90,13 +91,14 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
       // Persist the imported data
       store.save();
     } catch {
-      alert("Invalid JSON. Import failed.");
+      alertDialog("Invalid JSON. Import failed.", { title: "Import Error" });
     }
   }
 
-  function handleResetCampaign() {
-    const confirmed = confirm(
-      "Reset campaign run? This will clear the timer and return the guide to the beginning."
+  async function handleResetCampaign() {
+    const confirmed = await confirmDialog(
+      "Reset campaign run? This will clear the timer and return the guide to the beginning.",
+      { title: "Reset Campaign", confirmLabel: "Reset", danger: true }
     );
     if (!confirmed) return;
     resetTimer();
