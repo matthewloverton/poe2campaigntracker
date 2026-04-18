@@ -1,6 +1,13 @@
 import { useState, useCallback, useMemo } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
-import { modById, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
+import { resolveMod, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
+import {
+  allEssences,
+  resolveEssenceEntryForItem,
+  REGULAR_ESSENCE_SLUGS,
+  CORRUPTED_ESSENCE_SLUGS,
+  type EssenceTier,
+} from "../../data/essences";
 import {
   type EmulatedItem,
   type EmulatedMod,
@@ -18,6 +25,7 @@ import {
   divine,
   vaal,
   scour,
+  applyEssence,
   modPickChance,
 } from "../../lib/crafting/emulator";
 import styles from "./CraftEmulator.module.css";
@@ -154,11 +162,15 @@ const CURRENCIES: CurrencyDef[] = [
 ];
 
 function minLevelFor(def: CurrencyDef, tier: TierType): number {
-  if (!def.hasTierVariants || tier === "normal" || !def.minLevels) return 0;
-  return tier === "greater" ? def.minLevels.greater : def.minLevels.perfect;
+  if (!def.hasTierVariants || !def.minLevels) return 0;
+  if (tier === "greater") return def.minLevels.greater;
+  if (tier === "perfect") return def.minLevels.perfect;
+  return 0; // lesser / normal
 }
 
-const TIER_PREFIX: Record<TierType, string> = { normal: "", greater: "Greater ", perfect: "Perfect " };
+const TIER_PREFIX: Record<TierType, string> = { lesser: "Lesser ", normal: "", greater: "Greater ", perfect: "Perfect " };
+
+const ESSENCE_TIER_LABEL: Record<TierType, string> = { lesser: "Lesser", normal: "Normal", greater: "Greater", perfect: "Perfect" };
 
 type SlotKind = "prefix" | "suffix" | "implicit";
 
@@ -180,8 +192,11 @@ interface HistoryLineMod {
 
 interface HistoryEvent {
   id: number;
-  currencyKey: CurrencyKey;
+  /** CurrencyKey for orbs, or `essence:<slug>` for essence applies. */
+  currencyKey: CurrencyKey | string;
   tierType?: TierType;
+  /** Icon override for non-currency events like essences. */
+  iconSrc?: string;
   /** Optional outcome label, e.g. Vaal's "Reforged (prefix lock)" / "No change". */
   message?: string;
   added: HistoryLineMod[];
@@ -218,7 +233,7 @@ function diffItems(base: BaseItem, prev: EmulatedItem, next: EmulatedItem): { ad
   const keyOf = (em: EmulatedMod, kind: SlotKind) => `${kind}:${em.modId}:${em.roll}`;
   const prevMap = new Map<string, { mod: ItemMod; em: EmulatedMod; kind: SlotKind }>();
   const push = (em: EmulatedMod, kind: SlotKind) => {
-    const mod = modById.get(em.modId);
+    const mod = resolveMod(em.modId);
     if (!mod) return;
     prevMap.set(keyOf(em, kind), { mod, em, kind });
   };
@@ -228,7 +243,7 @@ function diffItems(base: BaseItem, prev: EmulatedItem, next: EmulatedItem): { ad
 
   const nextMap = new Map<string, { mod: ItemMod; em: EmulatedMod; kind: SlotKind }>();
   const pushNext = (em: EmulatedMod, kind: SlotKind) => {
-    const mod = modById.get(em.modId);
+    const mod = resolveMod(em.modId);
     if (!mod) return;
     nextMap.set(keyOf(em, kind), { mod, em, kind });
   };
@@ -250,10 +265,13 @@ function diffItems(base: BaseItem, prev: EmulatedItem, next: EmulatedItem): { ad
 export function CraftEmulator({ base, onClose }: Props) {
   const [item, setItem] = useState<EmulatedItem>(() => emptyItem(base, 82));
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyKey | null>(null);
+  const [selectedEssence, setSelectedEssence] = useState<string | null>(null);
+  const [essencesOpen, setEssencesOpen] = useState(false);
   const [tierType, setTierType] = useState<TierType>("normal");
   const [spend, setSpend] = useState<Record<CurrencyKey, number>>({
     transmute: 0, augment: 0, regal: 0, alchemy: 0, exalt: 0, chaos: 0, annul: 0, divine: 0, vaal: 0,
   });
+  const [essenceSpend, setEssenceSpend] = useState<Record<string, number>>({});
   const [history, setHistory] = useState<HistoryEvent[]>([]);
   const [nextEventId, setNextEventId] = useState(1);
 
@@ -261,9 +279,60 @@ export function CraftEmulator({ base, onClose }: Props) {
     ? CURRENCIES.find((c) => c.key === selectedCurrency) ?? null
     : null;
 
-  const canArmedApply = activeDef != null && activeDef.canApply(item);
+  const activeEssence = selectedEssence ? allEssences[selectedEssence] ?? null : null;
+
+  /** Checks whether the currently-armed essence + tier can be applied to `item`. */
+  function canApplyEssence(it: EmulatedItem, slug: string, tier: TierType): boolean {
+    if (it.corrupted) return false;
+    const ess = allEssences[slug];
+    if (!ess) return false;
+    const t = ess.tiers[tier as EssenceTier];
+    if (!t) return false;
+    // Must match at least one category on this base
+    if (!resolveEssenceEntryForItem(slug, tier as EssenceTier, base)) return false;
+    if (tier === "perfect") return it.rarity === "rare" && it.prefixes.length + it.suffixes.length > 0;
+    return it.rarity === "magic";
+  }
+
+  const canArmedApply = activeDef != null
+    ? activeDef.canApply(item)
+    : activeEssence != null
+      ? canApplyEssence(item, selectedEssence!, tierType)
+      : false;
+
+  const handleApplyEssence = useCallback(() => {
+    if (!activeEssence || !selectedEssence) return;
+    if (!canApplyEssence(item, selectedEssence, tierType)) return;
+    const result = applyEssence(item, base, selectedEssence, tierType as EssenceTier, Math.random);
+    if (!result) return;
+    const { item: next } = result;
+    const diff = diffItems(base, item, next);
+    const nextEssenceSpend = {
+      ...essenceSpend,
+      [`${selectedEssence}:${tierType}`]: (essenceSpend[`${selectedEssence}:${tierType}`] ?? 0) + 1,
+    };
+    const essLabel = `${ESSENCE_TIER_LABEL[tierType]} Essence of ${activeEssence.name}`;
+    const essTier = activeEssence.tiers[tierType as EssenceTier];
+    const essIcon = essTier?.iconPath ? `/assets/${essTier.iconPath}` : undefined;
+    setItem(next);
+    setEssenceSpend(nextEssenceSpend);
+    setHistory((h) => [{
+      id: nextEventId,
+      currencyKey: `essence:${selectedEssence}`,
+      tierType,
+      iconSrc: essIcon,
+      message: essLabel,
+      added: diff.added,
+      removed: diff.removed,
+      itemAfter: next,
+      spendAfter: spend,
+    }, ...h].slice(0, 80));
+    setNextEventId((n) => n + 1);
+    if (!canApplyEssence(next, selectedEssence, tierType)) setSelectedEssence(null);
+  }, [activeEssence, selectedEssence, tierType, item, base, essenceSpend, nextEventId, spend]);
 
   const handleApply = useCallback(() => {
+    if (activeEssence) { handleApplyEssence(); return; }
     if (!activeDef) return;
     if (!activeDef.canApply(item)) return;
     const appliedTier: TierType = activeDef.hasTierVariants ? tierType : "normal";
@@ -287,7 +356,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     // picks within currencies like Alchemy).
     const existingGroupsBefore = new Set<string>();
     for (const m of [...item.prefixes, ...item.suffixes]) {
-      const mod = modById.get(m.modId);
+      const mod = resolveMod(m.modId);
       if (mod) existingGroupsBefore.add(mod.group);
     }
     const addedGroupsByKind: Record<SlotKind, string[]> = { prefix: [], suffix: [], implicit: [] };
@@ -304,7 +373,7 @@ export function CraftEmulator({ base, onClose }: Props) {
           : (next.corruptedImplicit ? [next.corruptedImplicit] : []);
       for (const em of candidates) {
         if (prevIds.has(em.modId)) continue;
-        const mod = modById.get(em.modId);
+        const mod = resolveMod(em.modId);
         if (!mod) continue;
         // Match by stats fingerprint (tier, name, rolled text).
         const stats = computeRollStats(mod, em.roll);
@@ -323,7 +392,7 @@ export function CraftEmulator({ base, onClose }: Props) {
     for (const line of diff.added) {
       const modId = resolveAddedModId(line);
       if (!modId) continue;
-      const mod = modById.get(modId);
+      const mod = resolveMod(modId);
       if (!mod) continue;
       addedGroupsByKind[line.kind].push(mod.group);
       addedMods.push({ line, modId, mod });
@@ -422,10 +491,10 @@ export function CraftEmulator({ base, onClose }: Props) {
   );
 
   // Resolve mods for display
-  const prefixMods = item.prefixes.map((m) => ({ em: m, mod: modById.get(m.modId) }));
-  const suffixMods = item.suffixes.map((m) => ({ em: m, mod: modById.get(m.modId) }));
+  const prefixMods = item.prefixes.map((m) => ({ em: m, mod: resolveMod(m.modId) }));
+  const suffixMods = item.suffixes.map((m) => ({ em: m, mod: resolveMod(m.modId) }));
   const corruptedMod = item.corruptedImplicit
-    ? { em: item.corruptedImplicit, mod: modById.get(item.corruptedImplicit.modId) }
+    ? { em: item.corruptedImplicit, mod: resolveMod(item.corruptedImplicit.modId) }
     : null;
 
   const rarityClass = item.corrupted
@@ -467,6 +536,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                     setSelectedCurrency(null);
                   } else {
                     setSelectedCurrency(c.key);
+                    setSelectedEssence(null);
                     if (!c.hasTierVariants) setTierType("normal");
                   }
                 }}
@@ -477,14 +547,64 @@ export function CraftEmulator({ base, onClose }: Props) {
               </button>
             );
           })}
+          <button
+            className={`${styles.stripBtn} ${styles.essenceToggleBtn} ${essencesOpen ? styles.stripBtnActive : ""}`}
+            onClick={() => setEssencesOpen((v) => !v)}
+            title="Essences"
+          >
+            <span className={styles.essenceToggleLabel}>ESS</span>
+          </button>
         </div>
+
+        {/* Essence strip */}
+        {essencesOpen && (
+          <div className={styles.essenceStrip}>
+            {[...REGULAR_ESSENCE_SLUGS, ...CORRUPTED_ESSENCE_SLUGS].map((slug) => {
+              const ess = allEssences[slug];
+              if (!ess) return null;
+              // First available tier icon
+              const anyTier = ess.tiers.normal ?? ess.tiers.lesser ?? ess.tiers.greater ?? ess.tiers.perfect;
+              const icon = anyTier?.iconPath ? `/assets/${anyTier.iconPath}` : undefined;
+              const active = selectedEssence === slug;
+              const isCorrupted = CORRUPTED_ESSENCE_SLUGS.includes(slug as typeof CORRUPTED_ESSENCE_SLUGS[number]);
+              return (
+                <button
+                  key={slug}
+                  className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""} ${isCorrupted ? styles.essenceCorrupted : ""}`}
+                  onClick={() => {
+                    if (active) {
+                      setSelectedEssence(null);
+                    } else {
+                      setSelectedEssence(slug);
+                      setSelectedCurrency(null);
+                      // Auto-pick a valid tier when switching between regular/corrupted essences.
+                      if (isCorrupted) setTierType("perfect");
+                      else if (tierType === "perfect") setTierType("normal");
+                    }
+                  }}
+                  title={`Essence of ${ess.name}`}
+                >
+                  {icon && <img className={styles.stripIcon} src={icon} alt="" />}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* Tier-type row */}
         <div className={styles.typeRow}>
           <span className={styles.typeLabel}>TYPE</span>
-          {(["normal", "greater", "perfect"] as TierType[]).map((t) => {
+          {(["lesser", "normal", "greater", "perfect"] as TierType[]).map((t) => {
             const isActive = tierType === t;
-            const supportsThisTier = !activeDef || activeDef.hasTierVariants || t === "normal";
+            // Currency: no "lesser"; Greater/Perfect only on mods-adding orbs.
+            // Essence: only tiers that exist for this essence.
+            const supportsThisTier = activeEssence
+              ? !!activeEssence.tiers[t]
+              : !activeDef
+                ? t !== "lesser"
+                : t === "lesser"
+                  ? false
+                  : activeDef.hasTierVariants || t === "normal";
             return (
               <button
                 key={t}
@@ -493,12 +613,16 @@ export function CraftEmulator({ base, onClose }: Props) {
                 onClick={() => setTierType(t)}
                 title={
                   supportsThisTier
-                    ? t === "greater"
-                      ? "Top half of tiers per mod family"
-                      : t === "perfect"
-                        ? "Only T1 per family + rolls near max"
-                        : undefined
-                    : `${activeDef!.label} has no Greater/Perfect variant`
+                    ? activeEssence
+                      ? `${ESSENCE_TIER_LABEL[t]} Essence of ${activeEssence.name}`
+                      : t === "greater"
+                        ? "Min modifier level floor (Greater)"
+                        : t === "perfect"
+                          ? "Min modifier level floor (Perfect)"
+                          : undefined
+                    : activeEssence
+                      ? `No ${ESSENCE_TIER_LABEL[t]} variant for this essence`
+                      : `${activeDef?.label ?? "this currency"} has no ${t} variant`
                 }
               >
                 {t[0].toUpperCase() + t.slice(1)}
@@ -616,7 +740,7 @@ export function CraftEmulator({ base, onClose }: Props) {
                 <div className={styles.empty}>Actions will appear here.</div>
               )}
               {history.map((ev) => {
-                const def = currencyByKey.get(ev.currencyKey);
+                const def = currencyByKey.get(ev.currencyKey as CurrencyKey);
                 return (
                   <div
                     key={ev.id}
@@ -625,12 +749,16 @@ export function CraftEmulator({ base, onClose }: Props) {
                     title="Click to restore state from this point (newer events will be removed)"
                   >
                     <div className={styles.historyEventHeader}>
-                      {def && <img className={styles.historyIcon} src={def.icon} alt="" />}
+                      {(ev.iconSrc ?? def?.icon) && (
+                        <img className={styles.historyIcon} src={ev.iconSrc ?? def!.icon} alt="" />
+                      )}
                       <span className={styles.historyEventName}>
-                        {ev.tierType && ev.tierType !== "normal" ? TIER_PREFIX[ev.tierType] : ""}
-                        {def?.label ?? ev.currencyKey}
+                        {!ev.iconSrc && ev.tierType && ev.tierType !== "normal" ? TIER_PREFIX[ev.tierType] : ""}
+                        {ev.iconSrc ? (ev.message ?? "") : (def?.label ?? ev.currencyKey)}
                       </span>
-                      {ev.message && <span className={styles.historyEventMessage}>— {ev.message}</span>}
+                      {!ev.iconSrc && ev.message && (
+                        <span className={styles.historyEventMessage}>— {ev.message}</span>
+                      )}
                     </div>
                     {ev.currencyKey !== "divine" && ev.removed.map((line, i) => (
                       <HistoryLine key={`r${i}`} line={line} kind="removed" showRollQuality={false} />

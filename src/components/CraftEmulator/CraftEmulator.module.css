@@ -142,6 +142,48 @@
   line-height: 1;
 }
 
+.essenceToggleBtn {
+  margin-left: auto;
+  background: rgba(144, 96, 208, 0.15) !important;
+  border-color: rgba(144, 96, 208, 0.6) !important;
+  color: #c090ff;
+}
+
+.essenceToggleBtn:hover:not(:disabled) {
+  background: rgba(144, 96, 208, 0.3) !important;
+  border-color: #c090ff !important;
+}
+
+.essenceToggleBtn.stripBtnActive {
+  box-shadow: 0 0 0 2px rgba(192, 144, 255, 0.45);
+}
+
+.essenceToggleLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #c090ff;
+  letter-spacing: 0.6px;
+}
+
+.essenceStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(144, 96, 208, 0.04);
+  flex-shrink: 0;
+}
+
+.essenceCorrupted {
+  border-color: rgba(204, 58, 58, 0.55) !important;
+}
+
+.essenceCorrupted.stripBtnActive {
+  border-color: #ff6464 !important;
+  box-shadow: 0 0 0 2px rgba(255, 100, 100, 0.4) !important;
+}
+
 /* ── Type row ──────────────────────────────────────────── */
 .typeRow {
   display: flex;

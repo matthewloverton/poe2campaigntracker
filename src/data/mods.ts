@@ -5,6 +5,22 @@ export const allMods: ItemMod[] = rawMods as ItemMod[];
 
 export const modById = new Map(allMods.map((m) => [m.id, m]));
 
+/**
+ * Unified lookup that also resolves synthetic essence IDs (essence:slug:tier:cat).
+ * Import here (lazy) to avoid a cyclic import at module load time.
+ */
+export function resolveMod(id: string): ItemMod | undefined {
+  const hit = modById.get(id);
+  if (hit) return hit;
+  if (id.startsWith("essence:")) {
+    // Lazy require to dodge a circular import with data/essences.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { essenceModById } = require("./essences") as typeof import("./essences");
+    return essenceModById.get(id);
+  }
+  return undefined;
+}
+
 const ARMOUR_ATTR_SUFFIX: Array<[string, string]> = [
   ["str_dex_int_armour", "STR/DEX/INT"],
   ["str_dex_armour", "STR/DEX"],

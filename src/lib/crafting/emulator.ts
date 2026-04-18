@@ -1,5 +1,6 @@
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { allMods, modWeightOnItem, modById } from "../../data/mods";
+import { resolveEssenceModForItem, type EssenceTier } from "../../data/essences";
 
 export type Rarity = "normal" | "magic" | "rare";
 
@@ -7,8 +8,9 @@ export type Rarity = "normal" | "magic" | "rare";
  * Currency tier variant. Greater/Perfect apply a minimum-modifier-level
  * filter (see applyMinLevelFilter); the concrete levels are passed per
  * currency by callers (different currencies may use different floors).
+ * `lesser` is only used by essences — regular orbs disable it.
  */
-export type TierType = "normal" | "greater" | "perfect";
+export type TierType = "lesser" | "normal" | "greater" | "perfect";
 
 /**
  * Greater/Perfect orbs restrict the pool to mods whose required level is at
@@ -372,6 +374,57 @@ export function modPickChance(
   if (total <= 0) return 0;
   const entry = scoped.find((p) => p.mod.id === targetModId);
   return entry ? entry.weight / total : 0;
+}
+
+/**
+ * Essence apply. Regular tiers (lesser/normal/greater) upgrade a Magic item
+ * to Rare with a guaranteed forced mod, then fill the remaining slots. The
+ * Perfect (corrupted-essence) tier removes one random mod from a Rare and
+ * adds the guaranteed forced mod.
+ */
+export function applyEssence(
+  item: EmulatedItem,
+  base: BaseItem,
+  slug: string,
+  tier: EssenceTier,
+  rng: () => number = Math.random,
+): { item: EmulatedItem; forcedModId: string } | null {
+  const forced = resolveEssenceModForItem(slug, tier, base);
+  if (!forced) return null;
+  if (item.corrupted) return null;
+
+  const forcedGen: GenType = forced.generationType === "suffix" ? "suffix" : "prefix";
+  const forcedEm: EmulatedMod = { modId: forced.id, roll: randomRoll(rng) };
+
+  if (tier === "perfect") {
+    // Corrupted essence — Chaos-like: Rare only, remove one random mod then add forced.
+    if (item.rarity !== "rare") return null;
+    const afterRemove = annul(item, rng);
+    if (afterRemove === item) return null;
+    const withForced = forcedGen === "prefix"
+      ? { ...afterRemove, prefixes: [...afterRemove.prefixes, forcedEm] }
+      : { ...afterRemove, suffixes: [...afterRemove.suffixes, forcedEm] };
+    return { item: withForced, forcedModId: forced.id };
+  }
+
+  // Regular essence — must be Magic.
+  if (item.rarity !== "magic") return null;
+  const asRare: EmulatedItem = { ...item, rarity: "rare" };
+  const seeded = forcedGen === "prefix"
+    ? { ...asRare, prefixes: [...asRare.prefixes, forcedEm] }
+    : { ...asRare, suffixes: [...asRare.suffixes, forcedEm] };
+
+  // Fill remaining slots so the item ends up with 4 affixes total (like alchemy).
+  let next = seeded;
+  const target = 4;
+  while (next.prefixes.length + next.suffixes.length < target) {
+    const gen = pickOpenGen(next, rng);
+    if (!gen) break;
+    const before = next;
+    next = addMod(next, base, gen, rng);
+    if (next === before) break;
+  }
+  return { item: next, forcedModId: forced.id };
 }
 
 /** Reset to a normal unmodified base. */

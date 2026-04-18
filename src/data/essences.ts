@@ -168,10 +168,50 @@ export function essenceGenType(text: string): "prefix" | "suffix" {
   return heuristicGen(text);
 }
 
+function categorySlug(category: string): string {
+  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+/** Build a synthetic ItemMod for one (essence, tier, category) entry. */
+function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): ItemMod {
+  const ess = allEssences[slug];
+  return {
+    id: `essence:${slug}:${tier}:${categorySlug(entry.category)}`,
+    name: tierLabel(tier) + " " + ess.name,
+    text: entry.text,
+    type: `Essence_${slug}_${tier}`,
+    generationType: essenceGenType(entry.text),
+    source: "essence",
+    group: `Essence_${slug}_${tier}_${categorySlug(entry.category)}`,
+    requiredLevel: 0,
+    stats: parseEssenceStats(entry.text),
+    spawnWeights: [{ tag: "default", weight: 1 }],
+    tags: ["essence"],
+  };
+}
+
 /**
- * Synthesize ItemMod entries for essence forced mods so they can be displayed
- * in the mod table alongside normal/desecrated/corrupted mods. IDs are
- * prefixed with `essence:` to avoid collision with real mod IDs.
+ * All essence mod variants indexed by their synthetic ID so they can be
+ * looked up uniformly alongside real mods via resolveMod().
+ */
+export const essenceModById: Map<string, ItemMod> = (() => {
+  const map = new Map<string, ItemMod>();
+  for (const slug of Object.keys(allEssences)) {
+    const ess = allEssences[slug];
+    for (const [tierKey, tier] of Object.entries(ess.tiers) as Array<[EssenceTier, EssenceTierData]>) {
+      if (!tier) continue;
+      for (const entry of tier.entries) {
+        const mod = buildEssenceMod(slug, tierKey, entry);
+        if (!map.has(mod.id)) map.set(mod.id, mod);
+      }
+    }
+  }
+  return map;
+})();
+
+/**
+ * Essence mods applicable to a given item, for display in the planner's
+ * Essence tab. Uses the most-specific category match per tier.
  */
 export function essenceModsForItem(item: BaseItem): ItemMod[] {
   const out: ItemMod[] = [];
@@ -181,24 +221,20 @@ export function essenceModsForItem(item: BaseItem): ItemMod[] {
       if (!tier) continue;
       const entry = resolveEssenceEntryForItem(slug, tierKey, item);
       if (!entry) continue;
-      const stats = parseEssenceStats(entry.text);
-      const gen = essenceGenType(entry.text);
-      out.push({
-        id: `essence:${slug}:${tierKey}`,
-        name: tierLabel(tierKey) + " " + ess.name,
-        text: entry.text,
-        type: `Essence_${slug}`,
-        generationType: gen,
-        source: "essence",
-        group: `Essence_${slug}_${tierKey}`,
-        requiredLevel: 0,
-        stats,
-        spawnWeights: [{ tag: "default", weight: 1 }],
-        tags: ["essence"],
-      });
+      const id = `essence:${slug}:${tierKey}:${categorySlug(entry.category)}`;
+      const mod = essenceModById.get(id);
+      if (mod) out.push(mod);
     }
   }
   return out;
+}
+
+/** Resolve an essence forced-mod for this (essence, tier, item), as an ItemMod. */
+export function resolveEssenceModForItem(slug: string, tier: EssenceTier, item: BaseItem): ItemMod | null {
+  const entry = resolveEssenceEntryForItem(slug, tier, item);
+  if (!entry) return null;
+  const id = `essence:${slug}:${tier}:${categorySlug(entry.category)}`;
+  return essenceModById.get(id) ?? null;
 }
 
 function tierLabel(tier: EssenceTier): string {
