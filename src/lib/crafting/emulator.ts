@@ -407,24 +407,16 @@ export function applyEssence(
     return { item: withForced, forcedModId: forced.id };
   }
 
-  // Regular essence — must be Magic.
+  // Regular essence — must be Magic. Promote to Rare and add just the
+  // guaranteed forced mod. No auto-fill — the wiki phrasing is
+  // "Upgrades a Magic item to a Rare item, adding a guaranteed modifier",
+  // so the existing magic affixes stay and only one new mod gets added.
   if (item.rarity !== "magic") return null;
   const asRare: EmulatedItem = { ...item, rarity: "rare" };
   const seeded = forcedGen === "prefix"
     ? { ...asRare, prefixes: [...asRare.prefixes, forcedEm] }
     : { ...asRare, suffixes: [...asRare.suffixes, forcedEm] };
-
-  // Fill remaining slots so the item ends up with 4 affixes total (like alchemy).
-  let next = seeded;
-  const target = 4;
-  while (next.prefixes.length + next.suffixes.length < target) {
-    const gen = pickOpenGen(next, rng);
-    if (!gen) break;
-    const before = next;
-    next = addMod(next, base, gen, rng);
-    if (next === before) break;
-  }
-  return { item: next, forcedModId: forced.id };
+  return { item: seeded, forcedModId: forced.id };
 }
 
 /** Reset to a normal unmodified base. */

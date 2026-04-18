@@ -21,12 +21,13 @@ describe("applyEssence", () => {
     item = transmute(item, bow!, rng);
     expect(item.rarity).toBe("magic");
 
+    const beforeCount = item.prefixes.length + item.suffixes.length;
     const res = applyEssence(item, bow!, "flames", "normal", rng);
     expect(res).not.toBeNull();
     expect(res!.item.rarity).toBe("rare");
-    // Should have the forced essence mod + fill to 4 total
+    // Existing magic mods preserved + 1 forced mod (no auto-fill)
     const totalMods = res!.item.prefixes.length + res!.item.suffixes.length;
-    expect(totalMods).toBe(4);
+    expect(totalMods).toBe(beforeCount + 1);
     const hasForced = [...res!.item.prefixes, ...res!.item.suffixes].some(
       (m) => m.modId === res!.forcedModId,
     );
