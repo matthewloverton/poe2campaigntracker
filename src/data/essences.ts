@@ -1,6 +1,6 @@
 import type { BaseItem, ItemMod } from "../types/itemDatabase";
 import rawEssences from "./raw/essences.json";
-import { allMods, cleanModText } from "./mods";
+import { allMods, cleanModText, registerModResolver } from "./mods";
 
 export type EssenceTier = "lesser" | "normal" | "greater" | "perfect";
 
@@ -233,6 +233,9 @@ export const essenceModById: Map<string, ItemMod> = (() => {
   }
   return map;
 })();
+
+// Plug essence-mod resolution into the central resolveMod() dispatcher.
+registerModResolver((id) => id.startsWith("essence:") ? essenceModById.get(id) : undefined);
 
 /**
  * Essence mods applicable to a given item, for display in the planner's
