@@ -194,7 +194,7 @@
     {
       "id": "g3_2_1",
       "name": "infested barrens",
-      "recommendation": "30 | 31"
+      "recommendation": "32 | 33"
     },
     {
       "id": "g3_2_2",
@@ -204,7 +204,7 @@
     {
       "id": "g3_4",
       "name": "venom crypts",
-      "recommendation": "31 | 31"
+      "recommendation": "30 | 31"
     },
     {
       "id": "g3_3",
@@ -309,12 +309,12 @@
     {
       "id": "g4_4_1",
       "name": "eye of hinekora",
-      "recommendation": "45 | 45"
+      "recommendation": "44 | 44"
     },
     {
       "id": "g4_4_2",
       "name": "halls of the dead",
-      "recommendation": "45 | 46"
+      "recommendation": "44 | 45"
     },
     {
       "id": "g4_4_3",
@@ -328,12 +328,12 @@
     {
       "id": "g4_5_2",
       "name": "solitary confinement",
-      "recommendation": "43 | 43"
+      "recommendation": "42 | 43"
     },
     {
       "id": "g4_7",
       "name": "shrike island",
-      "recommendation": "44 | 45"
+      "recommendation": "43 | 44"
     },
     {
       "id": "g4_8a",

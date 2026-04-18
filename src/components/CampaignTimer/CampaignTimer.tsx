@@ -5,11 +5,7 @@ import { useTimerTick, formatTime } from "../../hooks/useTimer";
 import { confirmDialog } from "../Dialog/Dialog";
 import styles from "./CampaignTimer.module.css";
 
-interface CampaignTimerProps {
-  onShowHistory?: () => void;
-}
-
-export function CampaignTimer({ onShowHistory }: CampaignTimerProps) {
+export function CampaignTimer() {
   const timerState = useTimerStore((s) => s.state);
   const currentAct = useTimerStore((s) => s.currentAct);
   const start = useTimerStore((s) => s.start);
@@ -17,7 +13,6 @@ export function CampaignTimer({ onShowHistory }: CampaignTimerProps) {
   const resume = useTimerStore((s) => s.resume);
   const reset = useTimerStore((s) => s.reset);
   const actSplits = useTimerStore((s) => s.actSplits);
-  const runCount = useTimerStore((s) => s.runHistory.length);
   const characterName = useLevelStore((s) => s.characterName);
   const characterClass = useLevelStore((s) => s.characterClass);
   const level = useLevelStore((s) => s.level);
@@ -85,18 +80,6 @@ export function CampaignTimer({ onShowHistory }: CampaignTimerProps) {
               title="Reset & save run"
             >
               ↺
-            </button>
-          )}
-          {(runCount > 0 || timerState === "stopped") && onShowHistory && (
-            <button
-              className={styles.btn}
-              onClick={onShowHistory}
-              title="Run history"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
             </button>
           )}
         </div>

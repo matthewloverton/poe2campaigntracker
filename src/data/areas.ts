@@ -38,6 +38,8 @@ export const areas: Area[] = transformAreasData(rawAreasData as RawAreas);
 
 export const areaById = new Map(areas.map((a) => [a.id, a]));
 
+export const areaByName = new Map(areas.map((a) => [a.name.toLowerCase(), a]));
+
 export function getAreaAct(areaId: string): number | undefined {
   return areaById.get(areaId.toLowerCase())?.act;
 }

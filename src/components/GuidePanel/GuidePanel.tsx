@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createRef } from "react";
 import { useGuideStore } from "../../store/guideStore";
-import { areaById } from "../../data/areas";
+import { areaById, areaByName } from "../../data/areas";
 import { getZoneLayouts } from "../../data/zoneLayouts";
 import { StepRenderer } from "../StepRenderer";
 import { InlineNote } from "../InlineNote/InlineNote";
@@ -31,25 +31,36 @@ export function GuidePanel() {
   const destinationName = currentPage.targetZoneName;
   const layoutImages = currentZoneName ? getZoneLayouts(currentZoneName) : [];
 
+  const formatRec = (rec?: { min: number; max: number }): string | null => {
+    if (!rec) return null;
+    return rec.min === rec.max ? `${rec.min}` : `${rec.min}-${rec.max}`;
+  };
+  const currentArea = currentZoneName ? areaByName.get(currentZoneName.toLowerCase()) : undefined;
+  const destArea = destinationName ? areaByName.get(destinationName.toLowerCase()) : undefined;
+  const currentRec = formatRec(currentArea?.recommendation);
+  const destRec = formatRec(destArea?.recommendation);
+
   // Reset carousel when zone changes
   useEffect(() => { setLayoutIndex(0); }, [currentZoneName]);
 
   return (
     <div className={styles.panel}>
       <div className={styles.header}>
-        <div className={styles.actZone}>
+        <div className={styles.headerTop}>
           <span className={styles.actLabel}>{actLabel}</span>
-          {currentZoneName ? (
-            <>
-              <span className={styles.currentZone}>{currentZoneName}</span>
-              <span className={styles.arrow}>→</span>
-              <span className={styles.destZone}>{destinationName || "?"}</span>
-            </>
-          ) : (
-            <span className={styles.destZone}>{destinationName || "Unknown Zone"}</span>
-          )}
+          <span className={styles.pageInfo}>Page {currentPageIndex + 1} / {pages.length}</span>
         </div>
-        <div className={styles.pageInfo}>Page {currentPageIndex + 1} / {pages.length}</div>
+        <div className={styles.zoneRow}>
+          <div className={`${styles.zonePill} ${styles.zoneCurrent}`}>
+            <span className={styles.zoneName}>{currentZoneName || "Unknown"}</span>
+            <span className={styles.zoneLevel}>{currentRec ? `(${currentRec})` : "(—)"}</span>
+          </div>
+          <span className={styles.zoneArrow}>→</span>
+          <div className={`${styles.zonePill} ${styles.zoneDest}`}>
+            <span className={styles.zoneName}>{destinationName || "?"}</span>
+            <span className={styles.zoneLevel}>{destRec ? `(${destRec})` : "(—)"}</span>
+          </div>
+        </div>
       </div>
       <div className={styles.progressBar}><div className={styles.progressFill} style={{ width: `${progress}%` }} /></div>
       <div className={styles.steps}>

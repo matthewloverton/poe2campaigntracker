@@ -13,8 +13,8 @@
 .addSkillBtn:hover { border-color: var(--accent-teal); color: var(--accent-teal); }
 
 .regexSection { width: 240px; flex-shrink: 0; border-left: 1px solid var(--border-color); padding: 8px 10px; overflow-y: auto; }
-@media (max-width: 560px) {
-  .regexSection { width: 100%; border-left: none; border-top: 1px solid var(--border-color); }
+@media (max-width: 1100px) {
+  .regexSection { display: none; }
 }
 .regexHeader { font-size: 0.62rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px; }
 

@@ -1,5 +1,8 @@
 .indicator { display: flex; align-items: center; gap: 12px; font-size: 0.85em; }
 .level { font-weight: 700; min-width: 45px; text-align: center; }
-.zoneRange { color: var(--text-secondary); }
-.target { color: var(--accent-gold); opacity: 0.8; }
 .charName { color: var(--text-secondary); opacity: 0.6; font-size: 0.85em; }
+
+@media (max-width: 1100px) {
+  .indicator { gap: 6px; }
+  .charName { display: none; }
+}

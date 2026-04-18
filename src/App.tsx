@@ -21,6 +21,7 @@ import { useGuidesStore } from "./store/guidesStore";
 import { usePersistence } from "./hooks/usePersistence";
 import { useAutoAdvance } from "./hooks/useAutoAdvance";
 import { useAutoUpdate } from "./hooks/useAutoUpdate";
+import appStyles from "./App.module.css";
 
 const headerStyle: React.CSSProperties = {
   display: "flex",
@@ -138,11 +139,15 @@ export default function App() {
           <>
             {/* Campaign header */}
             <div style={headerStyle}>
-              <CampaignTimer onShowHistory={() => setShowRunHistory(true)} />
+              <CampaignTimer />
               <LevelIndicator />
               <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ color: clientTxtPath ? "var(--color-green)" : "var(--color-yellow)", fontSize: "0.7rem" }}>
-                  {clientTxtPath ? "● Connected" : "○ No Client.txt"}
+                <span
+                  style={{ color: clientTxtPath ? "var(--color-green)" : "var(--color-yellow)", fontSize: "0.7rem" }}
+                  title={clientTxtPath ? "Connected" : "No Client.txt"}
+                >
+                  {clientTxtPath ? "●" : "○"}
+                  <span className={appStyles.statusText}>{clientTxtPath ? " Connected" : " No Client.txt"}</span>
                 </span>
                 <button
                   onClick={() => setShowSettings(true)}

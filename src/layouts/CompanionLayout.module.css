@@ -1,3 +1,8 @@
 .layout { display: flex; height: 100vh; background: var(--bg-primary); }
-.primary { flex: 3; overflow: hidden; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); }
-.secondary { flex: 2; overflow: hidden; display: flex; flex-direction: column; }
+.primary { flex: 3; overflow: hidden; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); min-width: 0; }
+.secondary { flex: 2; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+
+@media (max-width: 1100px) {
+  .primary { flex: 1; }
+  .secondary { flex: 1; }
+}

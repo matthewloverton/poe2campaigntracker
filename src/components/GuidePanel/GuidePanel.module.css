@@ -8,45 +8,78 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 14px 12px;
   border-bottom: 1px solid var(--border-color);
 }
 
-.actZone {
+.headerTop {
   display: flex;
+  justify-content: space-between;
   align-items: baseline;
-  gap: 10px;
 }
 
 .actLabel {
-  font-size: 1.3em;
+  font-size: 1.25em;
   font-weight: 700;
   color: var(--accent-gold);
 }
 
-.currentZone {
-  color: var(--color-green);
-  font-size: 1.1em;
-  text-transform: capitalize;
-}
-
-.arrow {
-  color: var(--text-secondary);
-  opacity: 0.4;
-  font-size: 0.9em;
-}
-
-.destZone {
-  color: #cc99ff;
-  font-size: 1.1em;
-  text-transform: capitalize;
-}
-
 .pageInfo {
+  font-size: 0.78em;
+  opacity: 0.55;
+}
+
+.zoneRow {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.zonePill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.95em;
+  text-transform: capitalize;
+  min-width: 0;
+}
+
+.zonePill .zoneName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zoneCurrent {
+  background: rgba(140, 200, 120, 0.12);
+  border: 1px solid rgba(140, 200, 120, 0.35);
+  color: var(--color-green);
+}
+
+.zoneDest {
+  background: rgba(204, 153, 255, 0.10);
+  border: 1px solid rgba(204, 153, 255, 0.35);
+  color: #cc99ff;
+}
+
+.zoneLevel {
   font-size: 0.85em;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.zoneArrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
   opacity: 0.5;
+  font-size: 0.85em;
 }
 
 .progressBar {

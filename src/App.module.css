@@ -1,0 +1,9 @@
+.statusText {
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .statusText {
+    display: none;
+  }
+}

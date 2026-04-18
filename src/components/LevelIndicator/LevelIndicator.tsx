@@ -33,11 +33,6 @@ export function LevelIndicator() {
           Lv —
         </span>
       )}
-      {rec && (
-        <span className={styles.zoneRange}>
-          Recommended: {rec.min}-{rec.max}
-        </span>
-      )}
       {characterName && (
         <span className={styles.charName}>{characterName}</span>
       )}
