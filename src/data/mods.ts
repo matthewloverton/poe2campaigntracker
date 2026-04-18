@@ -1,9 +1,68 @@
 import type { ItemMod, BaseItem, ModSource } from "../types/itemDatabase";
 import rawMods from "./raw/item_mods.json";
+import rawModWeights from "./raw/mod_weights.json";
 
 export const allMods: ItemMod[] = rawMods as ItemMod[];
 
 export const modById = new Map(allMods.map((m) => [m.id, m]));
+
+/**
+ * Sheet-sourced per-base weights: { [modId]: { [sheetBaseLabel]: weight } }.
+ * Sheet labels look like "HELMET (INT)", "BOOTS (DEX/INT)", "WAND", "AMULET".
+ */
+const modWeightOverrides = rawModWeights as Record<string, Record<string, number>>;
+
+const ARMOUR_ATTR_SUFFIX: Array<[string, string]> = [
+  ["str_dex_int_armour", "STR/DEX/INT"],
+  ["str_dex_armour", "STR/DEX"],
+  ["str_int_armour", "STR/INT"],
+  ["dex_int_armour", "DEX/INT"],
+  ["str_armour", "STR"],
+  ["dex_armour", "DEX"],
+  ["int_armour", "INT"],
+];
+
+const ITEM_CLASS_TO_SHEET: Record<string, string> = {
+  "Body Armour": "BODY ARMOUR",
+  "Helmet": "HELMET",
+  "Boots": "BOOTS",
+  "Gloves": "GLOVES",
+  "Shield": "SHIELD",
+  "Buckler": "BUCKLER",
+  "Amulet": "AMULET",
+  "Belt": "BELT",
+  "Ring": "RING",
+  "Quiver": "QUIVER",
+  "Focus": "FOCUS",
+  "Bow": "BOW",
+  "Crossbow": "CROSSBOW",
+  "Spear": "SPEAR",
+  "Staff": "STAFF",
+  "Warstaff": "WARSTAFF",
+  "Wand": "WAND",
+  "Sceptre": "SCEPTRE",
+  "Talisman": "TALISMAN",
+  "One Hand Mace": "ONE HAND MACE",
+  "Two Hand Mace": "TWO HAND MACE",
+};
+
+/**
+ * Map a base item to the sheet's BASE label so we can look up its per-mod
+ * weights. Returns null if the item class isn't represented in the sheet.
+ */
+export function sheetBaseKey(item: BaseItem): string | null {
+  const cls = ITEM_CLASS_TO_SHEET[item.itemClass];
+  if (!cls) return null;
+
+  const needsAttr = cls === "BODY ARMOUR" || cls === "HELMET" || cls === "BOOTS" || cls === "GLOVES" || cls === "SHIELD";
+  if (needsAttr) {
+    for (const [tag, suffix] of ARMOUR_ATTR_SUFFIX) {
+      if (item.tags.includes(tag)) return `${cls} (${suffix})`;
+    }
+    return null;
+  }
+  return cls;
+}
 
 /** Strip RePoE stat markup like [InternalName|Display Text] → Display Text */
 export function cleanModText(text: string): string {
@@ -28,14 +87,23 @@ function resolveSpawnWeight(mod: ItemMod, itemTags: Set<string>): number {
   return 0;
 }
 
-/** Effective spawn weight of a mod on a specific item (0 if it can't roll). */
+/**
+ * Effective spawn weight of a mod on a specific item (0 if it can't roll).
+ * Sheet-sourced weights take precedence for the exact base label; otherwise
+ * we fall back to RePoE's tag walk.
+ */
 export function modWeightOnItem(mod: ItemMod, item: BaseItem): number {
+  const baseKey = sheetBaseKey(item);
+  if (baseKey) {
+    const overrides = modWeightOverrides[mod.id];
+    if (overrides && overrides[baseKey] != null) return overrides[baseKey];
+  }
   return resolveSpawnWeight(mod, new Set(item.tags));
 }
 
 function modsMatchItem(item: BaseItem): (mod: ItemMod) => boolean {
   const itemTags = new Set(item.tags);
-  return (mod) => resolveSpawnWeight(mod, itemTags) > 0;
+  return (mod) => modWeightOnItem(mod, item) > 0 || resolveSpawnWeight(mod, itemTags) > 0;
 }
 
 export function getModsForItem(

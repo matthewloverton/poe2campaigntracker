@@ -24,70 +24,11 @@ const WEIGHTS_GID = "1418797281";
 const IDS_GID = "1257586048";
 const TIER_COLS = 13;
 
-/**
- * Sheet BASE label → specific RePoE tag that should carry the weight.
- * We deliberately target the subtype-specific tag (e.g. str_armour) rather
- * than the slot tag (e.g. boots), so the game's spawn-weight walk finds the
- * precise entry before falling back to broader ones.
- */
-const BASE_TAG_MAP = {
-  "AMULET": "amulet",
-  "BELT": "belt",
-  "RING": "ring",
-  "QUIVER": "quiver",
-  "BUCKLER": "buckler",
-  "FOCUS": "focus",
-  "BOW": "bow",
-  "CROSSBOW": "crossbow",
-  "SPEAR": "spear",
-  "STAFF": "staff",
-  "WARSTAFF": "warstaff",
-  "WAND": "wand",
-  "SCEPTRE": "sceptre",
-  "TALISMAN": "talisman",
-  "ONE HAND MACE": "one_hand_mace",
-  "TWO HAND MACE": "two_hand_mace",
-  // Elemental staves/wands all share their base tag — negative tags
-  // (no_fire_spell_mods etc.) handle cross-element exclusion.
-  "FIRE STAFF": "staff",
-  "ICE STAFF": "staff",
-  "LIGHTNING STAFF": "staff",
-  "CHAOS STAFF": "staff",
-  "PHYSICAL STAFF": "staff",
-  "FIRE WAND": "wand",
-  "ICE WAND": "wand",
-  "LIGHTNING WAND": "wand",
-  "CHAOS WAND": "wand",
-  "PHYSICAL WAND": "wand",
-  // Attribute-variant armours
-  "BODY ARMOUR (STR)": "str_armour",
-  "BODY ARMOUR (DEX)": "dex_armour",
-  "BODY ARMOUR (INT)": "int_armour",
-  "BODY ARMOUR (STR/DEX)": "str_dex_armour",
-  "BODY ARMOUR (STR/INT)": "str_int_armour",
-  "BODY ARMOUR (DEX/INT)": "dex_int_armour",
-  "BOOTS (STR)": "str_armour",
-  "BOOTS (DEX)": "dex_armour",
-  "BOOTS (INT)": "int_armour",
-  "BOOTS (STR/DEX)": "str_dex_armour",
-  "BOOTS (STR/INT)": "str_int_armour",
-  "BOOTS (DEX/INT)": "dex_int_armour",
-  "GLOVES (STR)": "str_armour",
-  "GLOVES (DEX)": "dex_armour",
-  "GLOVES (INT)": "int_armour",
-  "GLOVES (STR/DEX)": "str_dex_armour",
-  "GLOVES (STR/INT)": "str_int_armour",
-  "GLOVES (DEX/INT)": "dex_int_armour",
-  "HELMET (STR)": "str_armour",
-  "HELMET (DEX)": "dex_armour",
-  "HELMET (INT)": "int_armour",
-  "HELMET (STR/DEX)": "str_dex_armour",
-  "HELMET (STR/INT)": "str_int_armour",
-  "HELMET (DEX/INT)": "dex_int_armour",
-  "SHIELD (STR)": "str_armour",
-  "SHIELD (STR/DEX)": "str_dex_armour",
-  "SHIELD (STR/INT)": "str_int_armour",
-};
+// The sheet's BASE labels (e.g. "HELMET (INT)", "BOOTS (DEX/INT)") define a
+// granularity RePoE's tag system can't represent — an "int_armour" tag is
+// shared across helmet/boots/gloves/body, so a helmet-only mod would leak
+// onto boots if we overlaid by tag. We keep the sheet label as the key and
+// resolve to it at runtime from (itemClass + attribute tag).
 
 function csvUrl(gid) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}`;
@@ -150,16 +91,12 @@ async function main() {
   const weightsByKey = indexByRow(weightsRows);
   const idsByKey = indexByRow(idsRows);
 
-  const weights = {}; // { [modId]: { [tag]: weight } }
-  const unmappedBases = new Set();
-  const conflicts = [];
-  let matched = 0, skippedNoWeights = 0, skippedNoTag = 0;
+  const weights = {}; // { [modId]: { [sheetBase]: weight } }
+  let matched = 0, skippedNoWeights = 0;
 
   for (const [key, idEntry] of idsByKey.entries()) {
     const weightEntry = weightsByKey.get(key);
     if (!weightEntry) { skippedNoWeights++; continue; }
-    const tag = BASE_TAG_MAP[idEntry.base];
-    if (!tag) { unmappedBases.add(idEntry.base); skippedNoTag++; continue; }
     for (let t = 0; t < TIER_COLS; t++) {
       const id = idEntry.tiers[t];
       const wStr = weightEntry.tiers[t];
@@ -167,36 +104,15 @@ async function main() {
       const w = Number(wStr);
       if (!Number.isFinite(w) || w <= 0) continue;
       if (!weights[id]) weights[id] = {};
-      const existing = weights[id][tag];
-      if (existing != null && existing !== w) {
-        conflicts.push({ id, tag, existing, incoming: w, base: idEntry.base });
-        // Keep the smaller weight — the sheet often has stricter values on
-        // hybrid bases, and biasing pessimistic is safer for rarity display.
-        weights[id][tag] = Math.min(existing, w);
-      } else {
-        weights[id][tag] = w;
-      }
+      weights[id][idEntry.base] = w;
       matched++;
     }
-  }
-
-  if (unmappedBases.size > 0) {
-    console.log(`\n  Unmapped base labels (add to BASE_TAG_MAP):`);
-    for (const b of [...unmappedBases].sort()) console.log(`    ${b}`);
-  }
-
-  if (conflicts.length > 0) {
-    console.log(`\n  ${conflicts.length} per-tag conflicts (a mod + same tag appeared with different weights across base slots — kept the smaller):`);
-    for (const c of conflicts.slice(0, 10)) {
-      console.log(`    ${c.id} on ${c.tag}: ${c.existing} vs ${c.incoming} (${c.base})`);
-    }
-    if (conflicts.length > 10) console.log(`    … +${conflicts.length - 10} more`);
   }
 
   await writeFile(OUT, JSON.stringify(weights, null, 2));
   const uniqueMods = Object.keys(weights).length;
   console.log(`\n  Wrote weights for ${uniqueMods} mods → ${OUT}`);
-  console.log(`  matched tier cells: ${matched}, skipped (no weight row): ${skippedNoWeights}, skipped (unmapped base): ${skippedNoTag}`);
+  console.log(`  matched tier cells: ${matched}, skipped (no weight row): ${skippedNoWeights}`);
 }
 
 main().catch((err) => {
