@@ -132,18 +132,18 @@ function templateText(text: string): string {
     .toLowerCase();
 }
 
-/** Lazy lookup: text template → first matching normal-source mod's generation type. */
-let templateToGenCache: Map<string, "prefix" | "suffix"> | null = null;
-function templateToGen(): Map<string, "prefix" | "suffix"> {
-  if (templateToGenCache) return templateToGenCache;
-  const map = new Map<string, "prefix" | "suffix">();
+/** Lazy lookup: text template → first matching normal-source mod's { gen, group }. */
+let templateLookupCache: Map<string, { gen: "prefix" | "suffix"; group: string }> | null = null;
+function templateLookup(): Map<string, { gen: "prefix" | "suffix"; group: string }> {
+  if (templateLookupCache) return templateLookupCache;
+  const map = new Map<string, { gen: "prefix" | "suffix"; group: string }>();
   for (const m of allMods) {
     if (m.source !== "normal") continue;
     if (m.generationType !== "prefix" && m.generationType !== "suffix") continue;
     const key = templateText(m.text);
-    if (!map.has(key)) map.set(key, m.generationType);
+    if (!map.has(key)) map.set(key, { gen: m.generationType, group: m.group });
   }
-  templateToGenCache = map;
+  templateLookupCache = map;
   return map;
 }
 
@@ -163,9 +163,22 @@ function heuristicGen(text: string): "prefix" | "suffix" {
 }
 
 export function essenceGenType(text: string): "prefix" | "suffix" {
-  const hit = templateToGen().get(templateText(text));
-  if (hit) return hit;
+  const hit = templateLookup().get(templateText(text));
+  if (hit) return hit.gen;
   return heuristicGen(text);
+}
+
+/**
+ * Match the essence mod's text template to a real-mod group so group-clash
+ * checks treat the essence as occupying the same slot as whatever the game
+ * mod family would occupy (e.g. an "Adds Fire Damage" essence blocks any
+ * real prefix from the LocalAddedFireDamage family and vice versa).
+ */
+export function essenceGroup(text: string, slug: string): string {
+  const hit = templateLookup().get(templateText(text));
+  if (hit) return hit.group;
+  // No real-mod template match — fall back to a synthetic per-essence group.
+  return `Essence_${slug}`;
 }
 
 function categorySlug(category: string): string {
@@ -189,10 +202,12 @@ const TIER_NAME: Record<EssenceTier, string> = {
 /** Build a synthetic ItemMod for one (essence, tier, category) entry. */
 function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): ItemMod {
   const ess = allEssences[slug];
-  // Grouping: `type` is keyed by essence family only (no category), so
-  // essences that change their category bucket across tiers (e.g. Battle,
-  // where Greater widens to "Martial Weapon, Gloves or Quiver") still
-  // collapse into a single group in the planner.
+  // `type` is keyed by essence family so the planner's ModTable groups
+  // Lesser/Normal/Greater/Perfect side-by-side. `group` is resolved against
+  // the real-mod pool via text template so crafting mutual-exclusion treats
+  // the essence mod as occupying the same slot the equivalent rolled mod
+  // would occupy (e.g. "Adds Fire Damage" essence blocks any real
+  // LocalAddedFireDamage prefix already on the item and vice-versa).
   return {
     id: `essence:${slug}:${tier}:${categorySlug(entry.category)}`,
     name: TIER_NAME[tier] ? `${TIER_NAME[tier]} ${ess.name}` : ess.name,
@@ -200,7 +215,7 @@ function buildEssenceMod(slug: string, tier: EssenceTier, entry: EssenceEntry): 
     type: `Essence_${slug}`,
     generationType: essenceGenType(entry.text),
     source: "essence",
-    group: `Essence_${slug}`,
+    group: essenceGroup(entry.text, slug),
     requiredLevel: ESSENCE_TIER_ORDER[tier],
     stats: parseEssenceStats(entry.text),
     spawnWeights: [{ tag: "default", weight: 1 }],
