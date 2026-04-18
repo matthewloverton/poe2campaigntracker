@@ -67,6 +67,7 @@ export function itemClassToAugmentCategory(itemClass: string): string | null {
     "One Hand Mace": "Martial Weapon",
     "Two Hand Mace": "Martial Weapon",
     "Warstaff": "Martial Weapon",
+    "Talisman": "Martial Weapon",
     "Spear": "Martial Weapon",
     "Bow": "Martial Weapon",
     "Crossbow": "Martial Weapon",
@@ -78,7 +79,7 @@ export function itemClassToAugmentCategory(itemClass: string): string | null {
 /** How many sockets an item class gets by default */
 export function defaultSocketCount(itemClass: string): number {
   const twoSocket = new Set([
-    "Body Armour", "Two Hand Mace", "Staff", "Warstaff", "Bow", "Crossbow", "Spear",
+    "Body Armour", "Two Hand Mace", "Staff", "Warstaff", "Talisman", "Bow", "Crossbow", "Spear",
   ]);
   return twoSocket.has(itemClass) ? 2 : 1;
 }

@@ -118,7 +118,7 @@ export const ITEM_CLASS_GROUPS: Record<string, string[]> = {
   Weapons: [
     "Wand",
     "One Hand Mace", "Two Hand Mace",
-    "Sceptre", "Staff", "Warstaff",
+    "Sceptre", "Staff", "Warstaff", "Talisman",
     "Spear", "Bow", "Crossbow",
     "Focus", "TrapTool",
     // Not yet implemented: Claw, Dagger, One/Two Hand Sword, One/Two Hand Axe
@@ -132,6 +132,7 @@ export const ITEM_CLASS_GROUPS: Record<string, string[]> = {
 
 export const ITEM_CLASS_DISPLAY_NAMES: Record<string, string> = {
   Warstaff: "Quarterstaves",
+  Talisman: "Talismans",
   TrapTool: "Traps",
   "One Hand Sword": "One Hand Swords",
   "Two Hand Sword": "Two Hand Swords",

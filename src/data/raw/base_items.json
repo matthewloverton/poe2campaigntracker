@@ -475,6 +475,37 @@
     "iconPath": "items/2HCrossbow06.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman6Endgame",
+    "name": "Alpha Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 75,
+    "requirements": {
+      "level": 75,
+      "strength": 98,
+      "dexterity": 0,
+      "intelligence": 72
+    },
+    "properties": {
+      "physicalDamageMin": 63,
+      "physicalDamageMax": 94,
+      "attackTime": 769,
+      "criticalStrikeChance": 900,
+      "range": 12
+    },
+    "implicits": [
+      "+(10-15)% to Block chance"
+    ],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/PrimalTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Armours/BodyArmours/FourBodyInt8",
     "name": "Altar Robe",
     "itemClass": "Body Armour",
@@ -1336,6 +1367,37 @@
       "default"
     ],
     "iconPath": "items/BodyDexInt01.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman3Endgame",
+    "name": "Ashbark Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 72,
+    "requirements": {
+      "level": 72,
+      "strength": 94,
+      "dexterity": 0,
+      "intelligence": 67
+    },
+    "properties": {
+      "physicalDamageMin": 72,
+      "physicalDamageMax": 150,
+      "attackTime": 833,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "(50-80)% increased Flammability Magnitude"
+    ],
+    "tags": [
+      "ezomyte_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/CinderbarkTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/Staves/FourStaff1",
@@ -3966,6 +4028,35 @@
     "iconPath": "items/HelmetStrDex05.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman1",
+    "name": "Changeling Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 1,
+    "requirements": {
+      "level": 1,
+      "strength": 0,
+      "dexterity": 0,
+      "intelligence": 0
+    },
+    "properties": {
+      "physicalDamageMin": 9,
+      "physicalDamageMax": 15,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "ezomyte_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/ChangelingTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Armours/Boots/FourBootsDexInt2Endgame",
     "name": "Charmed Shoes",
     "itemClass": "Boots",
@@ -4128,6 +4219,37 @@
       "default"
     ],
     "iconPath": "items/BootsDex02.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman3",
+    "name": "Cinderbark Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 10,
+    "requirements": {
+      "level": 10,
+      "strength": 15,
+      "dexterity": 0,
+      "intelligence": 11
+    },
+    "properties": {
+      "physicalDamageMin": 18,
+      "physicalDamageMax": 36,
+      "attackTime": 833,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "(50-80)% increased Flammability Magnitude"
+    ],
+    "tags": [
+      "ezomyte_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/CinderbarkTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/OneHandWeapons/Daggers/FourDagger13",
@@ -4528,6 +4650,36 @@
       "default"
     ],
     "iconPath": "items/Bow05.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman13",
+    "name": "Condemned Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 65,
+    "requirements": {
+      "level": 65,
+      "strength": 74,
+      "dexterity": 0,
+      "intelligence": 52
+    },
+    "properties": {
+      "physicalDamageMin": 68,
+      "physicalDamageMax": 113,
+      "attackTime": 800,
+      "criticalStrikeChance": 900,
+      "range": 12
+    },
+    "implicits": [
+      "(10-20)% increased Effect of your Mark Skills"
+    ],
+    "tags": [
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/CondemnedTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/BodyArmours/FourBodyStrInt4Endgame",
@@ -5274,6 +5426,35 @@
       "default"
     ],
     "iconPath": "items/Claw01.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman8Cruel",
+    "name": "Cruel Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 63,
+    "requirements": {
+      "level": 63,
+      "strength": 72,
+      "dexterity": 0,
+      "intelligence": 51
+    },
+    "properties": {
+      "physicalDamageMin": 62,
+      "physicalDamageMax": 103,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/ViciousTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/FourTwoHandMace8",
@@ -8135,6 +8316,37 @@
     "iconPath": "items/BodyDexInt06.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman4",
+    "name": "Familial Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 16,
+    "requirements": {
+      "level": 16,
+      "strength": 21,
+      "dexterity": 0,
+      "intelligence": 16
+    },
+    "properties": {
+      "physicalDamageMin": 20,
+      "physicalDamageMax": 34,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "Minions deal (30-50)% increased Damage"
+    ],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/FamilialTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/Bows/FourBow7Endgame",
     "name": "Fanatic Bow",
     "itemClass": "Bow",
@@ -8192,6 +8404,37 @@
       "default"
     ],
     "iconPath": "items/2HMace05.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman4Endgame",
+    "name": "Fang Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 77,
+    "requirements": {
+      "level": 77,
+      "strength": 89,
+      "dexterity": 0,
+      "intelligence": 68
+    },
+    "properties": {
+      "physicalDamageMin": 70,
+      "physicalDamageMax": 116,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "Minions deal (30-50)% increased Damage"
+    ],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/FamilialTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/Helmets/FourHelmetDexInt4Endgame",
@@ -9092,6 +9335,35 @@
     "iconPath": "items/HelmetDex07.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman5",
+    "name": "Frenzied Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 22,
+    "requirements": {
+      "level": 22,
+      "strength": 28,
+      "dexterity": 0,
+      "intelligence": 20
+    },
+    "properties": {
+      "physicalDamageMin": 23,
+      "physicalDamageMax": 38,
+      "attackTime": 714,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/FrenziedTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Weapons/OneHandWeapons/Wands/FourWand9",
     "name": "Frigid Wand",
     "itemClass": "Wand",
@@ -9141,6 +9413,35 @@
       "default"
     ],
     "iconPath": "items/BodyStr07.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman5Endgame",
+    "name": "Fungal Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 78,
+    "requirements": {
+      "level": 78,
+      "strength": 96,
+      "dexterity": 0,
+      "intelligence": 70
+    },
+    "properties": {
+      "physicalDamageMin": 59,
+      "physicalDamageMax": 98,
+      "attackTime": 714,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/FrenziedTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/BodyArmours/FourBodyStr2",
@@ -9259,6 +9560,37 @@
       "default"
     ],
     "iconPath": "items/1HAxe10.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman7Cruel",
+    "name": "Fury Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 59,
+    "requirements": {
+      "level": 59,
+      "strength": 67,
+      "dexterity": 0,
+      "intelligence": 48
+    },
+    "properties": {
+      "physicalDamageMin": 49,
+      "physicalDamageMax": 91,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "+(8-12) to Maximum Rage"
+    ],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/RabidTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/Helmets/FourHelmetStrDex8",
@@ -11609,6 +11941,37 @@
     "iconPath": "items/HelmetIntStr02.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman6Cruel",
+    "name": "Howling Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 55,
+    "requirements": {
+      "level": 55,
+      "strength": 63,
+      "dexterity": 0,
+      "intelligence": 45
+    },
+    "properties": {
+      "physicalDamageMin": 52,
+      "physicalDamageMax": 78,
+      "attackTime": 769,
+      "criticalStrikeChance": 900,
+      "range": 12
+    },
+    "implicits": [
+      "+(10-15)% to Block chance"
+    ],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/PrimalTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Armours/Helmets/FourHelmetDex5",
     "name": "Hunter Hood",
     "itemClass": "Helmet",
@@ -12438,6 +12801,35 @@
       "default"
     ],
     "iconPath": "items/1HMace10.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman10Endgame",
+    "name": "Jade Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 78,
+    "requirements": {
+      "level": 78,
+      "strength": 109,
+      "dexterity": 0,
+      "intelligence": 65
+    },
+    "properties": {
+      "physicalDamageMin": 101,
+      "physicalDamageMax": 151,
+      "attackTime": 909,
+      "criticalStrikeChance": 500,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "karui_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/LumberingTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/Helmets/FourHelmetInt8",
@@ -13581,6 +13973,35 @@
     "iconPath": "items/Warstaff02.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman10",
+    "name": "Lumbering Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 52,
+    "requirements": {
+      "level": 52,
+      "strength": 60,
+      "dexterity": 0,
+      "intelligence": 43
+    },
+    "properties": {
+      "physicalDamageMin": 71,
+      "physicalDamageMax": 107,
+      "attackTime": 909,
+      "criticalStrikeChance": 500,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "karui_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/LumberingTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/FourOneHandMace11",
     "name": "Lumen Mace",
     "itemClass": "One Hand Mace",
@@ -13951,6 +14372,37 @@
       "default"
     ],
     "iconPath": "items/HelmetIntStr01.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman7Endgame",
+    "name": "Maji Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 79,
+    "requirements": {
+      "level": 79,
+      "strength": 100,
+      "dexterity": 0,
+      "intelligence": 67
+    },
+    "properties": {
+      "physicalDamageMin": 61,
+      "physicalDamageMax": 114,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "+(8-12) to Maximum Rage"
+    ],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/RabidTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/Crossbows/FourCrossbow1",
@@ -14741,6 +15193,35 @@
       "default"
     ],
     "iconPath": "items/HelmetDex03.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman2",
+    "name": "Nettle Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 5,
+    "requirements": {
+      "level": 5,
+      "strength": 9,
+      "dexterity": 0,
+      "intelligence": 8
+    },
+    "properties": {
+      "physicalDamageMin": 12,
+      "physicalDamageMax": 20,
+      "attackTime": 800,
+      "criticalStrikeChance": 1100,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "ezomyte_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/NettleTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/Helmets/FourHelmetInt9",
@@ -16653,6 +17134,37 @@
     "iconPath": "items/2HMace12.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman6",
+    "name": "Primal Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 28,
+    "requirements": {
+      "level": 28,
+      "strength": 34,
+      "dexterity": 0,
+      "intelligence": 25
+    },
+    "properties": {
+      "physicalDamageMin": 31,
+      "physicalDamageMax": 46,
+      "attackTime": 769,
+      "criticalStrikeChance": 900,
+      "range": 12
+    },
+    "implicits": [
+      "+(10-15)% to Block chance"
+    ],
+    "tags": [
+      "maraketh_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/PrimalTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Quivers/FourQuiver8",
     "name": "Primed Quiver",
     "itemClass": "Quiver",
@@ -16916,6 +17428,37 @@
       "default"
     ],
     "iconPath": "items/BodyDex02.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman7",
+    "name": "Rabid Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 34,
+    "requirements": {
+      "level": 34,
+      "strength": 40,
+      "dexterity": 0,
+      "intelligence": 29
+    },
+    "properties": {
+      "physicalDamageMin": 31,
+      "physicalDamageMax": 58,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "+(8-12) to Maximum Rage"
+    ],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/RabidTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/BodyArmours/FourBodyStr4",
@@ -17846,6 +18389,36 @@
       "default"
     ],
     "iconPath": "items/Staff01.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman11",
+    "name": "Roaring Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 58,
+    "requirements": {
+      "level": 58,
+      "strength": 66,
+      "dexterity": 0,
+      "intelligence": 47
+    },
+    "properties": {
+      "physicalDamageMin": 57,
+      "physicalDamageMax": 96,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "+(8-12) to Maximum Rage"
+    ],
+    "tags": [
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/RoaringTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/Crossbows/FourCrossbow3Cruel",
@@ -20917,6 +21490,35 @@
     "iconPath": "items/GlovesDex05.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman2Endgame",
+    "name": "Spiny Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 67,
+    "requirements": {
+      "level": 67,
+      "strength": 86,
+      "dexterity": 0,
+      "intelligence": 65
+    },
+    "properties": {
+      "physicalDamageMin": 60,
+      "physicalDamageMax": 99,
+      "attackTime": 800,
+      "criticalStrikeChance": 1100,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "ezomyte_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/NettleTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Armours/Gloves/FourGlovesDexInt3",
     "name": "Spiral Wraps",
     "itemClass": "Gloves",
@@ -22713,6 +23315,37 @@
     "iconPath": "items/BootsDexInt02.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman9Endgame",
+    "name": "Thunder Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 77,
+    "requirements": {
+      "level": 77,
+      "strength": 102,
+      "dexterity": 0,
+      "intelligence": 72
+    },
+    "properties": {
+      "physicalDamageMin": 33,
+      "physicalDamageMax": 187,
+      "attackTime": 769,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "(15-25)% increased Magnitude of Shock you inflict"
+    ],
+    "tags": [
+      "karui_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/VoltfangTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Armours/BodyArmours/FourBodyStrInt8",
     "name": "Tideseer Mantle",
     "itemClass": "Body Armour",
@@ -24130,6 +24763,35 @@
     "iconPath": "items/BootsStrDex01.webp"
   },
   {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman8",
+    "name": "Vicious Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 40,
+    "requirements": {
+      "level": 40,
+      "strength": 47,
+      "dexterity": 0,
+      "intelligence": 34
+    },
+    "properties": {
+      "physicalDamageMin": 43,
+      "physicalDamageMax": 71,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/ViciousTalisman.webp"
+  },
+  {
     "id": "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/FourTwoHandAxe13",
     "name": "Vile Greataxe",
     "itemClass": "Two Hand Axe",
@@ -24330,6 +24992,37 @@
       "default"
     ],
     "iconPath": "items/Staff03.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman9",
+    "name": "Voltfang Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 46,
+    "requirements": {
+      "level": 46,
+      "strength": 53,
+      "dexterity": 0,
+      "intelligence": 38
+    },
+    "properties": {
+      "physicalDamageMin": 23,
+      "physicalDamageMax": 130,
+      "attackTime": 769,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [
+      "(15-25)% increased Magnitude of Shock you inflict"
+    ],
+    "tags": [
+      "karui_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/VoltfangTalisman.webp"
   },
   {
     "id": "Metadata/Items/Armours/Focii/FourFocus7",
@@ -24997,6 +25690,63 @@
       "default"
     ],
     "iconPath": "items/Belt03.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman8Endgame",
+    "name": "Wildwood Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 70,
+    "requirements": {
+      "level": 70,
+      "strength": 98,
+      "dexterity": 0,
+      "intelligence": 72
+    },
+    "properties": {
+      "physicalDamageMin": 67,
+      "physicalDamageMax": 112,
+      "attackTime": 800,
+      "criticalStrikeChance": 800,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "vaal_basetype",
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/ViciousTalisman.webp"
+  },
+  {
+    "id": "Metadata/Items/Weapons/TwoHandWeapons/Talismans/Talisman12",
+    "name": "Wingbeat Talisman",
+    "itemClass": "Talisman",
+    "dropLevel": 65,
+    "requirements": {
+      "level": 65,
+      "strength": 74,
+      "dexterity": 0,
+      "intelligence": 52
+    },
+    "properties": {
+      "physicalDamageMin": 45,
+      "physicalDamageMax": 83,
+      "attackTime": 690,
+      "criticalStrikeChance": 700,
+      "range": 12
+    },
+    "implicits": [],
+    "tags": [
+      "talisman",
+      "two_hand_weapon",
+      "twohand",
+      "weapon",
+      "default"
+    ],
+    "iconPath": "items/WingbeatTalisman.webp"
   },
   {
     "id": "Metadata/Items/Weapons/OneHandWeapons/OneHandSpears/FourSpear4",

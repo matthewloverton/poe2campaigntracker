@@ -6,7 +6,7 @@ import styles from "./GearGrid.module.css";
 
 const TWO_HANDED_CLASSES = new Set([
   "Two Hand Sword", "Two Hand Axe", "Two Hand Mace",
-  "Bow", "Staff", "Warstaff", "Spear", "Crossbow",
+  "Bow", "Staff", "Warstaff", "Talisman", "Spear", "Crossbow",
 ]);
 
 interface GearGridProps {

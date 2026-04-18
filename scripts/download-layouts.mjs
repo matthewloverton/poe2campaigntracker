@@ -22,7 +22,7 @@ const IMAGES = [
   ["Hunting-Grounds-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Hunting-Grounds-Pilot.png"],
   ["Hunting-Grounds-Boss.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Hunting-Grounds-Boss.png"],
   ["Freythorn-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Freythorn-Pilot.png"],
-  ["Farmlands-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Farmlands-Pilot.png"],
+  ["Ogham-Farmlands-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Ogham-Farmlands-Pilot.png"],
   ["Ogham-Clue.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Ogham-Clue.png"],
   ["Ogham-Village-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Ogham-Village-Pilot.png"],
   ["Manor-Ramparts-Pilot.png", "https://cdn.mobalytics.gg/assets/poe-2/images/layouts/Manor-Ramparts-Pilot.png"],

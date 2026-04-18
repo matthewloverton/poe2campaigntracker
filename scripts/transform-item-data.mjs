@@ -37,7 +37,7 @@ const EQUIPMENT_CLASSES = new Set([
   "One Hand Sword", "Two Hand Sword",
   "One Hand Axe", "Two Hand Axe",
   "One Hand Mace", "Two Hand Mace",
-  "Sceptre", "Staff", "Warstaff",
+  "Sceptre", "Staff", "Warstaff", "Talisman",
   "Spear", "Flail", "Bow", "Crossbow",
   "Focus", "TrapTool",
   "Body Armour", "Helmet", "Gloves", "Boots", "Shield", "Buckler",

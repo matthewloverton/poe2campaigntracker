@@ -61,6 +61,19 @@
     ]
   },
   {
+    "id": "394",
+    "name": "Amor Mandragora",
+    "itemClass": "Talisman",
+    "iconPath": "items/AmorMandragora.webp",
+    "mods": [
+      "Adds (16-20) to (23-27) Physical Damage",
+      "+(8-15) to Intelligence",
+      "(10-15)% increased Skill Effect Duration",
+      "Enemies in your Presence are Hindered",
+      "Gain 1 Druidic Prowess for every 20 total Rage spent"
+    ]
+  },
+  {
     "id": "177",
     "name": "Andvarius",
     "itemClass": "Ring",
@@ -1428,6 +1441,20 @@
     ]
   },
   {
+    "id": "401",
+    "name": "Fury of the King",
+    "itemClass": "Talisman",
+    "iconPath": "items/VesselOfWrath.webp",
+    "mods": [
+      "Adds (503-589) to (647-713) Fire Damage",
+      "(15-20)% reduced Attack Speed",
+      "+(30-40) to Strength",
+      "Bear Skills Convert 80% of Physical Damage to Fire Damage",
+      "Skills which require Glory generate (2-5) Glory every 2 seconds",
+      "Enemies in your Presence have Exposure"
+    ]
+  },
+  {
     "id": "105",
     "name": "Gamblesprint",
     "itemClass": "Boots",
@@ -1786,6 +1813,19 @@
       "+(30-40) to Dexterity",
       "25% increased Freeze Duration on Enemies",
       "Evasion Rating is doubled if you have not been Hit Recently"
+    ]
+  },
+  {
+    "id": "400",
+    "name": "Hysseg's Claw",
+    "itemClass": "Talisman",
+    "iconPath": "items/HandOfTheClan.webp",
+    "mods": [
+      "(70-100)% increased Physical Damage",
+      "5% increased Movement Speed",
+      "+(8-15) to Strength",
+      "+(8-15) to Intelligence",
+      "(5-8)% increased Damage per Minion"
     ]
   },
   {
@@ -3505,6 +3545,19 @@
     "itemClass": "Body Armour",
     "iconPath": "items/FallenFormation.webp",
     "mods": []
+  },
+  {
+    "id": "395",
+    "name": "The Flesh Poppet",
+    "itemClass": "Talisman",
+    "iconPath": "items/TheSkinThief.webp",
+    "mods": [
+      "(90-120)% increased Physical Damage",
+      "(7-13)% increased Attack Speed",
+      "+(7-13) to all Attributes",
+      "(30-40)% reduced Presence Area of Effect",
+      "Copy a random Modifier from each enemy in your Presence whenyou Shapeshift to an Animal formModifiers gained this way are lost after 30 seconds or when you next Shapeshift"
+    ]
   },
   {
     "id": "361",

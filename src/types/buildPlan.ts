@@ -119,10 +119,10 @@ export const GEAR_SLOT_LABELS: Record<GearSlotKey, string> = {
 
 export const SLOT_ITEM_CLASSES: Record<string, string[]> = {
   weapon: ["Wand", "One Hand Mace", "Two Hand Mace",
-           "Sceptre", "Staff", "Warstaff", "Spear", "Bow",
+           "Sceptre", "Staff", "Warstaff", "Talisman", "Spear", "Bow",
            "Crossbow", "Focus", "TrapTool"],
   weaponSwap: ["Wand", "One Hand Mace", "Two Hand Mace",
-           "Sceptre", "Staff", "Warstaff", "Spear", "Bow",
+           "Sceptre", "Staff", "Warstaff", "Talisman", "Spear", "Bow",
            "Crossbow", "Focus", "TrapTool"],
   offhand: ["Shield", "Buckler", "Quiver", "Focus"],
   offhandSwap: ["Shield", "Buckler", "Quiver", "Focus"],
