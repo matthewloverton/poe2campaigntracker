@@ -543,6 +543,13 @@
 .historyLineRemoved { color: #ff9090; }
 .historyLineRemoved .historyDelta { color: #ff5c5c; }
 
+.historyLineNeutral { color: var(--text-secondary); opacity: 0.85; }
+
+/* For Divine events we hide the +/- delta entirely so lines align to content. */
+.historyLine:not(:has(.historyDelta)) {
+  padding-left: 12px;
+}
+
 .historyLineTier {
   display: inline-block;
   font-size: 0.58rem;

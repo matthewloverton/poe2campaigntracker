@@ -163,6 +163,7 @@ type SlotKind = "prefix" | "suffix" | "implicit";
 
 interface HistoryLineMod {
   kind: SlotKind;
+  modId?: string;
   name: string;
   text: string;
   tier: string;
@@ -170,6 +171,8 @@ interface HistoryLineMod {
   rollPercent: number;
   rollNumerator: number;
   rollDenominator: number;
+  /** For Divine events: the previous roll percentile of the same mod. */
+  oldRollPercent?: number;
   /** Chance the mod would be picked from its applicable pool at this moment (0–1). */
   pickChance?: number;
 }
@@ -189,6 +192,7 @@ function modToLineWithBase(base: BaseItem, mod: ItemMod, em: EmulatedMod, kind: 
   const stats = computeRollStats(mod, em.roll);
   return {
     kind,
+    modId: mod.id,
     name: mod.name || "",
     text: formatRolledWithRange(mod, em.roll),
     tier: modTierLabel(mod, base),
@@ -318,14 +322,28 @@ export function CraftEmulator({ base, onClose }: Props) {
     });
 
     const nextSpend = { ...spend, [activeDef.key]: spend[activeDef.key] + 1 };
+    // For Divine, pair each added line with its old-roll counterpart (same
+    // modId in the removed list) so the UI can render direction-coloured
+    // deltas instead of a separate +/− pair.
+    let finalAdded: HistoryLineMod[] = enrichedAdded;
+    let finalRemoved: HistoryLineMod[] = diff.removed;
+    if (activeDef.key === "divine") {
+      finalAdded = enrichedAdded.map((line) => {
+        if (!line.modId) return line;
+        const pair = diff.removed.find((r) => r.modId === line.modId);
+        return pair ? { ...line, oldRollPercent: pair.rollPercent } : line;
+      });
+      finalRemoved = []; // collapse into single "changed" view
+    }
+
     setItem(next);
     setSpend(nextSpend);
     setHistory((h) => [{
       id: nextEventId,
       currencyKey: activeDef.key,
       tierType: appliedTier,
-      added: enrichedAdded,
-      removed: diff.removed,
+      added: finalAdded,
+      removed: finalRemoved,
       itemAfter: next,
       spendAfter: nextSpend,
     }, ...h].slice(0, 80));
@@ -583,11 +601,11 @@ export function CraftEmulator({ base, onClose }: Props) {
                         {def?.label ?? ev.currencyKey}
                       </span>
                     </div>
-                    {ev.removed.map((line, i) => (
-                      <HistoryLine key={`r${i}`} line={line} kind="removed" />
+                    {ev.currencyKey !== "divine" && ev.removed.map((line, i) => (
+                      <HistoryLine key={`r${i}`} line={line} kind="removed" showRollQuality={false} />
                     ))}
                     {ev.added.map((line, i) => (
-                      <HistoryLine key={`a${i}`} line={line} kind="added" />
+                      <HistoryLine key={`a${i}`} line={line} kind="added" showRollQuality={ev.currencyKey === "divine"} isDivine={ev.currencyKey === "divine"} />
                     ))}
                     {ev.added.length === 0 && ev.removed.length === 0 && (
                       <div className={styles.historyLine}>
@@ -610,21 +628,32 @@ function cleanLineText(text: string): string {
   return cleanModText(text).replace(/\n/g, " · ");
 }
 
-function HistoryLine({ line, kind }: { line: HistoryLineMod; kind: "added" | "removed" }) {
-  const cls = kind === "added" ? styles.historyLineAdded : styles.historyLineRemoved;
-  const hasRange = line.rollDenominator > 0;
-  const chanceTxt = line.pickChance != null
+function HistoryLine({ line, kind, showRollQuality, isDivine }: { line: HistoryLineMod; kind: "added" | "removed"; showRollQuality: boolean; isDivine?: boolean }) {
+  const showRoll = showRollQuality && line.rollDenominator > 0;
+  const chanceTxt = !isDivine && line.pickChance != null
     ? `(${(line.pickChance * 100).toFixed(line.pickChance < 0.01 ? 3 : 2)}%)`
     : null;
+
+  let cls: string;
+  if (isDivine && line.oldRollPercent != null) {
+    const delta = line.rollPercent - line.oldRollPercent;
+    cls = delta > 0 ? styles.historyLineAdded
+        : delta < 0 ? styles.historyLineRemoved
+        : styles.historyLineNeutral;
+  } else {
+    cls = kind === "added" ? styles.historyLineAdded : styles.historyLineRemoved;
+  }
+
   return (
     <div className={`${styles.historyLine} ${cls}`}>
-      <span className={styles.historyDelta}>{kind === "added" ? "+" : "−"}</span>
+      {!isDivine && <span className={styles.historyDelta}>{kind === "added" ? "+" : "−"}</span>}
       <span className={styles.historyLineText}>
         {line.tier && <span className={styles.historyLineTier}>{line.tier}</span>}
         {cleanLineText(line.text)}
-        {hasRange && (
+        {showRoll && (
           <span className={styles.historyRoll}>
             {" "}
+            {line.oldRollPercent != null && `${line.oldRollPercent}% → `}
             {line.rollPercent}% ({line.rollNumerator}/{line.rollDenominator})
           </span>
         )}
