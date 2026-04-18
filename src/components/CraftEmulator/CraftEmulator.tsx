@@ -619,14 +619,32 @@ export function CraftEmulator({ base, onClose }: Props) {
               const active = selectedEssence === slug;
               const isCorrupted = CORRUPTED_ESSENCE_SLUGS.includes(slug as typeof CORRUPTED_ESSENCE_SLUGS[number]);
 
-              // Find which tiers have an entry matching this base.
-              const applicableTiers: { tier: EssenceTier; label: string; entry: { category: string; text: string } }[] = [];
+              // Find which tiers have an entry matching this base, and whether
+              // each of those tiers can actually fire on the current item state.
+              const applicableTiers: {
+                tier: EssenceTier;
+                label: string;
+                entry: { category: string; text: string };
+                canApplyNow: boolean;
+                requirement: string;
+              }[] = [];
               for (const tierKey of ["lesser", "normal", "greater", "perfect"] as EssenceTier[]) {
                 if (!ess.tiers[tierKey]) continue;
                 const entry = resolveEssenceEntryForItem(slug, tierKey, base);
-                if (entry) applicableTiers.push({ tier: tierKey, label: ESSENCE_TIER_LABEL[tierKey], entry });
+                if (!entry) continue;
+                const requirement = tierKey === "perfect"
+                  ? "Rare item with at least one modifier"
+                  : "Magic item";
+                applicableTiers.push({
+                  tier: tierKey,
+                  label: ESSENCE_TIER_LABEL[tierKey],
+                  entry,
+                  canApplyNow: canApplyEssence(item, slug, tierKey),
+                  requirement,
+                });
               }
               const applies = applicableTiers.length > 0;
+              const anyTierCanFireNow = applicableTiers.some((t) => t.canApplyNow);
 
               const tooltipNode = (
                 <>
@@ -637,14 +655,25 @@ export function CraftEmulator({ base, onClose }: Props) {
                       : "Upgrades Magic → Rare with a guaranteed modifier (Perfect tier removes+adds on Rare)"}
                   </div>
                   {applies ? (
-                    <div className={styles.tipDesc}>
-                      {applicableTiers.map((t) => (
-                        <div key={t.tier} className={styles.tipTierRow}>
-                          <span className={styles.tipTiersLabel}>{t.label}</span>
-                          {t.entry.text}
+                    <>
+                      <div className={styles.tipDesc}>
+                        {applicableTiers.map((t) => (
+                          <div key={t.tier} className={styles.tipTierRow}>
+                            <span className={styles.tipTiersLabel}>{t.label}</span>
+                            {t.entry.text}
+                            {!t.canApplyNow && (
+                              <span className={styles.tipTierBlocked}> — needs {t.requirement}</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      {!anyTierCanFireNow && (
+                        <div className={styles.tipReq}>
+                          <span className={styles.tipReqLabel}>Blocked:</span>
+                          {` No tier applies to a ${item.corrupted ? "corrupted" : item.rarity} item`}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   ) : (
                     <div className={styles.tipReq}>Does not apply to this base</div>
                   )}
@@ -654,16 +683,20 @@ export function CraftEmulator({ base, onClose }: Props) {
                 <HoverPortalTooltip key={slug} className={styles.stripBtnWrap} tooltip={tooltipNode}>
                   <button
                     className={`${styles.stripBtn} ${active ? styles.stripBtnActive : ""} ${isCorrupted ? styles.essenceCorrupted : ""}`}
-                    disabled={!applies}
+                    disabled={!applies || !anyTierCanFireNow}
                     onClick={() => {
-                      if (!applies) return;
+                      if (!applies || !anyTierCanFireNow) return;
                       if (active) {
                         setSelectedEssence(null);
                       } else {
                         setSelectedEssence(slug);
                         setSelectedCurrency(null);
-                        if (isCorrupted) setTierType("perfect");
-                        else if (tierType === "perfect" && !ess.tiers.perfect) setTierType("normal");
+                        // Snap to a tier that can actually fire if the current one can't.
+                        const currentTierEntry = applicableTiers.find((t) => t.tier === tierType);
+                        if (!currentTierEntry || !currentTierEntry.canApplyNow) {
+                          const pick = applicableTiers.find((t) => t.canApplyNow) ?? applicableTiers[0];
+                          if (pick) setTierType(pick.tier);
+                        }
                       }
                     }}
                   >
