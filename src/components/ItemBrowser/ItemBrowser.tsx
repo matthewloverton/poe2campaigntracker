@@ -258,25 +258,27 @@ export function ItemBrowser({
             }}
           />
         </div>
-        {favouriteCrafts.length > 0 && (
-          <button
-            className={`${styles.headerFavBtn} ${showFavourites ? styles.headerFavBtnActive : ""}`}
-            onClick={() => {
-              setShowFavourites(!showFavourites);
-              setShowUniques(false);
-              setShowTracked(false);
-              setDefenceFilter(null);
-              setSelectedItem(null);
-              setSelectedUnique(null);
-            }}
-            title="Favourite crafts"
-          >
-            ★ {favouriteCrafts.length}
+        <div className={styles.headerRight}>
+          {favouriteCrafts.length > 0 && (
+            <button
+              className={`${styles.headerFavBtn} ${showFavourites ? styles.headerFavBtnActive : ""}`}
+              onClick={() => {
+                setShowFavourites(!showFavourites);
+                setShowUniques(false);
+                setShowTracked(false);
+                setDefenceFilter(null);
+                setSelectedItem(null);
+                setSelectedUnique(null);
+              }}
+              title="Favourite crafts"
+            >
+              ★ {favouriteCrafts.length}
+            </button>
+          )}
+          <button className={styles.closeBtn} onClick={onClose}>
+            &times;
           </button>
-        )}
-        <button className={styles.closeBtn} onClick={onClose}>
-          &times;
-        </button>
+        </div>
       </div>
 
       {emulateBase && (

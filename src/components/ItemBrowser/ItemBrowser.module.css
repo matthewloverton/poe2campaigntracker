@@ -68,8 +68,15 @@
   flex-shrink: 0;
 }
 
-.headerFavBtn {
+.headerRight {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 4px;
+}
+
+.headerFavBtn {
   padding: 4px 10px;
   background: rgba(201, 168, 76, 0.10);
   border: 1px solid var(--border-gold);
