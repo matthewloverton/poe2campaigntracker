@@ -613,12 +613,29 @@ function transformGems(raw, rawSkills) {
           const levels = {};
           for (const [lvl, data] of Object.entries(skill.per_level || {})) {
             const ssLevel = ss.per_level?.[lvl];
+
+            const staticStats = ss.static?.stats || [];
+            const sparsePerLevel = ssLevel?.stats || [];
+
+            const resolvedStats = {};
+            for (let n = 0; n < staticStats.length; n++) {
+              const staticEntry = staticStats[n];
+              if (!staticEntry?.id) continue;
+              const override = sparsePerLevel[n];
+              if (override != null && typeof override.value === "number") {
+                resolvedStats[staticEntry.id] = override.value;
+              } else if (typeof staticEntry.value === "number") {
+                resolvedStats[staticEntry.id] = staticEntry.value;
+              }
+            }
+
             levels[lvl] = {
               costs: data.costs || {},
               damageMultiplier: ssLevel?.damage_multiplier,
               statText: ssLevel?.stat_text
                 ? Object.values(ssLevel.stat_text).map((t) => cleanModText(t))
                 : [],
+              stats: resolvedStats,
             };
           }
           const staticStatText = ss.static?.stat_text
@@ -656,10 +673,12 @@ function transformGems(raw, rawSkills) {
       // Primary stat sets (from the main skill)
       const primarySets = extractStatSets(primary, primary.active_skill?.display_name || gem.base_item.display_name);
 
+      const activeSkill = primary.active_skill || {};
+      const activeSkillTypes = activeSkill.types || [];
+      const weaponRestrictions = activeSkill.weapon_restrictions || [];
+
       skillDetail = {
-        description: primary.active_skill?.description
-          ? cleanModText(primary.active_skill.description)
-          : undefined,
+        description: activeSkill.description ? cleanModText(activeSkill.description) : undefined,
         castTime: primary.cast_time,
         cooldown: primary.static?.cooldown,
         storedUses: primary.static?.stored_uses,
@@ -668,9 +687,16 @@ function transformGems(raw, rawSkills) {
         levels: primarySets[0]?.levels ?? {},
         staticStatText: primarySets[0]?.staticStatText ?? [],
         qualityStats: allStatSets.find((ss) => ss.qualityStats.length > 0)?.qualityStats ?? [],
-        ...(allStatSets.length > 1 && { statSets: allStatSets }),
+        statSets: allStatSets,
+        ...(activeSkillTypes.length > 0 && { activeSkillTypes }),
+        ...(weaponRestrictions.length > 0 && { weaponRestrictions }),
       };
     }
+
+    // Extract support-gem filter fields from the primary granted skill's support_gem object
+    const primarySupport = grantedSkills.find((s) => s.is_support)?.support_gem;
+    const allowedActiveSkillTypes = primarySupport?.allowed_types;
+    const excludedActiveSkillTypes = primarySupport?.excluded_types;
 
     results.push({
       id: key,
@@ -689,6 +715,8 @@ function transformGems(raw, rawSkills) {
       },
       iconPath: iconPathFromDds(gem.icon_dds_file, "gems"),
       ...(skillDetail && { skillDetail }),
+      ...(allowedActiveSkillTypes && { allowedActiveSkillTypes }),
+      ...(excludedActiveSkillTypes && { excludedActiveSkillTypes }),
     });
   }
 
