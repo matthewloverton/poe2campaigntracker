@@ -3,6 +3,7 @@ import type { BuildGearEntry, GearSlotKey } from "../../types/buildPlan";
 import { GEAR_SLOT_LABELS } from "../../types/buildPlan";
 import { itemById } from "../../data/items";
 import { modById, cleanModText } from "../../data/mods";
+import { implicitModById, implicitModText } from "../../data/implicitMods";
 import {
   augmentById,
   getAugmentEffect,
@@ -72,6 +73,14 @@ export function GearSlot({ slotKey, entry, onClick, onRemove }: GearSlotProps) {
   const label = GEAR_SLOT_LABELS[slotKey] ?? slotKey;
   const isUnique = !!entry?.uniqueId;
   const baseItem = entry?.baseItemId ? itemById.get(entry.baseItemId) : undefined;
+
+  // Resolve implicit mods from the base item
+  const implicitMods = useMemo(() => {
+    if (!baseItem || baseItem.implicits.length === 0) return [];
+    return baseItem.implicits
+      .map((id) => implicitModById.get(id))
+      .filter((m): m is NonNullable<typeof m> => !!m);
+  }, [baseItem]);
 
   // Resolve mods from IDs with roll values
   const resolvedMods = useMemo(() => {
@@ -345,6 +354,17 @@ export function GearSlot({ slotKey, entry, onClick, onRemove }: GearSlotProps) {
             <div className={styles.tooltipReqs}>
               <span className={styles.tooltipReqLabel}>Requires:</span>
               {reqs.join(", ")}
+            </div>
+          )}
+
+          {implicitMods.length > 0 && (
+            <div className={styles.implicitSection}>
+              {implicitMods.map((m, i) => (
+                <div key={i} className={styles.implicitMod}>
+                  {implicitModText(m)}
+                </div>
+              ))}
+              {displayMods.length > 0 && <div className={styles.implicitDivider} />}
             </div>
           )}
 

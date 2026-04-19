@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useCustomizationsStore } from "../../store/customizationsStore";
 import { PhaseBar } from "./PhaseBar";
 import { GearGrid } from "./GearGrid";
@@ -10,10 +10,13 @@ import { VendorRegex } from "../VendorRegex/VendorRegex";
 import { cleanModText } from "../../data/mods";
 import { itemById } from "../../data/items";
 import type { GearSlotKey, PhaseTrigger, BuildGearEntry, BuildGemEntry } from "../../types";
-import { SLOT_ITEM_CLASSES } from "../../types/buildPlan";
+import { SLOT_ITEM_CLASSES, DEFAULT_BUILD_PHASE } from "../../types/buildPlan";
 import type { GemEntry, BaseItem, ItemMod, UniqueItem } from "../../types/itemDatabase";
 import type { CraftState } from "../ItemBrowser/ItemDetail";
 import { PoBImportModal } from "../PoBImport/PoBImportModal";
+import { useDps } from "../../hooks/useDps";
+import { snapshotFromPhase } from "../../lib/dps";
+import { gemById } from "../../data/gems";
 import styles from "./BuildPlan.module.css";
 
 function getSlotClassKey(slot: GearSlotKey): string {
@@ -40,6 +43,37 @@ export function BuildPlan() {
   const removeFromWatchlist = useCustomizationsStore((s) => s.removeFromWatchlist);
 
   const activePhase = buildPhases.find((p) => p.id === activePhaseId) ?? null;
+
+  const [primarySkillId, setPrimarySkillId] = useState<string>("");
+  // Phase 1: per-skill level overrides stored locally (not persisted across sessions).
+  // Key is group.skill.id; value is the user-chosen skill level.
+  const [skillLevelOverrides, setSkillLevelOverrides] = useState<Record<string, number>>({});
+
+  // Merge per-skill level overrides into the phase before snapshotting.
+  const phaseWithLevels = useMemo(() => {
+    const phase = activePhase ?? DEFAULT_BUILD_PHASE;
+    if (Object.keys(skillLevelOverrides).length === 0) return phase;
+    return {
+      ...phase,
+      gems: phase.gems.map((g) => {
+        const override = skillLevelOverrides[g.skill.id];
+        if (override === undefined) return g;
+        return { ...g, skill: { ...g.skill, skillLevel: override } };
+      }),
+    };
+  }, [activePhase, skillLevelOverrides]);
+
+  const snapshot = useMemo(
+    () => snapshotFromPhase(phaseWithLevels, primarySkillId, "actual"),
+    [phaseWithLevels, primarySkillId],
+  );
+  const dpsResults = useDps(snapshot);
+
+  const dpsBySkillId = useMemo(() => {
+    const m = new Map<string, typeof dpsResults[number]>();
+    for (const r of dpsResults) m.set(r.skillId, r);
+    return m;
+  }, [dpsResults]);
 
   const [pobImportOpen, setPobImportOpen] = useState(false);
 
@@ -237,14 +271,28 @@ export function BuildPlan() {
               onReorder={(ids) => activePhaseId && reorderSkillGroups(activePhaseId, ids)}
               renderItem={(item) => {
                 const group = item as typeof activePhase.gems[0];
+                const resolvedPrimaryId = primarySkillId || activePhase.gems[0]?.skill.id || "";
+                const gem = group.skill.gemId ? gemById.get(group.skill.gemId) : undefined;
+                const maxLevel = gem?.skillDetail?.maxLevel ?? 40;
+                const minLevel = group.skill.craftingLevel ?? 1;
+                const currentLevel = skillLevelOverrides[group.skill.id] ?? group.skill.craftingLevel ?? 1;
                 return (
                   <SkillRow
                     group={group}
+                    dps={dpsBySkillId.get(group.skill.id)}
+                    isPrimary={group.skill.id === resolvedPrimaryId}
+                    onTogglePrimary={() => setPrimarySkillId(group.skill.id)}
                     onSkillClick={() => { setSkillReplaceTarget(group.id); setGemSearchOpen(true); }}
                     onSupportClick={(i) => handleSupportClick(group.id, i)}
                     onRemoveSupport={(i) => handleRemoveSupport(group.id, i)}
                     onRemoveSkill={() => activePhaseId && removeSkillGroup(activePhaseId, group.id)}
                     onReorderSupports={(from, to) => activePhaseId && reorderSupportsInGroup(activePhaseId, group.id, from, to)}
+                    skillLevel={currentLevel}
+                    minSkillLevel={minLevel}
+                    maxSkillLevel={maxLevel}
+                    onSkillLevelChange={(level) =>
+                      setSkillLevelOverrides((prev) => ({ ...prev, [group.skill.id]: level }))
+                    }
                   />
                 );
               }}

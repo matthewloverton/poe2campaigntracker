@@ -1,5 +1,6 @@
 import { itemById } from "../../data/items";
 import { modById, cleanModText } from "../../data/mods";
+import { implicitModById, implicitModText } from "../../data/implicitMods";
 import type { BuildGearEntry } from "../../types/buildPlan";
 import type { ItemMod } from "../../types/itemDatabase";
 
@@ -66,7 +67,12 @@ export function encodeItem(entry: BuildGearEntry): string {
 
   const ilvl = ["Item Level: 82"];
 
-  const implicits = (base?.implicits ?? []).map((t) => `${cleanModText(t)} (implicit)`);
+  const implicits = (base?.implicits ?? [])
+    .map((id) => {
+      const m = implicitModById.get(id);
+      return m ? `${implicitModText(m)} (implicit)` : null;
+    })
+    .filter(Boolean) as string[];
 
   const explicits: string[] = [];
   const ids = entry.desiredModIds ?? [];

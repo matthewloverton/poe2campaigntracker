@@ -1,0 +1,17 @@
+.value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.number {
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+.suffix {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}

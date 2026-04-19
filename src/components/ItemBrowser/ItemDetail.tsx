@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
 import { cleanModText, modById } from "../../data/mods";
+import { implicitModById, implicitModText } from "../../data/implicitMods";
 import { augmentById } from "../../data/augments";
 import {
   type Augment,
@@ -88,9 +89,23 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
     return map;
   });
 
-  // Notify parent when selected mods change
+  // Notify parent when selected mods change. Also initialise any newly-added
+  // mod's roll to 50% so the slider display and stored value stay consistent
+  // (sliders default to 50 visually; if the user never touches them, we must
+  // persist 50 explicitly so downstream consumers read the same value).
   const updateMods = (mods: Map<string, ItemMod>) => {
     setSelectedMods(mods);
+    setModRolls((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      for (const id of mods.keys()) {
+        if (next[id] == null) { next[id] = 50; changed = true; }
+      }
+      for (const id of Object.keys(next)) {
+        if (!mods.has(id)) { delete next[id]; changed = true; }
+      }
+      return changed ? next : prev;
+    });
     onModsChange?.([...mods.values()]);
   };
   const removeMod = (modId: string) => {
@@ -101,7 +116,7 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
   // Keep a ref to all mods for tier label computation
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
-  const [quality, setQuality] = useState(initialState?.quality ?? 20);
+  const [quality, setQuality] = useState(initialState?.quality ?? 0);
   const [modRolls, setModRolls] = useState<Record<string, number>>(initialState?.modRolls ?? {}); // modId → 0-100 percentile
 
   // Augment socket state
@@ -427,9 +442,12 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
 
               {item.implicits.length > 0 && (
                 <div className={styles.implicits}>
-                  {item.implicits.map((imp, i) => (
-                    <div key={i} className={styles.implicit}>{imp}</div>
-                  ))}
+                  {item.implicits.map((id, i) => {
+                    const m = implicitModById.get(id);
+                    return m ? (
+                      <div key={i} className={styles.implicit}>{implicitModText(m)}</div>
+                    ) : null;
+                  })}
                 </div>
               )}
             </div>

@@ -1,0 +1,63 @@
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: var(--bg-panel);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.label { color: var(--text-secondary); font-size: 0.8rem; }
+.skillSelect {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+.values {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+}
+.arrow { color: var(--text-secondary); }
+.delta {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gain { color: var(--color-green, #44cc44); }
+.loss { color: var(--color-red, #ff4444); }
+.neutral { color: var(--text-secondary); }
+.toggle {
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.2rem 0.35rem;
+}
+.toggle:hover { color: var(--accent-gold); }
+.breakdowns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.breakdownCol {}
+.breakdownTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem 0;
+}
+.muted { color: var(--text-secondary); }

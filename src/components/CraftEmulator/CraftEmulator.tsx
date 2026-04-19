@@ -2,6 +2,10 @@ import { useState, useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { resolveMod, modTierLabel, formatRolledWithRange, cleanModText, computeRollStats } from "../../data/mods";
+import { useCustomizationsStore } from "../../store/customizationsStore";
+import { SLOT_ITEM_CLASSES } from "../../types/buildPlan";
+import type { BuildGearEntry } from "../../types/buildPlan";
+import { DpsDelta } from "../Dps/DpsDelta";
 import {
   allEssences,
   resolveEssenceEntryForItem,
@@ -323,6 +327,40 @@ export function CraftEmulator({ base, onClose, initialMods, initialModRolls }: P
   const [nextEventId, setNextEventId] = useState(1);
   const [flash, setFlash] = useState<{ id: number; color: "magic" | "rare" } | null>(null);
   const [modFlash, setModFlash] = useState<{ id: number; ids: Set<string> }>({ id: 0, ids: new Set() });
+
+  // Build Plan phase for DPS delta card.
+  const buildPhases = useCustomizationsStore((s) => s.buildPhases);
+  const activePhaseId = useCustomizationsStore((s) => s.activePhaseId);
+  const activePhase = useMemo(
+    () => (activePhaseId ? buildPhases.find((p) => p.id === activePhaseId) ?? null : null),
+    [buildPhases, activePhaseId],
+  );
+
+  // Weapon class guard: only show DPS delta when the base is a weapon.
+  const isWeaponBase = useMemo(
+    () => SLOT_ITEM_CLASSES.weapon.includes(base.itemClass),
+    [base.itemClass],
+  );
+
+  // Adapter: turn the current EmulatedItem + BaseItem into a BuildGearEntry for the DPS engine.
+  const rolledGearEntry = useMemo((): BuildGearEntry | null => {
+    if (!isWeaponBase) return null;
+    const allMods = [...item.prefixes, ...item.suffixes];
+    const modRolls: Record<string, number> = {};
+    for (const em of allMods) {
+      modRolls[em.modId] = em.roll;
+    }
+    return {
+      id: "craft-rolled",
+      slot: "weapon",
+      baseItemId: base.id,
+      base: base.name,
+      desiredModIds: allMods.map((em) => em.modId),
+      desiredMods: [],
+      notes: "",
+      modRolls,
+    };
+  }, [isWeaponBase, base.id, base.name, item.prefixes, item.suffixes]);
 
   const triggerFlash = useCallback((rarity: EmulatedItem["rarity"]) => {
     if (rarity === "magic") setFlash({ id: Date.now(), color: "magic" });
@@ -971,6 +1009,13 @@ export function CraftEmulator({ base, onClose, initialMods, initialModRolls }: P
                   Scour
                 </button>
               </div>
+
+              {isWeaponBase && (
+                <DpsDelta
+                  phase={activePhase ?? null}
+                  rolledWeapon={rolledGearEntry}
+                />
+              )}
             </div>
           </div>
 

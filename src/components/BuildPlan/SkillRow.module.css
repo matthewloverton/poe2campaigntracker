@@ -2,9 +2,7 @@
 
 .row {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
+  flex-direction: column;
   background: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   transition: background 0.15s;
@@ -14,6 +12,29 @@
 .row:hover {
   background: rgba(0, 0, 0, 0.25);
 }
+
+.rowMain {
+  display: grid;
+  grid-template-columns:
+    auto            /* star */
+    auto            /* gem */
+    120px           /* name */
+    auto            /* supports */
+    auto            /* stepper */
+    1fr             /* spacer — stabilises right-edge alignment */
+    auto;           /* dps */
+  grid-template-areas: "star gem name supports stepper spacer dps";
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+}
+
+.primaryStar { grid-area: star; }
+.skillGem { grid-area: gem; }
+.skillName { grid-area: name; }
+.supports { grid-area: supports; }
+.levelStepper { grid-area: stepper; }
+.dpsColumn { grid-area: dps; }
 
 /* ── Skill gem (large, rounded square) ───────────────────── */
 .skillGem {
@@ -84,8 +105,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
-  flex-shrink: 0;
+  min-width: 0; /* allow ellipsis in grid column */
 }
 
 /* ── Support sockets row ─────────────────────────────────── */
@@ -93,8 +113,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-left: auto;
-  flex-shrink: 0;
 }
 
 /* ── Individual support socket ───────────────────────────── */
@@ -156,4 +174,87 @@
   color: var(--text-secondary);
   opacity: 0.3;
   pointer-events: none;
+}
+
+/* ── Level stepper ───────────────────────────────────────── */
+.levelStepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.levelButton {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0 4px;
+  font-weight: bold;
+  line-height: 1;
+  font-family: inherit;
+}
+.levelButton:hover:not(:disabled) { color: var(--accent-gold); }
+.levelButton:disabled { opacity: 0.3; cursor: default; }
+.levelValue {
+  min-width: 2.2em;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+/* ── DPS column ──────────────────────────────────────────── */
+.dpsColumn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-self: end;
+}
+
+.primaryStar {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.2rem;
+  line-height: 1;
+}
+.primaryStar:hover { color: var(--accent-gold); }
+.primaryStarActive { color: var(--accent-gold); }
+
+.dpsTrigger {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: inherit;
+}
+.dpsTrigger:hover { background: var(--bg-hover); }
+
+.caret {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.dpsPlaceholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* ── Breakdown panel ─────────────────────────────────────── */
+.rowBreakdown {
+  padding: 0.5rem 0 0.5rem 3rem;
+}
+
+.expanded {
+  background: var(--bg-hover);
 }

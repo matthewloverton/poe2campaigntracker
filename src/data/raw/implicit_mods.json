@@ -1,0 +1,3339 @@
+[
+  {
+    "id": "AbyssalWastingOnHit",
+    "name": "",
+    "text": "Inflict [AbyssalWasting|Abyssal Wasting] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "abyssal_wasting_on_hit",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "AllAttributesImplicitDemigodOneHandSword1",
+    "name": "",
+    "text": "+(16-24) to all [Attributes|Attributes]",
+    "stats": [
+      {
+        "id": "additional_all_attributes",
+        "min": 16,
+        "max": 24
+      }
+    ]
+  },
+  {
+    "id": "AllAttributesImplicitDemigodRing1",
+    "name": "",
+    "text": "+(8-12) to all [Attributes|Attributes]",
+    "stats": [
+      {
+        "id": "additional_all_attributes",
+        "min": 8,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "AllAttributesImplicitWreath1",
+    "name": "",
+    "text": "+(16-24) to all [Attributes|Attributes]",
+    "stats": [
+      {
+        "id": "additional_all_attributes",
+        "min": 16,
+        "max": 24
+      }
+    ]
+  },
+  {
+    "id": "AllResistancesDemigodsImplicit",
+    "name": "",
+    "text": "+(15-25)% to all [ElementalDamage|Elemental] [Resistances]",
+    "stats": [
+      {
+        "id": "base_resist_all_elements_%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "AllResistancesImplictBootsDemigods1",
+    "name": "",
+    "text": "+(8-16)% to all [ElementalDamage|Elemental] [Resistances]",
+    "stats": [
+      {
+        "id": "base_resist_all_elements_%",
+        "min": 8,
+        "max": 16
+      }
+    ]
+  },
+  {
+    "id": "AllResistancesImplictHelmetDemigods1",
+    "name": "",
+    "text": "+(8-16)% to all [ElementalDamage|Elemental] [Resistances]",
+    "stats": [
+      {
+        "id": "base_resist_all_elements_%",
+        "min": 8,
+        "max": 16
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitAllAttributes1",
+    "name": "",
+    "text": "+(5-7) to all [Attributes|Attributes]",
+    "stats": [
+      {
+        "id": "additional_all_attributes",
+        "min": 5,
+        "max": 7
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitAllElementalResistances",
+    "name": "",
+    "text": "+(7-10)% to all [ElementalDamage|Elemental] [Resistances]",
+    "stats": [
+      {
+        "id": "base_resist_all_elements_%",
+        "min": 7,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitBaseSpirit1",
+    "name": "",
+    "text": "+(10-15) to [Spirit|Spirit]",
+    "stats": [
+      {
+        "id": "base_spirit_from_equipment",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitDexterity1",
+    "name": "",
+    "text": "+(10-15) to [Dexterity|Dexterity]",
+    "stats": [
+      {
+        "id": "additional_dexterity",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitEnergyShield1",
+    "name": "",
+    "text": "+(20-30) to maximum [EnergyShield|Energy Shield]",
+    "stats": [
+      {
+        "id": "base_maximum_energy_shield",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitIncreasedLife1",
+    "name": "",
+    "text": "+(30-40) to maximum Life",
+    "stats": [
+      {
+        "id": "base_maximum_life",
+        "min": 30,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitIntelligence1",
+    "name": "",
+    "text": "+(10-15) to [Intelligence|Intelligence]",
+    "stats": [
+      {
+        "id": "additional_intelligence",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitItemFoundRarityIncrease1",
+    "name": "",
+    "text": "(12-20)% increased [ItemRarity|Rarity of Items] found",
+    "stats": [
+      {
+        "id": "base_item_found_rarity_+%",
+        "min": 12,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitLifeRegeneration1",
+    "name": "",
+    "text": "(2-4) Life Regeneration per second",
+    "stats": [
+      {
+        "id": "base_life_regeneration_rate_per_minute",
+        "min": 120,
+        "max": 240
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitManaRegeneration1",
+    "name": "",
+    "text": "(20-30)% increased Mana Regeneration Rate",
+    "stats": [
+      {
+        "id": "mana_regeneration_rate_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitPrefixSuffixAllowed1",
+    "name": "",
+    "text": "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": -1,
+        "max": -1
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitPrefixSuffixAllowed2",
+    "name": "",
+    "text": "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": -1,
+        "max": -1
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitPrefixSuffixAllowed3",
+    "name": "",
+    "text": "+2 Prefix Modifiers allowed\n-2 Suffix Modifiers allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": 2,
+        "max": 2
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": -2,
+        "max": -2
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitPrefixSuffixAllowed4",
+    "name": "",
+    "text": "-2 Prefix Modifiers allowed\n+2 Suffix Modifiers allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": -2,
+        "max": -2
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": 2,
+        "max": 2
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitPrefixSuffixAllowed5",
+    "name": "",
+    "text": "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": -1,
+        "max": -1
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": -1,
+        "max": -1
+      }
+    ]
+  },
+  {
+    "id": "AmuletImplicitStrength1",
+    "name": "",
+    "text": "+(10-15) to [Strength|Strength]",
+    "stats": [
+      {
+        "id": "additional_strength",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitAccuracyUnaffectedByDistance1",
+    "name": "",
+    "text": "Has no [Accuracy|Accuracy] Penalty from Range",
+    "stats": [
+      {
+        "id": "local_weapon_accuracy_is_unaffected_by_distance",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitCannotBeThrown1",
+    "name": "",
+    "text": "Cannot use [Projectile] [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "local_cannot_be_thrown",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitCullingStrike1",
+    "name": "",
+    "text": "[CullingStrike|Culling Strike]",
+    "stats": [
+      {
+        "id": "local_culling_strike",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitDamageTaken1",
+    "name": "",
+    "text": "10% increased Damage taken",
+    "stats": [
+      {
+        "id": "base_damage_taken_+%",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitFireDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_fire",
+        "min": 100,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitLifeGainedFromEnemyDeath1",
+    "name": "",
+    "text": "Gain (34-43) Life per enemy killed",
+    "stats": [
+      {
+        "id": "base_life_gained_on_enemy_death",
+        "min": 34,
+        "max": 43
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitLocalChanceToBleed1",
+    "name": "",
+    "text": "(15-25)% chance to cause [Bleeding|Bleeding] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_chance_to_bleed_on_hit_%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitManaGainedFromEnemyDeath1",
+    "name": "",
+    "text": "Gain (28-35) Mana per enemy killed",
+    "stats": [
+      {
+        "id": "base_mana_gained_on_enemy_death",
+        "min": 28,
+        "max": 35
+      }
+    ]
+  },
+  {
+    "id": "AxeImplicitRageOnHit1",
+    "name": "",
+    "text": "Grants 1 [Rage|Rage] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_gain_X_rage_on_hit",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitFlaskLifeRecovery1",
+    "name": "",
+    "text": "(20-30)% increased Life Recovery from [Flask|Flasks]",
+    "stats": [
+      {
+        "id": "flask_life_to_recover_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitFlaskManaRecovery1",
+    "name": "",
+    "text": "(20-30)% increased Mana Recovery from [Flask|Flasks]",
+    "stats": [
+      {
+        "id": "flask_mana_to_recover_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitFlaskPassiveChargeGain1",
+    "name": "",
+    "text": "[Flask|Flasks] gain 0.17 charges per Second",
+    "stats": [
+      {
+        "id": "generate_x_charges_for_any_flask_per_minute",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitIncreasedCharmChargesGained1",
+    "name": "",
+    "text": "(20-30)% increased [Charm] Charges gained",
+    "stats": [
+      {
+        "id": "charm_charges_gained_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitIncreasedCharmDuration1",
+    "name": "",
+    "text": "(15-20)% increased [Charm] Effect Duration",
+    "stats": [
+      {
+        "id": "charm_duration_+%",
+        "min": 15,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitIncreasedFlaskChargesGained1",
+    "name": "",
+    "text": "(20-30)% increased [Flask|Flask] Charges gained",
+    "stats": [
+      {
+        "id": "flask_charges_gained_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitIncreasedStunThreshold1",
+    "name": "",
+    "text": "(20-30)% increased [StunThreshold|Stun Threshold]",
+    "stats": [
+      {
+        "id": "stun_threshold_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitInstantFlaskRecoveryPercent1",
+    "name": "",
+    "text": "20% of [Flask|Flask] Recovery applied Instantly",
+    "stats": [
+      {
+        "id": "flask_recovery_amount_%_to_recover_instantly",
+        "min": 20,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitPhysicalDamageReductionRating1",
+    "name": "",
+    "text": "+(100-140) to [Armour]",
+    "stats": [
+      {
+        "id": "base_physical_damage_reduction_rating",
+        "min": 100,
+        "max": 140
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitReducedCharmChargesUsed1",
+    "name": "",
+    "text": "(15-10)% reduced [Charm] Charges used",
+    "stats": [
+      {
+        "id": "charm_charges_used_+%",
+        "min": -15,
+        "max": -10
+      }
+    ]
+  },
+  {
+    "id": "BeltImplicitReducedFlaskChargesUsed1",
+    "name": "",
+    "text": "(15-10)% reduced [Flask|Flask] Charges used",
+    "stats": [
+      {
+        "id": "flask_charges_used_+%",
+        "min": -15,
+        "max": -10
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitArmourAppliesToElementalDamage1",
+    "name": "",
+    "text": "+(15-25)% of [Armour|Armour] also applies to [ElementalDamage|Elemental Damage]",
+    "stats": [
+      {
+        "id": "armour_%_applies_to_fire_cold_lightning_damage",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitChaosResistance1",
+    "name": "",
+    "text": "+(7-13)% to [Resistances|Chaos Resistance]",
+    "stats": [
+      {
+        "id": "base_chaos_damage_resistance_%",
+        "min": 7,
+        "max": 13
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitColdResistance1",
+    "name": "",
+    "text": "+(20-25)% to [Resistances|Cold Resistance]",
+    "stats": [
+      {
+        "id": "base_cold_damage_resistance_%",
+        "min": 20,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitDamageRemovedFromManaBeforeLife1",
+    "name": "",
+    "text": "(5-10)% of Damage is taken from Mana before Life",
+    "stats": [
+      {
+        "id": "base_damage_removed_from_mana_before_life_%",
+        "min": 5,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitEnergyShieldDelay1",
+    "name": "",
+    "text": "(40-50)% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+    "stats": [
+      {
+        "id": "energy_shield_delay_-%",
+        "min": 40,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitFireResistance1",
+    "name": "",
+    "text": "+(20-25)% to [Resistances|Fire Resistance]",
+    "stats": [
+      {
+        "id": "base_fire_damage_resistance_%",
+        "min": 20,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitIncreasedAilmentThreshold1",
+    "name": "",
+    "text": "(30-40)% increased [AilmentThreshold|Elemental Ailment Threshold]",
+    "stats": [
+      {
+        "id": "ailment_threshold_+%",
+        "min": 30,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitIncreasedLife1",
+    "name": "",
+    "text": "+(60-80) to maximum Life",
+    "stats": [
+      {
+        "id": "base_maximum_life",
+        "min": 60,
+        "max": 80
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitIncreasedSpirit1",
+    "name": "",
+    "text": "+(20-30) to [Spirit|Spirit]",
+    "stats": [
+      {
+        "id": "base_spirit_from_equipment",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitIncreasedStunThreshold1",
+    "name": "",
+    "text": "(30-40)% increased [StunThreshold|Stun Threshold]",
+    "stats": [
+      {
+        "id": "stun_threshold_+%",
+        "min": 30,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitLevelOfAllCorruptedSkillGems1",
+    "name": "",
+    "text": "+1 to Level of all [Corrupted] Skill Gems",
+    "stats": [
+      {
+        "id": "corrupted_skill_gem_level_+",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitLifeRecoupForJewel1",
+    "name": "",
+    "text": "(8-14)% of Damage taken [Recoup|Recouped] as Life",
+    "stats": [
+      {
+        "id": "damage_taken_goes_to_life_over_4_seconds_%",
+        "min": 8,
+        "max": 14
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitLifeRegenerationPercent1",
+    "name": "",
+    "text": "Regenerate (1.5-2.5)% of maximum Life per second",
+    "stats": [
+      {
+        "id": "life_regeneration_rate_per_minute_%",
+        "min": 90,
+        "max": 150
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitLightningResistance1",
+    "name": "",
+    "text": "+(20-25)% to [Resistances|Lightning Resistance]",
+    "stats": [
+      {
+        "id": "base_lightning_damage_resistance_%",
+        "min": 20,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitManaRegeneration1",
+    "name": "",
+    "text": "(40-50)% increased Mana Regeneration Rate",
+    "stats": [
+      {
+        "id": "mana_regeneration_rate_+%",
+        "min": 40,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitMaximumElementalResistance1",
+    "name": "",
+    "text": "+1% to all [MaximumResistances|Maximum Elemental Resistances]",
+    "stats": [
+      {
+        "id": "additional_maximum_all_elemental_resistances_%",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitMovementVelocity1",
+    "name": "",
+    "text": "5% increased Movement Speed",
+    "stats": [
+      {
+        "id": "base_movement_velocity_+%",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitReducedCriticalStrikeDamageTaken1",
+    "name": "",
+    "text": "Hits against you have (15-25)% reduced [CriticalDamageBonus|Critical Damage Bonus]",
+    "stats": [
+      {
+        "id": "base_self_critical_strike_multiplier_-%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitSelfStatusAilmentDuration1",
+    "name": "",
+    "text": "(10-15)% reduced Elemental Ailment Duration on you",
+    "stats": [
+      {
+        "id": "self_elemental_status_duration_-%",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "BodyArmourImplicitSlowPotency1",
+    "name": "",
+    "text": "(30-20)% reduced [Slow|Slowing] Potency of [Debuff|Debuffs] on You",
+    "stats": [
+      {
+        "id": "base_slow_potency_+%",
+        "min": -30,
+        "max": -20
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitAdditionalArrows1",
+    "name": "",
+    "text": "+50% [SurpassChance|Surpassing] chance to fire an additional Arrow",
+    "stats": [
+      {
+        "id": "chance_to_fire_1_additional_projectile_%_with_rollover_with_bow_attacks",
+        "min": 50,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitBaseChaosDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_chaos_damage",
+        "min": 7,
+        "max": 7
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_chaos_damage",
+        "min": 19,
+        "max": 19
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitBaseChaosDamage2",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_chaos_damage",
+        "min": 14,
+        "max": 14
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_chaos_damage",
+        "min": 32,
+        "max": 32
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitBaseChaosDamage3",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_chaos_damage",
+        "min": 28,
+        "max": 28
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_chaos_damage",
+        "min": 64,
+        "max": 64
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitLocalChanceToChain1",
+    "name": "",
+    "text": "(20-30)% chance to [Chain] an additional time",
+    "stats": [
+      {
+        "id": "local_additional_attack_chain_chance_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "BowImplicitProjectileAttackRange1",
+    "name": "",
+    "text": "50% reduced Projectile Range",
+    "stats": [
+      {
+        "id": "projectile_attack_range_+%",
+        "min": -50,
+        "max": -50
+      }
+    ]
+  },
+  {
+    "id": "ChaosResistDemigodsTorchImplicit",
+    "name": "",
+    "text": "+(11-19)% to [Resistances|Chaos Resistance]",
+    "stats": [
+      {
+        "id": "base_chaos_damage_resistance_%",
+        "min": 11,
+        "max": 19
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnBleed1",
+    "name": "",
+    "text": "Used when you start [Bleeding]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_bleed",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnChaosDamage1",
+    "name": "",
+    "text": "Used when you take [Chaos] damage from a [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_chaos_damage_taken",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnColdDamage1",
+    "name": "",
+    "text": "Used when you take [Cold] damage from a [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_cold_damage_taken",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnCurse1",
+    "name": "",
+    "text": "Used when you become [Curse|Cursed]",
+    "stats": [
+      {
+        "id": "local_charm_trigger_when_cursed",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnFireDamage1",
+    "name": "",
+    "text": "Used when you take [Fire] damage from a [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_fire_damage_taken",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnFreeze1",
+    "name": "",
+    "text": "Used when you become [Frozen]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_freeze",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnIgnite1",
+    "name": "",
+    "text": "Used when you become [Ignite|Ignited]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_ignite",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnLightningDamage1",
+    "name": "",
+    "text": "Used when you take [Lightning] damage from a [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_lightning_damage_taken",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnPoison1",
+    "name": "",
+    "text": "Used when you become [Poison|Poisoned]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_poison",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnRareUniqueKill1",
+    "name": "",
+    "text": "Used when you kill a [Rarity|Rare] or [Rarity|Unique] enemy",
+    "stats": [
+      {
+        "id": "local_flask_use_on_killing_rare_or_unique_enemy",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnShock1",
+    "name": "",
+    "text": "Used when you become [Shock|Shocked]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_shock",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnSlow1",
+    "name": "",
+    "text": "Used when you are affected by a [Slow]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_affected_by_slow",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CharmImplicitUseOnStun1",
+    "name": "",
+    "text": "Used when you become [Stun|Stunned]",
+    "stats": [
+      {
+        "id": "local_flask_use_on_stunned",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "ClawImplicitLifeGainPerTargetLocal1",
+    "name": "",
+    "text": "Grants 8 Life per Enemy [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_life_gain_per_target",
+        "min": 8,
+        "max": 8
+      }
+    ]
+  },
+  {
+    "id": "ClawImplicitLocalChanceToBlind1",
+    "name": "",
+    "text": "(15-25)% chance to Blind Enemies on hit",
+    "stats": [
+      {
+        "id": "local_chance_to_blind_on_hit_%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "CrossbowImplicitAdditionalAmmo1",
+    "name": "",
+    "text": "Loads an additional bolt",
+    "stats": [
+      {
+        "id": "base_number_of_crossbow_bolts",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CrossbowImplicitAdditionalBallistaTotem1",
+    "name": "",
+    "text": "+1 to maximum number of Summoned Ballista Totems",
+    "stats": [
+      {
+        "id": "additional_ballista_totems_allowed",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "CrossbowImplicitBoltSpeed1",
+    "name": "",
+    "text": "(20-30)% increased Bolt Speed",
+    "stats": [
+      {
+        "id": "projectile_speed_+%_with_crossbow_skills",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "CrossbowImplicitChanceToPierce1",
+    "name": "",
+    "text": "(20-30)% chance to [Pierce|Pierce] an Enemy",
+    "stats": [
+      {
+        "id": "base_chance_to_pierce_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "CrossbowImplicitGrenadeProjectiles1",
+    "name": "",
+    "text": "[Grenade] Skills Fire an additional [Projectile|Projectile]",
+    "stats": [
+      {
+        "id": "grenade_skill_number_of_additional_projectiles",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "DaggerImplicitBreakArmour1",
+    "name": "",
+    "text": "Breaks (400-500) [Armour] on [Critical|Critical Hit]",
+    "stats": [
+      {
+        "id": "local_apply_X_armour_break_on_crit",
+        "min": 400,
+        "max": 500
+      }
+    ]
+  },
+  {
+    "id": "DaggerImplicitColdDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_cold",
+        "min": 100,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "DaggerImplicitManaLeechLocal1",
+    "name": "",
+    "text": "[ManaLeech|Leeches] 4% of [Physical|Physical] Damage as Mana",
+    "stats": [
+      {
+        "id": "local_mana_leech_from_physical_damage_permyriad",
+        "min": 400,
+        "max": 400
+      }
+    ]
+  },
+  {
+    "id": "DaggerImplicitSpellLifeCostPercent1",
+    "name": "",
+    "text": "25% of [Spell] Mana Cost [StatConversion|Converted] to Life Cost",
+    "stats": [
+      {
+        "id": "spells_cost_life_instead_of_mana_%",
+        "min": 25,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "FlailImplicitColdDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_cold",
+        "min": 100,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "FlailImplicitIgnoreBlock1",
+    "name": "",
+    "text": "Unblockable",
+    "stats": [
+      {
+        "id": "local_attacks_cannot_be_blocked",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "FlailImplicitRollCritTwice1",
+    "name": "",
+    "text": "[ForksCrit|Bifurcates Critical Hits]",
+    "stats": [
+      {
+        "id": "local_weapon_roll_crits_twice",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCAgilitySpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Agility speed",
+    "stats": [
+      {
+        "id": "heist_job_agility_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCAgilitySpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Agility speed",
+    "stats": [
+      {
+        "id": "heist_job_agility_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCAgilitySpeedImplicit3__",
+    "name": "",
+    "text": "(10-12)% increased Agility speed",
+    "stats": [
+      {
+        "id": "heist_job_agility_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCAgilitySpeedImplicit4",
+    "name": "",
+    "text": "(13-15)% increased Agility speed",
+    "stats": [
+      {
+        "id": "heist_job_agility_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCBruteForceSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Brute Force speed",
+    "stats": [
+      {
+        "id": "heist_job_brute_force_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCBruteForceSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Brute Force speed",
+    "stats": [
+      {
+        "id": "heist_job_brute_force_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCBruteForceSpeedImplicit3",
+    "name": "",
+    "text": "(10-12)% increased Brute Force speed",
+    "stats": [
+      {
+        "id": "heist_job_brute_force_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCBruteForceSpeedImplicit4__",
+    "name": "",
+    "text": "(13-15)% increased Brute Force speed",
+    "stats": [
+      {
+        "id": "heist_job_brute_force_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCCounterThaumaturgySpeedImplicit1_",
+    "name": "",
+    "text": "(4-6)% increased Counter-Thaumaturgy speed",
+    "stats": [
+      {
+        "id": "heist_job_counter_thaumaturgy_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCCounterThaumaturgySpeedImplicit2_",
+    "name": "",
+    "text": "(7-9)% increased Counter-Thaumaturgy speed",
+    "stats": [
+      {
+        "id": "heist_job_counter_thaumaturgy_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCCounterThaumaturgySpeedImplicit3",
+    "name": "",
+    "text": "(10-12)% increased Counter-Thaumaturgy speed",
+    "stats": [
+      {
+        "id": "heist_job_counter_thaumaturgy_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCCounterThaumaturgySpeedImplicit4",
+    "name": "",
+    "text": "(13-15)% increased Counter-Thaumaturgy speed",
+    "stats": [
+      {
+        "id": "heist_job_counter_thaumaturgy_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDeceptionSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Deception speed",
+    "stats": [
+      {
+        "id": "heist_job_deception_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDeceptionSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Deception speed",
+    "stats": [
+      {
+        "id": "heist_job_deception_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDeceptionSpeedImplicit3",
+    "name": "",
+    "text": "(10-12)% increased Deception speed",
+    "stats": [
+      {
+        "id": "heist_job_deception_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDeceptionSpeedImplicit4_",
+    "name": "",
+    "text": "(13-15)% increased Deception speed",
+    "stats": [
+      {
+        "id": "heist_job_deception_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDemolitionSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Demolition speed",
+    "stats": [
+      {
+        "id": "heist_job_demolition_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDemolitionSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Demolition speed",
+    "stats": [
+      {
+        "id": "heist_job_demolition_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDemolitionSpeedImplicit3_",
+    "name": "",
+    "text": "(10-12)% increased Demolition speed",
+    "stats": [
+      {
+        "id": "heist_job_demolition_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCDemolitionSpeedImplicit4_",
+    "name": "",
+    "text": "(13-15)% increased Demolition speed",
+    "stats": [
+      {
+        "id": "heist_job_demolition_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCEngineeringSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Engineering speed",
+    "stats": [
+      {
+        "id": "heist_job_engineering_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCEngineeringSpeedImplicit2_____",
+    "name": "",
+    "text": "(7-9)% increased Engineering speed",
+    "stats": [
+      {
+        "id": "heist_job_engineering_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCEngineeringSpeedImplicit3__",
+    "name": "",
+    "text": "(10-12)% increased Engineering speed",
+    "stats": [
+      {
+        "id": "heist_job_engineering_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCEngineeringSpeedImplicit4",
+    "name": "",
+    "text": "(13-15)% increased Engineering speed",
+    "stats": [
+      {
+        "id": "heist_job_engineering_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCGenericAlertLevelImplicit1",
+    "name": "",
+    "text": "2% reduced raising of Alert Level",
+    "stats": [
+      {
+        "id": "heist_contract_alert_level_+%",
+        "min": -2,
+        "max": -2
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCGenericAlertLevelImplicit2_",
+    "name": "",
+    "text": "3% reduced raising of Alert Level",
+    "stats": [
+      {
+        "id": "heist_contract_alert_level_+%",
+        "min": -3,
+        "max": -3
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCGenericAlertLevelImplicit3_",
+    "name": "",
+    "text": "4% reduced raising of Alert Level",
+    "stats": [
+      {
+        "id": "heist_contract_alert_level_+%",
+        "min": -4,
+        "max": -4
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCGenericAlertLevelImplicit4_",
+    "name": "",
+    "text": "5% reduced raising of Alert Level",
+    "stats": [
+      {
+        "id": "heist_contract_alert_level_+%",
+        "min": -5,
+        "max": -5
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCIncreasedRarityImplicit1",
+    "name": "",
+    "text": "(11-15)% increased Rarity of Items dropped in Heists",
+    "stats": [
+      {
+        "id": "heist_item_rarity_+%",
+        "min": 11,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCIncreasedRarityImplicit2",
+    "name": "",
+    "text": "(16-20)% increased Rarity of Items dropped in Heists",
+    "stats": [
+      {
+        "id": "heist_item_rarity_+%",
+        "min": 16,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCIncreasedRarityImplicit3__",
+    "name": "",
+    "text": "(21-25)% increased Rarity of Items dropped in Heists",
+    "stats": [
+      {
+        "id": "heist_item_rarity_+%",
+        "min": 21,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCIncreasedRarityImplicit4_",
+    "name": "",
+    "text": "(26-30)% increased Rarity of Items dropped in Heists",
+    "stats": [
+      {
+        "id": "heist_item_rarity_+%",
+        "min": 26,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCLockpickSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Lockpicking speed",
+    "stats": [
+      {
+        "id": "heist_job_lockpicking_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCLockpickSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Lockpicking speed",
+    "stats": [
+      {
+        "id": "heist_job_lockpicking_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCLockpickSpeedImplicit3",
+    "name": "",
+    "text": "(10-12)% increased Lockpicking speed",
+    "stats": [
+      {
+        "id": "heist_job_lockpicking_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCLockpickSpeedImplicit4",
+    "name": "",
+    "text": "(13-15)% increased Lockpicking speed",
+    "stats": [
+      {
+        "id": "heist_job_lockpicking_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCMeleeDamageImplicit1",
+    "name": "",
+    "text": "(11-15)% increased [Melee] Damage",
+    "stats": [
+      {
+        "id": "melee_damage_+%",
+        "min": 11,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCMeleeDamageImplicit2__",
+    "name": "",
+    "text": "(16-20)% increased [Melee] Damage",
+    "stats": [
+      {
+        "id": "melee_damage_+%",
+        "min": 16,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCMeleeDamageImplicit3_",
+    "name": "",
+    "text": "(21-25)% increased [Melee] Damage",
+    "stats": [
+      {
+        "id": "melee_damage_+%",
+        "min": 21,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCMeleeDamageImplicit4",
+    "name": "",
+    "text": "(26-30)% increased [Melee] Damage",
+    "stats": [
+      {
+        "id": "melee_damage_+%",
+        "min": 26,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCPerceptionSpeedImplicit1__",
+    "name": "",
+    "text": "(4-6)% increased Perception speed",
+    "stats": [
+      {
+        "id": "heist_job_perception_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCPerceptionSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Perception speed",
+    "stats": [
+      {
+        "id": "heist_job_perception_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCPerceptionSpeedImplicit3_",
+    "name": "",
+    "text": "(10-12)% increased Perception speed",
+    "stats": [
+      {
+        "id": "heist_job_perception_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCPerceptionSpeedImplicit4_",
+    "name": "",
+    "text": "(13-15)% increased Perception speed",
+    "stats": [
+      {
+        "id": "heist_job_perception_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCProjectileAttackDamageImplicit1",
+    "name": "",
+    "text": "(11-15)% increased Projectile [Attack] Damage",
+    "stats": [
+      {
+        "id": "projectile_attack_damage_+%",
+        "min": 11,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCProjectileAttackDamageImplicit2",
+    "name": "",
+    "text": "(16-20)% increased Projectile [Attack] Damage",
+    "stats": [
+      {
+        "id": "projectile_attack_damage_+%",
+        "min": 16,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCProjectileAttackDamageImplicit3",
+    "name": "",
+    "text": "(21-25)% increased Projectile [Attack] Damage",
+    "stats": [
+      {
+        "id": "projectile_attack_damage_+%",
+        "min": 21,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCProjectileAttackDamageImplicit4_",
+    "name": "",
+    "text": "(26-30)% increased Projectile [Attack] Damage",
+    "stats": [
+      {
+        "id": "projectile_attack_damage_+%",
+        "min": 26,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCSpellDamageImplicit1",
+    "name": "",
+    "text": "(11-15)% increased Spell Damage",
+    "stats": [
+      {
+        "id": "spell_damage_+%",
+        "min": 11,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCSpellDamageImplicit2",
+    "name": "",
+    "text": "(16-20)% increased Spell Damage",
+    "stats": [
+      {
+        "id": "spell_damage_+%",
+        "min": 16,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCSpellDamageImplicit3",
+    "name": "",
+    "text": "(21-25)% increased Spell Damage",
+    "stats": [
+      {
+        "id": "spell_damage_+%",
+        "min": 21,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCSpellDamageImplicit4",
+    "name": "",
+    "text": "(26-30)% increased Spell Damage",
+    "stats": [
+      {
+        "id": "spell_damage_+%",
+        "min": 26,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCTrapDisarmamentSpeedImplicit1",
+    "name": "",
+    "text": "(4-6)% increased Trap Disarmament speed",
+    "stats": [
+      {
+        "id": "heist_job_trap_disarmament_speed_+%",
+        "min": 4,
+        "max": 6
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCTrapDisarmamentSpeedImplicit2",
+    "name": "",
+    "text": "(7-9)% increased Trap Disarmament speed",
+    "stats": [
+      {
+        "id": "heist_job_trap_disarmament_speed_+%",
+        "min": 7,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCTrapDisarmamentSpeedImplicit3__",
+    "name": "",
+    "text": "(10-12)% increased Trap Disarmament speed",
+    "stats": [
+      {
+        "id": "heist_job_trap_disarmament_speed_+%",
+        "min": 10,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "HeistNPCTrapDisarmamentSpeedImplicit4",
+    "name": "",
+    "text": "(13-15)% increased Trap Disarmament speed",
+    "stats": [
+      {
+        "id": "heist_job_trap_disarmament_speed_+%",
+        "min": 13,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "IncreasedLifeImplicitGlovesDemigods1",
+    "name": "",
+    "text": "+(20-30) to maximum Life",
+    "stats": [
+      {
+        "id": "base_maximum_life",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm1",
+    "name": "",
+    "text": "(8-12)% increased [Block] chance",
+    "stats": [
+      {
+        "id": "block_chance_+%",
+        "min": 8,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm2",
+    "name": "",
+    "text": "(6-10)% increased [Attack] Speed",
+    "stats": [
+      {
+        "id": "attack_speed_+%",
+        "min": 6,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm3",
+    "name": "",
+    "text": "(6-10)% increased Cast Speed",
+    "stats": [
+      {
+        "id": "base_cast_speed_+%",
+        "min": 6,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm4",
+    "name": "",
+    "text": "(12-16)% increased [Curse] [BuffMagnitude|Magnitudes]",
+    "stats": [
+      {
+        "id": "curse_effect_+%",
+        "min": 12,
+        "max": 16
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm5",
+    "name": "",
+    "text": "(6-10)% increased [Deflect|Deflection Rating]",
+    "stats": [
+      {
+        "id": "deflection_rating_+%",
+        "min": 6,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "IncursionArm6",
+    "name": "",
+    "text": "(15-25)% increased [Presence|Presence] Area of Effect",
+    "stats": [
+      {
+        "id": "presence_area_+%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg1",
+    "name": "",
+    "text": "(20-30)% increased [Evasion|Evasion Rating]",
+    "stats": [
+      {
+        "id": "evasion_rating_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg2",
+    "name": "",
+    "text": "(6-10)% increased Movement Speed while Sprinting",
+    "stats": [
+      {
+        "id": "sprint_movement_speed_+%",
+        "min": 6,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg3",
+    "name": "",
+    "text": "(15-25)% increased [StunThreshold|Stun Threshold]",
+    "stats": [
+      {
+        "id": "stun_threshold_+%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg4",
+    "name": "",
+    "text": "(10-5)% reduced Movement Speed Penalty from using Skills while moving",
+    "stats": [
+      {
+        "id": "movement_speed_penalty_+%_while_performing_action",
+        "min": -10,
+        "max": -5
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg5",
+    "name": "",
+    "text": "(20-30)% increased Mana Regeneration Rate while moving",
+    "stats": [
+      {
+        "id": "mana_regeneration_rate_+%_while_moving",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "IncursionLeg6",
+    "name": "",
+    "text": "(6-10)% of Damage taken [Recoup|Recouped] as Life",
+    "stats": [
+      {
+        "id": "damage_taken_goes_to_life_over_4_seconds_%",
+        "min": 6,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "IncursionLimb",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "has_incursion_limb",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "ItemFoundRarityIncreaseImplicitDemigodsBelt1",
+    "name": "",
+    "text": "(20-30)% increased [ItemRarity|Rarity of Items] found",
+    "stats": [
+      {
+        "id": "base_item_found_rarity_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "JewelRadiusImplicit",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_jewel_effect_base_radius",
+        "min": 1000,
+        "max": 1000
+      }
+    ]
+  },
+  {
+    "id": "LocalBaseEvasionRatingAndEnergyShieldPerLevelImplicit",
+    "name": "[DNT-UNUSED] Hand Wraps",
+    "text": "[DNT-UNUSED] +5 to [Evasion] Rating per level",
+    "stats": [
+      {
+        "id": "local_base_evasion_rating_per_level",
+        "min": 5,
+        "max": 5
+      },
+      {
+        "id": "local_energy_shield_per_level",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitAlwaysHit1",
+    "name": "",
+    "text": "[Accuracy|Always Hits]",
+    "stats": [
+      {
+        "id": "local_always_hit",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitCriticalMultiplier1",
+    "name": "",
+    "text": "+(5-10)% to [CriticalDamageBonus|Critical Damage Bonus]",
+    "stats": [
+      {
+        "id": "local_critical_strike_multiplier_+",
+        "min": 5,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitEnemiesExplodeOnCrit1",
+    "name": "",
+    "text": "Causes Enemies to Explode on [Critical] kill, for 10% of their Life as [Physical|Physical Damage]",
+    "stats": [
+      {
+        "id": "local_explode_on_kill_with_crit_%_physical_damage_to_deal",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitFireDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_fire",
+        "min": 50,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitHasXSockets",
+    "name": "",
+    "text": "Has 3 Sockets",
+    "stats": [
+      {
+        "id": "local_has_X_sockets",
+        "min": 3,
+        "max": 3
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitLocalCrushOnHit1",
+    "name": "",
+    "text": "[Crushed|Crushes] Enemies on Hit",
+    "stats": [
+      {
+        "id": "local_crush_on_hit",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitLocalDazeBuildup1",
+    "name": "",
+    "text": "40% chance to [Daze] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_weapon_daze_chance_%",
+        "min": 40,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitSplashDamage1",
+    "name": "",
+    "text": "[Strike|Strikes] deal [MeleeSplash|Splash Damage]",
+    "stats": [
+      {
+        "id": "melee_splash",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitStunDamageIncrease1",
+    "name": "",
+    "text": "Causes (20-40)% increased [Stun|Stun] Buildup",
+    "stats": [
+      {
+        "id": "local_hit_damage_stun_multiplier_+%",
+        "min": 20,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitStunDamageIncrease2",
+    "name": "",
+    "text": "Causes (30-50)% increased [Stun|Stun] Buildup",
+    "stats": [
+      {
+        "id": "local_hit_damage_stun_multiplier_+%",
+        "min": 30,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "MaceImplicitWarcryExert1",
+    "name": "",
+    "text": "[Warcry|Warcries] [Empowered|Empower] an additional [Attack]",
+    "stats": [
+      {
+        "id": "warcry_empowers_next_x_melee_attacks",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "PantheonFlask",
+    "name": "",
+    "text": "Unique Boss deals 10% increased Damage\nUnique Boss has 10% increased [Attack] and Cast Speed\nUnique Boss has 10% increased Life\nUnique Boss has 20% increased Area of Effect",
+    "stats": [
+      {
+        "id": "map_boss_damage_+%",
+        "min": 10,
+        "max": 10
+      },
+      {
+        "id": "map_boss_attack_and_cast_speed_+%",
+        "min": 10,
+        "max": 10
+      },
+      {
+        "id": "map_boss_maximum_life_+%",
+        "min": 10,
+        "max": 10
+      },
+      {
+        "id": "map_boss_area_of_effect_+%",
+        "min": 20,
+        "max": 20
+      },
+      {
+        "id": "map_pantheon_flask_capture_boss_soul",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "ProphecyFragmentImplicit",
+    "name": "",
+    "text": "5% increased Quantity of Items found in this Area",
+    "stats": [
+      {
+        "id": "map_item_drop_quantity_+%",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffImplicitAdditionalBlock1",
+    "name": "",
+    "text": "+(12-18)% to [Block] chance",
+    "stats": [
+      {
+        "id": "additional_block_%",
+        "min": 12,
+        "max": 18
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffImplicitBaseLightningDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_lightning_damage",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_lightning_damage",
+        "min": 35,
+        "max": 35
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffImplicitBaseLightningDamage2",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_lightning_damage",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_lightning_damage",
+        "min": 75,
+        "max": 75
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffImplicitBaseLightningDamage3",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_added_minimum_lightning_damage",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "local_weapon_implicit_hidden_added_maximum_lightning_damage",
+        "min": 100,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffImplicitDazeChance1",
+    "name": "",
+    "text": "(20-50)% chance to [Daze] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_weapon_daze_chance_%",
+        "min": 20,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "QuarterstaffWeaponRange1",
+    "name": "",
+    "text": "16% increased [Melee] [Strike] Range with this weapon",
+    "stats": [
+      {
+        "id": "local_+%_weapon_range",
+        "min": 16,
+        "max": 16
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitArrowAdditionalPierce1",
+    "name": "",
+    "text": "100% chance to [Pierce|Pierce] an Enemy",
+    "stats": [
+      {
+        "id": "base_chance_to_pierce_%",
+        "min": 100,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitArrowSpeed1",
+    "name": "",
+    "text": "(20-30)% increased Arrow Speed",
+    "stats": [
+      {
+        "id": "base_arrow_speed_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitChanceToBleed1",
+    "name": "",
+    "text": "[Attack|Attacks] have (20-30)% chance to cause [Bleeding|Bleeding]",
+    "stats": [
+      {
+        "id": "bleed_on_hit_with_attacks_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitChanceToPoison1",
+    "name": "",
+    "text": "(20-30)% chance to Poison on Hit with [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "chance_to_poison_on_hit_with_attacks_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitCriticalStrikeChance1",
+    "name": "",
+    "text": "(20-30)% increased [Critical|Critical Hit Chance] for [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "attack_critical_strike_chance_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitFireDamage1",
+    "name": "",
+    "text": "Adds 3 to 5 [Fire] damage to [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "attack_minimum_added_fire_damage",
+        "min": 3,
+        "max": 3
+      },
+      {
+        "id": "attack_maximum_added_fire_damage",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitIncreasedAccuracy1",
+    "name": "",
+    "text": "(20-30)% increased [Accuracy] Rating",
+    "stats": [
+      {
+        "id": "accuracy_rating_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitIncreasedAttackSpeed1",
+    "name": "",
+    "text": "(7-10)% increased [Attack] Speed",
+    "stats": [
+      {
+        "id": "attack_speed_+%",
+        "min": 7,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitLifeGainPerTarget1",
+    "name": "",
+    "text": "Gain (2-3) Life per Enemy Hit with [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "base_life_gain_per_target",
+        "min": 2,
+        "max": 3
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitPhysicalDamage1",
+    "name": "",
+    "text": "Adds 1 to 3 [Physical|Physical] Damage to [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "attack_minimum_added_physical_damage",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "attack_maximum_added_physical_damage",
+        "min": 3,
+        "max": 3
+      }
+    ]
+  },
+  {
+    "id": "QuiverImplicitStunThresholdReduction1",
+    "name": "",
+    "text": "(25-40)% increased [Stun] Buildup",
+    "stats": [
+      {
+        "id": "hit_damage_stun_multiplier_+%",
+        "min": 25,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitAdditionalSkillSlots1",
+    "name": "",
+    "text": "Grants 1 additional Skill Slot",
+    "stats": [
+      {
+        "id": "local_item_additional_skill_slots",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitAllResistances1",
+    "name": "",
+    "text": "+(7-10)% to all [ElementalDamage|Elemental] [Resistances]",
+    "stats": [
+      {
+        "id": "base_resist_all_elements_%",
+        "min": 7,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitChaosResistance1",
+    "name": "",
+    "text": "+(7-13)% to [Resistances|Chaos Resistance]",
+    "stats": [
+      {
+        "id": "base_chaos_damage_resistance_%",
+        "min": 7,
+        "max": 13
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitColdResistance1",
+    "name": "",
+    "text": "+(20-30)% to [Resistances|Cold Resistance]",
+    "stats": [
+      {
+        "id": "base_cold_damage_resistance_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitFireResistance1",
+    "name": "",
+    "text": "+(20-30)% to [Resistances|Fire Resistance]",
+    "stats": [
+      {
+        "id": "base_fire_damage_resistance_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitIncreasedAccuracy1",
+    "name": "",
+    "text": "+(120-160) to [Accuracy|Accuracy] Rating",
+    "stats": [
+      {
+        "id": "accuracy_rating",
+        "min": 120,
+        "max": 160
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitIncreasedCastSpeed1",
+    "name": "",
+    "text": "(7-10)% increased Cast Speed",
+    "stats": [
+      {
+        "id": "base_cast_speed_+%",
+        "min": 7,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitIncreasedMana1",
+    "name": "",
+    "text": "+(20-30) to maximum Mana",
+    "stats": [
+      {
+        "id": "base_maximum_mana",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitItemFoundRarityIncrease1",
+    "name": "",
+    "text": "(6-15)% increased [ItemRarity|Rarity of Items] found",
+    "stats": [
+      {
+        "id": "base_item_found_rarity_+%",
+        "min": 6,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitLightningResistance1",
+    "name": "",
+    "text": "+(20-30)% to [Resistances|Lightning Resistance]",
+    "stats": [
+      {
+        "id": "base_lightning_damage_resistance_%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitMaximumQualityOverride1",
+    "name": "",
+    "text": "Maximum [Quality] is 40%",
+    "stats": [
+      {
+        "id": "local_maximum_quality_is_%",
+        "min": 40,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitPhysicalDamage1",
+    "name": "",
+    "text": "Adds 1 to 4 [Physical|Physical] Damage to [Attack|Attacks]",
+    "stats": [
+      {
+        "id": "attack_minimum_added_physical_damage",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "attack_maximum_added_physical_damage",
+        "min": 4,
+        "max": 4
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitPrefixSuffixAllowed1",
+    "name": "",
+    "text": "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": -1,
+        "max": -1
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitPrefixSuffixAllowed2",
+    "name": "",
+    "text": "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": -1,
+        "max": -1
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitPrefixSuffixAllowed3",
+    "name": "",
+    "text": "+2 Prefix Modifiers allowed\n-2 Suffix Modifiers allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": 2,
+        "max": 2
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": -2,
+        "max": -2
+      }
+    ]
+  },
+  {
+    "id": "RingImplicitPrefixSuffixAllowed4",
+    "name": "",
+    "text": "-2 Prefix Modifiers allowed\n+2 Suffix Modifiers allowed",
+    "stats": [
+      {
+        "id": "local_maximum_prefixes_allowed_+",
+        "min": -2,
+        "max": -2
+      },
+      {
+        "id": "local_maximum_suffixes_allowed_+",
+        "min": 2,
+        "max": 2
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedA1",
+    "name": "",
+    "text": "Beams Chain an additional time",
+    "stats": [
+      {
+        "id": "number_of_chains",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedA2",
+    "name": "",
+    "text": "(30-40)% increased Cast Speed",
+    "stats": [
+      {
+        "id": "base_cast_speed_+%",
+        "min": 30,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedA3",
+    "name": "",
+    "text": "(10-15)% increased Empowerment",
+    "stats": [
+      {
+        "id": "local_sentinel_drone_difficulty_+%",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedB1",
+    "name": "",
+    "text": "(30-40)% increased Chaining range",
+    "stats": [
+      {
+        "id": "chaining_range_+%",
+        "min": 30,
+        "max": 40
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedB2",
+    "name": "",
+    "text": "Fires an additional Beam",
+    "stats": [
+      {
+        "id": "sentinel_tag_beam_number_of_beams",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedB3",
+    "name": "",
+    "text": "(10-15)% increased Empowerment",
+    "stats": [
+      {
+        "id": "local_sentinel_drone_difficulty_+%",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedC1",
+    "name": "",
+    "text": "Empowers +2 Enemies",
+    "stats": [
+      {
+        "id": "local_sentinel_tag_limit_+",
+        "min": 2,
+        "max": 2
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedC2",
+    "name": "",
+    "text": "(10-15)% chance for Rewards to be Doubled",
+    "stats": [
+      {
+        "id": "sentinel_tag_duplicate_reward_chance_%",
+        "min": 10,
+        "max": 15
+      },
+      {
+        "id": "local_sentinel_drone_difficulty_+",
+        "min": 0,
+        "max": 0
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitCraftedC3",
+    "name": "",
+    "text": "(10-15)% increased Empowerment",
+    "stats": [
+      {
+        "id": "local_sentinel_drone_difficulty_+%",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitOnlyOneUseDisplay",
+    "name": "",
+    "text": "Empowers many enemies in one shot",
+    "stats": [
+      {
+        "id": "local_sentinel_only_one_use",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "SentinelImplicitTagOnlyRareOrUniqueDisplay",
+    "name": "",
+    "text": "Can only empower Rare or Unique enemies",
+    "stats": [
+      {
+        "id": "local_sentinel_only_tag_rare_or_unique",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "ShaperFragmentImplicit",
+    "name": "",
+    "text": "5% increased Quantity of Items found in this Area",
+    "stats": [
+      {
+        "id": "map_item_drop_quantity_+%",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitDeflectDamagePrevented1",
+    "name": "",
+    "text": "Prevent +(3-7)% of Damage from [Deflect|Deflected] [HitDamage|Hits]",
+    "stats": [
+      {
+        "id": "base_damage_%_deflected",
+        "min": 3,
+        "max": 7
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitDisplaySpearThrow1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_display_grants_spear_throw_skill",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitFasterBleed1",
+    "name": "",
+    "text": "Bleeding you inflict deals Damage (10-20)% faster",
+    "stats": [
+      {
+        "id": "faster_bleed_%",
+        "min": 10,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitLightningDamage1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_lightning",
+        "min": 50,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitLocalChanceToMaim1",
+    "name": "",
+    "text": "(15-25)% chance to [Maim|Maim] on [HitDamage|Hit]",
+    "stats": [
+      {
+        "id": "local_maim_on_hit_%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitLocalProjectileSpeed1",
+    "name": "",
+    "text": "(25-35)% increased [Projectile|Projectile] Speed with this Weapon",
+    "stats": [
+      {
+        "id": "local_projectile_speed_+%",
+        "min": 25,
+        "max": 35
+      }
+    ]
+  },
+  {
+    "id": "SpearImplicitWeaponRange1",
+    "name": "",
+    "text": "25% increased [Melee] [Strike] Range with this weapon",
+    "stats": [
+      {
+        "id": "local_+%_weapon_range",
+        "min": 25,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "StormBladeImplicitLocalLightningDamage_1",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "local_minimum_added_lightning_damage",
+        "min": 0,
+        "max": 0
+      },
+      {
+        "id": "local_maximum_added_lightning_damage",
+        "min": 0,
+        "max": 0
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitAdditionalBlock1",
+    "name": "",
+    "text": "+(10-15)% to [Block] chance",
+    "stats": [
+      {
+        "id": "additional_block_%",
+        "min": 10,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitFireDamageAndFlammability1",
+    "name": "",
+    "text": "(50-80)% increased [Flammability] [BuffMagnitude|Magnitude]",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_fire",
+        "min": 30,
+        "max": 30
+      },
+      {
+        "id": "ignite_chance_+%",
+        "min": 50,
+        "max": 80
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitLightningDamageAndShockMagnitude1",
+    "name": "",
+    "text": "(15-25)% increased [BuffMagnitude|Magnitude] of [Shock|Shock] you inflict",
+    "stats": [
+      {
+        "id": "local_weapon_implicit_hidden_%_base_damage_is_lightning",
+        "min": 30,
+        "max": 30
+      },
+      {
+        "id": "shock_effect_+%",
+        "min": 15,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitMarkEffect1",
+    "name": "",
+    "text": "(10-20)% increased Effect of your [Mark] Skills",
+    "stats": [
+      {
+        "id": "mark_effect_+%",
+        "min": 10,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitMaximumRage1",
+    "name": "",
+    "text": "+(8-12) to Maximum [Rage]",
+    "stats": [
+      {
+        "id": "maximum_rage",
+        "min": 8,
+        "max": 12
+      }
+    ]
+  },
+  {
+    "id": "TalismanImplicitMinionDamage1",
+    "name": "",
+    "text": "[Minion|Minions] deal (30-50)% increased Damage",
+    "stats": [
+      {
+        "id": "minion_damage_+%",
+        "min": 30,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "id": "TowerAddAbyssToMapsImplicit",
+    "name": "",
+    "text": "Adds [ContainsAbyss|Abysses] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_abyss_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddBreachToMapsImplicit",
+    "name": "",
+    "text": "Adds an [ContainsBreach|Otherworldy Breach] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_breach_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddDeliriumToMapsImplicit",
+    "name": "",
+    "text": "Adds a [ContainsDelirium|Mirror of Delirium] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_delirium_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddExpeditionToMapsImplicit",
+    "name": "",
+    "text": "Adds a [ContainsExpedition|Kalguuran Expedition] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_expedition_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddIrradiatedToMapsImplicit",
+    "name": "",
+    "text": "Adds [ContainsIrradiated|Irradiated] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_irradiated_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddMapBossesToMapsImplicit",
+    "name": "",
+    "text": "[ContainsMapBoss|Empowers] the [MapBoss|Map Boss] of a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_map_bosses_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TowerAddRitualToMapsImplicit",
+    "name": "",
+    "text": "Adds [ContainsRitual|Ritual Altars] to a Map \n10 uses remaining",
+    "stats": [
+      {
+        "id": "tower_add_ritual_to_X_maps",
+        "min": 10,
+        "max": 10
+      }
+    ]
+  },
+  {
+    "id": "TrapImplicitCooldownRecovery1",
+    "name": "",
+    "text": "(20-30)% increased Cooldown Recovery Rate for throwing [Trap|Traps]",
+    "stats": [
+      {
+        "id": "placing_traps_cooldown_recovery_+%",
+        "min": 20,
+        "max": 30
+      }
+    ]
+  },
+  {
+    "id": "VaalFragmentImplicit1",
+    "name": "",
+    "text": "5% increased Quantity of Items found in this Area",
+    "stats": [
+      {
+        "id": "map_item_drop_quantity_+%",
+        "min": 5,
+        "max": 5
+      },
+      {
+        "id": "map_sacrifice_fragment_count",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "VaalFragmentImplicit2",
+    "name": "",
+    "text": "10% increased Quantity of Items found in this Area",
+    "stats": [
+      {
+        "id": "map_item_drop_quantity_+%",
+        "min": 10,
+        "max": 10
+      },
+      {
+        "id": "map_mortal_fragment_count",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetAzmeriSpirit",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 25,
+        "max": 25
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetBreach",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 13,
+        "max": 13
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetDelirium",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 16,
+        "max": 16
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetExpedition",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 17,
+        "max": 17
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetPinnacle",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 18,
+        "max": 18
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetRitual",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 15,
+        "max": 15
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumBase",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 19,
+        "max": 19
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumRelic2",
+    "name": "",
+    "text": "Chest drops Against the Darkness",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 20,
+        "max": 20
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumRelic3",
+    "name": "",
+    "text": "Chest drops Sandstorm Visage",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 21,
+        "max": 21
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumRelic4",
+    "name": "",
+    "text": "Chest drops Blessed Bonds",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 22,
+        "max": 22
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumRelic5",
+    "name": "",
+    "text": "Chest drops Sekhema's Resolve",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 23,
+        "max": 23
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetSanctumRelic6",
+    "name": "",
+    "text": "Chest drops Temporalis",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 24,
+        "max": 24
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetUltimatum",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 14,
+        "max": 14
+      }
+    ]
+  },
+  {
+    "id": "VaultKeyReliquarySetWorldDrop",
+    "name": "",
+    "text": "",
+    "stats": [
+      {
+        "id": "map_reliquary_set",
+        "min": 12,
+        "max": 12
+      }
+    ]
+  }
+]

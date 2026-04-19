@@ -161,14 +161,8 @@ function transformBaseItems(raw, rawMods) {
     if (ARMOUR_CLASSES.has(item.item_class) && !props.armour && !props.evasion && !props.energy_shield) continue;
     const reqs = item.requirements || {};
 
-    // Resolve implicit mod IDs to display text
-    const implicits = (item.implicits ?? [])
-      .map((modId) => {
-        const mod = rawMods[modId];
-        if (mod?.text) return cleanModText(mod.text);
-        return null;
-      })
-      .filter(Boolean);
+    // Preserve implicit mod IDs so the DPS engine can apply them structurally.
+    const implicits = item.implicits ?? [];
 
     results.push({
       id: key,
@@ -187,6 +181,7 @@ function transformBaseItems(raw, rawMods) {
         ...(props.attack_time != null && { attackTime: props.attack_time }),
         ...(props.critical_strike_chance != null && { criticalStrikeChance: props.critical_strike_chance }),
         ...(props.range != null && { range: props.range }),
+        ...(props.reload_time != null && { reloadTime: props.reload_time }),
         ...(props.armour && { armour: { min: props.armour.min, max: props.armour.max } }),
         ...(props.evasion && { evasion: { min: props.evasion.min, max: props.evasion.max } }),
         ...(props.energy_shield && { energyShield: { min: props.energy_shield.min, max: props.energy_shield.max } }),
@@ -198,6 +193,39 @@ function transformBaseItems(raw, rawMods) {
   }
 
   results.sort((a, b) => a.name.localeCompare(b.name));
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// Transform: Implicit Mods
+// ---------------------------------------------------------------------------
+
+/**
+ * Build a lean JSON array of only the mods referenced as implicits on base items.
+ * These have generation_type "unique" and are excluded from item_mods.json,
+ * so we need them in a separate file for the DPS engine.
+ */
+function transformImplicitMods(rawBaseItems, rawMods) {
+  const implicitIds = new Set();
+  for (const item of Object.values(rawBaseItems)) {
+    for (const id of (item.implicits ?? [])) {
+      implicitIds.add(id);
+    }
+  }
+
+  const results = [];
+  for (const id of implicitIds) {
+    const mod = rawMods[id];
+    if (!mod) continue;
+    results.push({
+      id,
+      name: mod.name || "",
+      text: mod.text || "",
+      stats: (mod.stats || []).map((s) => ({ id: s.id, min: s.min, max: s.max })),
+    });
+  }
+
+  results.sort((a, b) => a.id.localeCompare(b.id));
   return results;
 }
 
@@ -613,12 +641,29 @@ function transformGems(raw, rawSkills) {
           const levels = {};
           for (const [lvl, data] of Object.entries(skill.per_level || {})) {
             const ssLevel = ss.per_level?.[lvl];
+
+            const staticStats = ss.static?.stats || [];
+            const sparsePerLevel = ssLevel?.stats || [];
+
+            const resolvedStats = {};
+            for (let n = 0; n < staticStats.length; n++) {
+              const staticEntry = staticStats[n];
+              if (!staticEntry?.id) continue;
+              const override = sparsePerLevel[n];
+              if (override != null && typeof override.value === "number") {
+                resolvedStats[staticEntry.id] = override.value;
+              } else if (typeof staticEntry.value === "number") {
+                resolvedStats[staticEntry.id] = staticEntry.value;
+              }
+            }
+
             levels[lvl] = {
               costs: data.costs || {},
               damageMultiplier: ssLevel?.damage_multiplier,
               statText: ssLevel?.stat_text
                 ? Object.values(ssLevel.stat_text).map((t) => cleanModText(t))
                 : [],
+              stats: resolvedStats,
             };
           }
           const staticStatText = ss.static?.stat_text
@@ -656,10 +701,52 @@ function transformGems(raw, rawSkills) {
       // Primary stat sets (from the main skill)
       const primarySets = extractStatSets(primary, primary.active_skill?.display_name || gem.base_item.display_name);
 
+      const activeSkill = primary.active_skill || {};
+      const activeSkillTypes = activeSkill.types || [];
+      const weaponRestrictions = activeSkill.weapon_restrictions || [];
+
+      // Extract ammo capacity from the Ammunition stat set (crossbow skills).
+      // base_number_of_crossbow_bolts at level 1 gives the magazine size.
+      let ammoCapacity = undefined;
+      for (const skill of grantedSkills) {
+        for (const ss of (skill.stat_sets || [])) {
+          const label = Array.isArray(ss.label) ? ss.label[1] : null;
+          const skillName = rawSkills[ss.id]?.active_skill?.display_name;
+          const ssName = label || skillName || "";
+          if (ssName === "Ammunition") {
+            const staticStats = ss.static?.stats || [];
+            const perLevelData = Object.values(skill.per_level || {});
+            // Try static value first
+            const boltStat = staticStats.find((s) => s?.id === "base_number_of_crossbow_bolts");
+            if (boltStat != null && typeof boltStat.value === "number") {
+              ammoCapacity = boltStat.value;
+              break;
+            }
+            // Fall back to level 1 per-level override
+            const lvl1 = skill.per_level?.["1"];
+            const ssIdx = (skill.stat_sets || []).indexOf(ss);
+            const lvl1ssData = lvl1 && ss.per_level?.["1"];
+            if (lvl1ssData) {
+              const sparseStats = lvl1ssData.stats || [];
+              for (let n = 0; n < staticStats.length; n++) {
+                const staticEntry = staticStats[n];
+                if (!staticEntry?.id || staticEntry.id !== "base_number_of_crossbow_bolts") continue;
+                const override = sparseStats[n];
+                if (override != null && typeof override.value === "number") {
+                  ammoCapacity = override.value;
+                } else if (typeof staticEntry.value === "number") {
+                  ammoCapacity = staticEntry.value;
+                }
+              }
+            }
+            if (ammoCapacity != null) break;
+          }
+        }
+        if (ammoCapacity != null) break;
+      }
+
       skillDetail = {
-        description: primary.active_skill?.description
-          ? cleanModText(primary.active_skill.description)
-          : undefined,
+        description: activeSkill.description ? cleanModText(activeSkill.description) : undefined,
         castTime: primary.cast_time,
         cooldown: primary.static?.cooldown,
         storedUses: primary.static?.stored_uses,
@@ -668,9 +755,17 @@ function transformGems(raw, rawSkills) {
         levels: primarySets[0]?.levels ?? {},
         staticStatText: primarySets[0]?.staticStatText ?? [],
         qualityStats: allStatSets.find((ss) => ss.qualityStats.length > 0)?.qualityStats ?? [],
-        ...(allStatSets.length > 1 && { statSets: allStatSets }),
+        statSets: allStatSets,
+        ...(ammoCapacity != null && { ammoCapacity }),
+        ...(activeSkillTypes.length > 0 && { activeSkillTypes }),
+        ...(weaponRestrictions.length > 0 && { weaponRestrictions }),
       };
     }
+
+    // Extract support-gem filter fields from the primary granted skill's support_gem object
+    const primarySupport = grantedSkills.find((s) => s.is_support)?.support_gem;
+    const allowedActiveSkillTypes = primarySupport?.allowed_types;
+    const excludedActiveSkillTypes = primarySupport?.excluded_types;
 
     results.push({
       id: key,
@@ -689,6 +784,8 @@ function transformGems(raw, rawSkills) {
       },
       iconPath: iconPathFromDds(gem.icon_dds_file, "gems"),
       ...(skillDetail && { skillDetail }),
+      ...(allowedActiveSkillTypes && { allowedActiveSkillTypes }),
+      ...(excludedActiveSkillTypes && { excludedActiveSkillTypes }),
     });
   }
 
@@ -786,17 +883,19 @@ async function main() {
   const baseWeights = await loadBaseWeights();
   const baseItems = transformBaseItems(rawBaseItems, rawMods);
   const mods = transformMods(rawMods, baseWeights);
+  const implicitMods = transformImplicitMods(rawBaseItems, rawMods);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
   const augEffects = parseAugmentEffects(poe2dbAugHtml);
   console.log(`   Augment effects scraped: ${augEffects.size} items`);
   const augments = transformAugments(rawAugments, augEffects);
 
-  console.log(`   Base items: ${baseItems.length}`);
-  console.log(`   Mods:       ${mods.length}`);
-  console.log(`   Uniques:    ${uniques.length}`);
-  console.log(`   Gems:       ${gems.length}`);
-  console.log(`   Augments:   ${augments.length}`);
+  console.log(`   Base items:     ${baseItems.length}`);
+  console.log(`   Mods:           ${mods.length}`);
+  console.log(`   Implicit mods:  ${implicitMods.length}`);
+  console.log(`   Uniques:        ${uniques.length}`);
+  console.log(`   Gems:           ${gems.length}`);
+  console.log(`   Augments:       ${augments.length}`);
   console.log();
 
   // 3. Write JSON files
@@ -804,6 +903,7 @@ async function main() {
   await Promise.all([
     writeFile(join(RAW_DIR, "base_items.json"), JSON.stringify(baseItems, null, 2)),
     writeFile(join(RAW_DIR, "item_mods.json"), JSON.stringify(mods, null, 2)),
+    writeFile(join(RAW_DIR, "implicit_mods.json"), JSON.stringify(implicitMods, null, 2)),
     writeFile(join(RAW_DIR, "uniques.json"), JSON.stringify(uniques, null, 2)),
     writeFile(join(RAW_DIR, "skill_gems.json"), JSON.stringify(gems, null, 2)),
     writeFile(join(RAW_DIR, "augments.json"), JSON.stringify(augments, null, 2)),

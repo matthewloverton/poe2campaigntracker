@@ -15,10 +15,13 @@ export interface BaseItem {
     attackTime?: number;
     criticalStrikeChance?: number;
     range?: number;
+    /** Crossbow reload time in milliseconds (e.g. 800 for standard crossbows). */
+    reloadTime?: number;
     armour?: { min: number; max: number };
     evasion?: { min: number; max: number };
     energyShield?: { min: number; max: number };
   };
+  /** Implicit mod IDs (look up via implicitModById from data/implicitMods.ts for stats/text). */
   implicits: string[];
   tags: string[];
   iconPath: string;
@@ -54,6 +57,10 @@ export interface SkillLevelData {
   costs: Record<string, number>;
   damageMultiplier?: number;
   statText: string[];
+  /** Structured stat id → resolved value. Merged from static.stats + per_level sparse overrides by the transform. */
+  stats: Record<string, number>;
+  /** Per-level attack time in milliseconds. RePoE2 does not emit this today but the field is reserved. */
+  attackTime?: number;
 }
 
 export interface QualityStat {
@@ -74,11 +81,20 @@ export interface SkillDetail {
   cooldown?: number;        // ms
   storedUses?: number;
   attackSpeedMultiplier?: number;  // e.g. -25 means 75% of base
+  /** Magazine size for ammo-consuming attacks (e.g. crossbow skills). When combined with
+   *  a weapon's reloadTime, the DPS engine applies the PoB cycle formula:
+   *  effective_rate = magazine / (magazine / firingRate + reloadTimeSec) */
+  ammoCapacity?: number;
   maxLevel: number;
   levels: Record<string, SkillLevelData>;       // from first stat set (default)
   staticStatText: string[];                      // from first stat set
   qualityStats: QualityStat[];                   // from first stat set
-  statSets?: StatSet[];                          // multiple tabs (only if >1)
+  /** All non-hidden stat sets including the primary; always present when skill has damage data. */
+  statSets: StatSet[];
+  /** e.g. ["Attack", "Projectile", "Grenade", "Fire"] */
+  activeSkillTypes?: string[];
+  /** Item classes the skill is usable with. */
+  weaponRestrictions?: string[];
 }
 
 /** Resolve a quality stat template at a given quality level (0-20) */
@@ -117,6 +133,10 @@ export interface GemEntry {
   };
   iconPath: string;
   skillDetail?: SkillDetail;
+  /** For support gems: active skill types this support can apply to. */
+  allowedActiveSkillTypes?: string[];
+  /** For support gems: active skill types explicitly excluded. */
+  excludedActiveSkillTypes?: string[];
 }
 
 export const ITEM_CLASS_GROUPS: Record<string, string[]> = {
