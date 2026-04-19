@@ -458,3 +458,94 @@ skill_gems.min.json, skills.min.json, stat_value_handlers.min.json, stats_by_fil
    - Use `cast_time` (in milliseconds)
    - Use `static.cooldown` if present; otherwise derive from type
    - Use `static.attack_speed_multiplier` for attack speed scaling
+
+## 7. Per-level sparse-array stat-id mapping — investigation 2
+
+### Summary
+
+The sparse array index in `stat_sets[i].per_level[lvl].stats` maps **directly by position** to `stat_sets[i].static.stats`. Each non-null entry at position N in the per-level sparse array corresponds to the stat at position N in the static stats array.
+
+### Hunting Results
+
+- **Step 1:** Fetched `stats_by_file.min.json` — this file maps stat *text strings* to metadata (files, tokens), not skill IDs. Not the mapping we need.
+- **Step 2:** Confirmed the lookup is local to each stat set, not in a global file.
+- **Step 4:** Found the mapping lives on the `static.stats` array itself.
+
+### The Concrete Lookup Rule
+
+```javascript
+/**
+ * Given a skill ID, stat set ID, level number, and sparse array index,
+ * resolve the stat ID and per-level value.
+ * 
+ * @param {string} skillId - e.g., "ToxicGrenadePlayer"
+ * @param {string} statSetId - e.g., "ToxicGrenadePlayer" (stat_sets[i].id)
+ * @param {string|number} level - e.g., "1"
+ * @param {number} sparseIndex - e.g., 8
+ * @returns {{statId: string, value: number, type: string}} The resolved stat
+ */
+function resolvePerLevelStat(skillId, statSetId, level, sparseIndex) {
+  const skill = SKILLS_DATA[skillId];
+  const statSet = skill.stat_sets.find(ss => ss.id === statSetId);
+  
+  // The mapping is positional: sparse array index N → static.stats[N]
+  const staticStat = statSet.static.stats[sparseIndex];
+  const perLevelValue = statSet.per_level[level]?.stats?.[sparseIndex];
+  
+  return {
+    statId: staticStat.id,
+    type: staticStat.type,       // e.g., "constant", "additional"
+    value: perLevelValue?.value, // null if not present in per-level sparse array
+  };
+}
+```
+
+### Worked Example: Gas Grenade Level 1 Index 8
+
+**Input:**
+- Skill ID: `ToxicGrenadePlayer`
+- Stat Set ID: `ToxicGrenadePlayer` (stat_sets[0])
+- Level: `"1"`
+- Sparse array index: `8`
+
+**Lookup:**
+```javascript
+const skill = SKILLS_DATA["ToxicGrenadePlayer"];
+const statSet = skill.stat_sets[0]; // id === "ToxicGrenadePlayer"
+
+// Get the per-level sparse array entry
+const perLevelEntry = statSet.per_level["1"].stats[8];
+// → {"value": 14}
+
+// Get the corresponding static stat definition
+const staticStat = statSet.static.stats[8];
+// → {
+//     "id": "active_skill_base_area_of_effect_radius",
+//     "type": "additional"
+//   }
+```
+
+**Result:**
+| Field | Value |
+|-------|-------|
+| **Stat ID** | `active_skill_base_area_of_effect_radius` |
+| **Per-level value** | `14` |
+| **Type** | `additional` |
+| **Display text** | From `stat_text`: `"Impact radius is 1.4 metres"` |
+
+The sparse array value `14` represents a **per-level override** or **addition** to the base stat (defined in `static.stats[8]`). The `type: "additional"` suggests this value gets added to skill calculations.
+
+### Caveats
+
+1. **Only applies when sparse array exists:** Not all skills have per-level sparse arrays. Simpler skills (e.g., Galvanic Shards) have `static.stats` only and no per-level `stats` field.
+
+2. **Array length must match:** The sparse array length must equal or be less than the length of `static.stats`. If index is out of bounds, the stat is not defined.
+
+3. **Null entries are intentional:** A `null` at position N means that stat has no per-level override; use the static definition only.
+
+4. **Only in RePoE2:** This mapping is sourced from RePoE2 JSON. No additional transformation needed; the data is already structured correctly.
+
+### Key Files
+
+- **RePoE2 source:** https://repoe-fork.github.io/poe2/skills.min.json (13 MB)
+- **Example data:** `ToxicGrenadePlayer` (Gas Grenade) at stat_sets[0] (Impact damage stage)
