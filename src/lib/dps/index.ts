@@ -105,8 +105,8 @@ function calcSkillGroupDps(
     const projectiles = projectileCount(skillTags, setStatMap);
 
     for (const t of DAMAGE_TYPES) {
-      damageByType[t].min += multiplied[t].min * projectiles;
-      damageByType[t].max += multiplied[t].max * projectiles;
+      damageByType[t].min += multiplied[t].min;
+      damageByType[t].max += multiplied[t].max;
     }
     const ssPerHit = sumPerHit(multiplied);
     breakdownStages.push({
@@ -114,10 +114,11 @@ function calcSkillGroupDps(
       label: `${ss.name}`,
       value: `${ssPerHit.min.toFixed(0)} – ${ssPerHit.max.toFixed(0)}`,
     });
+    // Keep projectile count informational in the breakdown, but do not multiply per-hit.
     if (projectiles > 1) {
       breakdownStages.push({
-        kind: "more",
-        label: `${ss.name} × ${projectiles} projectiles`,
+        kind: "base",
+        label: `${ss.name} projectile count`,
         value: projectiles,
       });
     }

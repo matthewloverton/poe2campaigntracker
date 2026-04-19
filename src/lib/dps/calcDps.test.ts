@@ -15,13 +15,14 @@ describe("calcDps — end-to-end", () => {
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
     expect(gs.level).toBe(1);
-    // Hand-calculated with projectile scaling (×8 for Projectile set, ×1 for Beam set):
-    //   Projectile set: (1.05–1.80) × 8 = 8.40–14.40
+    // Per-projectile DPS (PoB default — one projectile hits the target):
+    //   Projectile set: (1.05–1.80) × 1 = 1.05–1.80
     //   Beam set:       (5.25–9.00) × 1 = 5.25–9.00
-    //   Total perHit: min=13.65, max=23.40, avg=18.525
-    //   DPS = 18.525 × 1.6 × 1.05 = 31.122
+    //   Total perHit: min=6.30, max=10.80, avg=8.55
+    //   DPS = 8.55 × 1.6 × 1.05 ≈ 14.364
+    // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     // See fixture file for base hand-calc without projectile scaling.
-    const EXPECTED = 31.122;
+    const EXPECTED = 14.364;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
@@ -29,9 +30,10 @@ describe("calcDps — end-to-end", () => {
     const snap = snapshotFromPhase(bareCrossbowGalvanic, "", "actual");
     const results = calcDps(snap);
     const gs = results[0];
-    // perHit: Projectile(1.05–1.80)×8 + Beam(5.25–9.00)×1 = 13.65–23.40
-    expect(gs.perHit.min).toBeCloseTo(13.65, 1);
-    expect(gs.perHit.max).toBeCloseTo(23.40, 1);
+    // perHit: Projectile(1.05–1.80)×1 + Beam(5.25–9.00)×1 = 6.30–10.80
+    // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
+    expect(gs.perHit.min).toBeCloseTo(6.30, 1);
+    expect(gs.perHit.max).toBeCloseTo(10.80, 1);
     // rate = 1000 / 625ms = 1.6/s
     expect(gs.rate).toBeCloseTo(1.6, 4);
     // crit: 5% chance, 2.0x multi
@@ -62,35 +64,40 @@ describe("calcDps — end-to-end", () => {
   });
 
   it("computes Galvanic Shards DPS with flat-phys ring (ring flat damage stacks)", () => {
+    // Per-projectile DPS (PoB default — one projectile hits the target):
     // Ring carries "AddedPhysicalDamage6" (attack_minimum/maximum_added_physical_damage)
     // At 100% roll: min=10, max=17 added to attacks.
     // Weapon phys: 7–12. Effective phys: (7+10)=17 to (12+17)=29.
-    // Projectile set (dmgMult=15, 8 projectiles, 60% phys→lightning):
-    //   physBase: 17×0.15=2.55–29×0.15=4.35 → phys=1.02–1.74, lightning=1.53–2.61 → ×8 = 20.40–34.80
-    // Beam set (dmgMult=75, 1 projectile, 100% phys→lightning):
-    //   physBase: 17×0.75=12.75–29×0.75=21.75 → lightning=12.75–21.75
-    // Total perHit: min=33.15, max=56.55, avg=44.85
-    // DPS = 44.85 × 1.6 × 1.05 ≈ 75.348
+    // Projectile set (dmgMult=15, ×1, 60% phys→lightning):
+    //   physBase: 17×0.15=2.55 to 29×0.15=4.35 => phys=1.02–1.74, lightning=1.53–2.61
+    // Beam set (dmgMult=75, ×1, 100% phys→lightning):
+    //   physBase: 17×0.75=12.75 to 29×0.75=21.75 => lightning=12.75–21.75
+    // Total perHit: min=15.30, max=26.10, avg=20.70
+    // DPS = 20.70 × 1.6 × 1.05 ≈ 34.776
+    // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     const snap = snapshotFromPhase(crossbowFlatPhysRingGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 75.348;
+    const EXPECTED = 34.776;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
   it("computes Galvanic Shards DPS with two attack-speed supports stacked", () => {
+    // Per-projectile DPS (PoB default — one projectile hits the target):
     // Rapid Attacks I (attack_speed_+%=15) + Rapid Attacks II (attack_speed_+%=25)
     // Stacked incAttackSpeed = 40% → rate = 1.6 × 1.40 = 2.24
     // Damage unchanged from bare crossbow (supports only add speed, not damage)
-    // DPS = 18.525 × 2.24 × 1.05 ≈ 43.5708
+    // perHit: min=6.30, max=10.80, avg=8.55
+    // DPS = 8.55 × 2.24 × 1.05 ≈ 20.1096
+    // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     const snap = snapshotFromPhase(crossbowTwoSupportsGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 43.5708;
+    const EXPECTED = 20.1096;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
@@ -114,18 +121,20 @@ describe("calcDps — end-to-end", () => {
 });
 
 it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {
+  // Per-projectile DPS (PoB default — one projectile hits the target):
   // Makeshift Crossbow (7–12 phys) + LocalIncreasedPhysicalDamagePercent1 at 100th percentile (49%)
   // Resolved weapon phys: 7×1.49=10.43 – 12×1.49=17.88
-  // Projectile set (dmgMult=15, ×8): 12.516–21.456
+  // Projectile set (dmgMult=15, ×1): 1.5645–2.682
   // Beam set (dmgMult=75, ×1): 7.8225–13.41
-  // perHit: min=20.3385, max=34.866, avg=27.6023
-  // DPS = 27.6023 × 1.6 × 1.05 ≈ 46.372
+  // perHit: min=9.387, max=16.092, avg=12.7395
+  // DPS = 12.7395 × 1.6 × 1.05 ≈ 21.402
+  // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
   const snap = snapshotFromPhase(crossbowLocalIncPhysGalvanic, "", "actual");
   const results = calcDps(snap);
   expect(results.length).toBe(1);
   const r = results[0];
-  const EXPECTED = 46.372;
+  const EXPECTED = 21.402;
   expect(r.dps).toBeCloseTo(EXPECTED, 0);
-  // Confirm local mod increased the DPS beyond bare crossbow (31.122).
-  expect(r.dps).toBeGreaterThan(40);
+  // Confirm local mod increased the DPS beyond bare crossbow (14.364).
+  expect(r.dps).toBeGreaterThan(14);
 });
