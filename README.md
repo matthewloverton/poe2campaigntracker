@@ -10,6 +10,7 @@ Tracks your act-by-act progression with a guide panel, per-act run splits, a cra
 - **Run history + timer** — Per-act splits with best/worst coloring, sortable by recency or fastest, auto-advances on zone change.
 - **Build plan** — Multi-phase gear layout (weapons, armour, jewelry, augments/runes) and skill-gem groups, backed by a searchable item/mod database.
 - **Craft emulator** — Arm-then-click currency simulator covering Transmute, Augment, Regal, Exalt, Chaos, Alchemy, Vaal, Divine, plus Greater/Perfect variants and the full essence strip (Lesser/Normal/Greater/Perfect + corrupted). Rolls use real per-base spawn weights; history is clickable to restore earlier states; favourite crafts survive restarts.
+- **DPS engine (Phase 1)** — real per-skill DPS for gear + supports + skill stats, shown inline in Build Plan and as a delta readout in the Craft Emulator. Mirrors Path of Building's calc pipeline; cross-check against PoB2 for verification.
 - **Item/mod database** — Browse every base + mod with tier labels, rolled(min-max) values, colour-coded tags, and source tabs for Normal / Essence / Desecrated / Corrupted mods.
 - **Path of Building import/export**
   - Paste a PoB PoE2 build code → creates one build phase per PoB item set with matched gear + skill groups + mod rolls.

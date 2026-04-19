@@ -15,6 +15,10 @@ This is not a single feature. It is a multi-phase program. Each phase must:
 
 **Calculation reference:** [PathOfBuilding-PoE2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2) — used as an *algorithm benchmark only*. All logic is ported to TypeScript. No Lua runtime, no PoB data loader, no PoB code executed at runtime.
 
+## Status
+
+- **2026-04-19:** Phase 1 shipped. Delivered TypeScript DPS engine mirroring PoB's calc pipeline: weapon damage with local-mod resolution, skill base damage via `damage_multiplier` per stat set, gear + implicit + support mod aggregation, phys→elemental conversions, PoE2-correct crit multi (×2 base), reload-cycle rate for crossbows (per-base reload from PoB2), two-stage integer rounding matching PoB's display, and per-skill gem-level control. Integrated into SkillRow with inline DPS and expandable breakdown, plus Craft Emulator delta card with side-by-side comparison. Phase 2 (passive tree) is the next brainstorm target.
+
 **Non-negotiable architectural commitments (apply from Phase 1):**
 
 - Use PoB's stat ID naming verbatim (e.g. `physical_damage_+%`, `base_fire_damage_min`) so future CalcOffence ports are mechanical translation.
