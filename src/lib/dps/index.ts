@@ -7,7 +7,6 @@ import type {
 import { DAMAGE_TYPES } from "./types";
 import type { GemEntry } from "../../types/itemDatabase";
 import { gemById } from "../../data/gems";
-import { baseItemById } from "../../data/items";
 import {
   applyConversions,
   applyMultipliers,
@@ -20,6 +19,7 @@ import {
   zeroDamageByType,
 } from "./pipeline";
 import { collectGearStats } from "./modStats";
+import { resolveWeaponProperties } from "./localWeaponMods";
 import { getSkillLevel, getSkillTags, statMapFromSkillLevel } from "./skillStats";
 import { collectSupportStats } from "./supportStats";
 import { mergeStatMaps } from "./statMap";
@@ -72,11 +72,7 @@ function calcSkillGroupDps(
   const types = detail.activeSkillTypes ?? [];
   const isAttack = types.includes("Attack");
 
-  const weaponEntry = snapshot.gear.weapon;
-  const weaponBase = weaponEntry?.baseItemId
-    ? baseItemById.get(weaponEntry.baseItemId)
-    : undefined;
-  const weaponProps = weaponBase?.properties ?? null;
+  const weaponProps = resolveWeaponProperties(snapshot.gear.weapon, snapshot.rollMode);
 
   const statSets = detail.statSets ?? [];
   const damageByType = zeroDamageByType();

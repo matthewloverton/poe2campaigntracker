@@ -113,13 +113,19 @@ describe("calcDps — end-to-end", () => {
   });
 });
 
-it("DIAGNOSTIC — local inc phys on crossbow", () => {
+it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {
+  // Makeshift Crossbow (7–12 phys) + LocalIncreasedPhysicalDamagePercent1 at 100th percentile (49%)
+  // Resolved weapon phys: 7×1.49=10.43 – 12×1.49=17.88
+  // Projectile set (dmgMult=15, ×8): 12.516–21.456
+  // Beam set (dmgMult=75, ×1): 7.8225–13.41
+  // perHit: min=20.3385, max=34.866, avg=27.6023
+  // DPS = 27.6023 × 1.6 × 1.05 ≈ 46.372
   const snap = snapshotFromPhase(crossbowLocalIncPhysGalvanic, "", "actual");
   const results = calcDps(snap);
   expect(results.length).toBe(1);
   const r = results[0];
-  console.log("Engine DPS with local +inc phys:", r.dps.toFixed(3));
-  console.log("Per-hit:", r.perHit);
-  console.log("Breakdown stages:", JSON.stringify(r.breakdown.stages, null, 2));
-  // No assertion — this is a measurement, not a pass/fail.
+  const EXPECTED = 46.372;
+  expect(r.dps).toBeCloseTo(EXPECTED, 0);
+  // Confirm local mod increased the DPS beyond bare crossbow (31.122).
+  expect(r.dps).toBeGreaterThan(40);
 });

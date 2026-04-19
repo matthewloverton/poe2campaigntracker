@@ -5,6 +5,13 @@ import type { ContributionKind, RollMode, StatContribution, StatMap } from "./ty
 import { addContribution, emptyStatMap } from "./statMap";
 
 /**
+ * Weapon-style slots whose mods may contain local_* stats.
+ * Local stats are applied directly to the weapon's damage range by resolveWeaponProperties()
+ * and must NOT be re-added to the StatMap (which would double-apply them as global multipliers).
+ */
+const WEAPON_SLOTS = new Set<GearSlotKey>(["weapon", "weaponSwap", "offhand", "offhandSwap"]);
+
+/**
  * Infer contribution kind from stat id naming.
  * - ends with "_final" or "_more" → more
  * - ends with "_+%" (but not "_final") → increased
@@ -51,6 +58,9 @@ function addEntryStats(
     const slotLabel = GEAR_SLOT_LABELS[slotKey] ?? slotKey;
     const modLabel = mod.name || mod.text || modId;
     for (const stat of mod.stats) {
+      // Skip local mods on weapon-style slots — they're applied to the weapon
+      // properties by resolveWeaponProperties() instead, to avoid double-application.
+      if (WEAPON_SLOTS.has(slotKey) && stat.id.startsWith("local_")) continue;
       const value = resolveStatValue(stat.min, stat.max, percentile);
       if (value === 0) continue;
       const contribution: StatContribution = {
