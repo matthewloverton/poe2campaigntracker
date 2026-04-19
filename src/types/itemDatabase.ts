@@ -21,6 +21,7 @@ export interface BaseItem {
     evasion?: { min: number; max: number };
     energyShield?: { min: number; max: number };
   };
+  /** Implicit mod IDs (look up via implicitModById from data/implicitMods.ts for stats/text). */
   implicits: string[];
   tags: string[];
   iconPath: string;

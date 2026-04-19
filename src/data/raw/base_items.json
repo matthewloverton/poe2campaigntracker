@@ -17,7 +17,7 @@
       }
     },
     "implicits": [
-      "Regenerate (1.5-2.5)% of maximum Life per second"
+      "BodyArmourImplicitLifeRegenerationPercent1"
     ],
     "tags": [
       "str_armour",
@@ -68,7 +68,7 @@
     },
     "properties": {},
     "implicits": [
-      "Inflict Abyssal Wasting on Hit"
+      "AbyssalWastingOnHit"
     ],
     "tags": [
       "ring",
@@ -114,7 +114,9 @@
       "criticalStrikeChance": 500,
       "range": 120
     },
-    "implicits": [],
+    "implicits": [
+      "BowImplicitBaseChaosDamage2"
+    ],
     "tags": [
       "bow",
       "ranged",
@@ -315,7 +317,7 @@
       "range": 13
     },
     "implicits": [
-      "+(12-18)% to Block chance"
+      "QuarterstaffImplicitAdditionalBlock1"
     ],
     "tags": [
       "warstaff",
@@ -403,7 +405,7 @@
       "range": 11
     },
     "implicits": [
-      "Always Hits"
+      "MaceImplicitAlwaysHit1"
     ],
     "tags": [
       "karui_basetype",
@@ -433,7 +435,9 @@
       "criticalStrikeChance": 700,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "karui_basetype",
       "spear",
@@ -494,7 +498,7 @@
       "range": 12
     },
     "implicits": [
-      "+(10-15)% to Block chance"
+      "TalismanImplicitAdditionalBlock1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -546,7 +550,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(10-15) to Strength"
+      "AmuletImplicitStrength1"
     ],
     "tags": [
       "amulet",
@@ -567,7 +571,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(7-13)% to Chaos Resistance"
+      "RingImplicitChaosResistance1"
     ],
     "tags": [
       "ring",
@@ -878,7 +882,7 @@
       "range": 13
     },
     "implicits": [
-      "Crushes Enemies on Hit"
+      "MaceImplicitLocalCrushOnHit1"
     ],
     "tags": [
       "mace",
@@ -965,7 +969,7 @@
       }
     },
     "implicits": [
-      "(40-50)% faster start of Energy Shield Recharge"
+      "BodyArmourImplicitEnergyShieldDelay1"
     ],
     "tags": [
       "int_armour",
@@ -1110,7 +1114,9 @@
       "criticalStrikeChance": 1000,
       "range": 13
     },
-    "implicits": [],
+    "implicits": [
+      "QuarterstaffImplicitBaseLightningDamage2"
+    ],
     "tags": [
       "warstaff",
       "two_hand_weapon",
@@ -1192,7 +1198,7 @@
       }
     },
     "implicits": [
-      "(30-40)% increased Elemental Ailment Threshold"
+      "BodyArmourImplicitIncreasedAilmentThreshold1"
     ],
     "tags": [
       "dex_armour",
@@ -1295,7 +1301,7 @@
       "range": 120
     },
     "implicits": [
-      "50% reduced Projectile Range"
+      "BowImplicitProjectileAttackRange1"
     ],
     "tags": [
       "karui_basetype",
@@ -1388,7 +1394,7 @@
       "range": 12
     },
     "implicits": [
-      "(50-80)% increased Flammability Magnitude"
+      "TalismanImplicitFireDamageAndFlammability1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -1446,7 +1452,7 @@
       }
     },
     "implicits": [
-      "5% increased Movement Speed"
+      "BodyArmourImplicitMovementVelocity1"
     ],
     "tags": [
       "dex_int_armour",
@@ -1556,7 +1562,7 @@
       }
     },
     "implicits": [
-      "(10-15)% reduced Elemental Ailment Duration on you"
+      "BodyArmourImplicitSelfStatusAilmentDuration1"
     ],
     "tags": [
       "dex_int_armour",
@@ -1693,7 +1699,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Mana Regeneration Rate"
+      "AmuletImplicitManaRegeneration1"
     ],
     "tags": [
       "amulet",
@@ -1943,7 +1949,8 @@
       "range": 15
     },
     "implicits": [
-      "Bleeding you inflict deals Damage (10-20)% faster"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitFasterBleed1"
     ],
     "tags": [
       "vaal_basetype",
@@ -2059,7 +2066,7 @@
       "range": 13
     },
     "implicits": [
-      "+(12-18)% to Block chance"
+      "QuarterstaffImplicitAdditionalBlock1"
     ],
     "tags": [
       "vaal_basetype",
@@ -2148,7 +2155,7 @@
       "range": 11
     },
     "implicits": [
-      "+(5-10)% to Critical Damage Bonus"
+      "MaceImplicitCriticalMultiplier1"
     ],
     "tags": [
       "mace",
@@ -2295,7 +2302,7 @@
       "range": 13
     },
     "implicits": [
-      "Crushes Enemies on Hit"
+      "MaceImplicitLocalCrushOnHit1"
     ],
     "tags": [
       "mace",
@@ -2643,7 +2650,7 @@
       "range": 10
     },
     "implicits": [
-      "25% of Spell Mana Cost Converted to Life Cost"
+      "DaggerImplicitSpellLifeCostPercent1"
     ],
     "tags": [
       "vaal_basetype",
@@ -2668,7 +2675,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(30-40) to maximum Life"
+      "AmuletImplicitIncreasedLife1"
     ],
     "tags": [
       "amulet",
@@ -2689,7 +2696,7 @@
     },
     "properties": {},
     "implicits": [
-      "(25-40)% increased Stun Buildup"
+      "QuiverImplicitStunThresholdReduction1"
     ],
     "tags": [
       "quiver",
@@ -2800,7 +2807,9 @@
       "criticalStrikeChance": 1000,
       "range": 13
     },
-    "implicits": [],
+    "implicits": [
+      "QuarterstaffImplicitBaseLightningDamage3"
+    ],
     "tags": [
       "warstaff",
       "two_hand_weapon",
@@ -2830,7 +2839,7 @@
       "reloadTime": 750
     },
     "implicits": [
-      "Grenade Skills Fire an additional Projectile"
+      "CrossbowImplicitGrenadeProjectiles1"
     ],
     "tags": [
       "vaal_basetype",
@@ -3140,7 +3149,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -3163,7 +3174,7 @@
     },
     "properties": {},
     "implicits": [
-      "Maximum Quality is 40%"
+      "RingImplicitMaximumQualityOverride1"
     ],
     "tags": [
       "ring",
@@ -3309,7 +3320,8 @@
       "range": 15
     },
     "implicits": [
-      "25% increased Melee Strike Range with this weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitWeaponRange1"
     ],
     "tags": [
       "vaal_basetype",
@@ -3334,7 +3346,7 @@
     },
     "properties": {},
     "implicits": [
-      "Adds 1 to 3 Physical Damage to Attacks"
+      "QuiverImplicitPhysicalDamage1"
     ],
     "tags": [
       "quiver",
@@ -3560,7 +3572,9 @@
       "criticalStrikeChance": 500,
       "range": 11
     },
-    "implicits": [],
+    "implicits": [
+      "MaceImplicitFireDamage1"
+    ],
     "tags": [
       "mace",
       "one_hand_weapon",
@@ -3620,7 +3634,7 @@
       "reloadTime": 750
     },
     "implicits": [
-      "Grenade Skills Fire an additional Projectile"
+      "CrossbowImplicitGrenadeProjectiles1"
     ],
     "tags": [
       "crossbow",
@@ -3822,7 +3836,7 @@
       "range": 13
     },
     "implicits": [
-      "Cannot use Projectile Attacks"
+      "AxeImplicitCannotBeThrown1"
     ],
     "tags": [
       "axe",
@@ -4244,7 +4258,7 @@
       "range": 12
     },
     "implicits": [
-      "(50-80)% increased Flammability Magnitude"
+      "TalismanImplicitFireDamageAndFlammability1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -4675,7 +4689,7 @@
       "range": 12
     },
     "implicits": [
-      "(10-20)% increased Effect of your Mark Skills"
+      "TalismanImplicitMarkEffect1"
     ],
     "tags": [
       "talisman",
@@ -4708,7 +4722,7 @@
       }
     },
     "implicits": [
-      "+(20-30) to Spirit"
+      "BodyArmourImplicitIncreasedSpirit1"
     ],
     "tags": [
       "str_int_armour",
@@ -4736,7 +4750,7 @@
       }
     },
     "implicits": [
-      "(30-40)% increased Stun Threshold"
+      "BodyArmourImplicitIncreasedStunThreshold1"
     ],
     "tags": [
       "str_armour",
@@ -4796,7 +4810,7 @@
       "range": 11
     },
     "implicits": [
-      "40% chance to Daze on Hit"
+      "MaceImplicitLocalDazeBuildup1"
     ],
     "tags": [
       "vaal_basetype",
@@ -4908,7 +4922,7 @@
       }
     },
     "implicits": [
-      "5% increased Movement Speed"
+      "BodyArmourImplicitMovementVelocity1"
     ],
     "tags": [
       "dex_armour",
@@ -4968,7 +4982,7 @@
       }
     },
     "implicits": [
-      "+(20-30) to Spirit"
+      "BodyArmourImplicitIncreasedSpirit1"
     ],
     "tags": [
       "str_int_armour",
@@ -4997,7 +5011,8 @@
       "range": 15
     },
     "implicits": [
-      "(15-25)% chance to Maim on Hit"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalChanceToMaim1"
     ],
     "tags": [
       "spear",
@@ -5114,7 +5129,9 @@
       "criticalStrikeChance": 1000,
       "range": 13
     },
-    "implicits": [],
+    "implicits": [
+      "QuarterstaffImplicitBaseLightningDamage1"
+    ],
     "tags": [
       "maraketh_basetype",
       "warstaff",
@@ -5228,7 +5245,7 @@
     },
     "properties": {},
     "implicits": [
-      "(2-4) Life Regeneration per second"
+      "AmuletImplicitLifeRegeneration1"
     ],
     "tags": [
       "amulet",
@@ -5275,7 +5292,7 @@
       "range": 10
     },
     "implicits": [
-      "Leeches 4% of Physical Damage as Mana"
+      "DaggerImplicitManaLeechLocal1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -5306,7 +5323,8 @@
       "range": 15
     },
     "implicits": [
-      "Prevent +(3-7)% of Damage from Deflected Hits"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitDeflectDamagePrevented1"
     ],
     "tags": [
       "karui_basetype",
@@ -5481,7 +5499,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes Enemies to Explode on Critical kill, for 10% of their Life as Physical Damage"
+      "MaceImplicitEnemiesExplodeOnCrit1"
     ],
     "tags": [
       "vaal_basetype",
@@ -5630,7 +5648,9 @@
       "criticalStrikeChance": 500,
       "range": 120
     },
-    "implicits": [],
+    "implicits": [
+      "BowImplicitBaseChaosDamage1"
+    ],
     "tags": [
       "vaal_basetype",
       "bow",
@@ -5748,7 +5768,7 @@
       "range": 13
     },
     "implicits": [
-      "Strikes deal Splash Damage"
+      "MaceImplicitSplashDamage1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -5807,7 +5827,7 @@
       "reloadTime": 900
     },
     "implicits": [
-      "+1 to maximum number of Summoned Ballista Totems"
+      "CrossbowImplicitAdditionalBallistaTotem1"
     ],
     "tags": [
       "crossbow",
@@ -5994,7 +6014,7 @@
       }
     },
     "implicits": [
-      "+(60-80) to maximum Life"
+      "BodyArmourImplicitIncreasedLife1"
     ],
     "tags": [
       "str_dex_armour",
@@ -6056,7 +6076,7 @@
       }
     },
     "implicits": [
-      "+1% to all Maximum Elemental Resistances"
+      "BodyArmourImplicitMaximumElementalResistance1"
     ],
     "tags": [
       "str_int_armour",
@@ -6502,7 +6522,7 @@
       }
     },
     "implicits": [
-      "+(7-13)% to Chaos Resistance"
+      "BodyArmourImplicitChaosResistance1"
     ],
     "tags": [
       "dex_int_armour",
@@ -6531,7 +6551,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes Enemies to Explode on Critical kill, for 10% of their Life as Physical Damage"
+      "MaceImplicitEnemiesExplodeOnCrit1"
     ],
     "tags": [
       "mace",
@@ -6555,7 +6575,7 @@
     },
     "properties": {},
     "implicits": [
-      "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed"
+      "AmuletImplicitPrefixSuffixAllowed5"
     ],
     "tags": [
       "amulet",
@@ -6636,7 +6656,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Charm Charges gained"
+      "BeltImplicitIncreasedCharmChargesGained1"
     ],
     "tags": [
       "belt",
@@ -6915,7 +6935,7 @@
       "range": 120
     },
     "implicits": [
-      "+50% Surpassing chance to fire an additional Arrow"
+      "BowImplicitAdditionalArrows1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -7016,7 +7036,7 @@
     },
     "properties": {},
     "implicits": [
-      "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed"
+      "AmuletImplicitPrefixSuffixAllowed1"
     ],
     "tags": [
       "amulet",
@@ -7037,7 +7057,7 @@
     },
     "properties": {},
     "implicits": [
-      "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed"
+      "RingImplicitPrefixSuffixAllowed1"
     ],
     "tags": [
       "ring",
@@ -7065,7 +7085,7 @@
       "reloadTime": 1100
     },
     "implicits": [
-      "Loads an additional bolt"
+      "CrossbowImplicitAdditionalAmmo1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -7126,7 +7146,7 @@
       "range": 11
     },
     "implicits": [
-      "(15-25)% chance to Blind Enemies on hit"
+      "ClawImplicitLocalChanceToBlind1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -7212,7 +7232,7 @@
       "reloadTime": 850
     },
     "implicits": [
-      "(20-30)% chance to Pierce an Enemy"
+      "CrossbowImplicitChanceToPierce1"
     ],
     "tags": [
       "karui_basetype",
@@ -7538,7 +7558,9 @@
       "criticalStrikeChance": 500,
       "range": 13
     },
-    "implicits": [],
+    "implicits": [
+      "AxeImplicitFireDamage1"
+    ],
     "tags": [
       "axe",
       "two_hand_weapon",
@@ -7672,7 +7694,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(120-160) to Accuracy Rating"
+      "RingImplicitIncreasedAccuracy1"
     ],
     "tags": [
       "ring",
@@ -7729,7 +7751,9 @@
       "criticalStrikeChance": 700,
       "range": 11
     },
-    "implicits": [],
+    "implicits": [
+      "StormBladeImplicitLocalLightningDamage_1"
+    ],
     "tags": [
       "not_for_sale",
       "sword",
@@ -7758,7 +7782,9 @@
       "criticalStrikeChance": 700,
       "range": 13
     },
-    "implicits": [],
+    "implicits": [
+      "StormBladeImplicitLocalLightningDamage_1"
+    ],
     "tags": [
       "not_for_sale",
       "sword",
@@ -7960,7 +7986,7 @@
       }
     },
     "implicits": [
-      "(40-50)% increased Mana Regeneration Rate"
+      "BodyArmourImplicitManaRegeneration1"
     ],
     "tags": [
       "int_armour",
@@ -8106,7 +8132,7 @@
       "range": 13
     },
     "implicits": [
-      "Culling Strike"
+      "AxeImplicitCullingStrike1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -8194,7 +8220,7 @@
       "range": 11
     },
     "implicits": [
-      "Has no Accuracy Penalty from Range"
+      "AxeImplicitAccuracyUnaffectedByDistance1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -8318,7 +8344,7 @@
       }
     },
     "implicits": [
-      "5% increased Movement Speed"
+      "BodyArmourImplicitMovementVelocity1"
     ],
     "tags": [
       "dex_int_armour",
@@ -8347,7 +8373,7 @@
       "range": 12
     },
     "implicits": [
-      "Minions deal (30-50)% increased Damage"
+      "TalismanImplicitMinionDamage1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -8377,7 +8403,9 @@
       "criticalStrikeChance": 500,
       "range": 120
     },
-    "implicits": [],
+    "implicits": [
+      "BowImplicitBaseChaosDamage3"
+    ],
     "tags": [
       "bow",
       "ranged",
@@ -8407,7 +8435,7 @@
       "range": 13
     },
     "implicits": [
-      "Strikes deal Splash Damage"
+      "MaceImplicitSplashDamage1"
     ],
     "tags": [
       "mace",
@@ -8437,7 +8465,7 @@
       "range": 12
     },
     "implicits": [
-      "Minions deal (30-50)% increased Damage"
+      "TalismanImplicitMinionDamage1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -8523,7 +8551,7 @@
       }
     },
     "implicits": [
-      "(5-10)% of Damage is taken from Mana before Life"
+      "BodyArmourImplicitDamageRemovedFromManaBeforeLife1"
     ],
     "tags": [
       "int_armour",
@@ -8743,7 +8771,7 @@
     },
     "properties": {},
     "implicits": [
-      "Flasks gain 0.17 charges per Second"
+      "BeltImplicitFlaskPassiveChargeGain1"
     ],
     "tags": [
       "belt",
@@ -8791,7 +8819,7 @@
     },
     "properties": {},
     "implicits": [
-      "Adds 3 to 5 Fire damage to Attacks"
+      "QuiverImplicitFireDamage1"
     ],
     "tags": [
       "quiver",
@@ -8984,7 +9012,7 @@
       "reloadTime": 850
     },
     "implicits": [
-      "(20-30)% increased Bolt Speed"
+      "CrossbowImplicitBoltSpeed1"
     ],
     "tags": [
       "crossbow",
@@ -9044,7 +9072,7 @@
       }
     },
     "implicits": [
-      "(40-50)% increased Mana Regeneration Rate"
+      "BodyArmourImplicitManaRegeneration1"
     ],
     "tags": [
       "int_armour",
@@ -9073,7 +9101,8 @@
       "range": 15
     },
     "implicits": [
-      "(25-35)% increased Projectile Speed with this Weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalProjectileSpeed1"
     ],
     "tags": [
       "spear",
@@ -9133,7 +9162,7 @@
       "range": 13
     },
     "implicits": [
-      "Crushes Enemies on Hit"
+      "MaceImplicitLocalCrushOnHit1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -9192,7 +9221,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "maraketh_basetype",
       "spear",
@@ -9222,7 +9253,7 @@
       "range": 11
     },
     "implicits": [
-      "40% chance to Daze on Hit"
+      "MaceImplicitLocalDazeBuildup1"
     ],
     "tags": [
       "mace",
@@ -9564,7 +9595,7 @@
       "range": 11
     },
     "implicits": [
-      "10% increased Damage taken"
+      "AxeImplicitDamageTaken1"
     ],
     "tags": [
       "axe",
@@ -9594,7 +9625,7 @@
       "range": 12
     },
     "implicits": [
-      "+(8-12) to Maximum Rage"
+      "TalismanImplicitMaximumRage1"
     ],
     "tags": [
       "vaal_basetype",
@@ -9734,7 +9765,7 @@
       "range": 120
     },
     "implicits": [
-      "+50% Surpassing chance to fire an additional Arrow"
+      "BowImplicitAdditionalArrows1"
     ],
     "tags": [
       "bow",
@@ -9766,7 +9797,7 @@
       "reloadTime": 1100
     },
     "implicits": [
-      "Loads an additional bolt"
+      "CrossbowImplicitAdditionalAmmo1"
     ],
     "tags": [
       "crossbow",
@@ -10029,7 +10060,7 @@
     },
     "properties": {},
     "implicits": [
-      "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed"
+      "AmuletImplicitPrefixSuffixAllowed2"
     ],
     "tags": [
       "amulet",
@@ -10050,7 +10081,7 @@
     },
     "properties": {},
     "implicits": [
-      "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed"
+      "RingImplicitPrefixSuffixAllowed2"
     ],
     "tags": [
       "ring",
@@ -10128,7 +10159,7 @@
     },
     "properties": {},
     "implicits": [
-      "(12-20)% increased Rarity of Items found"
+      "AmuletImplicitItemFoundRarityIncrease1"
     ],
     "tags": [
       "amulet",
@@ -10202,7 +10233,7 @@
     },
     "properties": {},
     "implicits": [
-      "(6-15)% increased Rarity of Items found"
+      "RingImplicitItemFoundRarityIncrease1"
     ],
     "tags": [
       "ring",
@@ -10260,7 +10291,7 @@
       "range": 11
     },
     "implicits": [
-      "+(16-24) to all Attributes"
+      "AllAttributesImplicitDemigodOneHandSword1"
     ],
     "tags": [
       "not_for_sale",
@@ -10677,7 +10708,8 @@
       "range": 15
     },
     "implicits": [
-      "25% increased Melee Strike Range with this weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitWeaponRange1"
     ],
     "tags": [
       "spear",
@@ -10973,7 +11005,7 @@
       "range": 120
     },
     "implicits": [
-      "(20-30)% chance to Chain an additional time"
+      "BowImplicitLocalChanceToChain1"
     ],
     "tags": [
       "bow",
@@ -11030,7 +11062,7 @@
       "range": 13
     },
     "implicits": [
-      "+(12-18)% to Block chance"
+      "QuarterstaffImplicitAdditionalBlock1"
     ],
     "tags": [
       "warstaff",
@@ -11060,7 +11092,8 @@
       "range": 15
     },
     "implicits": [
-      "Prevent +(3-7)% of Damage from Deflected Hits"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitDeflectDamagePrevented1"
     ],
     "tags": [
       "karui_basetype",
@@ -11246,7 +11279,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "ezomyte_basetype",
       "spear",
@@ -11418,7 +11453,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Stun Threshold"
+      "BeltImplicitIncreasedStunThreshold1"
     ],
     "tags": [
       "belt",
@@ -11559,7 +11594,7 @@
       "range": 13
     },
     "implicits": [
-      "(20-50)% chance to Daze on Hit"
+      "QuarterstaffImplicitDazeChance1"
     ],
     "tags": [
       "karui_basetype",
@@ -11619,7 +11654,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -11710,7 +11747,7 @@
       }
     },
     "implicits": [
-      "+(60-80) to maximum Life"
+      "BodyArmourImplicitIncreasedLife1"
     ],
     "tags": [
       "str_dex_armour",
@@ -11883,7 +11920,7 @@
       "range": 11
     },
     "implicits": [
-      "Grants 1 Rage on Hit"
+      "AxeImplicitRageOnHit1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -11974,7 +12011,7 @@
       "range": 12
     },
     "implicits": [
-      "+(10-15)% to Block chance"
+      "TalismanImplicitAdditionalBlock1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -12115,7 +12152,8 @@
       "range": 15
     },
     "implicits": [
-      "(15-25)% chance to Maim on Hit"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalChanceToMaim1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -12145,7 +12183,9 @@
       "criticalStrikeChance": 1000,
       "range": 11
     },
-    "implicits": [],
+    "implicits": [
+      "FlailImplicitColdDamage1"
+    ],
     "tags": [
       "flail",
       "one_hand_weapon",
@@ -12245,7 +12285,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Cooldown Recovery Rate for throwing Traps"
+      "TrapImplicitCooldownRecovery1"
     ],
     "tags": [
       "trap",
@@ -12547,7 +12587,7 @@
     },
     "properties": {},
     "implicits": [
-      "Adds 1 to 4 Physical Damage to Attacks"
+      "RingImplicitPhysicalDamage1"
     ],
     "tags": [
       "ring",
@@ -12604,7 +12644,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "ezomyte_basetype",
       "spear",
@@ -12664,7 +12706,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes (30-50)% increased Stun Buildup"
+      "MaceImplicitStunDamageIncrease2"
     ],
     "tags": [
       "mace",
@@ -12778,7 +12820,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(10-15) to Dexterity"
+      "AmuletImplicitDexterity1"
     ],
     "tags": [
       "amulet",
@@ -12805,7 +12847,7 @@
       "range": 11
     },
     "implicits": [
-      "Always Hits"
+      "MaceImplicitAlwaysHit1"
     ],
     "tags": [
       "karui_basetype",
@@ -12892,7 +12934,7 @@
       "range": 13
     },
     "implicits": [
-      "(15-25)% chance to cause Bleeding on Hit"
+      "AxeImplicitLocalChanceToBleed1"
     ],
     "tags": [
       "vaal_basetype",
@@ -12923,7 +12965,8 @@
       "range": 15
     },
     "implicits": [
-      "Bleeding you inflict deals Damage (10-20)% faster"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitFasterBleed1"
     ],
     "tags": [
       "spear",
@@ -13119,7 +13162,7 @@
       "range": 11
     },
     "implicits": [
-      "Has 3 Sockets"
+      "MaceImplicitHasXSockets"
     ],
     "tags": [
       "mace",
@@ -13448,7 +13491,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(10-15) to Intelligence"
+      "AmuletImplicitIntelligence1"
     ],
     "tags": [
       "amulet",
@@ -13583,7 +13626,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(20-30) to maximum Mana"
+      "RingImplicitIncreasedMana1"
     ],
     "tags": [
       "ring",
@@ -13817,7 +13860,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Mana Recovery from Flasks"
+      "BeltImplicitFlaskManaRecovery1"
     ],
     "tags": [
       "belt",
@@ -13948,7 +13991,7 @@
     },
     "properties": {},
     "implicits": [
-      "(15-20)% increased Charm Effect Duration"
+      "BeltImplicitIncreasedCharmDuration1"
     ],
     "tags": [
       "belt",
@@ -13975,7 +14018,7 @@
       "range": 13
     },
     "implicits": [
-      "16% increased Melee Strike Range with this weapon"
+      "QuarterstaffWeaponRange1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -14057,7 +14100,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(20-30) to maximum Energy Shield"
+      "AmuletImplicitEnergyShield1"
     ],
     "tags": [
       "amulet",
@@ -14230,7 +14273,7 @@
     },
     "properties": {},
     "implicits": [
-      "(15-10)% reduced Flask Charges used"
+      "BeltImplicitReducedFlaskChargesUsed1"
     ],
     "tags": [
       "belt",
@@ -14257,7 +14300,7 @@
       "range": 10
     },
     "implicits": [
-      "Breaks (400-500) Armour on Critical Hit"
+      "DaggerImplicitBreakArmour1"
     ],
     "tags": [
       "dagger",
@@ -14286,7 +14329,7 @@
       }
     },
     "implicits": [
-      "(30-20)% reduced Slowing Potency of Debuffs on You"
+      "BodyArmourImplicitSlowPotency1"
     ],
     "tags": [
       "dex_armour",
@@ -14407,7 +14450,7 @@
       "range": 12
     },
     "implicits": [
-      "+(8-12) to Maximum Rage"
+      "TalismanImplicitMaximumRage1"
     ],
     "tags": [
       "vaal_basetype",
@@ -14756,7 +14799,8 @@
       "range": 15
     },
     "implicits": [
-      "25% increased Melee Strike Range with this weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitWeaponRange1"
     ],
     "tags": [
       "spear",
@@ -14946,7 +14990,9 @@
       "criticalStrikeChance": 500,
       "range": 11
     },
-    "implicits": [],
+    "implicits": [
+      "MaceImplicitFireDamage1"
+    ],
     "tags": [
       "mace",
       "one_hand_weapon",
@@ -15058,7 +15104,9 @@
       "criticalStrikeChance": 1500,
       "range": 10
     },
-    "implicits": [],
+    "implicits": [
+      "DaggerImplicitColdDamage1"
+    ],
     "tags": [
       "maraketh_basetype",
       "dagger",
@@ -15395,7 +15443,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes (20-40)% increased Stun Buildup"
+      "MaceImplicitStunDamageIncrease1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -15456,7 +15504,7 @@
       "range": 120
     },
     "implicits": [
-      "50% reduced Projectile Range"
+      "BowImplicitProjectileAttackRange1"
     ],
     "tags": [
       "karui_basetype",
@@ -15753,7 +15801,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -15776,7 +15826,7 @@
     },
     "properties": {},
     "implicits": [
-      "(15-10)% reduced Charm Charges used"
+      "BeltImplicitReducedCharmChargesUsed1"
     ],
     "tags": [
       "belt",
@@ -15970,7 +16020,7 @@
       }
     },
     "implicits": [
-      "Regenerate (1.5-2.5)% of maximum Life per second"
+      "BodyArmourImplicitLifeRegenerationPercent1"
     ],
     "tags": [
       "str_armour",
@@ -16358,7 +16408,7 @@
     },
     "properties": {},
     "implicits": [
-      "(7-10)% increased Cast Speed"
+      "RingImplicitIncreasedCastSpeed1"
     ],
     "tags": [
       "ring",
@@ -16379,7 +16429,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(7-10)% to all Elemental Resistances"
+      "AmuletImplicitAllElementalResistances"
     ],
     "tags": [
       "amulet",
@@ -16494,7 +16544,7 @@
     },
     "properties": {},
     "implicits": [
-      "100% chance to Pierce an Enemy"
+      "QuiverImplicitArrowAdditionalPierce1"
     ],
     "tags": [
       "quiver",
@@ -16515,7 +16565,7 @@
     },
     "properties": {},
     "implicits": [
-      "+2 Prefix Modifiers allowed\n-2 Suffix Modifiers allowed"
+      "AmuletImplicitPrefixSuffixAllowed3"
     ],
     "tags": [
       "amulet",
@@ -16536,7 +16586,7 @@
     },
     "properties": {},
     "implicits": [
-      "+2 Prefix Modifiers allowed\n-2 Suffix Modifiers allowed"
+      "RingImplicitPrefixSuffixAllowed3"
     ],
     "tags": [
       "ring",
@@ -16668,7 +16718,7 @@
       "reloadTime": 850
     },
     "implicits": [
-      "(20-30)% chance to Pierce an Enemy"
+      "CrossbowImplicitChanceToPierce1"
     ],
     "tags": [
       "karui_basetype",
@@ -16775,7 +16825,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(100-140) to Armour"
+      "BeltImplicitPhysicalDamageReductionRating1"
     ],
     "tags": [
       "belt",
@@ -17170,7 +17220,7 @@
       "range": 12
     },
     "implicits": [
-      "+(10-15)% to Block chance"
+      "TalismanImplicitAdditionalBlock1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -17195,7 +17245,7 @@
     },
     "properties": {},
     "implicits": [
-      "(7-10)% increased Attack Speed"
+      "QuiverImplicitIncreasedAttackSpeed1"
     ],
     "tags": [
       "quiver",
@@ -17240,7 +17290,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(7-10)% to all Elemental Resistances"
+      "RingImplicitAllResistances1"
     ],
     "tags": [
       "ring",
@@ -17294,7 +17344,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -17323,7 +17375,7 @@
       "range": 120
     },
     "implicits": [
-      "(20-30)% chance to Chain an additional time"
+      "BowImplicitLocalChanceToChain1"
     ],
     "tags": [
       "bow",
@@ -17466,7 +17518,7 @@
       "range": 12
     },
     "implicits": [
-      "+(8-12) to Maximum Rage"
+      "TalismanImplicitMaximumRage1"
     ],
     "tags": [
       "vaal_basetype",
@@ -17527,7 +17579,7 @@
       }
     },
     "implicits": [
-      "+(7-13)% to Chaos Resistance"
+      "BodyArmourImplicitChaosResistance1"
     ],
     "tags": [
       "dex_int_armour",
@@ -17618,7 +17670,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Life Recovery from Flasks"
+      "BeltImplicitFlaskLifeRecovery1"
     ],
     "tags": [
       "belt",
@@ -17728,7 +17780,7 @@
       "range": 13
     },
     "implicits": [
-      "16% increased Melee Strike Range with this weapon"
+      "QuarterstaffWeaponRange1"
     ],
     "tags": [
       "warstaff",
@@ -18017,7 +18069,7 @@
       }
     },
     "implicits": [
-      "+1% to all Maximum Elemental Resistances"
+      "BodyArmourImplicitMaximumElementalResistance1"
     ],
     "tags": [
       "str_int_armour",
@@ -18427,7 +18479,7 @@
       "range": 12
     },
     "implicits": [
-      "+(8-12) to Maximum Rage"
+      "TalismanImplicitMaximumRage1"
     ],
     "tags": [
       "talisman",
@@ -18623,7 +18675,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(20-30)% to Fire Resistance"
+      "RingImplicitFireResistance1"
     ],
     "tags": [
       "ring",
@@ -18676,7 +18728,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes Enemies to Explode on Critical kill, for 10% of their Life as Physical Damage"
+      "MaceImplicitEnemiesExplodeOnCrit1"
     ],
     "tags": [
       "mace",
@@ -18835,7 +18887,7 @@
     },
     "properties": {},
     "implicits": [
-      "Gain (2-3) Life per Enemy Hit with Attacks"
+      "QuiverImplicitLifeGainPerTarget1"
     ],
     "tags": [
       "quiver",
@@ -18861,7 +18913,7 @@
       }
     },
     "implicits": [
-      "(40-50)% faster start of Energy Shield Recharge"
+      "BodyArmourImplicitEnergyShieldDelay1"
     ],
     "tags": [
       "int_armour",
@@ -18944,7 +18996,7 @@
       "range": 11
     },
     "implicits": [
-      "Gain (28-35) Mana per enemy killed"
+      "AxeImplicitManaGainedFromEnemyDeath1"
     ],
     "tags": [
       "vaal_basetype",
@@ -19013,7 +19065,7 @@
       }
     },
     "implicits": [
-      "+1 to Level of all Corrupted Skill Gems"
+      "BodyArmourImplicitLevelOfAllCorruptedSkillGems1"
     ],
     "tags": [
       "str_dex_int_armour",
@@ -19164,7 +19216,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(20-30)% to Cold Resistance"
+      "RingImplicitColdResistance1"
     ],
     "tags": [
       "ring",
@@ -19191,7 +19243,7 @@
       "range": 13
     },
     "implicits": [
-      "Gain (34-43) Life per enemy killed"
+      "AxeImplicitLifeGainedFromEnemyDeath1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -19400,7 +19452,9 @@
       "criticalStrikeChance": 700,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "karui_basetype",
       "spear",
@@ -19433,7 +19487,7 @@
       }
     },
     "implicits": [
-      "(8-14)% of Damage taken Recouped as Life"
+      "BodyArmourImplicitLifeRecoupForJewel1"
     ],
     "tags": [
       "str_int_armour",
@@ -19747,7 +19801,7 @@
     },
     "properties": {},
     "implicits": [
-      "Attacks have (20-30)% chance to cause Bleeding"
+      "QuiverImplicitChanceToBleed1"
     ],
     "tags": [
       "quiver",
@@ -20113,7 +20167,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Fire Resistance"
+      "BodyArmourImplicitFireResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -20145,7 +20199,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Cold Resistance"
+      "BodyArmourImplicitColdResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -20177,7 +20231,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Lightning Resistance"
+      "BodyArmourImplicitLightningResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -20263,7 +20317,7 @@
       "reloadTime": 750
     },
     "implicits": [
-      "Grenade Skills Fire an additional Projectile"
+      "CrossbowImplicitGrenadeProjectiles1"
     ],
     "tags": [
       "crossbow",
@@ -20603,7 +20657,7 @@
       "range": 13
     },
     "implicits": [
-      "(20-50)% chance to Daze on Hit"
+      "QuarterstaffImplicitDazeChance1"
     ],
     "tags": [
       "karui_basetype",
@@ -20858,7 +20912,9 @@
       "criticalStrikeChance": 500,
       "range": 11
     },
-    "implicits": [],
+    "implicits": [
+      "MaceImplicitFireDamage1"
+    ],
     "tags": [
       "ezomyte_basetype",
       "mace",
@@ -20944,7 +21000,7 @@
       "range": 13
     },
     "implicits": [
-      "Causes (20-40)% increased Stun Buildup"
+      "MaceImplicitStunDamageIncrease1"
     ],
     "tags": [
       "mace",
@@ -21032,7 +21088,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "maraketh_basetype",
       "spear",
@@ -21087,7 +21145,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(10-15) to Spirit"
+      "AmuletImplicitBaseSpirit1"
     ],
     "tags": [
       "amulet",
@@ -21443,7 +21501,8 @@
       "range": 15
     },
     "implicits": [
-      "Bleeding you inflict deals Damage (10-20)% faster"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitFasterBleed1"
     ],
     "tags": [
       "spear",
@@ -21835,7 +21894,8 @@
       "range": 15
     },
     "implicits": [
-      "(15-25)% chance to Maim on Hit"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalChanceToMaim1"
     ],
     "tags": [
       "spear",
@@ -21891,7 +21951,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -22031,7 +22093,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(5-7) to all Attributes"
+      "AmuletImplicitAllAttributes1"
     ],
     "tags": [
       "amulet",
@@ -22189,7 +22251,7 @@
       "range": 11
     },
     "implicits": [
-      "Unblockable"
+      "FlailImplicitIgnoreBlock1"
     ],
     "tags": [
       "vaal_basetype",
@@ -22449,7 +22511,7 @@
       "range": 11
     },
     "implicits": [
-      "+(5-10)% to Critical Damage Bonus"
+      "MaceImplicitCriticalMultiplier1"
     ],
     "tags": [
       "mace",
@@ -22479,7 +22541,7 @@
       "range": 13
     },
     "implicits": [
-      "16% increased Melee Strike Range with this weapon"
+      "QuarterstaffWeaponRange1"
     ],
     "tags": [
       "warstaff",
@@ -22508,7 +22570,10 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLightningDamage1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -22537,7 +22602,7 @@
       "range": 11
     },
     "implicits": [
-      "40% chance to Daze on Hit"
+      "MaceImplicitLocalDazeBuildup1"
     ],
     "tags": [
       "mace",
@@ -22818,7 +22883,8 @@
       "range": 15
     },
     "implicits": [
-      "(25-35)% increased Projectile Speed with this Weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalProjectileSpeed1"
     ],
     "tags": [
       "spear",
@@ -22847,7 +22913,7 @@
       }
     },
     "implicits": [
-      "(30-20)% reduced Slowing Potency of Debuffs on You"
+      "BodyArmourImplicitSlowPotency1"
     ],
     "tags": [
       "dex_armour",
@@ -22875,7 +22941,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "spear",
       "one_hand_weapon",
@@ -23014,7 +23082,7 @@
       "reloadTime": 850
     },
     "implicits": [
-      "(20-30)% increased Bolt Speed"
+      "CrossbowImplicitBoltSpeed1"
     ],
     "tags": [
       "crossbow",
@@ -23045,7 +23113,7 @@
       "range": 13
     },
     "implicits": [
-      "Warcries Empower an additional Attack"
+      "MaceImplicitWarcryExert1"
     ],
     "tags": [
       "karui_basetype",
@@ -23212,7 +23280,7 @@
     },
     "properties": {},
     "implicits": [
-      "-2 Prefix Modifiers allowed\n+2 Suffix Modifiers allowed"
+      "AmuletImplicitPrefixSuffixAllowed4"
     ],
     "tags": [
       "amulet",
@@ -23233,7 +23301,7 @@
     },
     "properties": {},
     "implicits": [
-      "-2 Prefix Modifiers allowed\n+2 Suffix Modifiers allowed"
+      "RingImplicitPrefixSuffixAllowed4"
     ],
     "tags": [
       "ring",
@@ -23261,7 +23329,7 @@
       "reloadTime": 850
     },
     "implicits": [
-      "(20-30)% increased Bolt Speed"
+      "CrossbowImplicitBoltSpeed1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -23296,7 +23364,7 @@
       }
     },
     "implicits": [
-      "Hits against you have (15-25)% reduced Critical Damage Bonus"
+      "BodyArmourImplicitReducedCriticalStrikeDamageTaken1"
     ],
     "tags": [
       "str_dex_armour",
@@ -23357,7 +23425,7 @@
       "range": 12
     },
     "implicits": [
-      "(15-25)% increased Magnitude of Shock you inflict"
+      "TalismanImplicitLightningDamageAndShockMagnitude1"
     ],
     "tags": [
       "karui_basetype",
@@ -23466,7 +23534,7 @@
     },
     "properties": {},
     "implicits": [
-      "+(20-30)% to Lightning Resistance"
+      "RingImplicitLightningResistance1"
     ],
     "tags": [
       "ring",
@@ -23598,7 +23666,7 @@
       "range": 13
     },
     "implicits": [
-      "Warcries Empower an additional Attack"
+      "MaceImplicitWarcryExert1"
     ],
     "tags": [
       "karui_basetype",
@@ -23658,7 +23726,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Fire Resistance"
+      "BodyArmourImplicitFireResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -23690,7 +23758,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Cold Resistance"
+      "BodyArmourImplicitColdResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -23722,7 +23790,7 @@
       }
     },
     "implicits": [
-      "+(20-25)% to Lightning Resistance"
+      "BodyArmourImplicitLightningResistance1"
     ],
     "tags": [
       "str_dex_armour",
@@ -23745,7 +23813,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% chance to Poison on Hit with Attacks"
+      "QuiverImplicitChanceToPoison1"
     ],
     "tags": [
       "quiver",
@@ -24055,7 +24123,7 @@
       "range": 120
     },
     "implicits": [
-      "+50% Surpassing chance to fire an additional Arrow"
+      "BowImplicitAdditionalArrows1"
     ],
     "tags": [
       "bow",
@@ -24087,7 +24155,7 @@
       "reloadTime": 1100
     },
     "implicits": [
-      "Loads an additional bolt"
+      "CrossbowImplicitAdditionalAmmo1"
     ],
     "tags": [
       "crossbow",
@@ -24118,7 +24186,7 @@
       "range": 11
     },
     "implicits": [
-      "Bifurcates Critical Hits"
+      "FlailImplicitRollCritTwice1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -24143,7 +24211,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Accuracy Rating"
+      "QuiverImplicitIncreasedAccuracy1"
     ],
     "tags": [
       "quiver",
@@ -24192,7 +24260,7 @@
     },
     "properties": {},
     "implicits": [
-      "Grants 1 additional Skill Slot"
+      "RingImplicitAdditionalSkillSlots1"
     ],
     "tags": [
       "ring",
@@ -24233,7 +24301,7 @@
     },
     "properties": {},
     "implicits": [
-      "20% of Flask Recovery applied Instantly"
+      "BeltImplicitInstantFlaskRecoveryPercent1"
     ],
     "tags": [
       "belt",
@@ -24289,7 +24357,7 @@
       }
     },
     "implicits": [
-      "(30-40)% increased Stun Threshold"
+      "BodyArmourImplicitIncreasedStunThreshold1"
     ],
     "tags": [
       "str_armour",
@@ -24911,7 +24979,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Critical Hit Chance for Attacks"
+      "QuiverImplicitCriticalStrikeChance1"
     ],
     "tags": [
       "quiver",
@@ -24963,7 +25031,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Arrow Speed"
+      "QuiverImplicitArrowSpeed1"
     ],
     "tags": [
       "quiver",
@@ -25038,7 +25106,7 @@
       "range": 12
     },
     "implicits": [
-      "(15-25)% increased Magnitude of Shock you inflict"
+      "TalismanImplicitLightningDamageAndShockMagnitude1"
     ],
     "tags": [
       "karui_basetype",
@@ -25183,7 +25251,8 @@
       "range": 15
     },
     "implicits": [
-      "(25-35)% increased Projectile Speed with this Weapon"
+      "SpearImplicitDisplaySpearThrow1",
+      "SpearImplicitLocalProjectileSpeed1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -25274,7 +25343,7 @@
       "range": 120
     },
     "implicits": [
-      "(20-30)% chance to Chain an additional time"
+      "BowImplicitLocalChanceToChain1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -25335,7 +25404,7 @@
       }
     },
     "implicits": [
-      "+(15-25)% of Armour also applies to Elemental Damage"
+      "BodyArmourImplicitArmourAppliesToElementalDamage1"
     ],
     "tags": [
       "str_armour",
@@ -25420,7 +25489,7 @@
       "range": 11
     },
     "implicits": [
-      "+(5-10)% to Critical Damage Bonus"
+      "MaceImplicitCriticalMultiplier1"
     ],
     "tags": [
       "maraketh_basetype",
@@ -25709,7 +25778,7 @@
     },
     "properties": {},
     "implicits": [
-      "(20-30)% increased Flask Charges gained"
+      "BeltImplicitIncreasedFlaskChargesGained1"
     ],
     "tags": [
       "belt",
@@ -25792,7 +25861,9 @@
       "criticalStrikeChance": 500,
       "range": 15
     },
-    "implicits": [],
+    "implicits": [
+      "SpearImplicitDisplaySpearThrow1"
+    ],
     "tags": [
       "maraketh_basetype",
       "spear",
@@ -25846,7 +25917,7 @@
       "range": 11
     },
     "implicits": [
-      "Grants 8 Life per Enemy Hit"
+      "ClawImplicitLifeGainPerTargetLocal1"
     ],
     "tags": [
       "ezomyte_basetype",
@@ -26226,7 +26297,7 @@
       }
     },
     "implicits": [
-      "(30-40)% increased Elemental Ailment Threshold"
+      "BodyArmourImplicitIncreasedAilmentThreshold1"
     ],
     "tags": [
       "dex_armour",
@@ -26345,7 +26416,7 @@
       "range": 13
     },
     "implicits": [
-      "Strikes deal Splash Damage"
+      "MaceImplicitSplashDamage1"
     ],
     "tags": [
       "mace",

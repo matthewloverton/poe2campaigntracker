@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import type { BaseItem } from "../../types/itemDatabase";
 import { useCustomizationsStore } from "../../store/customizationsStore";
+import { implicitModById, implicitModText } from "../../data/implicitMods";
 import type { WatchlistEntry } from "../../types";
 import styles from "./ItemGrid.module.css";
 
@@ -133,9 +134,10 @@ export function ItemGrid({ items, selectedItemId, onSelectItem }: ItemGridProps)
             )}
 
             {/* Implicit mods */}
-            {item.implicits.length > 0 && (
-              <div className={styles.implicit}>{item.implicits[0]}</div>
-            )}
+            {item.implicits.length > 0 && (() => {
+              const m = implicitModById.get(item.implicits[0]);
+              return m ? <div className={styles.implicit}>{implicitModText(m)}</div> : null;
+            })()}
 
             {/* Requirements */}
             {reqs && <div className={styles.reqs}>{reqs}</div>}

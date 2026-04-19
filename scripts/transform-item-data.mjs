@@ -161,14 +161,8 @@ function transformBaseItems(raw, rawMods) {
     if (ARMOUR_CLASSES.has(item.item_class) && !props.armour && !props.evasion && !props.energy_shield) continue;
     const reqs = item.requirements || {};
 
-    // Resolve implicit mod IDs to display text
-    const implicits = (item.implicits ?? [])
-      .map((modId) => {
-        const mod = rawMods[modId];
-        if (mod?.text) return cleanModText(mod.text);
-        return null;
-      })
-      .filter(Boolean);
+    // Preserve implicit mod IDs so the DPS engine can apply them structurally.
+    const implicits = item.implicits ?? [];
 
     results.push({
       id: key,
@@ -199,6 +193,39 @@ function transformBaseItems(raw, rawMods) {
   }
 
   results.sort((a, b) => a.name.localeCompare(b.name));
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// Transform: Implicit Mods
+// ---------------------------------------------------------------------------
+
+/**
+ * Build a lean JSON array of only the mods referenced as implicits on base items.
+ * These have generation_type "unique" and are excluded from item_mods.json,
+ * so we need them in a separate file for the DPS engine.
+ */
+function transformImplicitMods(rawBaseItems, rawMods) {
+  const implicitIds = new Set();
+  for (const item of Object.values(rawBaseItems)) {
+    for (const id of (item.implicits ?? [])) {
+      implicitIds.add(id);
+    }
+  }
+
+  const results = [];
+  for (const id of implicitIds) {
+    const mod = rawMods[id];
+    if (!mod) continue;
+    results.push({
+      id,
+      name: mod.name || "",
+      text: mod.text || "",
+      stats: (mod.stats || []).map((s) => ({ id: s.id, min: s.min, max: s.max })),
+    });
+  }
+
+  results.sort((a, b) => a.id.localeCompare(b.id));
   return results;
 }
 
@@ -856,17 +883,19 @@ async function main() {
   const baseWeights = await loadBaseWeights();
   const baseItems = transformBaseItems(rawBaseItems, rawMods);
   const mods = transformMods(rawMods, baseWeights);
+  const implicitMods = transformImplicitMods(rawBaseItems, rawMods);
   const uniques = transformUniques(rawUniques, uniqueModsMap);
   const gems = transformGems(rawGems, rawSkills);
   const augEffects = parseAugmentEffects(poe2dbAugHtml);
   console.log(`   Augment effects scraped: ${augEffects.size} items`);
   const augments = transformAugments(rawAugments, augEffects);
 
-  console.log(`   Base items: ${baseItems.length}`);
-  console.log(`   Mods:       ${mods.length}`);
-  console.log(`   Uniques:    ${uniques.length}`);
-  console.log(`   Gems:       ${gems.length}`);
-  console.log(`   Augments:   ${augments.length}`);
+  console.log(`   Base items:     ${baseItems.length}`);
+  console.log(`   Mods:           ${mods.length}`);
+  console.log(`   Implicit mods:  ${implicitMods.length}`);
+  console.log(`   Uniques:        ${uniques.length}`);
+  console.log(`   Gems:           ${gems.length}`);
+  console.log(`   Augments:       ${augments.length}`);
   console.log();
 
   // 3. Write JSON files
@@ -874,6 +903,7 @@ async function main() {
   await Promise.all([
     writeFile(join(RAW_DIR, "base_items.json"), JSON.stringify(baseItems, null, 2)),
     writeFile(join(RAW_DIR, "item_mods.json"), JSON.stringify(mods, null, 2)),
+    writeFile(join(RAW_DIR, "implicit_mods.json"), JSON.stringify(implicitMods, null, 2)),
     writeFile(join(RAW_DIR, "uniques.json"), JSON.stringify(uniques, null, 2)),
     writeFile(join(RAW_DIR, "skill_gems.json"), JSON.stringify(gems, null, 2)),
     writeFile(join(RAW_DIR, "augments.json"), JSON.stringify(augments, null, 2)),

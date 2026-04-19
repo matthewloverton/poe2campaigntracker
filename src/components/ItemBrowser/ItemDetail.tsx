@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import type { BaseItem, ItemMod } from "../../types/itemDatabase";
 import { ITEM_CLASS_DISPLAY_NAMES } from "../../types/itemDatabase";
 import { cleanModText, modById } from "../../data/mods";
+import { implicitModById, implicitModText } from "../../data/implicitMods";
 import { augmentById } from "../../data/augments";
 import {
   type Augment,
@@ -427,9 +428,12 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
 
               {item.implicits.length > 0 && (
                 <div className={styles.implicits}>
-                  {item.implicits.map((imp, i) => (
-                    <div key={i} className={styles.implicit}>{imp}</div>
-                  ))}
+                  {item.implicits.map((id, i) => {
+                    const m = implicitModById.get(id);
+                    return m ? (
+                      <div key={i} className={styles.implicit}>{implicitModText(m)}</div>
+                    ) : null;
+                  })}
                 </div>
               )}
             </div>
