@@ -38,10 +38,10 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *
  *   rate = 1000 / 625 = 1.6 attacks/s
  *
- *   crit: chance=500/10000=0.05, multi=1.5
- *     expectedMulti = 1 + 0.05*(1.5-1) = 1.025
+ *   crit: chance=500/10000=0.05, multi=2.0
+ *     expectedMulti = 1 + 0.05*(2.0-1) = 1.05
  *
- *   DPS = 18.525 × 1.6 × 1.025 = 30.381
+ *   DPS = 18.525 × 1.6 × 1.05 = 31.122
  */
 export const bareCrossbowGalvanic: BuildPhase = {
   id: "fixture-bare-crossbow-galvanic",

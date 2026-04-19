@@ -52,10 +52,10 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *   skillAttackSpeedMultiplier = -25 (percent adjustment → 1 + (-25)/100 = 0.75)
  *   rate = (1000/625) × 0.75 = 1.6 × 0.75 = 1.20 attacks/s
  *
- *   crit: chance=500/10000=0.05, multi=1.5
- *     expectedMulti = 1 + 0.05×(1.5−1) = 1.025
+ *   crit: chance=500/10000=0.05, multi=2.0
+ *     expectedMulti = 1 + 0.05×(2.0−1) = 1.05
  *
- *   DPS = 32.30 × 1.20 × 1.025 ≈ 39.729
+ *   DPS = 32.30 × 1.20 × 1.05 ≈ 40.698
  */
 export const bareCrossbowGasGrenade: BuildPhase = {
   id: "fixture-bare-crossbow-gas-grenade",

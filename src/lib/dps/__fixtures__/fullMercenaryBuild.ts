@@ -61,9 +61,9 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *     incSpeed = 15 + 10 = 25%  →  (1 + 25/100) = 1.25
  *     rate = (1000/625) × 0.75 × 1.25 = 1.6 × 0.75 × 1.25 = 1.50 attacks/s
  *
- *   crit: chance=0.05, multi=1.5, expectedMulti=1.025
+ *   crit: chance=0.05, multi=2.0, expectedMulti=1.05
  *
- *   DPS = 198.90 × 1.50 × 1.025 ≈ 305.809
+ *   DPS = 198.90 × 1.50 × 1.05 ≈ 313.2675
  */
 export const fullMercenaryBuild: BuildPhase = {
   id: "fixture-full-mercenary-build",

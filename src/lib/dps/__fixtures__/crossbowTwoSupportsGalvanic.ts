@@ -37,9 +37,9 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *     incAttackSpeed = 15 + 25 = 40%
  *     rate = (1000/625) × (1 + 40/100) = 1.6 × 1.4 = 2.24 attacks/s
  *
- *   crit: chance=0.05, multi=1.5, expectedMulti=1.025
+ *   crit: chance=0.05, multi=2.0, expectedMulti=1.05
  *
- *   DPS = 18.525 × 2.24 × 1.025 ≈ 42.533
+ *   DPS = 18.525 × 2.24 × 1.05 ≈ 43.5708
  */
 export const crossbowTwoSupportsGalvanic: BuildPhase = {
   id: "fixture-crossbow-two-supports-galvanic",

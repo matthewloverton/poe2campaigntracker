@@ -24,8 +24,8 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *       ×1 → 12.75–21.75
  *   Total perHit: min=20.40+12.75=33.15, max=34.80+21.75=56.55
  *   avgPerHit = (33.15+56.55)/2 = 44.85
- *   rate = 1.6, critExpected = 1.025
- *   DPS = 44.85 × 1.6 × 1.025 ≈ 73.554
+ *   rate = 1.6, critExpected = 1.05
+ *   DPS = 44.85 × 1.6 × 1.05 ≈ 75.348
  */
 export const crossbowFlatPhysRingGalvanic: BuildPhase = {
   id: "fixture-crossbow-flat-phys-ring-galvanic",

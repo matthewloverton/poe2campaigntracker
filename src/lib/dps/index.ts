@@ -148,7 +148,7 @@ function calcSkillGroupDps(
   const baseCritChance = (weaponProps?.criticalStrikeChance ?? 500) / 10000;
   const crit = calcCrit({
     baseCritChance,
-    baseCritMulti: 1.5,
+    baseCritMulti: 2.0,
     statMap: aggregateStatMap,
     tags: skillTags,
   });
