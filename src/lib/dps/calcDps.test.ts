@@ -6,6 +6,7 @@ import { crossbowFlatPhysRingGalvanic } from "./__fixtures__/crossbowFlatPhysRin
 import { crossbowTwoSupportsGalvanic } from "./__fixtures__/crossbowTwoSupportsGalvanic";
 import { fullMercenaryBuild } from "./__fixtures__/fullMercenaryBuild";
 import { crossbowLocalIncPhysGalvanic } from "./__fixtures__/crossbowLocalIncPhysGalvanic";
+import { crossbowLocalLightningGalvanic } from "./__fixtures__/crossbowLocalLightningGalvanic";
 
 describe("calcDps — end-to-end", () => {
   it("computes Galvanic Shards DPS for bare crossbow", () => {
@@ -155,6 +156,25 @@ it("honours explicit skillLevel override", () => {
   expect(r.level).toBe(5);
   // DPS at L5 ≠ DPS at L1 — sanity check it actually scaled up
   expect(r.dps).toBeGreaterThan(7); // bare L1 is 6.26; L5 should be higher
+});
+
+it("applies local added lightning damage to weapon (crossbow + Galvanic Shards L1)", () => {
+  // Makeshift Crossbow (7–12 phys) + LocalAddedLightningDamageTwoHand2 @100% roll
+  // lightningMin=2, lightningMax=27 contributed via resolveWeaponProperties → calcBaseDamage
+  // Expected perHit: min=8, max=35, avg=21.5
+  // Cycle rate: 0.7018/s, crit expectedMulti=1.05
+  // DPS = 21.5 × 0.7018 × 1.05 ≈ 15.84
+  // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
+  const snap = snapshotFromPhase(crossbowLocalLightningGalvanic, "", "actual");
+  const results = calcDps(snap);
+  expect(results.length).toBe(1);
+  const r = results[0];
+  const EXPECTED = 15.84;
+  expect(r.dps).toBeCloseTo(EXPECTED, 0);
+  // Local lightning boosted DPS well above bare crossbow baseline (~6.26).
+  expect(r.dps).toBeGreaterThan(6.5);
+  // Lightning portion of damageByType must be non-zero and greater than bare crossbow.
+  expect(r.damageByType.lightning.max).toBeGreaterThan(2);
 });
 
 it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {

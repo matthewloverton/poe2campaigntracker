@@ -487,6 +487,46 @@ describe("calcBaseDamage — attack-prefixed flat added damage", () => {
   });
 });
 
+describe("calcBaseDamage — weapon elemental damage types", () => {
+  it("reads weapon lightning damage for attacks", () => {
+    const statMap = emptyStatMap();
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 100,
+      weapon: {
+        physicalDamageMin: 0, physicalDamageMax: 0,
+        lightningDamageMin: 1, lightningDamageMax: 9,
+      },
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.lightning.min).toBe(1);
+    expect(base.lightning.max).toBe(9);
+  });
+
+  it("reads all five weapon damage types", () => {
+    const statMap = emptyStatMap();
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 100,
+      weapon: {
+        physicalDamageMin: 7, physicalDamageMax: 12,
+        fireDamageMin: 5, fireDamageMax: 10,
+        coldDamageMin: 3, coldDamageMax: 6,
+        lightningDamageMin: 1, lightningDamageMax: 9,
+        chaosDamageMin: 2, chaosDamageMax: 4,
+      },
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.physical.min).toBe(7);
+    expect(base.fire.min).toBe(5);
+    expect(base.cold.min).toBe(3);
+    expect(base.lightning.min).toBe(1);
+    expect(base.chaos.min).toBe(2);
+  });
+});
+
 describe("calcCrit", () => {
   it("expectedMulti = 1 + chance * (multi - 1)", () => {
     const statMap = emptyStatMap();

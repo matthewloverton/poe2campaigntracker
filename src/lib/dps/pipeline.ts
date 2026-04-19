@@ -28,7 +28,18 @@ export interface CalcBaseInput {
   isAttack: boolean;
   /** Percent, e.g. 100 or 150. Applied only to attacks. */
   damageEffectiveness: number;
-  weapon: { physicalDamageMin?: number; physicalDamageMax?: number } | null;
+  weapon: {
+    physicalDamageMin?: number;
+    physicalDamageMax?: number;
+    fireDamageMin?: number;
+    fireDamageMax?: number;
+    coldDamageMin?: number;
+    coldDamageMax?: number;
+    lightningDamageMin?: number;
+    lightningDamageMax?: number;
+    chaosDamageMin?: number;
+    chaosDamageMax?: number;
+  } | null;
   skillFlat: DamageByType;
   statMap: StatMap;
 }
@@ -38,9 +49,32 @@ export function calcBaseDamage(input: CalcBaseInput): DamageByType {
   const eff = input.damageEffectiveness / 100;
   const effMult = input.isAttack ? eff : 1;
 
+  const weaponDamage: Record<DamageType, { min: number; max: number }> = {
+    physical: {
+      min: input.weapon?.physicalDamageMin ?? 0,
+      max: input.weapon?.physicalDamageMax ?? 0,
+    },
+    fire: {
+      min: input.weapon?.fireDamageMin ?? 0,
+      max: input.weapon?.fireDamageMax ?? 0,
+    },
+    cold: {
+      min: input.weapon?.coldDamageMin ?? 0,
+      max: input.weapon?.coldDamageMax ?? 0,
+    },
+    lightning: {
+      min: input.weapon?.lightningDamageMin ?? 0,
+      max: input.weapon?.lightningDamageMax ?? 0,
+    },
+    chaos: {
+      min: input.weapon?.chaosDamageMin ?? 0,
+      max: input.weapon?.chaosDamageMax ?? 0,
+    },
+  };
+
   for (const t of DAMAGE_TYPES) {
-    const weaponMin = t === "physical" ? (input.weapon?.physicalDamageMin ?? 0) : 0;
-    const weaponMax = t === "physical" ? (input.weapon?.physicalDamageMax ?? 0) : 0;
+    const weaponMin = weaponDamage[t].min;
+    const weaponMax = weaponDamage[t].max;
 
     // Flat added damage common to all skills (mostly on weapons themselves).
     const baseMin = sumFlat(input.statMap, `base_${t}_damage_min`);
