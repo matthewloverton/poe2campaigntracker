@@ -460,7 +460,8 @@
       "physicalDamageMax": 50,
       "attackTime": 588,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -2260,7 +2261,8 @@
       "physicalDamageMax": 80,
       "attackTime": 625,
       "criticalStrikeChance": 700,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -2579,7 +2581,8 @@
       "physicalDamageMax": 109,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -2823,7 +2826,8 @@
       "physicalDamageMax": 56,
       "attackTime": 606,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -3612,7 +3616,8 @@
       "physicalDamageMax": 90,
       "attackTime": 606,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -4757,7 +4762,8 @@
       "physicalDamageMax": 72,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -5797,7 +5803,8 @@
       "physicalDamageMax": 76,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "+1 to maximum number of Summoned Ballista Totems"
@@ -6135,7 +6142,8 @@
       "physicalDamageMax": 99,
       "attackTime": 645,
       "criticalStrikeChance": 700,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -6391,7 +6399,8 @@
       "physicalDamageMax": 132,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -7052,7 +7061,8 @@
       "physicalDamageMax": 37,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Loads an additional bolt"
@@ -7198,7 +7208,8 @@
       "physicalDamageMax": 123,
       "attackTime": 606,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "(20-30)% chance to Pierce an Enemy"
@@ -7831,7 +7842,8 @@
       "physicalDamageMax": 124,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -7974,7 +7986,8 @@
       "physicalDamageMax": 113,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -8967,7 +8980,8 @@
       "physicalDamageMax": 127,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -9748,7 +9762,8 @@
       "physicalDamageMax": 112,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Loads an additional bolt"
@@ -14420,7 +14435,8 @@
       "physicalDamageMax": 12,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -16070,7 +16086,8 @@
       "physicalDamageMax": 92,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -16647,7 +16664,8 @@
       "physicalDamageMax": 84,
       "attackTime": 606,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "(20-30)% chance to Pierce an Enemy"
@@ -18436,7 +18454,8 @@
       "physicalDamageMax": 89,
       "attackTime": 645,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -20240,7 +20259,8 @@
       "physicalDamageMax": 115,
       "attackTime": 606,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -22312,7 +22332,8 @@
       "physicalDamageMax": 119,
       "attackTime": 645,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -22683,7 +22704,8 @@
       "physicalDamageMax": 26,
       "attackTime": 645,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [
@@ -22988,7 +23010,8 @@
       "physicalDamageMax": 79,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -23234,7 +23257,8 @@
       "physicalDamageMax": 15,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -24059,7 +24083,8 @@
       "physicalDamageMax": 82,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [
       "Loads an additional bolt"
@@ -24543,7 +24568,8 @@
       "physicalDamageMax": 36,
       "attackTime": 625,
       "criticalStrikeChance": 500,
-      "range": 120
+      "range": 120,
+      "reloadTime": 800
     },
     "implicits": [],
     "tags": [

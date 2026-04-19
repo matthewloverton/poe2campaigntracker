@@ -19,10 +19,12 @@ describe("calcDps — end-to-end", () => {
     //   Projectile set: (1.05–1.80) × 1 = 1.05–1.80
     //   Beam set:       (5.25–9.00) × 1 = 5.25–9.00
     //   Total perHit: min=6.30, max=10.80, avg=8.55
-    //   DPS = 8.55 × 1.6 × 1.05 ≈ 14.364
+    //   Firing rate: 1000/625ms = 1.6/s
+    //   Cycle rate (1 bolt, 800ms reload): 1 / (1/1.6 + 0.8) = 1/1.425 = 0.7018/s
+    //   DPS = 8.55 × 0.7018 × 1.05 ≈ 6.30  (matches PoB: 6.3)
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     // See fixture file for base hand-calc without projectile scaling.
-    const EXPECTED = 14.364;
+    const EXPECTED = 6.30;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
@@ -34,8 +36,9 @@ describe("calcDps — end-to-end", () => {
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     expect(gs.perHit.min).toBeCloseTo(6.30, 1);
     expect(gs.perHit.max).toBeCloseTo(10.80, 1);
-    // rate = 1000 / 625ms = 1.6/s
-    expect(gs.rate).toBeCloseTo(1.6, 4);
+    // cycle rate: 1 bolt, 625ms attack (1.6/s firing), 800ms reload
+    // = 1 / (1/1.6 + 0.8) = 1/1.425 ≈ 0.7018/s  (matches PoB MH Att. per second: 0.70)
+    expect(gs.rate).toBeCloseTo(0.7018, 3);
     // crit: 5% chance, 2.0x multi
     expect(gs.crit.chance).toBeCloseTo(0.05, 4);
     expect(gs.crit.multi).toBeCloseTo(2.0, 4);
@@ -73,31 +76,33 @@ describe("calcDps — end-to-end", () => {
     // Beam set (dmgMult=75, ×1, 100% phys→lightning):
     //   physBase: 17×0.75=12.75 to 29×0.75=21.75 => lightning=12.75–21.75
     // Total perHit: min=15.30, max=26.10, avg=20.70
-    // DPS = 20.70 × 1.6 × 1.05 ≈ 34.776
+    // Cycle rate (1 bolt, 800ms reload): 1 / (1/1.6 + 0.8) = 0.7018/s
+    // DPS = 20.70 × 0.7018 × 1.05 ≈ 15.25
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     const snap = snapshotFromPhase(crossbowFlatPhysRingGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 34.776;
+    const EXPECTED = 15.25;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
   it("computes Galvanic Shards DPS with two attack-speed supports stacked", () => {
     // Per-projectile DPS (PoB default — one projectile hits the target):
     // Rapid Attacks I (attack_speed_+%=15) + Rapid Attacks II (attack_speed_+%=25)
-    // Stacked incAttackSpeed = 40% → rate = 1.6 × 1.40 = 2.24
+    // Stacked incAttackSpeed = 40% → firing rate = 1.6 × 1.40 = 2.24/s
+    // Cycle rate (1 bolt, 800ms reload): 1 / (1/2.24 + 0.8) = 1/1.2464 ≈ 0.8023/s
     // Damage unchanged from bare crossbow (supports only add speed, not damage)
     // perHit: min=6.30, max=10.80, avg=8.55
-    // DPS = 8.55 × 2.24 × 1.05 ≈ 20.1096
+    // DPS = 8.55 × 0.8023 × 1.05 ≈ 7.20
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     const snap = snapshotFromPhase(crossbowTwoSupportsGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 20.1096;
+    const EXPECTED = 7.20;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
@@ -127,14 +132,15 @@ it("applies local_physical_damage_+% to weapon base before skill formula (crossb
   // Projectile set (dmgMult=15, ×1): 1.5645–2.682
   // Beam set (dmgMult=75, ×1): 7.8225–13.41
   // perHit: min=9.387, max=16.092, avg=12.7395
-  // DPS = 12.7395 × 1.6 × 1.05 ≈ 21.402
+  // Cycle rate (1 bolt, 800ms reload, 625ms attack): 0.7018/s
+  // DPS = 12.7395 × 0.7018 × 1.05 ≈ 9.39
   // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
   const snap = snapshotFromPhase(crossbowLocalIncPhysGalvanic, "", "actual");
   const results = calcDps(snap);
   expect(results.length).toBe(1);
   const r = results[0];
-  const EXPECTED = 21.402;
+  const EXPECTED = 9.39;
   expect(r.dps).toBeCloseTo(EXPECTED, 0);
-  // Confirm local mod increased the DPS beyond bare crossbow (14.364).
-  expect(r.dps).toBeGreaterThan(14);
+  // Confirm local mod increased the DPS beyond bare crossbow (6.30).
+  expect(r.dps).toBeGreaterThan(6);
 });

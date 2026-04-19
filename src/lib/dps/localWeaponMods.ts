@@ -32,6 +32,8 @@ export interface ResolvedWeaponProperties {
   attackTime?: number;
   criticalStrikeChance?: number;
   range?: number;
+  /** Crossbow reload time in ms. Not scaled by attack speed — reload speed is a separate stat in PoE2. */
+  reloadTime?: number;
 }
 
 /**
@@ -57,6 +59,7 @@ export function resolveWeaponProperties(
     attackTime: p.attackTime,
     criticalStrikeChance: p.criticalStrikeChance,
     range: p.range,
+    reloadTime: p.reloadTime,
   };
 
   // Gather the local-stat contributions from this weapon's mods.

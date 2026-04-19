@@ -187,6 +187,7 @@ function transformBaseItems(raw, rawMods) {
         ...(props.attack_time != null && { attackTime: props.attack_time }),
         ...(props.critical_strike_chance != null && { criticalStrikeChance: props.critical_strike_chance }),
         ...(props.range != null && { range: props.range }),
+        ...(props.reload_time != null && { reloadTime: props.reload_time }),
         ...(props.armour && { armour: { min: props.armour.min, max: props.armour.max } }),
         ...(props.evasion && { evasion: { min: props.evasion.min, max: props.evasion.max } }),
         ...(props.energy_shield && { energyShield: { min: props.energy_shield.min, max: props.energy_shield.max } }),
@@ -677,6 +678,46 @@ function transformGems(raw, rawSkills) {
       const activeSkillTypes = activeSkill.types || [];
       const weaponRestrictions = activeSkill.weapon_restrictions || [];
 
+      // Extract ammo capacity from the Ammunition stat set (crossbow skills).
+      // base_number_of_crossbow_bolts at level 1 gives the magazine size.
+      let ammoCapacity = undefined;
+      for (const skill of grantedSkills) {
+        for (const ss of (skill.stat_sets || [])) {
+          const label = Array.isArray(ss.label) ? ss.label[1] : null;
+          const skillName = rawSkills[ss.id]?.active_skill?.display_name;
+          const ssName = label || skillName || "";
+          if (ssName === "Ammunition") {
+            const staticStats = ss.static?.stats || [];
+            const perLevelData = Object.values(skill.per_level || {});
+            // Try static value first
+            const boltStat = staticStats.find((s) => s?.id === "base_number_of_crossbow_bolts");
+            if (boltStat != null && typeof boltStat.value === "number") {
+              ammoCapacity = boltStat.value;
+              break;
+            }
+            // Fall back to level 1 per-level override
+            const lvl1 = skill.per_level?.["1"];
+            const ssIdx = (skill.stat_sets || []).indexOf(ss);
+            const lvl1ssData = lvl1 && ss.per_level?.["1"];
+            if (lvl1ssData) {
+              const sparseStats = lvl1ssData.stats || [];
+              for (let n = 0; n < staticStats.length; n++) {
+                const staticEntry = staticStats[n];
+                if (!staticEntry?.id || staticEntry.id !== "base_number_of_crossbow_bolts") continue;
+                const override = sparseStats[n];
+                if (override != null && typeof override.value === "number") {
+                  ammoCapacity = override.value;
+                } else if (typeof staticEntry.value === "number") {
+                  ammoCapacity = staticEntry.value;
+                }
+              }
+            }
+            if (ammoCapacity != null) break;
+          }
+        }
+        if (ammoCapacity != null) break;
+      }
+
       skillDetail = {
         description: activeSkill.description ? cleanModText(activeSkill.description) : undefined,
         castTime: primary.cast_time,
@@ -688,6 +729,7 @@ function transformGems(raw, rawSkills) {
         staticStatText: primarySets[0]?.staticStatText ?? [],
         qualityStats: allStatSets.find((ss) => ss.qualityStats.length > 0)?.qualityStats ?? [],
         statSets: allStatSets,
+        ...(ammoCapacity != null && { ammoCapacity }),
         ...(activeSkillTypes.length > 0 && { activeSkillTypes }),
         ...(weaponRestrictions.length > 0 && { weaponRestrictions }),
       };

@@ -279,6 +279,105 @@ describe("calcRate", () => {
   });
 });
 
+describe("calcRate — cycle formula when ammoCapacity + reload present", () => {
+  it("computes cycle rate for 1-bolt magazine", () => {
+    const statMap = emptyStatMap();
+    const rate = calcRate({
+      isAttack: true,
+      weaponAttackTime: 625,        // 1.6/s firing
+      skillAttackTime: undefined,
+      castTime: undefined,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["attack"],
+      ammoCapacity: 1,
+      weaponReloadTime: 800,
+    });
+    // magazine 1 / (1/1.6 + 0.8) = 1/1.425 = 0.702/s
+    expect(rate).toBeCloseTo(0.702, 2);
+  });
+
+  it("falls back to firing rate when ammoCapacity is undefined", () => {
+    const statMap = emptyStatMap();
+    const withoutAmmo = calcRate({
+      isAttack: true,
+      weaponAttackTime: 625,
+      skillAttackTime: undefined,
+      castTime: undefined,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["attack"],
+      weaponReloadTime: 800,
+    });
+    expect(withoutAmmo).toBeCloseTo(1.6, 2);
+  });
+
+  it("falls back to firing rate when ammoCapacity is 0", () => {
+    const statMap = emptyStatMap();
+    const zeroAmmo = calcRate({
+      isAttack: true,
+      weaponAttackTime: 625,
+      skillAttackTime: undefined,
+      castTime: undefined,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["attack"],
+      ammoCapacity: 0,
+      weaponReloadTime: 800,
+    });
+    expect(zeroAmmo).toBeCloseTo(1.6, 2);
+  });
+
+  it("falls back to firing rate when reload time is missing", () => {
+    const statMap = emptyStatMap();
+    const noReload = calcRate({
+      isAttack: true,
+      weaponAttackTime: 625,
+      skillAttackTime: undefined,
+      castTime: undefined,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["attack"],
+      ammoCapacity: 1,
+    });
+    expect(noReload).toBeCloseTo(1.6, 2);
+  });
+
+  it("cycle formula with larger magazine", () => {
+    const statMap = emptyStatMap();
+    // 6-bolt magazine, 0.5/s firing, 1s reload
+    const rate = calcRate({
+      isAttack: true,
+      weaponAttackTime: 2000,        // 0.5/s
+      skillAttackTime: undefined,
+      castTime: undefined,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["attack"],
+      ammoCapacity: 6,
+      weaponReloadTime: 1000,
+    });
+    // 6 / (6/0.5 + 1) = 6/13 = 0.462/s
+    expect(rate).toBeCloseTo(0.462, 2);
+  });
+
+  it("spells ignore cycle formula even when ammo params are provided", () => {
+    const statMap = emptyStatMap();
+    const rate = calcRate({
+      isAttack: false,
+      weaponAttackTime: undefined,
+      skillAttackTime: undefined,
+      castTime: 1000,
+      skillAttackSpeedMultiplier: 0,
+      statMap,
+      skillTags: ["spell"],
+      ammoCapacity: 1,
+      weaponReloadTime: 800,
+    });
+    expect(rate).toBeCloseTo(1, 2);
+  });
+});
+
 describe("projectileCount", () => {
   it("returns 1 for non-projectile skills", () => {
     const statMap = emptyStatMap();

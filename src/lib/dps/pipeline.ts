@@ -137,6 +137,11 @@ export interface CalcRateInput {
   skillAttackSpeedMultiplier: number;
   statMap: StatMap;
   skillTags: string[];
+  /** Magazine size for ammo-consuming attacks. When provided with weaponReloadTime, applies
+   *  the PoB cycle formula: effective_rate = magazine / (magazine / firingRate + reloadTimeSec). */
+  ammoCapacity?: number;
+  /** Weapon reload time in ms (e.g. 800 for crossbows). */
+  weaponReloadTime?: number;
 }
 
 export function calcRate(input: CalcRateInput): number {
@@ -152,7 +157,25 @@ export function calcRate(input: CalcRateInput): number {
   const moreSpeed = input.isAttack
     ? productMore(input.statMap, "attack_speed_+%_final", input.skillTags)
     : productMore(input.statMap, "cast_speed_+%_final", input.skillTags);
-  return baseRate * skillRateMult * (1 + incSpeed / 100) * moreSpeed;
+  const firingRate = baseRate * skillRateMult * (1 + incSpeed / 100) * moreSpeed;
+
+  // If this is an ammo-consuming attack with a defined reload time, compute cycle rate.
+  // Formula: magazine / (magazine / firingRate + reloadTimeSec)
+  // Matches PoB: e.g. 1 bolt, 625ms attack, 800ms reload → 1 / (1/1.6 + 0.8) = 0.702/s
+  if (
+    input.isAttack &&
+    input.ammoCapacity !== undefined &&
+    input.ammoCapacity > 0 &&
+    input.weaponReloadTime !== undefined &&
+    input.weaponReloadTime > 0
+  ) {
+    const magazine = input.ammoCapacity;
+    const firingTimeSec = magazine / firingRate;
+    const reloadTimeSec = input.weaponReloadTime / 1000;
+    return magazine / (firingTimeSec + reloadTimeSec);
+  }
+
+  return firingRate;
 }
 
 export interface CalcCritInput {

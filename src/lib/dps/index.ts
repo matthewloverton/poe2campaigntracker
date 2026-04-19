@@ -138,6 +138,8 @@ function calcSkillGroupDps(
     skillAttackSpeedMultiplier: detail.attackSpeedMultiplier ?? 0,
     statMap: aggregateStatMap,
     skillTags,
+    ammoCapacity: detail.ammoCapacity,
+    weaponReloadTime: weaponProps?.reloadTime,
   });
 
   // criticalStrikeChance in base_items.json is stored as hundredths of a percent

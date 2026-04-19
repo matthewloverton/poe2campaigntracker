@@ -15,6 +15,8 @@ export interface BaseItem {
     attackTime?: number;
     criticalStrikeChance?: number;
     range?: number;
+    /** Crossbow reload time in milliseconds (e.g. 800 for standard crossbows). */
+    reloadTime?: number;
     armour?: { min: number; max: number };
     evasion?: { min: number; max: number };
     energyShield?: { min: number; max: number };
@@ -78,6 +80,10 @@ export interface SkillDetail {
   cooldown?: number;        // ms
   storedUses?: number;
   attackSpeedMultiplier?: number;  // e.g. -25 means 75% of base
+  /** Magazine size for ammo-consuming attacks (e.g. crossbow skills). When combined with
+   *  a weapon's reloadTime, the DPS engine applies the PoB cycle formula:
+   *  effective_rate = magazine / (magazine / firingRate + reloadTimeSec) */
+  ammoCapacity?: number;
   maxLevel: number;
   levels: Record<string, SkillLevelData>;       // from first stat set (default)
   staticStatText: string[];                      // from first stat set
