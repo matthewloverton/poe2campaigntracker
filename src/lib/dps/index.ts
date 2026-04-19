@@ -1,6 +1,7 @@
 import type { DpsSnapshot, SkillDps } from "./types";
 
 export * from "./types";
+export { snapshotFromPhase, swapWeapon } from "./snapshot";
 
 /**
  * Compute DPS for every active skill in the snapshot.
