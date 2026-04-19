@@ -5,6 +5,7 @@ import {
   applyMultipliers,
   calcRate,
   calcCrit,
+  projectileCount,
   zeroDamageByType,
   sumPerHit,
   avg,
@@ -274,6 +275,38 @@ describe("calcRate", () => {
       skillTags: [],
     });
     expect(rate).toBeCloseTo(1, 3);
+  });
+});
+
+describe("projectileCount", () => {
+  it("returns 1 for non-projectile skills", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "base_number_of_projectiles", gearFlat("a", 8));
+    expect(projectileCount(["attack"], statMap)).toBe(1);
+  });
+
+  it("returns base count for projectile skills", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "base_number_of_projectiles", gearFlat("a", 8));
+    expect(projectileCount(["attack", "projectile"], statMap)).toBe(8);
+  });
+
+  it("adds additional projectiles to base", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "base_number_of_projectiles", gearFlat("a", 3));
+    addContribution(statMap, "number_of_additional_projectiles", gearFlat("b", 2));
+    expect(projectileCount(["projectile"], statMap)).toBe(5);
+  });
+
+  it("defaults base to 1 when not set, still adds additional", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "number_of_additional_projectiles", gearFlat("a", 2));
+    expect(projectileCount(["projectile"], statMap)).toBe(3);
+  });
+
+  it("never returns less than 1", () => {
+    const statMap = emptyStatMap();
+    expect(projectileCount(["projectile"], statMap)).toBe(1);
   });
 });
 

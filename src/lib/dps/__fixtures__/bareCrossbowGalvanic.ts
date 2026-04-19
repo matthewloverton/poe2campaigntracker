@@ -22,25 +22,26 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *
  * Hand-calculation (bare, no mods, no supports):
  *
- *   Projectile set (dmgMult=15):
+ *   Projectile set (dmgMult=15, base_number_of_projectiles=8):
  *     basePhys: 7*0.15=1.05 – 12*0.15=1.80
  *     convert 60% → lightning: phys=0.42–0.72, lightning=0.63–1.08
- *     perHit contribution: 1.05 – 1.80 (total unchanged by conversion)
+ *     perProjectile: 1.05 – 1.80 (total unchanged by conversion)
+ *     × 8 projectiles → perHit contribution: 8.40 – 14.40
  *
- *   Beam set (dmgMult=75):
+ *   Beam set (dmgMult=75, no base_number_of_projectiles → 1 projectile):
  *     basePhys: 7*0.75=5.25 – 12*0.75=9.00
  *     convert 100% → lightning: phys=0, lightning=5.25–9.00
- *     perHit contribution: 5.25 – 9.00
+ *     × 1 projectile → perHit contribution: 5.25 – 9.00
  *
- *   Total perHit: min=1.05+5.25=6.30, max=1.80+9.00=10.80
- *   avgPerHit = (6.30 + 10.80) / 2 = 8.55
+ *   Total perHit: min=8.40+5.25=13.65, max=14.40+9.00=23.40
+ *   avgPerHit = (13.65 + 23.40) / 2 = 18.525
  *
  *   rate = 1000 / 625 = 1.6 attacks/s
  *
  *   crit: chance=500/10000=0.05, multi=1.5
  *     expectedMulti = 1 + 0.05*(1.5-1) = 1.025
  *
- *   DPS = 8.55 × 1.6 × 1.025 = 14.022
+ *   DPS = 18.525 × 1.6 × 1.025 = 30.381
  */
 export const bareCrossbowGalvanic: BuildPhase = {
   id: "fixture-bare-crossbow-galvanic",

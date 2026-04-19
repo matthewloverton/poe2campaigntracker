@@ -159,3 +159,23 @@ export function calcCrit(input: CalcCritInput): CritInfo {
   const expectedMulti = 1 + chance * (multi - 1);
   return { chance, multi, expectedMulti };
 }
+
+/**
+ * Resolve the total projectile count for a projectile-tagged skill:
+ *   base (from static skill stats) + additional (from gear/supports/gems).
+ * Returns 1 if the skill is not projectile-tagged.
+ *
+ * `statMap` should be the per-stat-set statmap merged with all contributions
+ * (gear + support + skill). We pull flat values from it.
+ */
+export function projectileCount(
+  skillTags: string[],
+  statMap: StatMap,
+): number {
+  if (!skillTags.includes("projectile")) return 1;
+  const base = sumFlat(statMap, "base_number_of_projectiles");
+  const additional = sumFlat(statMap, "number_of_additional_projectiles");
+  // If the skill doesn't define base (non-standard projectile), default to 1
+  const total = (base > 0 ? base : 1) + additional;
+  return Math.max(1, total);
+}

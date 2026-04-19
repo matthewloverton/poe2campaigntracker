@@ -15,6 +15,7 @@ import {
   calcBaseDamage,
   calcCrit,
   calcRate,
+  projectileCount,
   sumPerHit,
   zeroDamageByType,
 } from "./pipeline";
@@ -105,10 +106,11 @@ function calcSkillGroupDps(
     });
     const converted = applyConversions(base, setStatMap);
     const multiplied = applyMultipliers(converted, setStatMap, skillTags);
+    const projectiles = projectileCount(skillTags, setStatMap);
 
     for (const t of DAMAGE_TYPES) {
-      damageByType[t].min += multiplied[t].min;
-      damageByType[t].max += multiplied[t].max;
+      damageByType[t].min += multiplied[t].min * projectiles;
+      damageByType[t].max += multiplied[t].max * projectiles;
     }
     const ssPerHit = sumPerHit(multiplied);
     breakdownStages.push({
@@ -116,6 +118,13 @@ function calcSkillGroupDps(
       label: `${ss.name}`,
       value: `${ssPerHit.min.toFixed(0)} – ${ssPerHit.max.toFixed(0)}`,
     });
+    if (projectiles > 1) {
+      breakdownStages.push({
+        kind: "more",
+        label: `${ss.name} × ${projectiles} projectiles`,
+        value: projectiles,
+      });
+    }
     for (const list of setStatMap.values()) {
       for (const c of list) allSources.push(c.source);
     }
