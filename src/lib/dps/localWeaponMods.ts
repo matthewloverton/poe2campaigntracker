@@ -75,8 +75,9 @@ export function resolveWeaponProperties(
   for (const modId of modIds) {
     const mod = modById.get(modId);
     if (!mod) continue;
+    // Fallback to 100 when no roll is recorded — see modStats.ts for rationale.
     const percentile =
-      rollMode === "max" ? 100 : weapon.modRolls?.[modId] ?? 0;
+      rollMode === "max" ? 100 : weapon.modRolls?.[modId] ?? 100;
     for (const stat of mod.stats ?? []) {
       if (!isLocalStatId(stat.id)) continue;
       const value = rollValue(stat.min, stat.max, percentile);

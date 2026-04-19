@@ -16,8 +16,6 @@ import type { CraftState } from "../ItemBrowser/ItemDetail";
 import { PoBImportModal } from "../PoBImport/PoBImportModal";
 import { useDps } from "../../hooks/useDps";
 import { snapshotFromPhase } from "../../lib/dps";
-import type { RollMode } from "../../lib/dps";
-import { RollModeToggle } from "../Dps/RollModeToggle";
 import { gemById } from "../../data/gems";
 import styles from "./BuildPlan.module.css";
 
@@ -46,7 +44,6 @@ export function BuildPlan() {
 
   const activePhase = buildPhases.find((p) => p.id === activePhaseId) ?? null;
 
-  const [rollMode, setRollMode] = useState<RollMode>("actual");
   const [primarySkillId, setPrimarySkillId] = useState<string>("");
   // Phase 1: per-skill level overrides stored locally (not persisted across sessions).
   // Key is group.skill.id; value is the user-chosen skill level.
@@ -67,8 +64,8 @@ export function BuildPlan() {
   }, [activePhase, skillLevelOverrides]);
 
   const snapshot = useMemo(
-    () => snapshotFromPhase(phaseWithLevels, primarySkillId, rollMode),
-    [phaseWithLevels, primarySkillId, rollMode],
+    () => snapshotFromPhase(phaseWithLevels, primarySkillId, "actual"),
+    [phaseWithLevels, primarySkillId],
   );
   const dpsResults = useDps(snapshot);
 
@@ -268,10 +265,7 @@ export function BuildPlan() {
           </div>
 
           <div className={styles.gemsSection}>
-            <div className={styles.skillsHeader}>
-              <div className={styles.sectionHeader}>Skill Gems</div>
-              <RollModeToggle value={rollMode} onChange={setRollMode} />
-            </div>
+            <div className={styles.sectionHeader}>Skill Gems</div>
             <DragList
               items={activePhase.gems}
               onReorder={(ids) => activePhaseId && reorderSkillGroups(activePhaseId, ids)}
