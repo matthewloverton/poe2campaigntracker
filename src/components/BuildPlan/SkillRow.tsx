@@ -127,6 +127,19 @@ export function SkillRow({
   return (
     <div className={`${styles.row} ${expanded ? styles.expanded : ""}`}>
       <div className={styles.rowMain}>
+        {/* Primary star (leftmost) */}
+        {onTogglePrimary && (
+          <button
+            type="button"
+            className={`${styles.primaryStar} ${isPrimary ? styles.primaryStarActive : ""}`}
+            onClick={onTogglePrimary}
+            aria-label={isPrimary ? "Primary skill" : "Mark as primary"}
+            title={isPrimary ? "Primary skill" : "Mark as primary"}
+          >
+            ★
+          </button>
+        )}
+
         {/* Skill gem */}
         <div
           className={styles.skillGem}
@@ -201,17 +214,6 @@ export function SkillRow({
 
         {/* DPS column */}
         <div className={styles.dpsColumn}>
-          {onTogglePrimary && (
-            <button
-              type="button"
-              className={`${styles.primaryStar} ${isPrimary ? styles.primaryStarActive : ""}`}
-              onClick={onTogglePrimary}
-              aria-label={isPrimary ? "Primary skill" : "Mark as primary"}
-              title={isPrimary ? "Primary skill" : "Mark as primary"}
-            >
-              ★
-            </button>
-          )}
           {dps ? (
             <button
               type="button"

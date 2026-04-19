@@ -16,18 +16,20 @@
 .rowMain {
   display: grid;
   grid-template-columns:
+    auto            /* star */
     auto            /* gem */
     120px           /* name */
     auto            /* supports */
-    1fr             /* spacer — stabilises right-edge alignment */
     auto            /* stepper */
+    1fr             /* spacer — stabilises right-edge alignment */
     auto;           /* dps */
-  grid-template-areas: "gem name supports spacer stepper dps";
+  grid-template-areas: "star gem name supports stepper spacer dps";
   align-items: center;
   gap: 6px;
   padding: 4px 8px;
 }
 
+.primaryStar { grid-area: star; }
 .skillGem { grid-area: gem; }
 .skillName { grid-area: name; }
 .supports { grid-area: supports; }
