@@ -194,6 +194,47 @@ Data attribution: PathOfBuilding-PoE2 (MIT-licensed), dev branch, field name `Re
 
 ---
 
+## Amendment: Per-type display rounding matches PoB2
+
+**Task 17.15 investigation — verified 2026-04-19**
+
+The task hypothesised PoB2 might use `floor(min)/ceil(max)` for per-type damage rounding. Investigation of the actual PoB2 Lua source disproves this.
+
+**Relevant Lua source — `src/Modules/Common.lua` lines 645–651:**
+
+```lua
+-- Rounds a number to the nearest <dec> decimal places 2.5->3 and -2.5->-2
+function round(val, dec)
+    if dec then
+        return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
+    else
+        return m_floor(val + 0.5)
+    end
+end
+```
+
+**Where this is called in the damage pipeline — `src/Modules/CalcOffence.lua` lines 153–154:**
+
+```lua
+return  round(summedMin * inc * more * moreMinDamage + addMin),
+        round(summedMax * inc * more * moreMaxDamage + addMax)
+```
+
+And at lines 3617–3618 (the conversion/gain accumulation step):
+
+```lua
+output[damageType.."SummedMinBase"] = round(summedMin)
+output[damageType.."SummedMaxBase"] = round(summedMax)
+```
+
+**Conclusion:** PoB2 uses `m_floor(val + 0.5)` — standard "half-up" rounding — for **both** min and max. This is precisely equivalent to JavaScript's `Math.round` for positive values.
+
+**No code change required.** Our current engine already uses `Math.round` in both `calcSkillGroupDps` (per-type stage) and `resolveWeaponProperties` (weapon stage), which matches PoB2 exactly. No `roundDisplayMin/Max` helpers are needed. No fixtures change.
+
+The previously observed residual gap vs PoB's ~13.8 DPS for the 1-9 local lightning + L5 Galvanic scenario is not a rounding issue and must be explained by other factors (e.g. level-scaling differences, the specific mod roll range, or projectile-count handling).
+
+---
+
 ## Rollup of field-name changes
 
 | Plan assumption | Reality | Resolution |
