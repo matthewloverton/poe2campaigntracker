@@ -186,6 +186,12 @@ The plan's Task 2 speculated `gem.allowed_active_skill_types / excluded_active_s
 
 Task 12's "bare crossbow + Gas Grenade" fixture must hand-calculate expected DPS from **all three** stat sets (impact + cloud + explosion), not just one. The expected value in the golden-number test reflects the sum.
 
+## Amendment: Crossbow reload times sourced from PoB2
+
+RePoE2's base_items.min.json does not expose `reload_time` per weapon. Until it does, we source per-base reload times from PoB2's `src/Data/Bases/crossbow.lua` via a one-shot script (`scripts/apply-pob-crossbow-reload.mjs`). Re-run the script after every transform refresh until RePoE2 adds reload time natively, at which point the transform's `reload_time` pass-through will kick in automatically.
+
+Data attribution: PathOfBuilding-PoE2 (MIT-licensed), dev branch, field name `ReloadTimeBase` (multiplied × 1000 for ms). Fetched from `https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/dev/src/Data/Bases/crossbow.lua`.
+
 ---
 
 ## Rollup of field-name changes
