@@ -62,6 +62,11 @@ const CONVERSION_STAT_IDS: Array<{ from: DamageType; to: DamageType; id: string 
   { from: "physical", to: "cold", id: "skill_physical_damage_%_to_convert_to_cold" },
   { from: "physical", to: "lightning", id: "skill_physical_damage_%_to_convert_to_lightning" },
   { from: "physical", to: "chaos", id: "skill_physical_damage_%_to_convert_to_chaos" },
+  // RePoE2 actual stat ids (skill innate conversions from stat_sets):
+  { from: "physical", to: "fire", id: "active_skill_base_physical_damage_%_to_convert_to_fire" },
+  { from: "physical", to: "cold", id: "active_skill_base_physical_damage_%_to_convert_to_cold" },
+  { from: "physical", to: "lightning", id: "active_skill_base_physical_damage_%_to_convert_to_lightning" },
+  { from: "physical", to: "chaos", id: "active_skill_base_physical_damage_%_to_convert_to_chaos" },
 ];
 
 export function applyConversions(base: DamageByType, map: StatMap): DamageByType {

@@ -17,6 +17,8 @@ export const itemById: Map<string, BaseItem> = new Map(
   allItems.map((item) => [item.id, item])
 );
 
+export const baseItemById: Map<string, BaseItem> = itemById;
+
 export function getItemsByClass(itemClass: string): BaseItem[] {
   return itemsByClass.get(itemClass) ?? [];
 }
