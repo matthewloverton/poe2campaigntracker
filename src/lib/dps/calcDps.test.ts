@@ -5,6 +5,7 @@ import { bareCrossbowGasGrenade } from "./__fixtures__/bareCrossbowGasGrenade";
 import { crossbowFlatPhysRingGalvanic } from "./__fixtures__/crossbowFlatPhysRingGalvanic";
 import { crossbowTwoSupportsGalvanic } from "./__fixtures__/crossbowTwoSupportsGalvanic";
 import { fullMercenaryBuild } from "./__fixtures__/fullMercenaryBuild";
+import { crossbowLocalIncPhysGalvanic } from "./__fixtures__/crossbowLocalIncPhysGalvanic";
 
 describe("calcDps — end-to-end", () => {
   it("computes Galvanic Shards DPS for bare crossbow", () => {
@@ -110,4 +111,15 @@ describe("calcDps — end-to-end", () => {
     const EXPECTED = 313.2675;
     expect(gg.dps).toBeCloseTo(EXPECTED, 0);
   });
+});
+
+it("DIAGNOSTIC — local inc phys on crossbow", () => {
+  const snap = snapshotFromPhase(crossbowLocalIncPhysGalvanic, "", "actual");
+  const results = calcDps(snap);
+  expect(results.length).toBe(1);
+  const r = results[0];
+  console.log("Engine DPS with local +inc phys:", r.dps.toFixed(3));
+  console.log("Per-hit:", r.perHit);
+  console.log("Breakdown stages:", JSON.stringify(r.breakdown.stages, null, 2));
+  // No assertion — this is a measurement, not a pass/fail.
 });
