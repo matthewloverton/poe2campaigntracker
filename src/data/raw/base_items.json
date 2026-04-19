@@ -461,7 +461,7 @@
       "attackTime": 588,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 700
     },
     "implicits": [],
     "tags": [
@@ -2262,7 +2262,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 700,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [],
     "tags": [
@@ -2827,7 +2827,7 @@
       "attackTime": 606,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -3617,7 +3617,7 @@
       "attackTime": 606,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -5804,7 +5804,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 900
     },
     "implicits": [
       "+1 to maximum number of Summoned Ballista Totems"
@@ -6143,7 +6143,7 @@
       "attackTime": 645,
       "criticalStrikeChance": 700,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [],
     "tags": [
@@ -7062,7 +7062,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 1100
     },
     "implicits": [
       "Loads an additional bolt"
@@ -7209,7 +7209,7 @@
       "attackTime": 606,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [
       "(20-30)% chance to Pierce an Enemy"
@@ -8981,7 +8981,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -9763,7 +9763,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 1100
     },
     "implicits": [
       "Loads an additional bolt"
@@ -16665,7 +16665,7 @@
       "attackTime": 606,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [
       "(20-30)% chance to Pierce an Enemy"
@@ -18455,7 +18455,7 @@
       "attackTime": 645,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [],
     "tags": [
@@ -20260,7 +20260,7 @@
       "attackTime": 606,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [
       "Grenade Skills Fire an additional Projectile"
@@ -22333,7 +22333,7 @@
       "attackTime": 645,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [],
     "tags": [
@@ -22705,7 +22705,7 @@
       "attackTime": 645,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 750
     },
     "implicits": [],
     "tags": [
@@ -23011,7 +23011,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -23258,7 +23258,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 850
     },
     "implicits": [
       "(20-30)% increased Bolt Speed"
@@ -24084,7 +24084,7 @@
       "attackTime": 625,
       "criticalStrikeChance": 500,
       "range": 120,
-      "reloadTime": 800
+      "reloadTime": 1100
     },
     "implicits": [
       "Loads an additional bolt"
