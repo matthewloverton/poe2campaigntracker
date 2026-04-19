@@ -120,8 +120,9 @@ export interface CalcRateInput {
   skillAttackTime?: number;
   /** ms */
   castTime?: number;
-  /** Decimal multiplier from RePoE2 `static.attack_speed_multiplier`, e.g. 1.25.
-   *  A value of 0 means "no multiplier set" and is treated as 1.0. */
+  /** Percent adjustment from RePoE2 `static.attack_speed_multiplier`, e.g. -25 means
+   *  25% slower (multiplier = 0.75), +10 means 10% faster (multiplier = 1.10).
+   *  A value of 0 (or undefined coerced to 0) means no adjustment — treated as 1.0. */
   skillAttackSpeedMultiplier: number;
   statMap: StatMap;
   skillTags: string[];
@@ -132,7 +133,8 @@ export function calcRate(input: CalcRateInput): number {
     ? input.weaponAttackTime ?? input.skillAttackTime ?? 1000
     : input.castTime ?? 1000;
   const baseRate = 1000 / baseTimeMs;
-  const skillRateMult = input.skillAttackSpeedMultiplier || 1;
+  // skillAttackSpeedMultiplier is a percent delta (e.g. -25 = 75%, 0 = 100%, 10 = 110%)
+  const skillRateMult = 1 + (input.skillAttackSpeedMultiplier || 0) / 100;
   const incSpeed = input.isAttack
     ? sumInc(input.statMap, "attack_speed_+%", input.skillTags)
     : sumInc(input.statMap, "cast_speed_+%", input.skillTags);

@@ -56,7 +56,12 @@ function addEntryStats(
       const contribution: StatContribution = {
         value,
         kind: statKindForId(stat.id),
-        tags: mod.tags ?? [],
+        // Gear mod tags in item_mods.json are spawn-weight / classification tags
+        // (e.g. ["attack","speed"] or ["damage"]), NOT skill-type application
+        // restrictions. We emit [] so that tagsMatch() treats the contribution as
+        // global — it applies to every skill. Support-gem tag filtering is handled
+        // separately via allowedActiveSkillTypes / excludedActiveSkillTypes.
+        tags: [],
         source: {
           type: "gear",
           id: `${slotKey}:${modId}`,

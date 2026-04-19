@@ -224,11 +224,12 @@ describe("calcRate", () => {
       weaponAttackTime: 1000,
       skillAttackTime: undefined,
       castTime: undefined,
-      skillAttackSpeedMultiplier: 1.25,  // decimal form per RePoE2 static
+      // RePoE2 stores this as a percent delta: 25 = 25% faster (×1.25), -25 = 25% slower (×0.75)
+      skillAttackSpeedMultiplier: 25,
       statMap,
       skillTags: [],
     });
-    // base 1/s * 1.25 = 1.25
+    // base 1/s × (1 + 25/100) = 1.25
     expect(rate).toBeCloseTo(1.25, 3);
   });
 
