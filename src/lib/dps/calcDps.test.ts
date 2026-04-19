@@ -7,6 +7,7 @@ import { crossbowTwoSupportsGalvanic } from "./__fixtures__/crossbowTwoSupportsG
 import { fullMercenaryBuild } from "./__fixtures__/fullMercenaryBuild";
 import { crossbowLocalIncPhysGalvanic } from "./__fixtures__/crossbowLocalIncPhysGalvanic";
 import { crossbowLocalLightningGalvanic } from "./__fixtures__/crossbowLocalLightningGalvanic";
+import { crossbowLocalLightningL5Galvanic } from "./__fixtures__/crossbowLocalLightningL5Galvanic";
 
 describe("calcDps — end-to-end", () => {
   it("computes Galvanic Shards DPS for bare crossbow", () => {
@@ -175,6 +176,37 @@ it("applies local added lightning damage to weapon (crossbow + Galvanic Shards L
   expect(r.dps).toBeGreaterThan(6.5);
   // Lightning portion of damageByType must be non-zero and greater than bare crossbow.
   expect(r.damageByType.lightning.max).toBeGreaterThan(2);
+});
+
+it("PoB parity: 7-12 phys + 1-9 light weapon + Galvanic Shards L5 → ~14 DPS", () => {
+  // Forensic investigation scenario (2026-04-19):
+  // Root cause: applyConversions lacked intermediate rounding of converted amounts,
+  // which PoB applies in calcConvertedDamage before summing with retained base.
+  //
+  // With the fix (intermediate round):
+  //   Projectile (dmgMult=21, 60% phys→light):
+  //     convertedFromPhys: {1.47×0.6=0.882→round=1, 2.52×0.6=1.512→round=2}
+  //     light total: {0.21+1=1.21→1, 1.89+2=3.89→4}  → Light 1–4  (was 1–3)
+  //     Proj perHit: 2–5, avg 3.5
+  //   Beam (dmgMult=107, 100% phys→light):
+  //     convertedFromPhys: {7.49→round=7, 12.84→round=13}
+  //     light total: {1.07+7=8.07→8, 9.63+13=22.63→23}  → Light 8–23
+  //     Beam perHit: 8–23, avg 15.5
+  //   Total: min=10, max=28, avg=19.0
+  //   Rate=0.7018/s, crit×1.05, DPS = 19.0 × 0.7018 × 1.05 ≈ 14.0
+  const snap = snapshotFromPhase(crossbowLocalLightningL5Galvanic, "", "actual");
+  const results = calcDps(snap);
+  expect(results.length).toBe(1);
+  const r = results[0];
+  expect(r.skillName).toBe("Galvanic Shards");
+  expect(r.level).toBe(5);
+  // PoB-verified total DPS ≈ 14
+  expect(r.dps).toBeCloseTo(14.0, 0);
+  // Projectile + beam perHit total
+  expect(r.perHit.min).toBe(10);
+  expect(r.perHit.max).toBe(28);
+  // Lightning damage range must reflect PoB's intermediate-round value
+  expect(r.damageByType.lightning.max).toBe(27); // 4 (proj) + 23 (beam)
 });
 
 it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {

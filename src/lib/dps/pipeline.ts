@@ -114,7 +114,72 @@ const CONVERSION_STAT_IDS: Array<{ from: DamageType; to: DamageType; id: string 
   { from: "physical", to: "chaos", id: "active_skill_base_physical_damage_%_to_convert_to_chaos" },
 ];
 
+/**
+ * Apply physical → elemental/chaos conversions, matching PoB2's intermediate-rounding
+ * algorithm from CalcOffence.lua / calcConvertedDamage:
+ *
+ *   1. Accumulate conversion fractions per (from, to) pair (multiple stat IDs can map
+ *      to the same pair; cap total outflow from each source at 100%).
+ *   2. For each target damage type, sum the incoming converted amounts from all source
+ *      types using the full pre-retention base (PoB uses `output[otherType.."MinBase"]`).
+ *   3. Round those incoming-conversion totals (PoB: only if both min and max non-zero).
+ *   4. Retained base for each source type = base * (1 - totalOutFrac), continuous.
+ *   5. out[target] = retained_target + roundedIncoming_target.
+ *   6. A final per-type round is applied by the caller (index.ts).
+ *
+ * Without step 3 our Lightning max for a 7–12 phys + 1–9 light weapon at L5 Galvanic
+ * (21% multiplier, 60% phys→light) came out 3 instead of PoB's 4:
+ *   converted phys→light: 2.52 × 0.6 = 1.512 → round → 2  (PoB)
+ *   vs keeping 1.512 and only rounding final 3.402 → 3      (old code)
+ */
 export function applyConversions(base: DamageByType, map: StatMap): DamageByType {
+  // Step 1: accumulate fractions per unique (from, to) pair, track total out per source.
+  const pairFrac = new Map<string, { from: DamageType; to: DamageType; frac: number }>();
+  const totalOutPct: Partial<Record<DamageType, number>> = {};
+
+  for (const { from, to, id } of CONVERSION_STAT_IDS) {
+    const pct = sumFlat(map, id);
+    if (pct <= 0) continue;
+    const key = `${from}->${to}`;
+    const entry = pairFrac.get(key);
+    if (entry) {
+      entry.frac += pct / 100;
+    } else {
+      pairFrac.set(key, { from, to, frac: pct / 100 });
+    }
+    totalOutPct[from] = (totalOutPct[from] ?? 0) + pct;
+  }
+
+  // Cap per-pair fractions if total outflow > 100%
+  for (const entry of pairFrac.values()) {
+    const total = totalOutPct[entry.from] ?? 0;
+    if (total > 100) {
+      entry.frac *= 100 / total;
+    }
+  }
+
+  // Step 2: collect incoming conversions per target type (using full pre-retention base).
+  const incomingMin: Partial<Record<DamageType, number>> = {};
+  const incomingMax: Partial<Record<DamageType, number>> = {};
+  const totalOutFrac: Partial<Record<DamageType, number>> = {};
+
+  for (const { from, to, frac } of pairFrac.values()) {
+    incomingMin[to] = (incomingMin[to] ?? 0) + base[from].min * frac;
+    incomingMax[to] = (incomingMax[to] ?? 0) + base[from].max * frac;
+    totalOutFrac[from] = (totalOutFrac[from] ?? 0) + frac;
+  }
+
+  // Step 3: round incoming conversions per target (PoB: only when both min and max non-zero).
+  for (const t of DAMAGE_TYPES) {
+    const cMin = incomingMin[t] ?? 0;
+    const cMax = incomingMax[t] ?? 0;
+    if (cMin !== 0 && cMax !== 0) {
+      incomingMin[t] = Math.round(cMin);
+      incomingMax[t] = Math.round(cMax);
+    }
+  }
+
+  // Steps 4–5: output = retained base + rounded incoming conversions.
   const out: DamageByType = {
     physical: { ...base.physical },
     fire: { ...base.fire },
@@ -122,18 +187,17 @@ export function applyConversions(base: DamageByType, map: StatMap): DamageByType
     lightning: { ...base.lightning },
     chaos: { ...base.chaos },
   };
-  for (const { from, to, id } of CONVERSION_STAT_IDS) {
-    const pct = sumFlat(map, id);
-    if (pct <= 0) continue;
-    const capped = Math.min(100, pct);
-    const frac = capped / 100;
-    const movedMin = out[from].min * frac;
-    const movedMax = out[from].max * frac;
-    out[from].min -= movedMin;
-    out[from].max -= movedMax;
-    out[to].min += movedMin;
-    out[to].max += movedMax;
+
+  for (const t of DAMAGE_TYPES) {
+    const outFrac = totalOutFrac[t] ?? 0;
+    if (outFrac > 0) {
+      out[t].min = base[t].min * (1 - outFrac);
+      out[t].max = base[t].max * (1 - outFrac);
+    }
+    out[t].min += incomingMin[t] ?? 0;
+    out[t].max += incomingMax[t] ?? 0;
   }
+
   return out;
 }
 
