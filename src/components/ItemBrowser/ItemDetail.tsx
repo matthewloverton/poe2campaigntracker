@@ -89,9 +89,23 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
     return map;
   });
 
-  // Notify parent when selected mods change
+  // Notify parent when selected mods change. Also initialise any newly-added
+  // mod's roll to 50% so the slider display and stored value stay consistent
+  // (sliders default to 50 visually; if the user never touches them, we must
+  // persist 50 explicitly so downstream consumers read the same value).
   const updateMods = (mods: Map<string, ItemMod>) => {
     setSelectedMods(mods);
+    setModRolls((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      for (const id of mods.keys()) {
+        if (next[id] == null) { next[id] = 50; changed = true; }
+      }
+      for (const id of Object.keys(next)) {
+        if (!mods.has(id)) { delete next[id]; changed = true; }
+      }
+      return changed ? next : prev;
+    });
     onModsChange?.([...mods.values()]);
   };
   const removeMod = (modId: string) => {
