@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   DndContext, closestCenter, PointerSensor, useSensor, useSensors,
   type DragEndEvent,
@@ -9,10 +10,20 @@ import { CSS } from "@dnd-kit/utilities";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import type { SkillGroup, BuildGemEntry } from "../../types/buildPlan";
 import { GEM_COLOR_CSS } from "../../types/itemDatabase";
+import type { SkillDps } from "../../lib/dps";
+import { DpsValue } from "../Dps/DpsValue";
+import { DpsBreakdown } from "../Dps/DpsBreakdown";
 import styles from "./SkillRow.module.css";
 
 interface SkillRowProps {
   group: SkillGroup;
+  /** Optional DPS result for this skill. When provided, inline DPS column renders. */
+  dps?: SkillDps;
+  /** Whether this is the primary skill (drives the star state). */
+  isPrimary?: boolean;
+  /** When provided, shows a star-toggle button. */
+  onTogglePrimary?: () => void;
+
   onSkillClick: () => void;
   onSupportClick: (index: number) => void;
   onRemoveSupport: (index: number) => void;
@@ -64,12 +75,17 @@ function SortableSupport({
 
 export function SkillRow({
   group,
+  dps,
+  isPrimary,
+  onTogglePrimary,
   onSkillClick,
   onSupportClick,
   onRemoveSupport,
   onRemoveSkill,
   onReorderSupports,
 }: SkillRowProps) {
+  const [expanded, setExpanded] = useState(false);
+
   const skill = group.skill;
   const skillColor = skill.color ? GEM_COLOR_CSS[skill.color] : GEM_COLOR_CSS.w;
   const skillIcon = skill.iconPath ? `/assets/${skill.iconPath}` : undefined;
@@ -96,57 +112,94 @@ export function SkillRow({
   }
 
   return (
-    <div className={styles.row}>
-      {/* Skill gem */}
-      <div
-        className={styles.skillGem}
-        style={{ borderColor: skillColor }}
-        onClick={onSkillClick}
-        onContextMenu={(e) => { e.preventDefault(); onRemoveSkill(); }}
-        title={`${skill.name} (click to replace, right-click to remove)`}
-      >
-        {skillIcon ? (
-          <img className={styles.skillGemImage} src={skillIcon} alt={skill.name} />
-        ) : (
-          <span className={styles.skillGemFallback}>{skill.name}</span>
-        )}
-        <span className={styles.priorityBadge}>{group.priority + 1}</span>
+    <div className={`${styles.row} ${expanded ? styles.expanded : ""}`}>
+      <div className={styles.rowMain}>
+        {/* Skill gem */}
+        <div
+          className={styles.skillGem}
+          style={{ borderColor: skillColor }}
+          onClick={onSkillClick}
+          onContextMenu={(e) => { e.preventDefault(); onRemoveSkill(); }}
+          title={`${skill.name} (click to replace, right-click to remove)`}
+        >
+          {skillIcon ? (
+            <img className={styles.skillGemImage} src={skillIcon} alt={skill.name} />
+          ) : (
+            <span className={styles.skillGemFallback}>{skill.name}</span>
+          )}
+          <span className={styles.priorityBadge}>{group.priority + 1}</span>
+        </div>
+
+        {/* Skill name */}
+        <span className={styles.skillName}>{skill.name}</span>
+
+        {/* Support sockets */}
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
+          <SortableContext items={sortableIds} strategy={horizontalListSortingStrategy}>
+            <div className={styles.supports}>
+              {supports.map((sup, i) => {
+                if (!sup) {
+                  return (
+                    <div
+                      key={i}
+                      className={`${styles.supportSocket} ${styles.supportEmpty}`}
+                      onClick={() => onSupportClick(i)}
+                      title="Add support gem"
+                    >
+                      <span className={styles.emptyPlus}>+</span>
+                    </div>
+                  );
+                }
+
+                return (
+                  <SortableSupport
+                    key={i}
+                    gem={sup}
+                    index={i}
+                    onSupportClick={onSupportClick}
+                    onRemoveSupport={onRemoveSupport}
+                  />
+                );
+              })}
+            </div>
+          </SortableContext>
+        </DndContext>
+
+        {/* DPS column */}
+        <div className={styles.dpsColumn}>
+          {onTogglePrimary && (
+            <button
+              type="button"
+              className={`${styles.primaryStar} ${isPrimary ? styles.primaryStarActive : ""}`}
+              onClick={onTogglePrimary}
+              aria-label={isPrimary ? "Primary skill" : "Mark as primary"}
+              title={isPrimary ? "Primary skill" : "Mark as primary"}
+            >
+              ★
+            </button>
+          )}
+          {dps ? (
+            <button
+              type="button"
+              className={styles.dpsTrigger}
+              onClick={() => setExpanded((e) => !e)}
+              aria-expanded={expanded}
+              aria-label={expanded ? "Collapse DPS breakdown" : "Expand DPS breakdown"}
+            >
+              <DpsValue dps={dps.dps} />
+              <span className={styles.caret}>{expanded ? "▾" : "▸"}</span>
+            </button>
+          ) : (
+            <span className={styles.dpsPlaceholder}>—</span>
+          )}
+        </div>
       </div>
 
-      {/* Skill name */}
-      <span className={styles.skillName}>{skill.name}</span>
-
-      {/* Support sockets */}
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-        <SortableContext items={sortableIds} strategy={horizontalListSortingStrategy}>
-          <div className={styles.supports}>
-            {supports.map((sup, i) => {
-              if (!sup) {
-                return (
-                  <div
-                    key={i}
-                    className={`${styles.supportSocket} ${styles.supportEmpty}`}
-                    onClick={() => onSupportClick(i)}
-                    title="Add support gem"
-                  >
-                    <span className={styles.emptyPlus}>+</span>
-                  </div>
-                );
-              }
-
-              return (
-                <SortableSupport
-                  key={i}
-                  gem={sup}
-                  index={i}
-                  onSupportClick={onSupportClick}
-                  onRemoveSupport={onRemoveSupport}
-                />
-              );
-            })}
-          </div>
-        </SortableContext>
-      </DndContext>
+      {expanded && dps && (
+        <div className={styles.rowBreakdown}>
+          <DpsBreakdown breakdown={dps.breakdown} />
+        </div>
+      )}
     </div>
   );
 }
