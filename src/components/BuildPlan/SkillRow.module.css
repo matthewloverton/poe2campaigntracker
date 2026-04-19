@@ -14,11 +14,25 @@
 }
 
 .rowMain {
-  display: flex;
+  display: grid;
+  grid-template-columns:
+    auto            /* gem */
+    120px           /* name */
+    auto            /* supports */
+    1fr             /* spacer — stabilises right-edge alignment */
+    auto            /* stepper */
+    auto;           /* dps */
+  grid-template-areas: "gem name supports spacer stepper dps";
   align-items: center;
   gap: 6px;
   padding: 4px 8px;
 }
+
+.skillGem { grid-area: gem; }
+.skillName { grid-area: name; }
+.supports { grid-area: supports; }
+.levelStepper { grid-area: stepper; }
+.dpsColumn { grid-area: dps; }
 
 /* ── Skill gem (large, rounded square) ───────────────────── */
 .skillGem {
@@ -89,8 +103,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
-  flex-shrink: 0;
+  min-width: 0; /* allow ellipsis in grid column */
 }
 
 /* ── Support sockets row ─────────────────────────────────── */
@@ -98,8 +111,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-left: auto;
-  flex-shrink: 0;
 }
 
 /* ── Individual support socket ───────────────────────────── */
@@ -198,7 +209,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-left: auto;
+  justify-self: end;
 }
 
 .primaryStar {
