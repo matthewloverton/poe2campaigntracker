@@ -142,6 +142,21 @@ describe("calcDps — end-to-end", () => {
   });
 });
 
+it("honours explicit skillLevel override", () => {
+  const phase = {
+    ...bareCrossbowGalvanic,
+    gems: bareCrossbowGalvanic.gems.map((g) => ({
+      ...g,
+      skill: { ...g.skill, skillLevel: 5 },
+    })),
+  };
+  const snap = snapshotFromPhase(phase, "", "actual");
+  const [r] = calcDps(snap);
+  expect(r.level).toBe(5);
+  // DPS at L5 ≠ DPS at L1 — sanity check it actually scaled up
+  expect(r.dps).toBeGreaterThan(7); // bare L1 is 6.26; L5 should be higher
+});
+
 it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {
   // Post Task 17.11: this fixture now matches PoB's two-stage rounding output exactly.
   // Per-projectile DPS (PoB default — one projectile hits the target):

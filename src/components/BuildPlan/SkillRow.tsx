@@ -29,6 +29,15 @@ interface SkillRowProps {
   onRemoveSupport: (index: number) => void;
   onRemoveSkill: () => void;
   onReorderSupports: (fromIndex: number, toIndex: number) => void;
+
+  /** Current skill level (display). */
+  skillLevel?: number;
+  /** Callback when skill level changes. When undefined, no stepper is shown. */
+  onSkillLevelChange?: (level: number) => void;
+  /** Min level (typically the gem's craftingLevel). */
+  minSkillLevel?: number;
+  /** Max level (typically skillDetail.maxLevel). */
+  maxSkillLevel?: number;
 }
 
 const SUPPORT_SLOTS = 5;
@@ -83,6 +92,10 @@ export function SkillRow({
   onRemoveSupport,
   onRemoveSkill,
   onReorderSupports,
+  skillLevel,
+  onSkillLevelChange,
+  minSkillLevel,
+  maxSkillLevel,
 }: SkillRowProps) {
   const [expanded, setExpanded] = useState(false);
 
@@ -164,6 +177,27 @@ export function SkillRow({
             </div>
           </SortableContext>
         </DndContext>
+
+        {/* Level stepper */}
+        {onSkillLevelChange && skillLevel !== undefined && (
+          <div className={styles.levelStepper}>
+            <button
+              type="button"
+              className={styles.levelButton}
+              onClick={() => onSkillLevelChange(Math.max(minSkillLevel ?? 1, skillLevel - 1))}
+              disabled={skillLevel <= (minSkillLevel ?? 1)}
+              aria-label="Decrease skill level"
+            >−</button>
+            <span className={styles.levelValue}>L{skillLevel}</span>
+            <button
+              type="button"
+              className={styles.levelButton}
+              onClick={() => onSkillLevelChange(Math.min(maxSkillLevel ?? 40, skillLevel + 1))}
+              disabled={skillLevel >= (maxSkillLevel ?? 40)}
+              aria-label="Increase skill level"
+            >+</button>
+          </div>
+        )}
 
         {/* DPS column */}
         <div className={styles.dpsColumn}>

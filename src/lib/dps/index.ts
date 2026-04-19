@@ -55,10 +55,8 @@ function calcSkillGroupDps(
   const detail = skillGem.skillDetail;
   if (!detail) return null;
 
-  const level = getSkillLevel(
-    skillGem,
-    group.skill.craftingLevel ?? detail.maxLevel,
-  );
+  const requestedLevel = group.skill.skillLevel ?? group.skill.craftingLevel ?? detail.maxLevel;
+  const level = getSkillLevel(skillGem, requestedLevel);
 
   const supportGems: GemEntry[] = [];
   for (const s of group.supports) {

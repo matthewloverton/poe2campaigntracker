@@ -163,6 +163,36 @@
   pointer-events: none;
 }
 
+/* ── Level stepper ───────────────────────────────────────── */
+.levelStepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.levelButton {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0 4px;
+  font-weight: bold;
+  line-height: 1;
+  font-family: inherit;
+}
+.levelButton:hover:not(:disabled) { color: var(--accent-gold); }
+.levelButton:disabled { opacity: 0.3; cursor: default; }
+.levelValue {
+  min-width: 2.2em;
+  text-align: center;
+  color: var(--text-primary);
+}
+
 /* ── DPS column ──────────────────────────────────────────── */
 .dpsColumn {
   display: inline-flex;

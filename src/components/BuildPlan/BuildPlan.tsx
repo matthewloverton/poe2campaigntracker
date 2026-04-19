@@ -18,6 +18,7 @@ import { useDps } from "../../hooks/useDps";
 import { snapshotFromPhase } from "../../lib/dps";
 import type { RollMode } from "../../lib/dps";
 import { RollModeToggle } from "../Dps/RollModeToggle";
+import { gemById } from "../../data/gems";
 import styles from "./BuildPlan.module.css";
 
 function getSlotClassKey(slot: GearSlotKey): string {
@@ -47,10 +48,27 @@ export function BuildPlan() {
 
   const [rollMode, setRollMode] = useState<RollMode>("actual");
   const [primarySkillId, setPrimarySkillId] = useState<string>("");
+  // Phase 1: per-skill level overrides stored locally (not persisted across sessions).
+  // Key is group.skill.id; value is the user-chosen skill level.
+  const [skillLevelOverrides, setSkillLevelOverrides] = useState<Record<string, number>>({});
+
+  // Merge per-skill level overrides into the phase before snapshotting.
+  const phaseWithLevels = useMemo(() => {
+    const phase = activePhase ?? DEFAULT_BUILD_PHASE;
+    if (Object.keys(skillLevelOverrides).length === 0) return phase;
+    return {
+      ...phase,
+      gems: phase.gems.map((g) => {
+        const override = skillLevelOverrides[g.skill.id];
+        if (override === undefined) return g;
+        return { ...g, skill: { ...g.skill, skillLevel: override } };
+      }),
+    };
+  }, [activePhase, skillLevelOverrides]);
 
   const snapshot = useMemo(
-    () => snapshotFromPhase(activePhase ?? DEFAULT_BUILD_PHASE, primarySkillId, rollMode),
-    [activePhase, primarySkillId, rollMode],
+    () => snapshotFromPhase(phaseWithLevels, primarySkillId, rollMode),
+    [phaseWithLevels, primarySkillId, rollMode],
   );
   const dpsResults = useDps(snapshot);
 
@@ -260,6 +278,10 @@ export function BuildPlan() {
               renderItem={(item) => {
                 const group = item as typeof activePhase.gems[0];
                 const resolvedPrimaryId = primarySkillId || activePhase.gems[0]?.skill.id || "";
+                const gem = group.skill.gemId ? gemById.get(group.skill.gemId) : undefined;
+                const maxLevel = gem?.skillDetail?.maxLevel ?? 40;
+                const minLevel = group.skill.craftingLevel ?? 1;
+                const currentLevel = skillLevelOverrides[group.skill.id] ?? group.skill.craftingLevel ?? 1;
                 return (
                   <SkillRow
                     group={group}
@@ -271,6 +293,12 @@ export function BuildPlan() {
                     onRemoveSupport={(i) => handleRemoveSupport(group.id, i)}
                     onRemoveSkill={() => activePhaseId && removeSkillGroup(activePhaseId, group.id)}
                     onReorderSupports={(from, to) => activePhaseId && reorderSupportsInGroup(activePhaseId, group.id, from, to)}
+                    skillLevel={currentLevel}
+                    minSkillLevel={minLevel}
+                    maxSkillLevel={maxLevel}
+                    onSkillLevelChange={(level) =>
+                      setSkillLevelOverrides((prev) => ({ ...prev, [group.skill.id]: level }))
+                    }
                   />
                 );
               }}

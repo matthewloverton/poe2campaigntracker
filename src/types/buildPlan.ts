@@ -15,6 +15,8 @@ export interface BuildGemEntry {
   iconPath?: string;
   color?: string;
   craftingLevel?: number;
+  /** Skill level for DPS calculation. Defaults to craftingLevel if unset. Clamped [craftingLevel, skillDetail.maxLevel]. */
+  skillLevel?: number;
 }
 
 export interface BuildGearEntry {
