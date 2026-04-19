@@ -98,7 +98,7 @@ export function ItemBrowser({
   const [emulateBase, setEmulateBase] = useState<BaseItem | null>(null);
   const [search, setSearch] = useState("");
   const [craftMods, setCraftMods] = useState<ItemMod[]>([]);
-  const craftStateRef = useRef<CraftState>({ quality: 20, modRolls: {}, augmentIds: [] });
+  const craftStateRef = useRef<CraftState>({ quality: 0, modRolls: {}, augmentIds: [] });
   const watchlist = useCustomizationsStore((s) => s.watchlist ?? []);
   const favouriteCrafts = useCustomizationsStore((s) => s.favouriteCrafts ?? []);
   const addFavouriteCraft = useCustomizationsStore((s) => s.addFavouriteCraft);

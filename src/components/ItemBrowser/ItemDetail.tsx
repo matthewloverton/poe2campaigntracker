@@ -102,7 +102,7 @@ export function ItemDetail({ item, onModsChange, onCraftStateChange, initialStat
   // Keep a ref to all mods for tier label computation
   const [allModsList, setAllModsList] = useState<ItemMod[]>([]);
 
-  const [quality, setQuality] = useState(initialState?.quality ?? 20);
+  const [quality, setQuality] = useState(initialState?.quality ?? 0);
   const [modRolls, setModRolls] = useState<Record<string, number>>(initialState?.modRolls ?? {}); // modId → 0-100 percentile
 
   // Augment socket state
