@@ -54,6 +54,10 @@ export interface SkillLevelData {
   costs: Record<string, number>;
   damageMultiplier?: number;
   statText: string[];
+  /** Structured stat id → resolved value. Merged from static.stats + per_level sparse overrides by the transform. */
+  stats: Record<string, number>;
+  /** Per-level attack time in milliseconds. RePoE2 does not emit this today but the field is reserved. */
+  attackTime?: number;
 }
 
 export interface QualityStat {
@@ -78,7 +82,12 @@ export interface SkillDetail {
   levels: Record<string, SkillLevelData>;       // from first stat set (default)
   staticStatText: string[];                      // from first stat set
   qualityStats: QualityStat[];                   // from first stat set
-  statSets?: StatSet[];                          // multiple tabs (only if >1)
+  /** All non-hidden stat sets including the primary; always present when skill has damage data. */
+  statSets: StatSet[];
+  /** e.g. ["Attack", "Projectile", "Grenade", "Fire"] */
+  activeSkillTypes?: string[];
+  /** Item classes the skill is usable with. */
+  weaponRestrictions?: string[];
 }
 
 /** Resolve a quality stat template at a given quality level (0-20) */
@@ -117,6 +126,10 @@ export interface GemEntry {
   };
   iconPath: string;
   skillDetail?: SkillDetail;
+  /** For support gems: active skill types this support can apply to. */
+  allowedActiveSkillTypes?: string[];
+  /** For support gems: active skill types explicitly excluded. */
+  excludedActiveSkillTypes?: string[];
 }
 
 export const ITEM_CLASS_GROUPS: Record<string, string[]> = {

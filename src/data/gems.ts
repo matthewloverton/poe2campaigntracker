@@ -2,7 +2,7 @@ import type { GemEntry } from "../types/itemDatabase";
 import { gemTier } from "../types/itemDatabase";
 import rawGems from "./raw/skill_gems.json";
 
-export const allGems: GemEntry[] = rawGems as GemEntry[];
+export const allGems: GemEntry[] = rawGems as unknown as GemEntry[];
 
 export const gemById: Map<string, GemEntry> = new Map(
   allGems.map((gem) => [gem.id, gem])
