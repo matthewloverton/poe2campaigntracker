@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useCustomizationsStore } from "../../store/customizationsStore";
 import { PhaseBar } from "./PhaseBar";
 import { GearGrid } from "./GearGrid";
@@ -10,10 +10,14 @@ import { VendorRegex } from "../VendorRegex/VendorRegex";
 import { cleanModText } from "../../data/mods";
 import { itemById } from "../../data/items";
 import type { GearSlotKey, PhaseTrigger, BuildGearEntry, BuildGemEntry } from "../../types";
-import { SLOT_ITEM_CLASSES } from "../../types/buildPlan";
+import { SLOT_ITEM_CLASSES, DEFAULT_BUILD_PHASE } from "../../types/buildPlan";
 import type { GemEntry, BaseItem, ItemMod, UniqueItem } from "../../types/itemDatabase";
 import type { CraftState } from "../ItemBrowser/ItemDetail";
 import { PoBImportModal } from "../PoBImport/PoBImportModal";
+import { useDps } from "../../hooks/useDps";
+import { snapshotFromPhase } from "../../lib/dps";
+import type { RollMode } from "../../lib/dps";
+import { RollModeToggle } from "../Dps/RollModeToggle";
 import styles from "./BuildPlan.module.css";
 
 function getSlotClassKey(slot: GearSlotKey): string {
@@ -40,6 +44,21 @@ export function BuildPlan() {
   const removeFromWatchlist = useCustomizationsStore((s) => s.removeFromWatchlist);
 
   const activePhase = buildPhases.find((p) => p.id === activePhaseId) ?? null;
+
+  const [rollMode, setRollMode] = useState<RollMode>("actual");
+  const [primarySkillId, setPrimarySkillId] = useState<string>("");
+
+  const snapshot = useMemo(
+    () => snapshotFromPhase(activePhase ?? DEFAULT_BUILD_PHASE, primarySkillId, rollMode),
+    [activePhase, primarySkillId, rollMode],
+  );
+  const dpsResults = useDps(snapshot);
+
+  const dpsBySkillId = useMemo(() => {
+    const m = new Map<string, typeof dpsResults[number]>();
+    for (const r of dpsResults) m.set(r.skillId, r);
+    return m;
+  }, [dpsResults]);
 
   const [pobImportOpen, setPobImportOpen] = useState(false);
 
@@ -231,15 +250,22 @@ export function BuildPlan() {
           </div>
 
           <div className={styles.gemsSection}>
-            <div className={styles.sectionHeader}>Skill Gems</div>
+            <div className={styles.skillsHeader}>
+              <div className={styles.sectionHeader}>Skill Gems</div>
+              <RollModeToggle value={rollMode} onChange={setRollMode} />
+            </div>
             <DragList
               items={activePhase.gems}
               onReorder={(ids) => activePhaseId && reorderSkillGroups(activePhaseId, ids)}
               renderItem={(item) => {
                 const group = item as typeof activePhase.gems[0];
+                const resolvedPrimaryId = primarySkillId || activePhase.gems[0]?.skill.id || "";
                 return (
                   <SkillRow
                     group={group}
+                    dps={dpsBySkillId.get(group.skill.id)}
+                    isPrimary={group.skill.id === resolvedPrimaryId}
+                    onTogglePrimary={() => setPrimarySkillId(group.skill.id)}
                     onSkillClick={() => { setSkillReplaceTarget(group.id); setGemSearchOpen(true); }}
                     onSupportClick={(i) => handleSupportClick(group.id, i)}
                     onRemoveSupport={(i) => handleRemoveSupport(group.id, i)}

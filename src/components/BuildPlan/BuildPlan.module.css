@@ -9,6 +9,8 @@
 .gearSection { padding: 8px 0; flex: 1; min-width: 360px; }
 .gemsSection { padding: 6px 10px; }
 .sectionHeader { font-size: 0.62rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px; }
+.skillsHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.skillsHeader .sectionHeader { margin-bottom: 0; }
 .addSkillBtn { width: 100%; padding: 5px; background: none; border: 1px dashed var(--border-color); border-radius: 4px; color: var(--text-secondary); font-size: 0.66rem; cursor: pointer; margin-top: 2px; }
 .addSkillBtn:hover { border-color: var(--accent-teal); color: var(--accent-teal); }
 
