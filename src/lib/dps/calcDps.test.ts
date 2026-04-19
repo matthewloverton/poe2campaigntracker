@@ -60,18 +60,22 @@ describe("calcDps — end-to-end", () => {
     expect(gg.dps).toBeCloseTo(EXPECTED, 0);
   });
 
-  it("computes Galvanic Shards DPS with flat-phys ring (engine limitation documented)", () => {
+  it("computes Galvanic Shards DPS with flat-phys ring (ring flat damage stacks)", () => {
     // Ring carries "AddedPhysicalDamage6" (attack_minimum/maximum_added_physical_damage)
-    // Engine Phase 1 only reads base_physical_damage_min/max from gear, so the flat phys
-    // contributes 0 and the result equals the bare-crossbow baseline (30.381).
-    // See crossbowFlatPhysRingGalvanic fixture JSDoc for the full expected value once
-    // attack_*_added_physical_damage is supported by the pipeline.
+    // At 100% roll: min=10, max=17 added to attacks.
+    // Weapon phys: 7–12. Effective phys: (7+10)=17 to (12+17)=29.
+    // Projectile set (dmgMult=15, 8 projectiles, 60% phys→lightning):
+    //   physBase: 17×0.15=2.55–29×0.15=4.35 → phys=1.02–1.74, lightning=1.53–2.61 → ×8 = 20.40–34.80
+    // Beam set (dmgMult=75, 1 projectile, 100% phys→lightning):
+    //   physBase: 17×0.75=12.75–29×0.75=21.75 → lightning=12.75–21.75
+    // Total perHit: min=33.15, max=56.55, avg=44.85
+    // DPS = 44.85 × 1.6 × 1.025 ≈ 73.554
     const snap = snapshotFromPhase(crossbowFlatPhysRingGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 30.381; // same as bare crossbow — ring flat-phys not yet read
+    const EXPECTED = 73.554;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 

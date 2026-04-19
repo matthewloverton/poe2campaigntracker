@@ -4,21 +4,13 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
 /**
  * Fixture: Makeshift Crossbow + ring with flat-phys-to-attacks mod + Galvanic Shards lvl 1.
  *
- * PURPOSE: Exercises gear-mod flat damage aggregation. The ring carries mod
- * "AddedPhysicalDamage6" (Adds 6–10 to 12–17 Physical Damage to Attacks) at 100% roll,
- * which resolves to min=10, max=17.
+ * PURPOSE: Exercises gear-mod flat damage aggregation via attack_-prefixed stat ids.
+ * The ring carries mod "AddedPhysicalDamage6" (Adds 6–10 to 12–17 Physical Damage to Attacks)
+ * at 100% roll, which resolves to min=10, max=17 via:
+ *   attack_minimum_added_physical_damage = 10
+ *   attack_maximum_added_physical_damage = 17
  *
- * KNOWN ENGINE LIMITATION (Phase 1 scope):
- *   The mod's stat IDs are "attack_minimum_added_physical_damage" and
- *   "attack_maximum_added_physical_damage". The engine's pipeline.ts (calcBaseDamage)
- *   currently only reads "base_physical_damage_min" and "base_physical_damage_max" from
- *   gear stats (lines 43-44 in pipeline.ts). As a result, the flat-phys mod is silently
- *   ignored and this fixture produces the SAME DPS as bareCrossbowGalvanic (30.381).
- *   This fixture exists to document and detect that gap: if the engine is later updated
- *   to handle "attack_*_added_physical_damage", the expected value should be updated to
- *   the full calculation below.
- *
- * FULL HAND-CALC (what the value would be if the engine handled the mod):
+ * HAND-CALC:
  *   Weapon phys: 7–12. Flat-added at 100% roll: min=10, max=17.
  *   Effective weapon phys: (7+10)=17 to (12+17)=29.
  *   Galvanic Shards stat sets (same as bareCrossbowGalvanic):
@@ -33,10 +25,7 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  *   Total perHit: min=20.40+12.75=33.15, max=34.80+21.75=56.55
  *   avgPerHit = (33.15+56.55)/2 = 44.85
  *   rate = 1.6, critExpected = 1.025
- *   DPS = 44.85 × 1.6 × 1.025 ≈ 73.554 (NOT achievable today — engine limitation)
- *
- * CURRENT EXPECTED (engine as-is): 30.381 — same as bareCrossbowGalvanic
- *   because the engine reads 0 flat phys from the ring.
+ *   DPS = 44.85 × 1.6 × 1.025 ≈ 73.554
  */
 export const crossbowFlatPhysRingGalvanic: BuildPhase = {
   id: "fixture-crossbow-flat-phys-ring-galvanic",

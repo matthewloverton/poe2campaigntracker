@@ -38,19 +38,30 @@ export function calcBaseDamage(input: CalcBaseInput): DamageByType {
   const eff = input.damageEffectiveness / 100;
   const effMult = input.isAttack ? eff : 1;
 
-  const weaponPhysMin = input.weapon?.physicalDamageMin ?? 0;
-  const weaponPhysMax = input.weapon?.physicalDamageMax ?? 0;
-  const gearPhysMin = sumFlat(input.statMap, "base_physical_damage_min");
-  const gearPhysMax = sumFlat(input.statMap, "base_physical_damage_max");
+  for (const t of DAMAGE_TYPES) {
+    const weaponMin = t === "physical" ? (input.weapon?.physicalDamageMin ?? 0) : 0;
+    const weaponMax = t === "physical" ? (input.weapon?.physicalDamageMax ?? 0) : 0;
 
-  out.physical.min = (weaponPhysMin + input.skillFlat.physical.min + gearPhysMin) * effMult;
-  out.physical.max = (weaponPhysMax + input.skillFlat.physical.max + gearPhysMax) * effMult;
+    // Flat added damage common to all skills (mostly on weapons themselves).
+    const baseMin = sumFlat(input.statMap, `base_${t}_damage_min`);
+    const baseMax = sumFlat(input.statMap, `base_${t}_damage_max`);
 
-  for (const t of ["fire", "cold", "lightning", "chaos"] as DamageType[]) {
-    const gearMin = sumFlat(input.statMap, `base_${t}_damage_min`);
-    const gearMax = sumFlat(input.statMap, `base_${t}_damage_max`);
-    out[t].min = (input.skillFlat[t].min + gearMin) * effMult;
-    out[t].max = (input.skillFlat[t].max + gearMax) * effMult;
+    // Flat added damage conditional on skill category.
+    // attack_minimum_added_<type>_damage / attack_maximum_added_<type>_damage:
+    //   applies only to attack skills (rings, gloves, amulets with "to Attacks" mods).
+    // spell_minimum_added_<type>_damage / spell_maximum_added_<type>_damage:
+    //   applies only to spell skills — no such mods exist in current RePoE2 data,
+    //   but reads are included here so no code change is needed when they appear.
+    const attackMin = input.isAttack ? sumFlat(input.statMap, `attack_minimum_added_${t}_damage`) : 0;
+    const attackMax = input.isAttack ? sumFlat(input.statMap, `attack_maximum_added_${t}_damage`) : 0;
+    const spellMin = !input.isAttack ? sumFlat(input.statMap, `spell_minimum_added_${t}_damage`) : 0;
+    const spellMax = !input.isAttack ? sumFlat(input.statMap, `spell_maximum_added_${t}_damage`) : 0;
+
+    const skillMin = input.skillFlat[t].min;
+    const skillMax = input.skillFlat[t].max;
+
+    out[t].min = (weaponMin + skillMin + baseMin + attackMin + spellMin) * effMult;
+    out[t].max = (weaponMax + skillMax + baseMax + attackMax + spellMax) * effMult;
   }
 
   return out;

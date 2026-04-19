@@ -311,6 +311,83 @@ describe("projectileCount", () => {
   });
 });
 
+describe("calcBaseDamage — attack-prefixed flat added damage", () => {
+  it("attack skills read attack_minimum_added_physical_damage / attack_maximum_added_physical_damage", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "attack_minimum_added_physical_damage", gearFlat("ring", 5));
+    addContribution(statMap, "attack_maximum_added_physical_damage", gearFlat("ring", 10));
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 100,
+      weapon: { physicalDamageMin: 0, physicalDamageMax: 0 },
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.physical.min).toBeCloseTo(5, 3);
+    expect(base.physical.max).toBeCloseTo(10, 3);
+  });
+
+  it("non-attack skills do NOT read attack_-prefixed flat damage", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "attack_minimum_added_physical_damage", gearFlat("ring", 5));
+    addContribution(statMap, "attack_maximum_added_physical_damage", gearFlat("ring", 10));
+    const base = calcBaseDamage({
+      isAttack: false,
+      damageEffectiveness: 100,
+      weapon: null,
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.physical.min).toBe(0);
+    expect(base.physical.max).toBe(0);
+  });
+
+  it("attack-prefixed flat damage is multiplied by effectiveness", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "attack_minimum_added_physical_damage", gearFlat("ring", 10));
+    addContribution(statMap, "attack_maximum_added_physical_damage", gearFlat("ring", 20));
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 150,
+      weapon: null,
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.physical.min).toBeCloseTo(15, 3); // 10 × 1.5
+    expect(base.physical.max).toBeCloseTo(30, 3);
+  });
+
+  it("base_ and attack_ flat damage stack for attacks", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "base_physical_damage_min", gearFlat("weapon_mod", 2));
+    addContribution(statMap, "attack_minimum_added_physical_damage", gearFlat("ring", 5));
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 100,
+      weapon: { physicalDamageMin: 10, physicalDamageMax: 20 },
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    // (10 weapon + 2 base_ + 5 attack_) × 1.0 = 17
+    expect(base.physical.min).toBeCloseTo(17, 3);
+  });
+
+  it("attack skills read attack_-prefixed flat damage for elemental types (e.g. fire)", () => {
+    const statMap = emptyStatMap();
+    addContribution(statMap, "attack_minimum_added_fire_damage", gearFlat("ring", 8));
+    addContribution(statMap, "attack_maximum_added_fire_damage", gearFlat("ring", 15));
+    const base = calcBaseDamage({
+      isAttack: true,
+      damageEffectiveness: 100,
+      weapon: null,
+      skillFlat: zeroDamageByType(),
+      statMap,
+    });
+    expect(base.fire.min).toBeCloseTo(8, 3);
+    expect(base.fire.max).toBeCloseTo(15, 3);
+  });
+});
+
 describe("calcCrit", () => {
   it("expectedMulti = 1 + chance * (multi - 1)", () => {
     const statMap = emptyStatMap();
