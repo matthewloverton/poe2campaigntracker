@@ -37,23 +37,42 @@ describe("resolveWeaponProperties", () => {
     const modId = "LocalIncreasedPhysicalDamagePercent1";
     const resolved = resolveWeaponProperties(entry({ [modId]: 100 }, [modId]), "actual");
     expect(resolved).not.toBeNull();
-    // 7 * 1.49 = 10.43; 12 * 1.49 = 17.88
-    expect(resolved!.physicalDamageMin).toBeCloseTo(10.43, 2);
-    expect(resolved!.physicalDamageMax).toBeCloseTo(17.88, 2);
+    // 7 * 1.49 = 10.43 → 10; 12 * 1.49 = 17.88 → 18
+    expect(resolved!.physicalDamageMin).toBe(10);
+    expect(resolved!.physicalDamageMax).toBe(18);
   });
 
   it("applies local_physical_damage_+% at min roll", () => {
     const modId = "LocalIncreasedPhysicalDamagePercent1";
     // 0th percentile → 40%
     const resolved = resolveWeaponProperties(entry({ [modId]: 0 }, [modId]), "actual");
-    expect(resolved!.physicalDamageMin).toBeCloseTo(9.8, 2);
-    expect(resolved!.physicalDamageMax).toBeCloseTo(16.8, 2);
+    // 7 * 1.40 = 9.8 → 10; 12 * 1.40 = 16.8 → 17
+    expect(resolved!.physicalDamageMin).toBe(10);
+    expect(resolved!.physicalDamageMax).toBe(17);
   });
 
   it("max rollMode forces 100th percentile regardless of modRolls", () => {
     const modId = "LocalIncreasedPhysicalDamagePercent1";
     const resolved = resolveWeaponProperties(entry({ [modId]: 0 }, [modId]), "max");
-    expect(resolved!.physicalDamageMin).toBeCloseTo(10.43, 2);
+    // At max roll: 7 * 1.49 = 10.43 → 10
+    expect(resolved!.physicalDamageMin).toBe(10);
+  });
+
+  it("rounds weapon damage to integer after applying locals", () => {
+    const modId = "LocalIncreasedPhysicalDamagePercent1";
+    // 40% at 0th percentile (low end of the 40-49 range)
+    const resolved = resolveWeaponProperties(entry({ [modId]: 0 }, [modId]), "actual");
+    // 7 * 1.4 = 9.8 → 10, 12 * 1.4 = 16.8 → 17
+    expect(resolved!.physicalDamageMin).toBe(10);
+    expect(resolved!.physicalDamageMax).toBe(17);
+  });
+
+  it("rounds weapon damage at max roll (49%)", () => {
+    const modId = "LocalIncreasedPhysicalDamagePercent1";
+    const resolved = resolveWeaponProperties(entry({ [modId]: 100 }, [modId]), "actual");
+    // 7 * 1.49 = 10.43 → 10, 12 * 1.49 = 17.88 → 18
+    expect(resolved!.physicalDamageMin).toBe(10);
+    expect(resolved!.physicalDamageMax).toBe(18);
   });
 
   it("does not apply non-local mods in the resolver", () => {

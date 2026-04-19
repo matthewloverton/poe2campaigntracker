@@ -141,6 +141,14 @@ export function resolveWeaponProperties(
     r.chaosDamageMax = (r.chaosDamageMax ?? 0) * (1 + (incPerc.chaos ?? 0) / 100);
   }
 
+  // After applying flat & inc locals, round to integer (PoE2 weapon display uses integers).
+  r.physicalDamageMin = Math.round(r.physicalDamageMin);
+  r.physicalDamageMax = Math.round(r.physicalDamageMax);
+  if (r.fireDamageMin !== undefined) { r.fireDamageMin = Math.round(r.fireDamageMin); r.fireDamageMax = Math.round(r.fireDamageMax!); }
+  if (r.coldDamageMin !== undefined) { r.coldDamageMin = Math.round(r.coldDamageMin); r.coldDamageMax = Math.round(r.coldDamageMax!); }
+  if (r.lightningDamageMin !== undefined) { r.lightningDamageMin = Math.round(r.lightningDamageMin); r.lightningDamageMax = Math.round(r.lightningDamageMax!); }
+  if (r.chaosDamageMin !== undefined) { r.chaosDamageMin = Math.round(r.chaosDamageMin); r.chaosDamageMax = Math.round(r.chaosDamageMax!); }
+
   return r;
 }
 

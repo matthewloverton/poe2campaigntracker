@@ -2,6 +2,8 @@ import type { BuildPhase } from "../../../types/buildPlan";
 import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
 
 /**
+ * Post Task 17.11: this fixture now matches PoB's two-stage rounding output exactly.
+ *
  * Fixture: Makeshift Crossbow + 49% local increased physical damage (max roll) + Galvanic Shards L1.
  *
  * Mod: LocalIncreasedPhysicalDamagePercent1 (mod id)
@@ -12,17 +14,20 @@ import { EMPTY_GEAR_LAYOUT } from "../../../types/buildPlan";
  * Roll: 100th percentile → 49% (range is 40–49; max = 49, not 40).
  *   For a strict "40%" fixture, use modRolls: { LocalIncreasedPhysicalDamagePercent1: 0 }.
  *
- * Expected DPS (local mods applied via resolveWeaponProperties, PoB-equivalent):
- *   Base weapon phys: 7–12. With 49% local inc phys: 7×1.49=10.43 – 12×1.49=17.88.
- *   Projectile set (dmgMult=15, 8 projectiles, 60% phys→lightning):
- *     perProjectile: 10.43×0.15=1.5645 – 17.88×0.15=2.682
- *     ×8 = 12.516 – 21.456
- *   Beam set (dmgMult=75, 1 projectile, 100% phys→lightning):
- *     physBase: 10.43×0.75=7.8225 – 17.88×0.75=13.41
- *     ×1 = 7.8225 – 13.41
- *   Total perHit: min=20.3385, max=34.866
- *   avgPerHit = (20.3385+34.866)/2 = 27.6023
- *   DPS = 27.6023 × 1.6 × 1.05 ≈ 46.372
+ * Expected DPS (local mods applied via resolveWeaponProperties, PoB two-stage rounding):
+ *   Stage 1 — weapon rounding: 7×1.49=10.43→10, 12×1.49=17.88→18.
+ *   Projectile set (dmgMult=15, per-projectile, 60% phys→lightning):
+ *     phys=10×0.15=1.50–18×0.15=2.70; phys(40%)=0.60–1.08, lightning(60%)=0.90–1.62
+ *     Stage 2 — per-type rounding: round(0.60)=1, round(0.90)=1; round(1.08)=1, round(1.62)=2
+ *     Sum for set: 2–3
+ *   Beam set (dmgMult=75, 100% phys→lightning):
+ *     lightning=10×0.75=7.50–18×0.75=13.50
+ *     Stage 2 — per-type rounding: round(7.5)=8, round(13.5)=14
+ *     Sum for set: 8–14
+ *   Total perHit: min=2+8=10, max=3+14=17, avgPerHit=13.5
+ *   Cycle rate (1 bolt, 625ms attack, 800ms reload): 0.7018/s
+ *   crit expectedMulti = 1.05
+ *   DPS = 13.5 × 0.7018 × 1.05 ≈ 9.95
  */
 export const crossbowLocalIncPhysGalvanic: BuildPhase = {
   id: "fixture-crossbow-local-inc-phys-galvanic",

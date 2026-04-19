@@ -32,10 +32,17 @@ describe("calcDps — end-to-end", () => {
     const snap = snapshotFromPhase(bareCrossbowGalvanic, "", "actual");
     const results = calcDps(snap);
     const gs = results[0];
-    // perHit: Projectile(1.05–1.80)×1 + Beam(5.25–9.00)×1 = 6.30–10.80
+    // Post Task 17.11 two-stage rounding:
+    //   Projectile set (dmgMult=15, 60% phys→lightning):
+    //     phys=0.42–0.72 → round(0.42)=0, round(0.72)=1
+    //     lightning=0.63–1.08 → round(0.63)=1, round(1.08)=1
+    //     per-type sum: 0+1=1 – 1+1=2
+    //   Beam set (dmgMult=75, 100% phys→lightning):
+    //     lightning=5.25–9.00 → round(5.25)=5, round(9.00)=9
+    //   Total perHit: min=1+5=6, max=2+9=11
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
-    expect(gs.perHit.min).toBeCloseTo(6.30, 1);
-    expect(gs.perHit.max).toBeCloseTo(10.80, 1);
+    expect(gs.perHit.min).toBeCloseTo(6, 0);
+    expect(gs.perHit.max).toBeCloseTo(11, 0);
     // cycle rate: 1 bolt, 625ms attack (1.6/s firing), 800ms reload
     // = 1 / (1/1.6 + 0.8) = 1/1.425 ≈ 0.7018/s  (matches PoB MH Att. per second: 0.70)
     expect(gs.rate).toBeCloseTo(0.7018, 3);
@@ -52,39 +59,45 @@ describe("calcDps — end-to-end", () => {
   });
 
   it("computes Gas Grenade DPS for bare crossbow (multi-stat-set)", () => {
-    // Impact(dmgMult=40)×1 + PoisonCloud(dmgMult=150)×1 + Explosion(dmgMult=150,100%phys→fire)×1
-    // perHit: min=23.80 max=40.80 avg=32.30
-    // Gas Grenade skillAttackSpeedMultiplier=-25 → skillRateMult=0.75
-    // rate = 1.6 × 0.75 = 1.20, critExpected=1.05
-    // DPS = 32.30 × 1.20 × 1.05 ≈ 40.698
+    // Post Task 17.11 two-stage rounding:
+    //   Impact(dmgMult=40): phys=2.80–4.80 → round(2.80)=3, round(4.80)=5 → sum=3–5
+    //   PoisonCloud(dmgMult=150): phys=10.50–18.00 → round(10.5)=11, round(18.0)=18 → sum=11–18
+    //   Explosion(dmgMult=150, 100%phys→fire): fire=10.50–18.00 → round(10.5)=11, round(18.0)=18 → sum=11–18
+    //   Total perHit: min=3+11+11=25, max=5+18+18=41, avg=33.0
+    //   Gas Grenade skillAttackSpeedMultiplier=-25 → skillRateMult=0.75
+    //   rate = 1.6 × 0.75 = 1.20, critExpected=1.05
+    //   DPS = 33.0 × 1.20 × 1.05 = 41.58
     const snap = snapshotFromPhase(bareCrossbowGasGrenade, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gg = results[0];
     expect(gg.skillName).toBe("Gas Grenade");
-    const EXPECTED = 40.698;
+    const EXPECTED = 41.58;
     expect(gg.dps).toBeCloseTo(EXPECTED, 0);
   });
 
   it("computes Galvanic Shards DPS with flat-phys ring (ring flat damage stacks)", () => {
     // Per-projectile DPS (PoB default — one projectile hits the target):
+    // Post Task 17.11 two-stage rounding:
     // Ring carries "AddedPhysicalDamage6" (attack_minimum/maximum_added_physical_damage)
     // At 100% roll: min=10, max=17 added to attacks.
     // Weapon phys: 7–12. Effective phys: (7+10)=17 to (12+17)=29.
-    // Projectile set (dmgMult=15, ×1, 60% phys→lightning):
-    //   physBase: 17×0.15=2.55 to 29×0.15=4.35 => phys=1.02–1.74, lightning=1.53–2.61
-    // Beam set (dmgMult=75, ×1, 100% phys→lightning):
-    //   physBase: 17×0.75=12.75 to 29×0.75=21.75 => lightning=12.75–21.75
-    // Total perHit: min=15.30, max=26.10, avg=20.70
+    // Projectile set (dmgMult=15, 60% phys→lightning):
+    //   physBase: 17×0.15=2.55 – 29×0.15=4.35
+    //   phys(40%)=1.02–1.74, lightning(60%)=1.53–2.61
+    //   round(1.02)=1, round(1.53)=2; round(1.74)=2, round(2.61)=3 → sum=3–5
+    // Beam set (dmgMult=75, 100% phys→lightning):
+    //   lightning=12.75–21.75 → round(12.75)=13, round(21.75)=22 → sum=13–22
+    // Total perHit: min=3+13=16, max=5+22=27, avg=21.5
     // Cycle rate (1 bolt, 800ms reload): 1 / (1/1.6 + 0.8) = 0.7018/s
-    // DPS = 20.70 × 0.7018 × 1.05 ≈ 15.25
+    // DPS = 21.5 × 0.7018 × 1.05 ≈ 15.84
     // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
     const snap = snapshotFromPhase(crossbowFlatPhysRingGalvanic, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gs = results[0];
     expect(gs.skillName).toBe("Galvanic Shards");
-    const EXPECTED = 15.25;
+    const EXPECTED = 15.84;
     expect(gs.dps).toBeCloseTo(EXPECTED, 0);
   });
 
@@ -107,40 +120,48 @@ describe("calcDps — end-to-end", () => {
   });
 
   it("computes Gas Grenade DPS for full Mercenary build (integration)", () => {
+    // Post Task 17.11 two-stage rounding:
     // Construct Crossbow (physMin=18, physMax=72), Gas Grenade lvl1
     // Rapid Attacks I support (+15% atk speed)
     // Gloves: IncreasedAttackSpeed2 @100% (+10% atk speed)
     // Amulet: CorruptionAllDamage1 @100% (+30% damage inc → totalInc=1.30)
-    // avgPerHit = 23.40 + 87.75 + 87.75 = 198.90
+    //   Impact(dmgMult=40): phys=7.20–28.80 × 1.30=9.36–37.44 → round(9.36)=9, round(37.44)=37 → 9–37
+    //   PoisonCloud(dmgMult=150): phys=27.00–108.00 × 1.30=35.10–140.40 → round=35–140 → 35–140
+    //   Explosion(dmgMult=150, 100%→fire): fire=35.10–140.40 → round=35–140 → 35–140
+    //   Total perHit: min=9+35+35=79, max=37+140+140=317, avg=198.0
     // Gas Grenade skillAttackSpeedMultiplier=-25 → skillRateMult=0.75
     // incSpeed=15+10=25% → rate = 1.6 × 0.75 × 1.25 = 1.50
-    // DPS = 198.90 × 1.50 × 1.05 ≈ 313.2675
+    // DPS = 198.0 × 1.50 × 1.05 = 311.85
     const snap = snapshotFromPhase(fullMercenaryBuild, "", "actual");
     const results = calcDps(snap);
     expect(results).toHaveLength(1);
     const gg = results[0];
     expect(gg.skillName).toBe("Gas Grenade");
-    const EXPECTED = 313.2675;
+    const EXPECTED = 311.85;
     expect(gg.dps).toBeCloseTo(EXPECTED, 0);
   });
 });
 
 it("applies local_physical_damage_+% to weapon base before skill formula (crossbow + Heavy prefix)", () => {
+  // Post Task 17.11: this fixture now matches PoB's two-stage rounding output exactly.
   // Per-projectile DPS (PoB default — one projectile hits the target):
   // Makeshift Crossbow (7–12 phys) + LocalIncreasedPhysicalDamagePercent1 at 100th percentile (49%)
-  // Resolved weapon phys: 7×1.49=10.43 – 12×1.49=17.88
-  // Projectile set (dmgMult=15, ×1): 1.5645–2.682
-  // Beam set (dmgMult=75, ×1): 7.8225–13.41
-  // perHit: min=9.387, max=16.092, avg=12.7395
+  // Stage 1 — weapon rounding: 7×1.49=10.43→10, 12×1.49=17.88→18
+  // Projectile set (dmgMult=15, 60% phys→lightning):
+  //   phys=10×0.15=1.50–18×0.15=2.70; phys(40%)=0.60–1.08, lightning(60%)=0.90–1.62
+  //   round(0.60)=1, round(0.90)=1; round(1.08)=1, round(1.62)=2 → sum=2–3
+  // Beam set (dmgMult=75, 100% phys→lightning):
+  //   lightning=10×0.75=7.50–18×0.75=13.50 → round(7.5)=8, round(13.5)=14 → sum=8–14
+  // perHit: min=2+8=10, max=3+14=17, avg=13.5
   // Cycle rate (1 bolt, 800ms reload, 625ms attack): 0.7018/s
-  // DPS = 12.7395 × 0.7018 × 1.05 ≈ 9.39
+  // DPS = 13.5 × 0.7018 × 1.05 ≈ 9.95 (matches PoB ~12.5 at L5; at L1 rate limited)
   // Note: per-projectile DPS (PoB default). Projectile count of 8 is informational.
   const snap = snapshotFromPhase(crossbowLocalIncPhysGalvanic, "", "actual");
   const results = calcDps(snap);
   expect(results.length).toBe(1);
   const r = results[0];
-  const EXPECTED = 9.39;
+  const EXPECTED = 9.95;
   expect(r.dps).toBeCloseTo(EXPECTED, 0);
-  // Confirm local mod increased the DPS beyond bare crossbow (6.30).
+  // Confirm local mod increased the DPS beyond bare crossbow (~6.26).
   expect(r.dps).toBeGreaterThan(6);
 });
