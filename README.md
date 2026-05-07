@@ -4,6 +4,9 @@ A desktop companion for Path of Exile 2 campaign runs — built with Tauri, Reac
 
 Tracks your act-by-act progression with a guide panel, per-act run splits, a craftable build plan (gear + skill gems), and Path of Building import/export.
 
+<img width="1200" height="800" alt="image" src="https://github.com/user-attachments/assets/f7351104-572c-45be-a908-9e0d6bd756d0" />
+
+
 ## Features
 
 - **Campaign guide** — Act-by-act walkthrough synced to your character's zone (via `Client.txt`). Includes a full in-app editor so you can fork the default guide and build your own.
